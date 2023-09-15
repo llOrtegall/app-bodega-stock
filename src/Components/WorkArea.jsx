@@ -1,5 +1,9 @@
+import './mystyles.css';
+
 export function WorkArea() {
   return (
-    <div>Work Area Here</div>
+    <div className="workAre-container">
+      Work Area Here
+    </div>
   )
 }
