@@ -1,11 +1,11 @@
-function App() {
+import './App.css';
+import { MainContainer } from './Components/MainContainer';
 
+export function App() {
 
   return (
-    <>
-      <div>Hello World</div>
-    </>
+    <div className="App">
+      <MainContainer />
+    </div>
   )
 }
-
-export default App
