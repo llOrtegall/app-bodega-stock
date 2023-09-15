@@ -5,6 +5,7 @@ import { IconButton } from '@mui/material';
 import { GroupAdd } from '@mui/icons-material';
 import { Nightlight } from '@mui/icons-material';
 import SearchIcon from '@mui/icons-material/Search';
+import { ConversationsItem } from './ConversationsItem';
 
 export function Sidebar() {
   return (
@@ -27,11 +28,17 @@ export function Sidebar() {
           </IconButton>
         </div>
       </div>
+
       <div className='sb-search'>
-        <SearchIcon />
+        <IconButton>
+          <SearchIcon />
+        </IconButton>
         <input type="text" placeholder='search' className='search-box' />
       </div>
-      <div className='sb-conversations'>conversations</div>
+
+      <div className='sb-conversations'>
+        <ConversationsItem />
+      </div>
     </section>
   )
 }
