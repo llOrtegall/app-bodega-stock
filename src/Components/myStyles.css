@@ -136,6 +136,12 @@
   padding: 10px 10px;
   margin: 10px;
   border-radius: 20px;
+  overflow: scroll;
+  scrollbar-width: none;
+}
+
+.message-container::-webkit-scrollbar {
+  display: none;
 }
 
 .text-input-area {
@@ -188,10 +194,4 @@
   font-size: 0.75rem;
   font-weight: lighter;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.con-lastMessage {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-size: 0.75rem;
-  padding: 10px;
 }

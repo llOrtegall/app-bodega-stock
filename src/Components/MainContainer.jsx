@@ -1,9 +1,9 @@
 import './myStyles.css';
 import { Sidebar } from './Sidebar'
 import { ChatArea } from './ChatArea';
-// import { WorkArea } from './WorkArea'
 
 export function MainContainer() {
+
 
   const item = {
     _id: 1,
@@ -12,10 +12,10 @@ export function MainContainer() {
     timeStamp: "today"
   }
 
+
   return (
     <div className='main-container'>
       <Sidebar />
-      {/* <WorkArea /> */}
       <ChatArea name={item.name} timeStamp={item.timeStamp} />
     </div>
   )

@@ -25,6 +25,10 @@ export function ChatArea({ name, timeStamp }) {
         <MessageSelf />
         <MessageOthers />
         <MessageSelf />
+        <MessageOthers />
+        <MessageSelf />
+        <MessageOthers />
+        <MessageSelf />
       </div>
 
       <div className='text-input-area'>
