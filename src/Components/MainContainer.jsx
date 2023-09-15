@@ -16,7 +16,7 @@ export function MainContainer() {
   return (
     <div className='main-container'>
       <Sidebar />
-      <ChatArea name={item.name} timeStamp={item.timeStamp} />
+      {/* <ChatArea name={item.name} timeStamp={item.timeStamp} /> */}
     </div>
   )
 }
