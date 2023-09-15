@@ -6,8 +6,33 @@ import { GroupAdd } from '@mui/icons-material';
 import { Nightlight } from '@mui/icons-material';
 import SearchIcon from '@mui/icons-material/Search';
 import { ConversationsItem } from './ConversationsItem';
+import { useState } from 'react'
 
 export function Sidebar() {
+
+  const [conversation, setConversation] = useState([
+    {
+      _id: 1,
+      name: "Test 1",
+      lastMessage: "Last message",
+      timeStamp: "today"
+    },
+    {
+      _id: 2,
+      name: "Test 2",
+      lastMessage: "Last message",
+      timeStamp: "today"
+    },
+    {
+      _id: 3,
+      name: "Test 2",
+      lastMessage: "Last message",
+      timeStamp: "today"
+    },
+  ]);
+
+  console.log(setConversation);
+
   return (
     <section className="sidebar-container">
       <div className='sb-header'>
@@ -37,7 +62,9 @@ export function Sidebar() {
       </div>
 
       <div className='sb-conversations'>
-        <ConversationsItem />
+        {conversation.map((items => {
+          return <ConversationsItem key={items._id} props={items} />
+        }))}
       </div>
     </section>
   )
