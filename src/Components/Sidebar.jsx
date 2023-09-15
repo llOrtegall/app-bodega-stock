@@ -14,19 +14,19 @@ export function Sidebar() {
     {
       _id: 1,
       name: "Test 1",
-      lastMessage: "Last message",
+      lastMessage: "Last message 1",
       timeStamp: "today"
     },
     {
       _id: 2,
       name: "Test 2",
-      lastMessage: "Last message",
+      lastMessage: "Last message 2",
       timeStamp: "today"
     },
     {
       _id: 3,
-      name: "Test 2",
-      lastMessage: "Last message",
+      name: "Test 3",
+      lastMessage: "Last message 3",
       timeStamp: "today"
     },
   ]);

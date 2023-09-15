@@ -13,6 +13,10 @@
   /* border: 5px solid red; */
 }
 
+.chatArea-container {
+  flex: 0.7;
+}
+
 .workAre-container {
   flex: 0.7;
   background-color: aliceblue;
@@ -42,6 +46,7 @@
   border: none;
   margin-left: 5px;
   font-size: 1.5rem;
+  color: rgba(0, 0, 0, 0.54);
 }
 
 .sb-conversations {
@@ -102,4 +107,44 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 0.85rem;
   color: rgba(0, 0, 0, 0.50);
+}
+
+.chatArea-container {
+  display: flex;
+  flex-direction: column;
+
+}
+
+.chatArea-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: white;
+  padding: 10px 10px;
+  margin: 10px;
+  border-radius: 20px;
+}
+
+.header-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 0.7;
+}
+
+.message-container {
+  flex: 1;
+  background-color: white;
+  padding: 10px 10px;
+  margin: 10px;
+  border-radius: 20px;
+}
+
+.text-input-area {
+  background-color: white;
+  padding: 10px 10px;
+  margin: 10px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-between;
 }
