@@ -1,11 +1,10 @@
-import './App.css';
-import { MainContainer } from './Components/MainContainer';
+import Register from "./components/Register";
 
-export function App() {
+function App() {
 
   return (
-    <div className="App">
-      <MainContainer />
-    </div>
+    <Register />
   )
 }
+
+export default App
