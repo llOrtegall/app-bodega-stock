@@ -1,7 +1,9 @@
-export function Input(props){
+interface Props extends React.InputHTMLAttributes<HTMLInputElement> {}
+
+export function Input(props: Props){
   return(
     <input
-      className=""
+      className="border rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
       {...props}
     />
   )
