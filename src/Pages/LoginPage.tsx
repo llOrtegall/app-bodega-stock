@@ -1,6 +1,6 @@
 import { Label, Button, Input } from "../components/ui";
 
-export function FormLogin() {
+export function LoginPage() {
   return (
     <section className="h-screen flex items-center justify-center flex-col gap-2">
 
