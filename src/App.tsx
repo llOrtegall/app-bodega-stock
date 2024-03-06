@@ -43,7 +43,11 @@ export function App() {
             <HomePage />
           </ProtectedRoute>
         } />
-        <Route path="/dashboard" element={<DashboardPage />} />
+        <Route path="/dashboard" element={
+          <ProtectedRoute user={user}>
+            <DashboardPage />
+          </ProtectedRoute>
+          } />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/user" element={<UserPage />} />
         <Route path="/login" element={<LoginPage />} />
