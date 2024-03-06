@@ -5,7 +5,7 @@ export function NavBar() {
     <nav className="p-2 bg-blue-700">
       <ul className="flex justify-around font-semibold">
         <li className="li-navbar">
-          <Link to="/">Home</Link>
+          <Link to="/home">Home</Link>
         </li>
         <li className="li-navbar">
           <Link to="/about">About</Link>

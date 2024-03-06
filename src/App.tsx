@@ -4,11 +4,8 @@ import { AboutPage, HomePage, DashboardPage, LoginPage, UserPage, NotFound } fro
 
 import { NavBar } from "./components/ui";
 import { useState } from "react";
-
-interface User {
-  id: number
-  name: string
-}
+import { ProtectedRoute } from "./components/ProtectedRoute";
+import { User } from "./interfaces/User";
 
 export function App() {
   const [user, setUser] = useState<User | null>(null)
@@ -40,7 +37,12 @@ export function App() {
 
 
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<h1>Inicio</h1>} />
+        <Route path="/home" element={
+          <ProtectedRoute user={user}>
+            <HomePage />
+          </ProtectedRoute>
+        } />
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/user" element={<UserPage />} />
