@@ -1,6 +1,8 @@
 export interface User {
   id: number
   name: string
+  email: string
+  permissions: string[] // atento con esta propiedad 
 }
 
 export interface AuthContextData {
