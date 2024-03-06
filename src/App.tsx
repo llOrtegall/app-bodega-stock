@@ -6,9 +6,12 @@ import { ProtectedRoute } from "./components/ProtectedRoute";
 
 import { AboutPage, HomePage, DashboardPage, LoginPage, UserPage, NotFound } from './Pages'
 import { useAuth } from "./Auth/AuthContext";
+import axios from "axios";
 
 export function App() {
   const { user } = useAuth();
+
+  axios.defaults.baseURL = 'http://172.20.1.216:4002/api';
 
   return (
     <>
