@@ -2,16 +2,18 @@ import { Label, Button, Input } from "../components/ui";
 
 export function LoginPage() {
   return (
-    <section className="w-full">
+    <section className="flex justify-center">
 
-      <form>
-        <Label htmlFor="email">Correo</Label>
-        <Input placeholder="correo@ejemplo.com" type="email" id="email" required />
+      <form className="flex flex-col w-[480px] gap-2 border p-4 mt-10 rounded-lg bg-gray-200">
+        <Label htmlFor="usuario">Usuario</Label>
+        <Input placeholder="CP141412422" 
+          type="text" id="usuario" required />
 
         <Label htmlFor="password">Contraseña</Label>
-        <Input placeholder="**********" type="password" id="password" required />
+        <Input placeholder="**********" 
+          type="password" id="password" required />
 
-        <Button type="submit">Enviar</Button>
+        <Button type="submit">Ingresar</Button>
       </form>
 
     </section>

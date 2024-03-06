@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export function NavBar() {
   return (
-    <nav className="p-2 bg-blue-500">
+    <nav className="p-2 bg-blue-700">
       <ul className="flex justify-around font-semibold">
         <li className="li-navbar">
           <Link to="/">Home</Link>
