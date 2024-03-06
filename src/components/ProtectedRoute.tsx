@@ -1,22 +1,19 @@
-import { Navigate } from 'react-router-dom';
-import { User } from '../interfaces/User';
+import { ProtectedRouteProps } from '../interfaces/Interfaces';
+import { Navigate, Outlet } from 'react-router-dom';
+import { NavBar } from './ui';
 import React from 'react';
 
-interface ProtectedRouteProps {
-  children: React.ReactNode;
-  redirectTo?: string;
-  user: User | null;
-}
+export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ isAllowed, children, redirectTo = "/login" }) => {
 
-export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, user, redirectTo="/" }) => {
-
-  if(!user) {
+  if (!isAllowed) {
     return <Navigate to={redirectTo} />
   }
 
   return (
     <>
-      {children}
+      <NavBar />
+      {children ? children : <Outlet />}
     </>
   )
+
 }
