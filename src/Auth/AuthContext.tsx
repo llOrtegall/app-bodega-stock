@@ -1,13 +1,22 @@
 import React, { createContext, useContext, useState } from 'react';
-import { AuthContextData, AuthProviderProps, User } from '../interfaces/Interfaces';
+import { Auth, AuthContextData, AuthProviderProps, User } from '../interfaces/Interfaces';
+import axios from 'axios';
 
 const AuthContext = createContext<AuthContextData | undefined>(undefined);
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
 
-  const login = (user: User) => {
-    setUser(user);
+  const login = ({ auth, token }: Auth) => {
+    if(auth === true){
+      axios.get('/profile', { headers: { Authorization: `Bearer ${token}` } })
+        .then(response => {
+          setUser(response.data);
+        })
+        .catch(err => {
+          console.error(err);
+        })
+    }
   };
 
   const logout = () => {

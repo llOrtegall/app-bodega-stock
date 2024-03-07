@@ -1,21 +1,27 @@
-import axios from "axios";
 import { Label, Button, Input } from "../components/ui";
+import { useAuth } from "../Auth/AuthContext";
 import { useState } from "react";
+import axios from "axios";
 
 export function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
+  const { login } = useAuth(); 
+
   const handleSubmit = async (ev: React.FormEvent) => {
     ev.preventDefault();
 
     axios.post('/login', {user: username, password})
       .then(response => {
-        console.log(response.data);
+        login(response.data);
       })
       .catch(err => {
         setError(err.response.data.message);
+        setTimeout(() => {
+          setError('');
+        }, 3000);
       })
 
   }

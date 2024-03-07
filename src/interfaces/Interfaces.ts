@@ -1,13 +1,22 @@
+export interface Auth {
+  auth: boolean;
+  token: string;
+}
+
 export interface User {
-  id: number
-  name: string
-  email: string
-  permissions: string[] // atento con esta propiedad 
+  apellidos: string;
+  correo: string;
+  empresa: string;
+  id: string;
+  nombres: string;
+  proceso: string;
+  rol: string;
+  username: string;
 }
 
 export interface AuthContextData {
   user: User | null;
-  login: (user: User) => void;
+  login: (auth: Auth) => void;
   logout: () => void;
 }
 
