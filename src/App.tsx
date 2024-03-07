@@ -28,7 +28,7 @@ export function App() {
       <Routes>
         <Route path="/" element={<LoginPage />} />
 
-        <Route element={<ProtectedRoute isAllowed={true} children />}>
+        <Route element={<ProtectedRoute isAllowed={true} children={undefined} />}>
           <Route path="/home" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/dashboard" element={<DashboardPage />} />

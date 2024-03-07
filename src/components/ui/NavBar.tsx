@@ -2,8 +2,11 @@ import { Link } from "react-router-dom";
 
 export function NavBar() {
   return (
-    <nav className="p-2 bg-blue-700">
-      <ul className="flex justify-around font-semibold">
+    <nav className="bg-blue-200 py-4 flex items-center justify-around">
+      <figure className="">
+        <img width={100} src="gane.png" alt="logo gane" />
+      </figure>
+      <ul className="flex justify-around font-semibold text-black">
         <li className="li-navbar">
           <Link to="/home">Home</Link>
         </li>

@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 .li-navbar{
-  @apply py-1 px-2 text-xl hover:text-white;
+  @apply py-1 px-2 text-xl hover:text-blue-800;
 }
