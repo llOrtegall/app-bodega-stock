@@ -9,7 +9,7 @@ import { useEffect } from 'react';
 axios.defaults.baseURL = 'http://172.20.1.216:4002/api';
 
 export function App() {
-  const { user, login, logout } = useAuth();
+  const { user, login } = useAuth();
 
 
   useEffect(() => {
@@ -18,7 +18,6 @@ export function App() {
       login(token);
     }else{
       console.log('No Token');
-      logout()
     }
   }, [])
 
@@ -28,7 +27,7 @@ export function App() {
       <Routes>
         <Route path="/" element={<LoginPage />} />
 
-        <Route element={<ProtectedRoute isAllowed={true} children={undefined} />}>
+        <Route element={<ProtectedRoute isAllowed={!!user} children={undefined} />}>
           <Route path="/home" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/dashboard" element={<DashboardPage />} />

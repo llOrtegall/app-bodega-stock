@@ -13,7 +13,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     if (token) {
       axios.get('/profile', { headers: { Authorization: `Bearer ${token}` } })
         .then(response => {
-          if(response.status === 200){
+          if (response.status === 200) {
             setUser(response.data);
             navigate('/home');
           }
@@ -22,9 +22,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           console.log(err);
           logout();
         });
-    }else{
-      console.log('No Token');
-      logout();
     }
   };
 

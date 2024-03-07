@@ -1,6 +1,8 @@
+import { useAuth } from "../../Auth/AuthContext";
 import { Link } from "react-router-dom";
 
 export function NavBar() {
+  const { logout } = useAuth();
   return (
     <nav className="bg-blue-200 py-4 flex items-center justify-around">
       <figure className="">
@@ -20,7 +22,7 @@ export function NavBar() {
           <Link to="/dashboard">Dashboard</Link>
         </li>
         <li className="li-navbar">
-          <Link to="/login">Login</Link>
+          <button onClick={logout}>Close Sessión</button>
         </li> 
       </ul>
     </nav>
