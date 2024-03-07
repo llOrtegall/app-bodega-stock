@@ -15,7 +15,8 @@ export function LoginPage() {
 
     axios.post('/login', {user: username, password})
       .then(response => {
-        login(response.data);
+        login(response.data.token);
+        localStorage.setItem('bodega', response.data.token);
       })
       .catch(err => {
         setError(err.response.data.message);

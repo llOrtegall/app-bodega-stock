@@ -1,26 +1,27 @@
 import React, { createContext, useContext, useState } from 'react';
-import { Auth, AuthContextData, AuthProviderProps, User } from '../interfaces/Interfaces';
+import { AuthContextData, AuthProviderProps, User } from '../interfaces/Interfaces';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const AuthContext = createContext<AuthContextData | undefined>(undefined);
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
+  const navigate = useNavigate();
 
-  const login = ({ auth, token }: Auth) => {
-    if(auth === true){
+  const login = (token: string) => {
+    if (token) {
       axios.get('/profile', { headers: { Authorization: `Bearer ${token}` } })
         .then(response => {
-          setUser(response.data);
-        })
-        .catch(err => {
-          console.error(err);
+          console.log(response);
         })
     }
   };
 
   const logout = () => {
     setUser(null);
+    localStorage.removeItem('bodega');
+    navigate('/');
   };
 
   return (

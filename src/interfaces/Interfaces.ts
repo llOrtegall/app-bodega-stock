@@ -1,8 +1,3 @@
-export interface Auth {
-  auth: boolean;
-  token: string;
-}
-
 export interface User {
   apellidos: string;
   correo: string;
@@ -16,7 +11,7 @@ export interface User {
 
 export interface AuthContextData {
   user: User | null;
-  login: (auth: Auth) => void;
+  login: (auth: string) => void;
   logout: () => void;
 }
 
