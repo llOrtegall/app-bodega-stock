@@ -4,11 +4,21 @@ export function NavBar() {
   return (
     <nav className="p-2 bg-blue-500">
       <ul className="flex justify-around font-semibold">
-        <Link to="/">Home</Link>
-        <Link to="/login">Login</Link>
-        <Link to="/about">About</Link>
-        <Link to="/user">User</Link>
-        <Link to="/dashboard">Dashboard</Link>
+        <li className="li-navbar">
+          <Link to="/">Home</Link>
+        </li>
+        <li className="li-navbar">
+          <Link to="/about">About</Link>
+        </li>
+        <li className="li-navbar">
+          <Link to="/user">User</Link>
+        </li>
+        <li className="li-navbar">
+          <Link to="/dashboard">Dashboard</Link>
+        </li>
+        <li className="li-navbar">
+          <Link to="/login">Login</Link>
+        </li> 
       </ul>
     </nav>
   )
