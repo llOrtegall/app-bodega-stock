@@ -1,5 +1,6 @@
 import { useAuth } from "../../Auth/AuthContext";
-import { Link } from "react-router-dom";
+import { NavItem } from ".";
+
 
 export function NavBar() {
   const { logout } = useAuth();
@@ -8,22 +9,14 @@ export function NavBar() {
       <figure className="">
         <img width={100} src="gane.png" alt="logo gane" />
       </figure>
-      <ul className="flex justify-around font-semibold text-black">
-        <li className="li-navbar">
-          <Link to="/home">Home</Link>
+      <ul className="flex justify-around font-semibold text-black gap-4">
+        <NavItem to="/home">Home</NavItem>
+        <NavItem to="/about">About</NavItem>
+        <NavItem to="/user">User</NavItem>
+        <NavItem to="/dashboard">Dashboard</NavItem>
+        <li className="">
+          <button onClick={logout}>Salir</button>
         </li>
-        <li className="li-navbar">
-          <Link to="/about">About</Link>
-        </li>
-        <li className="li-navbar">
-          <Link to="/user">User</Link>
-        </li>
-        <li className="li-navbar">
-          <Link to="/dashboard">Dashboard</Link>
-        </li>
-        <li className="li-navbar">
-          <button onClick={logout}>Close Sessión</button>
-        </li> 
       </ul>
     </nav>
   )

@@ -2,6 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.li-navbar{
-  @apply py-1 px-2 text-xl hover:text-blue-800;
+.active {
+  @apply text-green-600;
 }
