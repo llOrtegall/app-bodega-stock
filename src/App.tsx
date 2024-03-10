@@ -2,9 +2,9 @@ import { AboutPage, HomePage, DashboardPage, LoginPage, UserPage, NotFound } fro
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { Routes, Route } from "react-router-dom";
 
-import axios from "axios";
 import { useAuth } from './Auth/AuthContext';
 import { useEffect } from 'react';
+import axios from "axios";
 
 axios.defaults.baseURL = 'http://172.20.1.216:4002/api';
 
