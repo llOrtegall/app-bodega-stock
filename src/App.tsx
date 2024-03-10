@@ -16,18 +16,17 @@ export function App() {
     const token = localStorage.getItem('bodega');
     if (token) {
       login(token);
-    }else{
+    } else {
       console.log('No Token');
     }
   }, [])
-
+ 
   return (
     <>
-      {console.log(user)}
       <Routes>
         <Route path="/" element={<LoginPage />} />
 
-        <Route element={<ProtectedRoute isAllowed={!!user} children={undefined} />}>
+        <Route element={<ProtectedRoute isAllowed={ /* !!user */ true } children={undefined} />}>
           <Route path="/home" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/dashboard" element={<DashboardPage />} />
@@ -36,6 +35,5 @@ export function App() {
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>
-
   )
 }
