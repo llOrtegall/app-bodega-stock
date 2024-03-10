@@ -16,7 +16,7 @@ export function NavBar() {
         <NavItem to="/user">User</NavItem>
         <NavItem to="/dashboard">Dashboard</NavItem>
         <li className="flex items-center pt-1">
-          <button onClick={logout} title="Cerra Sesión">
+          <button onClick={logout} title="Cerra Sesión" className="">
             <CloseIcon />
           </button>
         </li>
