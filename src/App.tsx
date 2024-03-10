@@ -9,7 +9,7 @@ import axios from "axios";
 axios.defaults.baseURL = 'http://172.20.1.216:4002/api';
 
 export function App() {
-  const { user, login } = useAuth();
+  const { /* user, */ login } = useAuth();
 
 
   useEffect(() => {
