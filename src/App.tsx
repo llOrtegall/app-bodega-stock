@@ -6,10 +6,10 @@ import { useAuth } from './Auth/AuthContext';
 import { useEffect } from 'react';
 import axios from "axios";
 
-axios.defaults.baseURL = 'http://172.20.1.216:4002/api';
+axios.defaults.baseURL = 'http://172.20.1.110:3030/api';
 
 export function App() {
-  const { /* user, */ login } = useAuth();
+  const { user, login } = useAuth();
 
 
   useEffect(() => {
@@ -26,7 +26,7 @@ export function App() {
       <Routes>
         <Route path="/" element={<LoginPage />} />
 
-        <Route element={<ProtectedRoute isAllowed={ /* !!user */ true } children={undefined} />}>
+        <Route element={<ProtectedRoute isAllowed={!!user /* true */ } children={undefined} />}>
           <Route path="/home" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/dashboard" element={<DashboardPage />} />

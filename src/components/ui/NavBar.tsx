@@ -1,6 +1,7 @@
 import { useAuth } from "../../Auth/AuthContext";
 import { NavItem } from ".";
 import { CloseIcon } from "../icons/CloseIcon";
+import { HomeIcon } from "../icons/HomeIcon";
 
 
 export function NavBar() {
@@ -11,10 +12,13 @@ export function NavBar() {
         <img width={100} src="gane.png" alt="logo gane" />
       </figure>
       <ul className="flex justify-around font-semibold text-white gap-4">
-        <NavItem to="/home">Home</NavItem>
-        <NavItem to="/about">About</NavItem>
-        <NavItem to="/user">User</NavItem>
-        <NavItem to="/dashboard">Dashboard</NavItem>
+        <NavItem to="/home">
+          <HomeIcon />
+        </NavItem>
+        <NavItem to="/about">Movimientos</NavItem>
+        <NavItem to="/user">Artículos</NavItem>
+        <NavItem to="/dashboard">Bodegas</NavItem>
+        <NavItem to="/simcards">Simcards</NavItem>
         <li className="flex items-center pt-1">
           <button onClick={logout} title="Cerra Sesión" className="">
             <CloseIcon />

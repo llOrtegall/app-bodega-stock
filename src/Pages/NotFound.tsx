@@ -5,7 +5,7 @@ export function NotFound() {
     <div>
       <h1>Not Found</h1>
       <h3>Ir al inicio</h3>
-      <Link to="/">Inicio</Link>
+      <Link to="/home">Inicio</Link>
     </div>
   )
 } 
