@@ -1,4 +1,4 @@
-import { AboutPage, HomePage, DashboardPage, LoginPage, UserPage, NotFound } from './Pages'
+import { VerMovimientos, HomePage, DashboardPage, LoginPage, UserPage, NotFound } from './Pages'
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { Routes, Route } from "react-router-dom";
 
@@ -28,7 +28,9 @@ export function App() {
 
         <Route element={<ProtectedRoute isAllowed={!!user /* true */ } children={undefined} />}>
           <Route path="/home" element={<HomePage />} />
-          <Route path="/about" element={<AboutPage />} />
+
+          <Route path="/VerMovimientos" element={<VerMovimientos />} />
+          
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/user" element={<UserPage />} />
         </Route>
