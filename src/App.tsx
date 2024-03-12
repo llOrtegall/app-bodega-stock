@@ -7,7 +7,8 @@ import { useEffect } from 'react';
 import axios from "axios";
 
 import { HomePage } from "./Pages/HomePage";
-import { ShowBodegas } from './Pages/Bodega/ShowBodegas'
+
+import  { VerItems } from './Pages/Items/showItems'
 
 axios.defaults.baseURL = 'http://172.20.1.110:3030/api';
 
@@ -31,7 +32,7 @@ export function App() {
 
         <Route element={<ProtectedRoute isAllowed={!!user /* true */ } children={undefined} />}>
           <Route path="/home" element={<HomePage />} />
-          <Route path="/bodegas" element={<ShowBodegas />} />
+          <Route path="/items" element={<VerItems />} />
         </Route>
 
         <Route path="*" element={<NotFound />} />

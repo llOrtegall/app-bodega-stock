@@ -11,8 +11,12 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ isAllowed, child
 
   return (
     <>
-      <NavBar />
-      {children ? children : <Outlet />}
+      <section className='w-full'>
+        <NavBar />
+      </section>
+      <section className='h-[92vh] overflow-auto'>
+        {children ? children : <Outlet />}
+      </section>
     </>
   )
 }

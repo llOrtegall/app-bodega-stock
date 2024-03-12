@@ -38,7 +38,7 @@ export function NavBar() {
             </figure>
           </button>
 
-          {activeComponent === 'Articulos' && <Articulos rol={rol} />}
+          {activeComponent === 'Articulos' && <Articulos rol={rol} close={setActiveComponent}/>}
 
         </li>
 
