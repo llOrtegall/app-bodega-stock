@@ -15,5 +15,4 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ isAllowed, child
       {children ? children : <Outlet />}
     </>
   )
-
 }

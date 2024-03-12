@@ -1,4 +1,8 @@
-export function CambiarCompany ({ fun }) {
+import { useAuth } from "../Auth/AuthContext"
+
+export function CambiarCompany() {
+  const { user, setUser } = useAuth()
+
   return (
     <>
       <div className="absolute inset-0 bg-black opacity-60"></div>
@@ -12,14 +16,13 @@ export function CambiarCompany ({ fun }) {
           <div>
             <span className="font-medium">Espera Antes De Continuar !</span> Tú cuenta se encuentra ligada a 2 Empresas
           </div>
-          <select className='p-2 border rounded-lg text-blue-700 font-semibold cursor-pointer' 
-            onChange={ev => fun(ev.target.value)}>
+          <select className='p-2 border rounded-lg text-blue-700 font-semibold cursor-pointer'
+            onChange={(e) => user && setUser({ ...user, empresa: e.target.value })} >
             <option className="text-black font-semibold">Seleccione una empresa</option>
             <option value='Servired' className="font-bold ">Servired</option>
             <option value='Multired' className="font-bold ">Multired</option>
           </select>
         </article>
-
       </section>
     </>
   )

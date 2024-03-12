@@ -7,7 +7,7 @@ import { HomeIcon } from "../icons/HomeIcon";
 export function NavBar() {
   const { logout } = useAuth();
   return (
-    <nav className="bg-slate-900 py-4 flex items-center justify-around">
+    <nav className='bg-slate-900 py-4 flex items-center justify-around'>
       <figure className="">
         <img width={100} src="gane.png" alt="logo gane" />
       </figure>
