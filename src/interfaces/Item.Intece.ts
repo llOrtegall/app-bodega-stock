@@ -13,7 +13,7 @@ interface Item {
   estado: string;
   createdAt: string;
   updatedAt: string;
-  bodega?: Bodega | "No Asignado";
+  bodega?: Bodega;
 }
 
 export type ItemWithBodega = Item[];

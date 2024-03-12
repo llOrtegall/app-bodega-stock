@@ -20,19 +20,5 @@ export function useItems (company: string) {
     fetchItems()
   }, [fetchItems])
 
-  // const filterItems = (item: ItemWithBodega) => {
-  //   const lowerSearch = search.toLowerCase()
-  //   for (const key in item) {
-  //     if (item[key] && item[key].toString().toLowerCase().includes(lowerSearch)) {
-  //       return true
-  //     }
-  //   }
-  //   return false
-  // }
-
-  // const ItemsFiltrados = useMemo(() => {
-  //   return items ? items.filter(filterItems) : [];
-  // }, [search, items]);
-
   return { search, setSearch, loading, error, fetchItems, items }
 }
