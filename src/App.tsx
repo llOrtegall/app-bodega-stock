@@ -16,7 +16,7 @@ export function App() {
 
 
   useEffect(() => {
-    const token = localStorage.getItem('bodega');
+    const token = localStorage.getItem('tokenBodega');
     if (token) {
       login(token);
     } else {

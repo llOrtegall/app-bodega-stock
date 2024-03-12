@@ -1,4 +1,4 @@
-import { LockIcon, SuccesIcon } from '../../icons'
+import { LockIcon, SuccesIcon } from '../icons'
 import { NavLink } from 'react-router-dom'
 
 export function Bodegas({ rol }: { rol: string | undefined }) {

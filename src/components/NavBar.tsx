@@ -1,15 +1,15 @@
-import { useOutsideClick } from '../../hooks/useOutsideClick';
-import { useAuth } from "../../Auth/AuthContext";
 import { Articulos, Bodegas, Simcards } from "./NavLinks";
+import { useOutsideClick } from '../hooks/useOutsideClick';
+import { useAuth } from "../Auth/AuthContext";
 import { useState, useRef } from 'react';
-import { ButtonDow } from "../icons";
-import { LogoGane } from './logoGane';
+import { LogoGane, NavItem } from './ui';
+import { ButtonDow, CloseIcon, HomeIcon } from "./icons";
 
 
 export function NavBar() {
   const [activeComponent, setActiveComponent] = useState<string | null>(null);
   const navRef = useRef<HTMLDivElement>(null);
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   const rol = user?.rol;
 
   useOutsideClick(navRef, () => setActiveComponent(null));
@@ -25,6 +25,10 @@ export function NavBar() {
 
       <ul className="flex items-center gap-4 text-white text-xl">
 
+        <NavItem to="/home" title="Inicio / Home">
+          <HomeIcon />
+        </NavItem>
+        
         {/* TODO:  Menu Despegable de Arículos*/}
         <li className="relative">
           <button id='Articulos' className="flex font-semibold text-white items-center hover:text-blue-400" onClick={() => handleClick('Articulos')} >
@@ -40,7 +44,7 @@ export function NavBar() {
 
         {/* TODO:  Menu Despegable de Bodegas*/}
         <li className="relative">
-          <button id='Bodegas' className="flex font-semibold text-white items-center hover:text-blue-400" onClick={() => handleClick('Bodegas')}          >
+          <button id='Bodegas' className="flex font-semibold text-white items-center hover:text-blue-400" onClick={() => handleClick('Bodegas')} >
             <span>Bodegas</span>
             <figure className="flex items-center pt-1">
               <ButtonDow />
@@ -53,7 +57,7 @@ export function NavBar() {
 
         {/* TODO:  Menu Despegable de Simcards*/}
         <li className="relative">
-          <button id='Simcards' className="flex font-semibold text-white items-center hover:text-blue-400" onClick={() => handleClick('Simcards')}          >
+          <button id='Simcards' className="flex font-semibold text-white items-center hover:text-blue-400" onClick={() => handleClick('Simcards')} >
             <span>Simcards</span>
             <figure className="flex items-center pt-1">
               <ButtonDow />
@@ -63,6 +67,11 @@ export function NavBar() {
           {activeComponent === 'Simcards' && <Simcards rol={rol} />}
 
         </li>
+
+        <li className="pt-1 cursor-pointer" onClick={logout} title="Cerrar Sesion">
+          <CloseIcon />
+        </li>
+
       </ul>
     </nav>
   );

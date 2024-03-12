@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom'
-import { LockIcon, SuccesIcon } from '../../icons'
+import { LockIcon, SuccesIcon } from '../icons'
 
 export function Simcards({ rol }: { rol: string | undefined }) {
   return (

@@ -27,7 +27,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem('bodega');
+    localStorage.removeItem('tokenBodega');
     navigate('/');
   };
 

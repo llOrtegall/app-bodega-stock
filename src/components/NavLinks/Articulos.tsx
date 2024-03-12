@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom'
-import { SuccesIcon, LockIcon } from '../../icons'
+import { SuccesIcon, LockIcon } from '../icons'
 
 interface ArticulosProps {
   rol: string | undefined;
