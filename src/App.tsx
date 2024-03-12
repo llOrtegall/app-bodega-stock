@@ -1,10 +1,11 @@
-import { VerMovimientos, HomePage, DashboardPage, LoginPage, UserPage, NotFound } from './Pages'
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { Routes, Route } from "react-router-dom";
+import { LoginPage, NotFound } from './Pages'
 
 import { useAuth } from './Auth/AuthContext';
 import { useEffect } from 'react';
 import axios from "axios";
+import { HomePage } from "./Pages/HomePage";
 
 axios.defaults.baseURL = 'http://172.20.1.110:3030/api';
 
@@ -28,12 +29,8 @@ export function App() {
 
         <Route element={<ProtectedRoute isAllowed={!!user /* true */ } children={undefined} />}>
           <Route path="/home" element={<HomePage />} />
-
-          <Route path="/VerMovimientos" element={<VerMovimientos />} />
-          
-          <Route path="/dashboard" element={<DashboardPage />} />
-          <Route path="/user" element={<UserPage />} />
         </Route>
+
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>

@@ -11,6 +11,7 @@ export interface User {
 
 export interface AuthContextData {
   user: User | null;
+  setUser: React.Dispatch<React.SetStateAction<User | null>>;
   login: (auth: string) => void;
   logout: () => void;
 }
