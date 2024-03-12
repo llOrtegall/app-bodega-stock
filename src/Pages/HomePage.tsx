@@ -10,7 +10,7 @@ export const HomePage = () => {
 
   return (
 
-    <section className="flex flex-col text-center text-black">
+    <section className="flex flex-col items-center justify-center text-center text-black min-h-[92vh]">
       <h1 className="text-4xl font-bold ">{welcomeMessage}</h1>
       <p className="mt-4 text-lg ">{welcomeDescription}</p>
 
@@ -19,12 +19,6 @@ export const HomePage = () => {
           ? <CambiarCompany />
           : null
       }
-
-      <div className="text-black absolute bottom-0 p-2">
-        <p className="font-semibold">Database: 
-          <span className="text-red-500"> {user?.empresa} </span>
-        </p>
-      </div>
     </section>
   )
 }

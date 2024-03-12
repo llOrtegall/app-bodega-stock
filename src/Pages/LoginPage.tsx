@@ -2,10 +2,12 @@ import { Label, Button, Input } from "../components/ui";
 import { useAuth } from "../Auth/AuthContext";
 import { useState } from "react";
 import axios from "axios";
+import { MessageDisplay } from "../components/ui/MessagesDisplay";
 
 export function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
   const [error, setError] = useState('');
 
   const { login } = useAuth();
@@ -13,12 +15,15 @@ export function LoginPage() {
   const handleSubmit = async (ev: React.FormEvent) => {
     ev.preventDefault();
 
+    setMessage('Iniciando sesión...');
+
     axios.post('/login', { user: username, password })
       .then(response => {
         login(response.data.token);
         localStorage.setItem('tokenBodega', response.data.token);
       })
       .catch(err => {
+        setMessage('');
         setError(err.response.data.message);
         setTimeout(() => {
           setError('');
@@ -54,7 +59,7 @@ export function LoginPage() {
 
 
       {
-        error && <p className="text-red-500">{error}</p>
+        error && <MessageDisplay error={error} message={message} />
       }
 
     </section>

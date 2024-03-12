@@ -9,6 +9,8 @@ import axios from "axios";
 import { HomePage } from "./Pages/HomePage";
 
 import  { VerItems } from './Pages/Items/showItems'
+import { CrearItems } from "./Pages/Items/crearItem";
+import { AsignarItemBodega } from "./Pages/Items/asignItemBodega";
 
 axios.defaults.baseURL = 'http://172.20.1.110:3030/api';
 
@@ -30,9 +32,14 @@ export function App() {
       <Routes>
         <Route path="/" element={<LoginPage />} />
 
-        <Route element={<ProtectedRoute isAllowed={!!user /* true */ } children={undefined} />}>
+        <Route element={<ProtectedRoute isAllowed={!!user} redirectTo="/" children={undefined} />}>
           <Route path="/home" element={<HomePage />} />
-          <Route path="/items" element={<VerItems />} />
+          <Route path="/items/verItems" element={<VerItems />} />
+        </Route>
+
+        <Route element={<ProtectedRoute isAllowed={!!user && user.rol === 'Administrador' || user?.rol ==='Aux Administrativo' } redirectTo="/home" children={undefined} />}>
+          <Route path="/items/crearItems" element={<CrearItems />} />
+          <Route path="/items/asignarItems" element={<AsignarItemBodega />} />
         </Route>
 
         <Route path="*" element={<NotFound />} />
