@@ -28,6 +28,10 @@ export function NavBar() {
         <NavItem to="/home" title="Inicio / Home">
           <HomeIcon />
         </NavItem>
+
+        <NavItem to="/movimientos" title="Movimientos">
+          Movimientos
+        </NavItem>
         
         {/* TODO:  Menu Despegable de Arículos*/}
         <li className="relative">

@@ -63,5 +63,8 @@ export const BottonExportItems = (datos: RenderItemsProps ) => {
     writeFile(libro, 'datos.xlsx')
   }
 
-  return (<button onClick={handleDownload} className='bg-green-800 hover:bg-green-600 text-white font-bold py-1 px-4 rounded'>Exportar a Excel</button>)
+  return (
+  <button onClick={handleDownload} className='min-w-44 bg-green-800 hover:bg-green-600 text-white font-bold py-1 px-4 rounded'>
+    Exportar a Excel
+  </button>)
 }
