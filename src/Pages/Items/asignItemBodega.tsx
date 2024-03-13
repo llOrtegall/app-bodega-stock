@@ -1,6 +1,7 @@
 import { getAllBodegas } from "../../services/Bodegas.services";
 import { BodegaInt } from "../../interfaces/Bodega.Interfaces";
 import { MessageDisplay } from '../../components/ui/MessagesDisplay'
+import { AddIcon } from '../../components/icons'
 import { useEffect, useState } from "react";
 import { useAuth } from "../../Auth/AuthContext";
 import { getAllItems } from "../../services/Item.services";
@@ -20,15 +21,13 @@ export function AsignarItemBodega() {
       .then((data) => {
         setBodegas(data)
       })
-      .catch((err) => {
-        setMessage('')
-        setError(err.response.data.error)
-      })
 
-      setTimeout(() => {
-        getAllItems(company)
-        .then(data => setItems(data))
-      }, 500);
+    setTimeout(() => {
+      getAllItems(company)
+        .then(data => {
+          setItems(data)
+        })
+    }, 300);
 
   }, []);
 
@@ -36,7 +35,25 @@ export function AsignarItemBodega() {
   return (
     <div>
       <h1>Asignar Item a Bodega</h1>
-      <MessageDisplay message={message} error={error}/>
+
+      <section
+        className="bg-slate-200 rounded-md shadow-lg p-2 min-w-96 flex flex-col gap-2 mb-4" style={{ maxHeight: '250px', overflowY: 'auto' }}>
+        {
+          items.map(item => (
+            item.bodega === "No Asignado" && (
+              <article key={item._id} className='grid grid-cols-6 bg-slate-300 px-2 py-1 rounded-md hover:bg-blue-200'>
+                <p className='col-span-1'>{item.placa}</p>
+                <p className='col-span-4 overflow-ellipsis text-center overflow-hidden'>{item.nombre}</p>
+                <button>
+                  <AddIcon />
+                </button>
+              </article>
+            )
+          ))
+        }
+      </section>
+
+      <MessageDisplay message={message} error={error} />
     </div>
   );
 }
