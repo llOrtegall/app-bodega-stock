@@ -1,7 +1,7 @@
 import { AddIcon, CheckIcon, DeleteIcon } from '../../components/icons'
 import { MessageDisplay } from '../../components/ui/MessagesDisplay'
 import { getAllBodegas } from "../../services/Bodegas.services";
-import { BodegaInt } from "../../interfaces/Bodega.Interfaces";
+import { BodegaIntIS } from "../../interfaces/Bodega.Interfaces";
 import { ItemWithBodega } from "../../interfaces/Item.Intece";
 import { getAllItems } from "../../services/Item.services";
 import { useCallback, useEffect, useState } from "react";
@@ -17,7 +17,7 @@ export function AsignarItemBodega() {
   const [message, setMessage] = useState<string>('');
 
   const [items, setItems] = useState<ItemWithBodega>([]);
-  const [bodegas, setBodegas] = useState<BodegaInt[]>([]);
+  const [bodegas, setBodegas] = useState<BodegaIntIS[]>([]);
   const [sendBodega, setSendBodega] = useState<string>('');
 
   const { filteredItems, search, setSearch } = useFiltersItems(items)

@@ -2,6 +2,7 @@ import { MessageDisplay } from '../../components/ui/MessagesDisplay'
 import { useAuth } from '../../Auth/AuthContext'
 import { useState } from 'react'
 import axios from 'axios'
+import { createItem } from '../../interfaces/Item.Intece'
 
 const options = [
   { value: 'Impresora TMU USB/LPT', label: 'Impresora TMU | USB' },
@@ -38,16 +39,16 @@ export function CrearItems () {
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
 
-  const [item, setItem] = useState({
+  const [item, setItem] = useState<createItem>({
     nombre: '',
     descripcion: '',
     placa: '',
     serial: '',
-    estado: '',
+    estado: "Bueno",
     company
   })
 
-  const handleChange = (e: { target: { name: string; value: string } }) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setItem({
       ...item,
       [e.target.name]: e.target.value
@@ -63,7 +64,7 @@ export function CrearItems () {
           descripcion: '',
           placa: '',
           serial: '',
-          estado: '',
+          estado: 'Bueno',
           company
         })
         setMessage(res.data.message)

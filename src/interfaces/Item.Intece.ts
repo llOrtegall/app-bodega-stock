@@ -4,6 +4,15 @@ interface Bodega {
   _id: string;
 }
 
+export interface createItem {
+  nombre: string;
+  descripcion: string;
+  placa: string;
+  serial: string;
+  estado: 'Nuevo' | 'Bueno' | 'Malo' | 'DeBaja';
+  company: string;
+}
+
 interface Item {
   _id: string;
   nombre: string;
