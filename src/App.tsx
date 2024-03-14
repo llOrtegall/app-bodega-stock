@@ -15,11 +15,9 @@ import { CrearBodega, DetalleBodega, ShowBodegas } from './Pages/Bodega'
 import { VerSimcards } from "./Pages/Simcards";
 
 axios.defaults.baseURL = 'http://172.20.1.110:3030/api';
-// axios.defaults.baseURL = '/api';
 
 export function App() {
   const { user, login } = useAuth();
-
 
   useEffect(() => {
     const token = localStorage.getItem('tokenBodega');
@@ -36,9 +34,9 @@ export function App() {
         <Route path="/" element={<LoginPage />} />
 
         <Route element={<ProtectedRoute isAllowed={!!user} redirectTo="/" />}>
-          <Route path="/home" element={<HomePage />} />
-          <Route path="/movimientos" element={<ShowMovimientos />} />
+          <Route index path="/home" element={<HomePage />} />
           <Route path="/items/verItems" element={<VerItems />} />
+          <Route path="/movimientos" element={<ShowMovimientos />} />
           <Route path="/items/verItem/:id" element={<DetalleItem />} />
           <Route path="/bodega/verBodegas" element={<ShowBodegas />} />
           <Route path="/bodega/detalle/:id" element={<DetalleBodega />} />

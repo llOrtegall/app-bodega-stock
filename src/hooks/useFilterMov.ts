@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react"
+import { Movimiento } from "../interfaces/MovInterfaces"
 
-export function useFilterMovimientos (initialMovimientos) {
+export function useFilterMovimientos (initialMovimientos: Movimiento[] ) {
   const [searchMovimiento, setSearchMovimiento] = useState('')
 
   const filteredMovimientos = useMemo(() => {

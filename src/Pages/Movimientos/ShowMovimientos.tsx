@@ -1,13 +1,14 @@
-import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { useFilterMovimientos } from '../../hooks/useFilterMov'
-import { useAuth } from '../../Auth/AuthContext'
 import { getMovimientos } from '../../services/Mov.services'
+import { useAuth } from '../../Auth/AuthContext'
+import { useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { Movimiento } from '../../interfaces/MovInterfaces'
 
-export function ShowMovimientos () {
+export function ShowMovimientos() {
   const { user } = useAuth()
   const company = user?.empresa || ''
-  const [movimientos, setMovimientos] = useState([])
+  const [movimientos, setMovimientos] = useState<Movimiento[]>([])
   const [sortOrder, setSortOrder] = useState('desc')
   const navigate = useNavigate()
 
@@ -26,7 +27,7 @@ export function ShowMovimientos () {
 
   const { filteredMovimientos, searchMovimiento, setSearchMovimiento } = useFilterMovimientos(movimientos)
 
-  const sortedMovimientos = filteredMovimientos.sort((a, b) => {
+  const sortedMovimientos = filteredMovimientos.sort((a: { movimientoId: number }, b: { movimientoId: number }) => {
     if (sortOrder === 'asc') {
       return a.movimientoId - b.movimientoId
     } else {
@@ -35,7 +36,7 @@ export function ShowMovimientos () {
   })
 
   return (
-    <section className="w-full h-[93vh] overflow-auto">
+    <section className="w-full h-[90vh] overflow-auto">
 
       <article className='p-2 bg-blue-700 flex items-center justify-center'>
         <label className='pr-2 font-semibold'>Filtro: N° Incidente | Encargado : </label>
@@ -43,37 +44,38 @@ export function ShowMovimientos () {
           className="bg-slate-200 w-64 p-1 rounded-md border border-black" />
       </article>
 
-      <table className='w-full'>
-        <thead className='text-sm uppercase'>
-          <tr>
-            <th className="bg-blue-600 cursor-pointer hover:underline" onClick={toggleSortOrder}> N° Mov <span>{sortOrder === 'asc' ? '▼' : '▲'}</span></th>
-            <th className='bg-blue-600'> Fecha Mov</th>
-            <th className='bg-blue-600'> N° Incidente</th>
-            <th className='bg-blue-600'> Encargado</th>
-            <th className='bg-blue-600'> Origen</th>
-            <th className='bg-blue-600'> Destino</th>
-            <th className='bg-blue-600'> Cant Items Mov</th>
-            <th className='bg-blue-600'> Cant Sims Mov</th>
-          </tr>
-        </thead>
-        <tbody className='border-b border-t border-black'>
+      <section className='w-full'>
+
+          <article className='flex justify-between px-4 py-2 font-semibold bg-blue-300 text-center'>
+            <p className='w-1/12 cursor-pointer hover:underline' onClick={toggleSortOrder}> N° Mov <span>{sortOrder === 'asc' ? '▼' : '▲'}</span></p>
+            <p className='w-1/12'> Fecha Mov</p>
+            <p className='w-1/12'> N° Incidente</p>
+            <p className='w-1/12'> Encargado</p>
+            <p className='w-2/12'> Origen</p>
+            <p className='w-2/12'> Destino</p>
+            <p className='w-1/12'> Cant Items Mov</p>
+            <p className='w-1/12'> Cant Sims Mov</p>
+          </article>
+
+        <article className='flex flex-col'>
           {
             movimientos && sortedMovimientos.map(m => (
-              <tr key={m.movimientoId} onClick={() => navigate(`/movimientos/detalle/${m._id}`)} className='cursor-pointer hover:bg-yellow-200'>
-                <td>{m.movimientoId}</td>
-                <td>{m.fecha}</td>
-                <td>{m.incidente}</td>
-                <td>{m.encargado}</td>
-                <td>{m.bodegaOrigen?.nombre}</td>
-                <td>{m.bodegaDestino?.nombre}</td>
-                <td>{m.items.length}</td>
-                <td>{m.simcards.entran.length + m.simcards.salen.length}</td>
-              </tr>
+              <section key={m.movimientoId} onClick={() => navigate(`/movimientos/detalle/${m._id}`)} 
+                className='flex w-full items-center justify-between px-2 cursor-pointer hover:bg-yellow-100 text-center border'>
+                <p className='w-1/12'>{m.movimientoId}</p>
+                <p className='w-1/12'>{m.createdAt}</p>
+                <p className='w-1/12'>{m.incidente}</p>
+                <p className='w-1/12'>{m.encargado}</p>
+                <p className='w-2/12'>{m.bodegaOrigen?.nombre}</p>
+                <p className='w-2/12'>{m.bodegaDestino?.nombre}</p>
+                <p className='w-1/12'>{m.items.length}</p>
+                <p className='w-1/12'>{m.simcards.entran.length + m.simcards.salen.length}</p>
+              </section>
             )
             )
           }
-        </tbody>
-      </table>
+        </article>
+      </section>
 
     </section>
   )
