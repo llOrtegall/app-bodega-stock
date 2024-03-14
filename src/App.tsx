@@ -16,6 +16,8 @@ import { ShowBodegas } from "./Pages/Bodega/ShowBodegas";
 import { DetalleBodega } from "./Pages/Bodega/DetalleBodega";
 import { CrearBodega } from "./Pages/Bodega/CrearBodega";
 import { CrearMovimiento } from "./Pages/Movimientos/CrearMovimiento";
+import { ShowMovimientos } from "./Pages/Movimientos/ShowMovimientos";
+import { DesatalleMovimiento } from "./Pages/Movimientos/DetalleMovimiento";
 
 axios.defaults.baseURL = 'http://172.20.1.110:3030/api';
 // axios.defaults.baseURL = '/api';
@@ -40,10 +42,12 @@ export function App() {
 
         <Route element={<ProtectedRoute isAllowed={!!user} redirectTo="/" children={undefined} />}>
           <Route path="/home" element={<HomePage />} />
+          <Route path="/movimientos" element={<ShowMovimientos />} />
           <Route path="/items/verItems" element={<VerItems />} />
           <Route path="/items/verItem/:id" element={<DetalleItem />} />
           <Route path="/bodega/verBodegas" element={<ShowBodegas />} />
           <Route path="/bodega/detalle/:id" element={<DetalleBodega />} />
+          <Route path="/movimientos/detalle/:id" element={<DesatalleMovimiento />} />
         </Route>
 
         <Route element={<ProtectedRoute isAllowed={!!user && user.rol === 'Administrador' || user?.rol ==='Aux Administrativo' } redirectTo="/home" children={undefined} />}>

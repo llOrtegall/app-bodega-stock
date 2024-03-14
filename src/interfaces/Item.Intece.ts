@@ -14,7 +14,7 @@ export interface createItem {
   company: string;
 }
 
-interface Item {
+export interface Item {
   _id: string;
   nombre: string;
   descripcion: string;
