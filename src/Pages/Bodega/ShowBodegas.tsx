@@ -1,24 +1,33 @@
-export function ShowBodegas () {
-  // const [bodegas, setBodegas] = useState([])
+import { useEffect, useState } from 'react'
+import { getAllBodegas } from '../../services/Bodegas.services'
+import { Link } from 'react-router-dom'
+import { useAuth } from '../../Auth/AuthContext'
+import { BodegaIntIS } from '../../interfaces/Bodega.Interfaces'
+import { useFiltersBodegas } from '../../hooks/useFilterBodegas'
 
-  // const { setSearchBodega, filteredBodegas, searchBodega } = useFiltersBodegas(bodegas)
+export function ShowBodegas() {
+  const [bodegas, setBodegas] = useState<BodegaIntIS[]>([])
+  const { user } = useAuth()
+  const company = user?.empresa || ''
 
-  // useEffect(() => {
-  //   BodegaData(company)
-  //     .then(data => setBodegas(data))
-  //     .catch(err => console.log(err))
-  // }, [])
+  const { filteredBodegas, searchBodega, setSearchBodega } = useFiltersBodegas(bodegas)
+
+  useEffect(() => {
+    getAllBodegas(company)
+      .then(data => setBodegas(data))
+      .catch(err => console.log(err))
+  }, [])
 
   return (
-    <main className="">
-      <h2>HOLA BODEGAS</h2>
-      {/* <section className="flex items-center justify-center gap-6 p-1 bg-blue-500  rounded-md shadow-lg">
+    <main className="h-[93vh] overflow-auto">
+
+      <section className="flex items-center justify-center gap-6 p-1 bg-blue-500  rounded-md shadow-lg">
         <p className=""><span className="font-semibold pr-2">Filtrar:</span>| Sucursal | Nombre |</p>
         <input type="text" value={searchBodega} onChange={ev => setSearchBodega(ev.target.value)}
           placeholder="Buscar Bodega..." className="bg-slate-100 w-64 p-1.5 rounded-md" />
-      </section> */}
+      </section>
 
-      {/* {
+      {
         filteredBodegas.map(bodega => (
           <section key={bodega._id} className="flex h-auto bg-slate-300 m-2 rounded-md p-2 items-center justify-around">
 
@@ -41,7 +50,7 @@ export function ShowBodegas () {
             </Link>
           </section>
         ))
-      } */}
+      }
     </main>
   )
 }

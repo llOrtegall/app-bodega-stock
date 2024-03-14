@@ -55,7 +55,7 @@ export function NavBar() {
             </figure>
           </button>
 
-          {activeComponent === 'Bodegas' && <Bodegas rol={rol} />}
+          {activeComponent === 'Bodegas' && <Bodegas rol={rol} close={setActiveComponent} />}
 
         </li>
 
