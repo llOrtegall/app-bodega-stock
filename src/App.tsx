@@ -13,6 +13,7 @@ import { CrearItems } from "./Pages/Items/crearItem";
 import { AsignarItemBodega } from "./Pages/Items/asignItemBodega";
 
 axios.defaults.baseURL = 'http://172.20.1.110:3030/api';
+// axios.defaults.baseURL = '/api';
 
 export function App() {
   const { user, login } = useAuth();

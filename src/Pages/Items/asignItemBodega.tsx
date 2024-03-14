@@ -9,6 +9,8 @@ import { useAuth } from "../../Auth/AuthContext";
 import axios from "axios";
 import { useFiltersItems } from '../../hooks/useFilterItems';
 import { FilterComponentItems } from '../../components/ui/FilterComponentItems';
+import { FilterComponentBodegas } from '../../components/ui/FilterComponenBodegas';
+import { useFiltersBodegas } from '../../hooks/useFilterBodegas';
 
 export function AsignarItemBodega() {
   const { user } = useAuth();
@@ -21,6 +23,7 @@ export function AsignarItemBodega() {
   const [sendBodega, setSendBodega] = useState<string>('');
 
   const { filteredItems, search, setSearch } = useFiltersItems(items)
+  const { filteredBodegas, searchBodega, setSearchBodega } = useFiltersBodegas(bodegas)
 
   useEffect(() => {
 
@@ -157,6 +160,9 @@ export function AsignarItemBodega() {
         <article className="">
 
           <h3 className="text-center font-semibold border-b-2 border-black pb-1">Selección De Bodega</h3>
+          <div className='flex w-full justify-center py-2'>
+            <FilterComponentBodegas searchBodega={searchBodega} setSearchBodega={setSearchBodega} />
+          </div>
           <header className="w-full">
             <p className='flex justify-center px-4 py-2 border rounded-md font-semibold my-2 bg-green-300'>
               <span>Sucursal - Bodega</span>
@@ -167,7 +173,7 @@ export function AsignarItemBodega() {
             name="sucursal" id="sucursal" value={sendBodega} onChange={ev => setSendBodega(ev.target.value)}>
             <option value="">Seleccione una bodega</option>
             {
-              bodegas.map(bodega => (
+              filteredBodegas.map(bodega => (
                 <option key={bodega._id} value={bodega.sucursal} className='justify-normal'>
                   {bodega.sucursal} | {bodega.nombre}
                 </option>

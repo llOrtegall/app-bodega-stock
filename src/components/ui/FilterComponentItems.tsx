@@ -1,4 +1,3 @@
-
 export function FilterComponentItems({ search, setSearch }: { search: string, setSearch: React.Dispatch<React.SetStateAction<string>> }) {
 
   return (
