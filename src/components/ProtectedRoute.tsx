@@ -4,7 +4,7 @@ import { NavBar } from './ui';
 import React from 'react';
 import { useAuth } from '../Auth/AuthContext';
 
-export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ isAllowed, children, redirectTo = "/" }) => {
+export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ isAllowed, redirectTo = "/" }) => {
   const { user } = useAuth()
   const empresa = user ? user.empresa : '';
 
@@ -18,7 +18,7 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ isAllowed, child
         <NavBar />
       </section>
       <section className='h-[92vh] overflow-auto'>
-        {children ? children : <Outlet />}
+        <Outlet />
       </section>
 
       <div className="text-black absolute bottom-0 p-2">

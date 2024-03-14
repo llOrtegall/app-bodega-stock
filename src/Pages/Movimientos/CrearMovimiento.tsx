@@ -107,9 +107,9 @@ export function CrearMovimiento() {
   return (
     <main className="w-full min-h-[92vh] pt-2">
 
-      <section className="w-full flex">
+      <section className='flex w-full px-2 gap-2'>
 
-        <article className="w-8/12">
+        <section className='w-8/12'>
 
           <form className="w-full p-2 bg-gray-600 rounded-lg flex items-center gap-2 text-center col-span-2 place-content-center" onSubmit={searchOrigen}>
             <h3 className="font-semibold text-white">Bodega De Origen</h3>
@@ -174,9 +174,8 @@ export function CrearMovimiento() {
             </button>
           </section>
 
-        </article>
-
-        <article className='w-4/12'>
+        </section>
+        <section className='w-4/12'>
           <form className="w-full p-2 bg-gray-600 rounded-lg flex items-center gap-2 text-center col-span-1 place-content-center" onSubmit={searchDestino}>
             <h3 className="font-semibold text-white">Bodega De Destino</h3>
             <input type="text" value={searchBodegaDestino} onChange={ev => setSearchBodegaDestino(ev.target.value)}
@@ -200,7 +199,7 @@ export function CrearMovimiento() {
             ))
           }
 
-        </article>
+        </section>
 
       </section>
 

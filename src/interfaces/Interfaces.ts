@@ -21,7 +21,6 @@ export interface AuthProviderProps {
 }
 
 export interface ProtectedRouteProps {
-  children: React.ReactNode;
   redirectTo?: string;
   isAllowed?: boolean;
 }

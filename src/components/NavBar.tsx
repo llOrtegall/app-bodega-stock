@@ -68,7 +68,7 @@ export function NavBar() {
             </figure>
           </button>
 
-          {activeComponent === 'Simcards' && <Simcards rol={rol} />}
+          {activeComponent === 'Simcards' && <Simcards rol={rol} close={setActiveComponent}/>}
 
         </li>
 
