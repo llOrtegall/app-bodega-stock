@@ -11,6 +11,7 @@ import { HomePage } from "./Pages/HomePage";
 import  { VerItems } from './Pages/Items/showItems'
 import { CrearItems } from "./Pages/Items/crearItem";
 import { AsignarItemBodega } from "./Pages/Items/asignItemBodega";
+import { DetalleItem } from "./Pages/Items/DetailItemUpdate";
 
 axios.defaults.baseURL = 'http://172.20.1.110:3030/api';
 // axios.defaults.baseURL = '/api';
@@ -36,6 +37,7 @@ export function App() {
         <Route element={<ProtectedRoute isAllowed={!!user} redirectTo="/" children={undefined} />}>
           <Route path="/home" element={<HomePage />} />
           <Route path="/items/verItems" element={<VerItems />} />
+          <Route path="/items/verItem/:id" element={<DetalleItem />} />
         </Route>
 
         <Route element={<ProtectedRoute isAllowed={!!user && user.rol === 'Administrador' || user?.rol ==='Aux Administrativo' } redirectTo="/home" children={undefined} />}>

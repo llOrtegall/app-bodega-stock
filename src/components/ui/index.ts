@@ -1,3 +1,4 @@
+export { MessageDisplay } from './MessagesDisplay'
 export { LogoGane } from "../icons/logoGane";
 export { NavItem } from './NavItem'
 export { NavBar } from "../NavBar";

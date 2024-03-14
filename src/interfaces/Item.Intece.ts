@@ -5,6 +5,7 @@ interface Bodega {
 }
 
 export interface createItem {
+  _id: string;
   nombre: string;
   descripcion: string;
   placa: string;

@@ -134,6 +134,7 @@ export function AsignarItemBodega() {
         <article className="" style={{ maxHeight: '650px', overflowY: 'auto' }}>
           <h3 className="text-center font-semibold border-b-2 border-black pb-1">Items Que Se Agregarán a Bodega</h3>
           <header>
+            <div className='pb-14'></div>
             <p className='flex justify-between px-4 py-2 border rounded-md font-semibold my-2 bg-yellow-200'>
               <span>Placa</span>
               <span>Nombre</span>
@@ -181,8 +182,8 @@ export function AsignarItemBodega() {
             }
           </select>
 
-          <form onSubmit={handleSubmit}>
-            <input type="submit" value="Agregar Items A Bodega" className="bg-blue-400 p-2 rounded-md w-full hover:bg-blue-500 cursor-pointer text-white font-semibold text-center" id="submit" name="submit" />
+          <form onSubmit={handleSubmit} className='w-full flex justify-center'>
+            <input type="submit" value="Agregar Items A Bodega" className="bg-blue-400 p-2 rounded-md w-96 hover:bg-blue-500 cursor-pointer text-white font-semibold text-center" id="submit" name="submit" />
           </form>
         </article>
 

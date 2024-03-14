@@ -43,7 +43,7 @@ export const RenderItems = ({ items, rol }: RenderItemsProps) => {
             }
             {
               rol === 'Administrador' || rol === 'Aux Administrativa'
-                ? <button onClick={() => navigate(`/bodega/stock/items/${item._id}`, { state: { id: item._id } })}
+                ? <button onClick={() => navigate(`/items/verItem/${item._id}`, { state: { id: item._id } })}
                   className='bg-green-500 w-28 p-1 rounded-md font-semibold hover:bg-green-400 hover:text-white'>Editar Item</button>
                 : <figure className='text-red-500'><LockIcon /></figure>
             }
