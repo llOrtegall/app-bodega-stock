@@ -8,16 +8,10 @@ import axios from "axios";
 
 import { HomePage } from "./Pages/HomePage";
 
-import  { VerItems } from './Pages/Items/showItems'
-import { CrearItems } from "./Pages/Items/crearItem";
-import { AsignarItemBodega } from "./Pages/Items/asignItemBodega";
-import { DetalleItem } from "./Pages/Items/DetailItemUpdate";
-import { ShowBodegas } from "./Pages/Bodega/ShowBodegas";
-import { DetalleBodega } from "./Pages/Bodega/DetalleBodega";
-import { CrearBodega } from "./Pages/Bodega/CrearBodega";
-import { CrearMovimiento } from "./Pages/Movimientos/CrearMovimiento";
-import { ShowMovimientos } from "./Pages/Movimientos/ShowMovimientos";
-import { DesatalleMovimiento } from "./Pages/Movimientos/DetalleMovimiento";
+import { CrearMovimiento, DesatalleMovimiento, ShowMovimientos } from './Pages/Movimientos'
+import { AsignarItemBodega, CrearItems, DetalleItem, VerItems } from './Pages/Items'
+import { CrearBodega, DetalleBodega, ShowBodegas } from './Pages/Bodega'
+
 import { VerSimcards } from "./Pages/Simcards";
 
 axios.defaults.baseURL = 'http://172.20.1.110:3030/api';
