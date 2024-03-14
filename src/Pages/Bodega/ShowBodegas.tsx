@@ -19,7 +19,7 @@ export function ShowBodegas() {
   }, [])
 
   return (
-    <main className="h-[93vh] overflow-auto">
+    <main className="h-[92vh] overflow-auto">
 
       <section className="flex items-center justify-center gap-6 p-1 bg-blue-500  rounded-md shadow-lg">
         <p className=""><span className="font-semibold pr-2">Filtrar:</span>| Sucursal | Nombre |</p>
@@ -45,7 +45,7 @@ export function ShowBodegas() {
               <p>Simcards Asignadas: <span className="font-semibold">{bodega.simcards.length}</span></p>
             </article>
 
-            <Link className="p-2 text-white font-semibold rounded-md bg-blue-400 hover:bg-blue-600" to={`detalle/${bodega._id}`} key={bodega._id}>
+            <Link className="p-2 text-white font-semibold rounded-md bg-blue-400 hover:bg-blue-600" to={`/bodega/detalle/${bodega._id}`} key={bodega._id}>
               Ver Detalle Bodega
             </Link>
           </section>
