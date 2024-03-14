@@ -15,6 +15,7 @@ import { DetalleItem } from "./Pages/Items/DetailItemUpdate";
 import { ShowBodegas } from "./Pages/Bodega/ShowBodegas";
 import { DetalleBodega } from "./Pages/Bodega/DetalleBodega";
 import { CrearBodega } from "./Pages/Bodega/CrearBodega";
+import { CrearMovimiento } from "./Pages/Movimientos/CrearMovimiento";
 
 axios.defaults.baseURL = 'http://172.20.1.110:3030/api';
 // axios.defaults.baseURL = '/api';
@@ -52,6 +53,7 @@ export function App() {
 
         <Route element={<ProtectedRoute isAllowed={!!user && user.rol === 'Administrador' || user?.rol ==='Aux Administrativo' } redirectTo="/home" children={undefined} />}>
           <Route path="/bodega/crearBodega" element={<CrearBodega />} />
+          <Route path="/bodega/crearMovimiento" element={<CrearMovimiento />} />
         </Route>
 
         <Route path="*" element={<NotFound />} />
