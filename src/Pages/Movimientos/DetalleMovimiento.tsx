@@ -1,24 +1,18 @@
 import { RenderDetailMov, RenderItemsMov, RenderSimcardMov } from '../../components/Movimientos'
 
-import { getMovimiento } from '../../services/Mov.services'
-import { Movimiento } from '../../interfaces/MovInterfaces'
-import { Loading } from '../../components/ui'
+import { useDetailMovs } from '../../hooks/useDetailMovs'
 import { useAuth } from '../../Auth/AuthContext'
+import { Loading } from '../../components/ui'
 import { useParams } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+
 
 export function DesatalleMovimiento() {
   const { user } = useAuth()
   const company = user?.empresa || ''
-  const { id } = useParams()
-
-  const [movimiento, setMovimiento] = useState<Movimiento>()
-
-  useEffect(() => {
-    getMovimiento(company, id || '')
-      .then(res => setMovimiento(res))
-      .catch(err => console.log(err))
-  }, [id, company])
+  const pasarId = useParams()
+  const id = pasarId.id || ''
+  
+  const { movimiento } = useDetailMovs({ id, company })
 
   return (
     movimiento

@@ -1,20 +1,14 @@
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { Routes, Route } from "react-router-dom";
-import { LoginPage, NotFound } from './Pages'
-
 import { useAuth } from './Auth/AuthContext';
 import { useEffect } from 'react';
 import axios from "axios";
 
-import { HomePage } from "./Pages/HomePage";
-
+import { CrearSimcard, VerSimcards, AsignarSimcards, CreaMovimientosSim } from "./Pages/Simcards";
 import { CrearMovimiento, DesatalleMovimiento, ShowMovimientos } from './Pages/Movimientos'
 import { AsignarItemBodega, CrearItems, DetalleItem, VerItems } from './Pages/Items'
 import { CrearBodega, DetalleBodega, ShowBodegas } from './Pages/Bodega'
-
-import { CrearSimcard, VerSimcards } from "./Pages/Simcards";
-import { AsignarSimcards } from "./Pages/Simcards/AsignarSimcards";
-import { CreaMovimientosSim } from "./Pages/Simcards/Movimientos";
+import { LoginPage, NotFound, HomePage } from './Pages'
 
 axios.defaults.baseURL = 'http://172.20.1.110:3030/api';
 
