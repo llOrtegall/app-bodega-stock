@@ -2,6 +2,8 @@ import { simcardsBodegas } from '../../services/Simcards.services'
 import { useFilterSimcards } from '../../hooks/useFilterSimcards'
 import { useEffect, useState } from 'react'
 import { useAuth } from '../../Auth/AuthContext.js'
+import { BottonExportSimcards } from '../../components/simcards/ExportSimcards.js'
+import { RenderIconSims } from '../../components/simcards/RenderIcons.js'
 
 export function VerSimcards () {
   const { user } = useAuth()
@@ -18,14 +20,14 @@ export function VerSimcards () {
   const { filteredSimcards, searchSimcard, setSearchSimcard } = useFilterSimcards(simcardsConBodega)
 
   return (
-    <main className="h-[93vh] overflow-auto">
+    <main className="h-[92vh] overflow-auto">
 
       <section className='flex w-full justify-center items-center gap-4 py-1 bg-blue-600 px-4'>
         <p className=""><span className="font-semibold pr-2">Filtrar:</span>| Operador | Serial | Número</p>
         <input type="text" placeholder="Buscar simcards..."
           value={searchSimcard} onChange={ev => setSearchSimcard(ev.target.value)}
           className="bg-slate-200 w-64 p-1.5 rounded-md" />
-        {/* <BottonExportSimcards simcards={filteredSimcards} /> */}
+         <BottonExportSimcards simcards={filteredSimcards} />
       </section>
 
       <article className="grid grid-cols-8 text-center bg-blue-500 shadow-lg py-2 mb-2">
@@ -43,8 +45,7 @@ export function VerSimcards () {
         filteredSimcards?.length > 0
           ? filteredSimcards?.map(item => (
             <article key={item._id} className="grid grid-cols-8 place-items-center rounded-md bg-slate-200 uppercase text-sm py-2 my-2 text-center shadow-lg">
-              {/* <RenderIconSims operador={item.operador} /> */}
-              <p className="font-semibold">{item.numero}</p>
+              <RenderIconSims operador={item.operador} />
               <p className="font-semibold">{item.numero}</p>
               <p className="text-gray-700 overflow-ellipsis text-start overflow-hidden">{item.serial}</p>
               <p className="text-gray-700 overflow-ellipsis text-start overflow-hidden">{item.apn}</p>
