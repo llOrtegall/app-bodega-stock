@@ -9,3 +9,13 @@ export const getMovimientos = async (company: string) => {
     return error
   }
 }
+
+export const getMovimiento = async (company: string, id: string) => {
+  try {
+    const MoviResponse = await axios.get(`/movimiento/${company}/${id}`)
+    return MoviResponse.data
+  } catch (error) {
+    console.log(error)
+    return error
+  }
+}

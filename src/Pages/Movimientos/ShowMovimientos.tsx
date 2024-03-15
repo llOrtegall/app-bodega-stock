@@ -1,6 +1,6 @@
 import { RenderMovCom } from '../../components/Movimientos/RenderMovCom'
-import { useAuth } from '../../Auth/AuthContext'
 import { useMovimientos } from '../../hooks/useMovimientos'
+import { useAuth } from '../../Auth/AuthContext'
 
 export function ShowMovimientos() {
   const { user } = useAuth()
