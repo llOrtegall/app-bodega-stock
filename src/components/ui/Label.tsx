@@ -1,9 +1,9 @@
 interface Props extends React.LabelHTMLAttributes<HTMLLabelElement> { }
 
-export function Label({ children, ...props }: Props) {
+export function Label({ children, color, ...props }: Props) {
   return (
     <label
-      className="font-semibold text-black"
+      className={`font-semibold ${color}` }
       {...props}
     >
       {children}

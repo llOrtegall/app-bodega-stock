@@ -37,18 +37,18 @@ export function LoginPage() {
     <section className="h-screen flex items-center justify-center flex-col pb-12 bg-slate-900">
 
 
-      <div className="flex flex-col items-center border py-12 rounded-md bg-gray-200">
+      <div className="flex flex-col items-center py-12 rounded-md bg-gray-300">
         <figure>
           <img src="gane.png" width={200} alt="logo de gane" />
         </figure>
 
         <form className="flex flex-col w-[420px] mt-10 gap-6 px-10" onSubmit={handleSubmit}>
-          <div className="flex w-full flex-col">
+          <div className="flex w-full flex-col gap-2">
             <Label htmlFor="username">Usuario</Label>
             <Input placeholder="CP141412422" onChange={ev => setUsername(ev.target.value)}
               type="text" id="username" required />
           </div>
-          <div className="flex w-full flex-col">
+          <div className="flex w-full flex-col gap-2">
             <Label htmlFor="password">Contraseña</Label>
             <Input placeholder="**********" onChange={ev => setPassword(ev.target.value)}
               type="password" id="password" required />

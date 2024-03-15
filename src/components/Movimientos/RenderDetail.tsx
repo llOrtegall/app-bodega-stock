@@ -1,4 +1,5 @@
 import { Movimiento } from "../../interfaces/MovInterfaces";
+import { formatFecha } from "../../utils/FormaFecha";
 
 export function RenderDetailMov({ mov }: { mov: Movimiento }) {
   const { bodegaOrigen, bodegaDestino, descripcion, encargado, fecha, incidente, items, movimientoId, simcards } = mov
@@ -19,7 +20,7 @@ export function RenderDetailMov({ mov }: { mov: Movimiento }) {
               <span>Encargado:</span> <span className='text-sm text-black font-normal'>{encargado}</span>
             </p>
             <p className='text-md font-semibold flex items-center justify-between gap-4'>
-              <span>Fecha: </span><span className='text-sm text-black font-normal'>{fecha}</span>
+              <span>Fecha y Hora: </span><span className='text-sm text-black font-normal'>{formatFecha(fecha)}</span>
             </p>
           </div>
           <div className=''>

@@ -1,9 +1,10 @@
-import { AddIcon, DeleteIcon } from '../../components/icons'
+import { HeaderBodega } from '../../components/Movimientos/HeaderBodega'
+import { Bodega } from '../../interfaces/Movimientos.interfaces'
+import { AddIcon, CheckIcon, DeleteIcon } from '../../components/icons'
 import { MessageDisplay } from '../../components/ui'
 import { useAuth } from '../../Auth/AuthContext'
 import { useCallback, useState } from 'react'
 import axios from 'axios'
-import { Bodega } from '../../interfaces/Movimientos.interfaces'
 
 export function CrearMovimiento() {
   const { user } = useAuth()
@@ -11,8 +12,8 @@ export function CrearMovimiento() {
   const nombres = user?.nombres + ' ' + user?.apellidos
 
   // Estado para traer bodega de origen
-  const [bodegaDestino, setBodegaDestino] = useState<Bodega>({ _id: '', nombre: '', direccion: '', sucursal: 0, items: [], simcards: [] })
   const [bodegaOrigen, setBodegaOrigen] = useState<Bodega>({ _id: '', nombre: '', direccion: '', sucursal: 0, items: [], simcards: [] })
+  const [bodegaDestino, setBodegaDestino] = useState<Bodega>({ _id: '', nombre: '', direccion: '', sucursal: 0, items: [], simcards: [] })
 
   const [searchBodegaOrigen, setSearchBodegaOrigen] = useState('')
   const [searchBodegaDestino, setSearchBodegaDestino] = useState('')
@@ -20,13 +21,13 @@ export function CrearMovimiento() {
   const [descripcion, setDescripcion] = useState('')
   const [incidente, setIncidente] = useState('')
 
-  const [cartitems, setCartItems] = useState<string[]>([])
+  const [cartItems, setCartItems] = useState<string[]>([])
 
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
 
 
-  const searchOrigen = (ev: { preventDefault: () => void }) => {
+  const getBodOrigen = (ev: { preventDefault: () => void }) => {
     ev.preventDefault()
     setMessage('Buscando Bodega ...')
     axios.get(`/getBodega/${company}/${searchBodegaOrigen}`)
@@ -41,7 +42,7 @@ export function CrearMovimiento() {
       })
   }
 
-  const searchDestino = (ev: { preventDefault: () => void }) => {
+  const getBodDestino = (ev: { preventDefault: () => void }) => {
     ev.preventDefault()
     setMessage('Buscando Bodega ...')
     axios.get(`/getBodega/${company}/${searchBodegaDestino}`)
@@ -60,7 +61,7 @@ export function CrearMovimiento() {
     axios.post('/moveItem', {
       bodegaOrigen: bodegaOrigen._id,
       bodegaDestino: bodegaDestino._id,
-      itemsIds: cartitems,
+      itemsIds: cartItems,
       encargado: nombres,
       descripcion,
       incidente,
@@ -107,26 +108,15 @@ export function CrearMovimiento() {
   return (
     <main className="w-full min-h-[92vh] pt-2">
 
-      <section className='flex w-full px-2 gap-2'>
+      <section className='flex gap-2 px-2'>
 
-        <section className='w-8/12'>
+        <section className='w-6/12'>
 
-          <form className="w-full p-2 bg-gray-600 rounded-lg flex items-center gap-2 text-center col-span-2 place-content-center" onSubmit={searchOrigen}>
-            <h3 className="font-semibold text-white">Bodega De Origen</h3>
-            <input type="text" value={searchBodegaOrigen} onChange={ev => setSearchBodegaOrigen(ev.target.value)}
-              placeholder="40001 | 34545"
-              className="bg-slate-100 w-64 p-2 rounded-md" />
-            <button className="bg-green-600 text-white rounded-md p-2 font-semibold hover:bg-white hover:text-black">Buscar Sucursal</button>
-          </form>
+          <HeaderBodega funGetBodega={getBodOrigen} valueBodega={searchBodegaOrigen} searBodega={setSearchBodegaOrigen} bodega={bodegaOrigen} >
+            Bodega Origen
+          </HeaderBodega>
 
-          <header className="w-full flex justify-around p-2 border rounded-md bg-blue-300">
-            <h3> <span className="font-bold">Nombre:</span>  {bodegaOrigen?.nombre}</h3>
-            <p> <span className="font-bold">Direccion:</span>  {bodegaOrigen?.direccion}</p>
-            <p> <span className="font-bold">Sucursal:</span>  {bodegaOrigen?.sucursal}</p>
-            <p> <span className="font-bold">UUID:</span>  {bodegaOrigen?._id}</p>
-          </header>
-
-          <section style={{ maxHeight: '330px', overflowY: 'auto' }} className='mb-2'>
+          <section style={{ maxHeight: '430px', overflowY: 'auto' }} className='mb-2'>
             {
               bodegaOrigen.items.map(item => (
                 typeof item !== 'string' && (
@@ -136,7 +126,11 @@ export function CrearMovimiento() {
                     <p className='w-4/12 text-center font-semibold'>{item.serial}</p>
                     <button className='w-1/12 text-center hover:text-green-400  flex justify-center'
                       onClick={() => handleAddItem(item._id)} >
-                      <AddIcon />
+                      {
+                        cartItems.includes(item._id)
+                          ? <p className="bg-green-300 rounded-full"><CheckIcon /></p>
+                          : <p className=""><AddIcon /></p>
+                      }
                     </button>
                   </section>
                 )
@@ -144,53 +138,22 @@ export function CrearMovimiento() {
             }
           </section>
 
-          <footer className="py-4 bg-slate-600 rounded-md text-white">
-            <form className="grid grid-cols-2 gap-3">
-              <label className="flex h-10 items-center ml-3"> <span className="font-semibold w-32">Encargado:</span>
-                <input type="text" className="w-full p-2 rounded-md col-span-1 bg-green-300 no-underline text-black"
-                  value={nombres} readOnly
-                  placeholder="Pepito Perez Muñoz" />
-              </label>
-
-              <label className="flex h-10 items-center"> <span className="font-semibold w-32">N° Incidente:</span>
-                <input type="text" className="w-full p-2 rounded-md bg-slate-100 no-underline text-black"
-                  value={incidente}
-                  onChange={ev => setIncidente(ev.target.value)}
-                  placeholder="134564 | 234252 | 634532" />
-              </label>
-
-              <label className="col-span-3 mx-3"> <span className="font-semibold w-40">Observaciones:</span>
-                <input type="text" className="w-full p-2 rounded-md bg-slate-100 no-underline text-black "
-                  value={descripcion}
-                  onChange={ev => setDescripcion(ev.target.value)}
-                  placeholder="texto para registrar observación ..." />
-              </label>
-            </form>
-          </footer>
-
-          <section className="flex w-full justify-center mt-4">
-            <button className="p-2 text-white font-bold w-48 bg-green-600 rounded-md hover:bg-white  hover:text-black" onClick={handleClick}>
-              Realizar Movimiento
-            </button>
-          </section>
-
         </section>
-        <section className='w-4/12'>
-          <form className="w-full p-2 bg-gray-600 rounded-lg flex items-center gap-2 text-center col-span-1 place-content-center" onSubmit={searchDestino}>
-            <h3 className="font-semibold text-white">Bodega De Destino</h3>
-            <input type="text" value={searchBodegaDestino} onChange={ev => setSearchBodegaDestino(ev.target.value)}
-              placeholder="40001 | 34545"
-              className="bg-slate-100 w-64 p-2 rounded-md" />
-            <button className="bg-green-600 text-white rounded-md p-2 font-semibold hover:bg-white hover:text-black">Buscar Sucursal</button>
-          </form>
+
+        <section className='w-6/12'>
+
+          <HeaderBodega funGetBodega={getBodDestino} valueBodega={searchBodegaDestino} searBodega={setSearchBodegaDestino} bodega={bodegaDestino}>
+            Bodega Destino
+          </HeaderBodega>
+
           {
-            cartitems.map(itemAdd => (
-              <article key={itemAdd} className='flex'>
+            cartItems.map(itemAdd => (
+              <article key={itemAdd} className='flex justify-between px-6 py-2 border rounded-md font-semibold my-2'>
                 <p className=''>
-                  {bodegaOrigen.items?.find(i => i._id === itemAdd)?.placa}
+                  {bodegaOrigen.items.find(i => i._id === itemAdd)?.placa}
                 </p>
                 <p className=''>
-                  {bodegaOrigen.items?.find(i => i._id === itemAdd)?.nombre}
+                  {bodegaOrigen.items.find(i => i._id === itemAdd)?.nombre}
                 </p>
                 <button onClick={() => handleRemoveItem(itemAdd)} className="hover:text-red-600">
                   <DeleteIcon />
@@ -201,6 +164,36 @@ export function CrearMovimiento() {
 
         </section>
 
+      </section>
+
+      <footer className="py-4 bg-slate-600 rounded-md text-white mx-2">
+        <form className="grid grid-cols-2 gap-3">
+          <label className="flex h-10 items-center ml-3"> <span className="font-semibold w-32">Encargado:</span>
+            <input type="text" className="w-full p-2 rounded-md col-span-1 bg-green-300 no-underline text-black"
+              value={nombres} readOnly
+              placeholder="Pepito Perez Muñoz" />
+          </label>
+
+          <label className="flex h-10 items-center"> <span className="font-semibold w-32">N° Incidente:</span>
+            <input type="text" className="w-full p-2 rounded-md bg-slate-100 no-underline text-black"
+              value={incidente}
+              onChange={ev => setIncidente(ev.target.value)}
+              placeholder="134564 | 234252 | 634532" />
+          </label>
+
+          <label className="col-span-3 mx-3"> <span className="font-semibold w-40">Observaciones:</span>
+            <input type="text" className="w-full p-2 rounded-md bg-slate-100 no-underline text-black "
+              value={descripcion}
+              onChange={ev => setDescripcion(ev.target.value)}
+              placeholder="texto para registrar observación ..." />
+          </label>
+        </form>
+      </footer>
+
+      <section className="flex w-full justify-center mt-4">
+        <button className="p-2 text-white font-semibold w-48 bg-green-600 rounded-md hover:bg-white  hover:text-black" onClick={handleClick}>
+          Realizar Movimiento
+        </button>
       </section>
 
       <MessageDisplay message={message} error={error} />
