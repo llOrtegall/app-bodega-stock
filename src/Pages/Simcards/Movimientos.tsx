@@ -1,85 +1,133 @@
-// import { ComponenteSimcards } from '../../components/ComponenteSimcards.jsx'
-// import { RenderBodegaOrigen } from '../../components/RenderBodegaOrigen.jsx'
-// import { RenderBodegaDestino } from '../../components/RenderBodegaDestino.jsx'
-// import { FooterMovSim } from '../../components/FooterCompSimcaMov.jsx'
+import { useCallback, useState } from 'react'
+import axios from 'axios'
+import { useAuth } from '../../Auth/AuthContext'
+import { MessageDisplay } from '../../components/ui/MessagesDisplay.js'
+import { RenderBodegaOrigen } from '../../components/simcards/RenderBodegaOrigen.js'
+import { RenderBodegaDestino } from '../../components/simcards/RenderBodegaDestino.js'
+import { ComponenteSimcards } from '../../components/simcards/ComponenteSimcards.js'
+import { FooterMovSim } from '../../components/simcards/FooterCompSimcaMov.js'
 
-// import { useCarSimcards, useCarSimcards2 } from '../../hooks/useCartItems.js'
-// import { MessageDisplay } from '../../components/MessageDisplay.jsx'
-// import { useState } from 'react'
-// import axios from 'axios'
+function useCarSimcards (initialItems = []) {
+  const [cartSims, setCartSims] = useState(initialItems)
 
-// export function CreaMovimientosSim ({ user, company }) {
-//   const [bodegaDestino, setBodegaDestino] = useState(null)
-//   const [bodegaOrigen, setBodegaOrigen] = useState(null)
+  const handleAddSimcard = useCallback((id:string) => {
+    setCartSims(prevItems => {
+      if (!prevItems.includes(id)) {
+        return [...prevItems, id]
+      } else {
+        return prevItems
+      }
+    })
+  }, [])
 
-//   const [descripcion, setDescripcion] = useState('')
-//   const [incidente, setIncidente] = useState('')
+  const handleRemoveItem = useCallback((id:string) => {
+    setCartSims(prevItems => {
+      return prevItems.filter(item => item !== id)
+    })
+  }, [])
 
-//   const [message, setMessage] = useState('')
-//   const [error, setError] = useState('')
+  return { cartSims, handleAddSimcard, handleRemoveItem, setCartSims }
+}
 
-//   const { cartSims, setCartSims, handleAddSimcard, handleRemoveItem } = useCarSimcards()
-//   const { cartSims2, setCartSims2, handleAddSimcard2, handleRemoveItem2 } = useCarSimcards2()
+function useCarSimcards2 (initialItems = []) {
+  const [cartSims2, setCartSims2] = useState(initialItems)
 
-//   const hadlesearchnew = () => {
-//     setCartSims([])
-//     setCartSims2([])
-//   }
+  const handleAddSimcard2 = useCallback((id:string) => {
+    setCartSims2(prevItems => {
+      if (!prevItems.includes(id)) {
+        return [...prevItems, id]
+      } else {
+        return prevItems
+      }
+    })
+  }, [])
 
-//   const handleClick = () => {
-//     if (!bodegaOrigen || !bodegaDestino) {
-//       setTimeout(() => {
-//         setMessage('')
-//         setError('')
-//       }, 4000)
-//       return setError('Debe Ingresar Una Bodega De Origen y Una De Destino')
-//     }
-//     axios.post('/moveSimcard', {
-//       bodegas: { bodegaOrigen: bodegaOrigen._id, bodegaDestino: bodegaDestino._id },
-//       simsIds: { entran: cartSims, salen: cartSims2 },
-//       encargado: nombres,
-//       descripcion,
-//       incidente,
-//       company
-//     })
-//       .then(res => {
-//         setMessage(res.data.message); setBodegaOrigen(null); setBodegaDestino(null); setCartSims([])
-//         setCartSims2([]); setDescripcion(''); setIncidente(''); setTimeout(() => { setMessage(''); setError('') }, 4000)
-//       })
-//       .catch(err => {
-//         setError(err.response.data.error)
-//         setTimeout(() => { setMessage(''); setError('') }, 4000)
-//       })
-//   }
+  const handleRemoveItem2 = useCallback((id:string) => {
+    setCartSims2(prevItems => {
+      return prevItems.filter(item => item !== id)
+    })
+  }, [])
 
-//   const nombres = user.nombres + ' ' + user.apellidos
+  return { cartSims2, handleAddSimcard2, handleRemoveItem2, setCartSims2 }
+}
 
-//   return (
-//     <main className="w-full min-h-[93vh] ">
 
-//       <section className="grid grid-cols-4 p-2 gap-2">
-//         {/* //*: Renderizado Bodega Origen */}
-//         <RenderBodegaOrigen bodegaOrigen={bodegaOrigen} setBodegaOrigen={setBodegaOrigen} cartSims={cartSims} handleAddSimcard={handleAddSimcard} fun={hadlesearchnew} company={company}/>
-//         {/* //*: Renderizado Bodega Destino */}
-//         <RenderBodegaDestino bodegaDestino={bodegaDestino} setBodegaDestino={setBodegaDestino} cartSims2={cartSims2} handleAddSimcard2={handleAddSimcard2} fun={hadlesearchnew} company={company}/>
-//       </section>
+export function CreaMovimientosSim () {
+  const { user } = useAuth()
+  const company = user?.empresa || ''
+  const [bodegaDestino, setBodegaDestino] = useState(null)
+  const [bodegaOrigen, setBodegaOrigen] = useState(null)
 
-//       <article className='mx-2 rounded-md'>
-//         {/* //* Renderizado Movimiento */}
-//         <ComponenteSimcards bodegaOrigen={bodegaOrigen} bodegaDestino={bodegaDestino} cartSims={cartSims}
-//           cartSims2={cartSims2} handleRemoveItem={handleRemoveItem} handleRemoveItem2={handleRemoveItem2} />
-//       </article>
+  const [descripcion, setDescripcion] = useState('')
+  const [incidente, setIncidente] = useState('')
 
-//       <section>
-//         {/* //* Renderizado Footer */}
-//         <FooterMovSim encargado={nombres} incidente={incidente} setIncidente={setIncidente}
-//           descripcion={descripcion} setDescripcion={setDescripcion} handleClick={handleClick} />
-//       </section>
+  const [message, setMessage] = useState('')
+  const [error, setError] = useState('')
 
-//       <section className='pt-4'>
-//         {/* //* Renderizado Mensajes Envio o Error */}
-//         <MessageDisplay message={message} error={error} />
-//       </section>
-//     </main>
-//   )
-// }
+  const { cartSims, setCartSims, handleAddSimcard, handleRemoveItem } = useCarSimcards()
+  const { cartSims2, setCartSims2, handleAddSimcard2, handleRemoveItem2 } = useCarSimcards2()
+
+  const hadlesearchnew = () => {
+    setCartSims([])
+    setCartSims2([])
+  }
+
+  const handleClick = () => {
+    if (!bodegaOrigen || !bodegaDestino) {
+      setTimeout(() => {
+        setMessage('')
+        setError('')
+      }, 4000)
+      return setError('Debe Ingresar Una Bodega De Origen y Una De Destino')
+    }
+    axios.post('/moveSimcard', {
+      bodegas: { bodegaOrigen: bodegaOrigen._id, bodegaDestino: bodegaDestino._id },
+      simsIds: { entran: cartSims, salen: cartSims2 },
+      encargado: nombres,
+      descripcion,
+      incidente,
+      company
+    })
+      .then(res => {
+        setMessage(res.data.message); setBodegaOrigen(null); setBodegaDestino(null); setCartSims([])
+        setCartSims2([]); setDescripcion(''); setIncidente(''); setTimeout(() => { setMessage(''); setError('') }, 4000)
+      })
+      .catch(err => {
+        setError(err.response.data.error)
+        setTimeout(() => { setMessage(''); setError('') }, 4000)
+      })
+  }
+
+  const nombres = user?.nombres + ' ' + user?.apellidos
+
+  return (
+    <main className="w-full min-h-[92vh] ">
+
+      <section className="grid grid-cols-4 p-2 gap-2">
+
+        <RenderBodegaOrigen bodegaOrigen={bodegaOrigen} setBodegaOrigen={setBodegaOrigen} 
+          cartSims={cartSims} handleAddSimcard={handleAddSimcard} fun={hadlesearchnew} company={company}/>
+
+        <RenderBodegaDestino bodegaDestino={bodegaDestino} setBodegaDestino={setBodegaDestino} 
+          cartSims2={cartSims2} handleAddSimcard2={handleAddSimcard2} fun={hadlesearchnew} company={company}/>
+      </section>
+
+      <article className='mx-2 rounded-md'>
+
+        <ComponenteSimcards bodegaOrigen={bodegaOrigen} bodegaDestino={bodegaDestino} cartSims={cartSims}
+          cartSims2={cartSims2} handleRemoveItem={handleRemoveItem} handleRemoveItem2={handleRemoveItem2} />
+      </article>
+
+      <section>
+
+        <FooterMovSim encargado={nombres} incidente={incidente} setIncidente={setIncidente}
+          descripcion={descripcion} setDescripcion={setDescripcion} handleClick={handleClick} />
+      </section> 
+
+      <section className='pt-4'>
+
+        <MessageDisplay message={message} error={error} />
+      </section>
+    </main>
+  )
+}

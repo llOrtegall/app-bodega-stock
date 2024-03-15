@@ -37,7 +37,7 @@ export function Simcards({ rol, close }: SimcardsProps) {
                 : <figure className='text-red-500 rounded-full'><LockIcon /></figure>
             }
           </NavLink>
-          <NavLink to="/simcards/crearMovimientoSimcard" onClick={() => close(null)}
+          <NavLink to="/simcards/crearMovimiento" onClick={() => close(null)}
             className="text-white hover:text-blue-400 font-semibold py-2 flex justify-between w-full px-6 hover:bg-slate-700">
             Crear Mov Sims
             {
