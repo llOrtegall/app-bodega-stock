@@ -12,7 +12,8 @@ import { CrearMovimiento, DesatalleMovimiento, ShowMovimientos } from './Pages/M
 import { AsignarItemBodega, CrearItems, DetalleItem, VerItems } from './Pages/Items'
 import { CrearBodega, DetalleBodega, ShowBodegas } from './Pages/Bodega'
 
-import { VerSimcards } from "./Pages/Simcards";
+import { CrearSimcard, VerSimcards } from "./Pages/Simcards";
+import { AsignarSimcards } from "./Pages/Simcards/AsignarSimcards";
 
 axios.defaults.baseURL = 'http://172.20.1.110:3030/api';
 
@@ -52,6 +53,11 @@ export function App() {
         <Route element={<ProtectedRoute isAllowed={!!user && user.rol === 'Administrador' || user?.rol ==='Aux Administrativo' } redirectTo="/home" />}>
           <Route path="/bodega/crearBodega" element={<CrearBodega />} />
           <Route path="/bodega/crearMovimiento" element={<CrearMovimiento />} />
+        </Route>
+
+        <Route element={<ProtectedRoute isAllowed={!!user && user.rol === 'Administrador' || user?.rol ==='Coordinador Soporte' } redirectTo="/home" />}>
+          <Route path="/simcards/crearSimcard"  element={<CrearSimcard />}  />
+          <Route path="/simcards/asignarSimcards" element={<AsignarSimcards />} />
         </Route>
 
         <Route path="*" element={<NotFound />} />

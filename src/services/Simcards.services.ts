@@ -9,3 +9,13 @@ export async function simcardsBodegas (company: string) {
     return error
   }
 }
+
+export async function BodegaDataSims (company: string) {
+  try {
+    const bodegaResponse = await axios.get(`/getBodegasSim/${company}`)
+    return bodegaResponse.data
+  } catch (error) {
+    console.log(error)
+    return error
+  }
+}
