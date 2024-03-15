@@ -6,7 +6,7 @@ export function ShowMovimientos() {
   const { user } = useAuth()
   const company = user?.empresa || ''
 
-  const { toggleSortOrder, searchMovimiento, setSearchMovimiento, sortedMovimientos, sortOrder } = useMovimientos(company)  
+  const { busMov, setBusMov, sortOrder, sortedMovimientos, toggleSortOrder } = useMovimientos(company)  
 
 
   return (
@@ -14,7 +14,7 @@ export function ShowMovimientos() {
 
       <article className='p-2 bg-blue-700 flex items-center justify-center'>
         <label className='pr-2 font-semibold'>Filtro: N° Incidente | Encargado : </label>
-        <input type="text" value={searchMovimiento} onChange={ev => setSearchMovimiento(ev.target.value)} placeholder="Buscar Movimiento..."
+        <input type="text" value={busMov} onChange={ev => setBusMov(ev.target.value)} placeholder="Buscar Movimiento..."
           className="bg-slate-200 w-64 p-1 rounded-md border border-black" />
       </article>
 
