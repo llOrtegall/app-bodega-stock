@@ -1,12 +1,13 @@
+import { useAuth } from '../../Auth/AuthContext.js'
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-import { useAuth } from '../../Auth/AuthContext.js'
 
 export function DesatalleMovimiento () {
   const { user } = useAuth()
   const company = user?.empresa || ''
   const { id } = useParams()
+  
   const [movimiento, setMovimiento] = useState(null)
 
   useEffect(() => {

@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { ItemWithBodega } from '../../interfaces/Item.Intece'
 import { LockIcon } from '../icons'
+import { Button } from '../ui';
 
 interface RenderItemsProps {
   items: ItemWithBodega;
@@ -12,39 +13,39 @@ export const RenderItems = ({ items, rol }: RenderItemsProps) => {
 
   return (
     <section>
-      <article className='flex justify-around text-center bg-blue-500 uppercase text-sm shadow-lg py-2'>
-        <p className="font-semibold">Items</p>
-        <p className="font-semibold">Descripción</p>
-        <p className="font-semibold">Serial</p>
-        <p className="font-semibold">Placa</p>
-        <p className="font-semibold">Estado</p>
-        <p className="font-semibold">Ubicación</p>
-        <p className='font-semibold'>Sucursal</p>
-        <p className="font-semibold">Acciones</p>
+      <article className='grid grid-cols-12 px-2 py-2 bg-blue-200 font-semibold text-center'>
+        <p className="col-span-2">Items</p>
+        <p className="col-span-2">Descripción</p>
+        <p className="col-span-2">Serial</p>
+        <p className="col-span-1">Placa</p>
+        <p className="col-span-1">Estado</p>
+        <p className="col-span-2">Ubicación</p>
+        <p className="col-span-1">Sucursal</p>
+        <p className="col-span-1">Acciones</p>
       </article>
       <article>
         {items.map(item => (
           <article key={item._id}
-            className='grid grid-cols-8 shadow-md bg-slate-200 uppercase text-sm py-2 my-2 text-center  place-items-center'>
-            <p className="font-semibold">{item.nombre}</p>
-            <p className="text-gray-500">{item.descripcion}</p>
-            <p className="text-gray-500">{item.serial}</p>
-            <p className="text-gray-700">{item.placa}</p>
-            <p className="text-gray-500">{item.estado}</p>
+            className='grid grid-cols-12 gap-2 px-2 text-center my-1 border place-items-center py-1 uppercase'>
+            <p className="col-span-2 font-semibold">{item.nombre}</p>
+            <p className="col-span-2">{item.descripcion}</p>
+            <p className="col-span-2">{item.serial}</p>
+            <p className="col-span-1 font-semibold">{item.placa}</p>
+            <p className="col-span-1">{item.estado}</p>
             {typeof item.bodega !== 'string'
               ? <>
-                <p className="text-gray-500">{item.bodega?.nombre}</p>
-                <p className="text-gray-500">{item.bodega?.sucursal}</p>
+                <p className="col-span-2">{item.bodega?.nombre}</p> 
+                <p className="col-span-1">{item.bodega?.sucursal}</p>
               </>
               : <>
-                <p className="text-gray-500">{'No Asignado'}</p>
-                <p className="text-gray-500">{'No Asignado'}</p>
+                <p className="col-span-2">{'No Asignado'}</p>
+                <p className="col-span-1">{'No Asignado'}</p>
               </>
             }
             {
               rol === 'Administrador' || rol === 'Aux Administrativa'
-                ? <button onClick={() => navigate(`/items/verItem/${item._id}`, { state: { id: item._id } })}
-                  className='bg-green-500 w-28 p-1 rounded-md font-semibold hover:bg-green-400 hover:text-white'>Editar Item</button>
+                ? 
+                <Button onClick={() => navigate(`/items/verItem/${item._id}`, { state: { id: item._id } })} >Editar</Button>
                 : <figure className='text-red-500'><LockIcon /></figure>
             }
           </article>

@@ -4,6 +4,7 @@ import { useAuth } from '../../Auth/AuthContext'
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { Movimiento } from '../../interfaces/MovInterfaces'
+import { formatFecha } from '../../utils/FormaFecha'
 
 export function ShowMovimientos() {
   const { user } = useAuth()
@@ -46,30 +47,30 @@ export function ShowMovimientos() {
 
       <section className='w-full'>
 
-          <article className='flex justify-between px-4 py-2 font-semibold bg-blue-300 text-center'>
-            <p className='w-1/12 cursor-pointer hover:underline' onClick={toggleSortOrder}> N° Mov <span>{sortOrder === 'asc' ? '▼' : '▲'}</span></p>
-            <p className='w-1/12'> Fecha Mov</p>
-            <p className='w-1/12'> N° Incidente</p>
-            <p className='w-1/12'> Encargado</p>
-            <p className='w-2/12'> Origen</p>
-            <p className='w-2/12'> Destino</p>
-            <p className='w-1/12'> Cant Items Mov</p>
-            <p className='w-1/12'> Cant Sims Mov</p>
+          <article className='grid grid-cols-12 px-2 text-center p-2 text-lg font-semibold bg-blue-200'>
+            <p className='col-span-1 cursor-pointer hover:underline' onClick={toggleSortOrder}> N° Mov <span>{sortOrder === 'asc' ? '▼' : '▲'}</span></p>
+            <p className='col-span-2'> Fecha Mov</p>
+            <p className='col-span-1'> N° Incidente</p>
+            <p className='col-span-2'> Encargado</p>
+            <p className='col-span-2'> Origen</p>
+            <p className='col-span-2'> Destino</p>
+            <p className='col-span-1'> N° Item Mov</p>
+            <p className='col-span-1'> N°¨Sims Mov</p>
           </article>
 
-        <article className='flex flex-col'>
+        <article className=''>
           {
             movimientos && sortedMovimientos.map(m => (
               <section key={m.movimientoId} onClick={() => navigate(`/movimientos/detalle/${m._id}`)} 
-                className='flex w-full items-center justify-between px-2 cursor-pointer hover:bg-yellow-100 text-center border'>
-                <p className='w-1/12'>{m.movimientoId}</p>
-                <p className='w-1/12'>{m.createdAt}</p>
-                <p className='w-1/12'>{m.incidente}</p>
-                <p className='w-1/12'>{m.encargado}</p>
-                <p className='w-2/12'>{m.bodegaOrigen?.nombre}</p>
-                <p className='w-2/12'>{m.bodegaDestino?.nombre}</p>
-                <p className='w-1/12'>{m.items.length}</p>
-                <p className='w-1/12'>{m.simcards.entran.length + m.simcards.salen.length}</p>
+                className='grid grid-cols-12 text-center border-b py-1 cursor-pointer hover:bg-yellow-100'>
+                <p className='col-span-1'>{m.movimientoId}</p>
+                <p className='col-span-2'>{formatFecha(m.createdAt)}</p>
+                <p className='col-span-1'>{m.incidente}</p>
+                <p className='col-span-2'>{m.encargado}</p>
+                <p className='col-span-2'>{m.bodegaOrigen?.nombre}</p>
+                <p className='col-span-2'>{m.bodegaDestino?.nombre}</p>
+                <p className='col-span-1'>{m.items.length}</p>
+                <p className='col-span-1'>{m.simcards.entran.length + m.simcards.salen.length}</p>
               </section>
             )
             )
