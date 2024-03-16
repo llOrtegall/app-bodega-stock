@@ -1,13 +1,14 @@
-import { useCallback, useState } from 'react'
-import axios from 'axios'
-import { useAuth } from '../../Auth/AuthContext'
-import { MessageDisplay } from '../../components/ui/MessagesDisplay.js'
-import { RenderBodegaOrigen } from '../../components/simcards/RenderBodegaOrigen.js'
 import { RenderBodegaDestino } from '../../components/simcards/RenderBodegaDestino.js'
+import { RenderBodegaOrigen } from '../../components/simcards/RenderBodegaOrigen.js'
 import { ComponenteSimcards } from '../../components/simcards/ComponenteSimcards.js'
 import { FooterMovSim } from '../../components/simcards/FooterCompSimcaMov.js'
+import { MessageDisplay } from '../../components/ui/MessagesDisplay.js'
+import { BodegaWithSims } from '../../interfaces/Simcard.interfaces.js'
+import { useAuth } from '../../Auth/AuthContext'
+import { useCallback, useState } from 'react'
+import axios from 'axios'
 
-function useCarSimcards (initialItems = []) {
+function useCarSimcards (initialItems = [] as string[]) {
   const [cartSims, setCartSims] = useState(initialItems)
 
   const handleAddSimcard = useCallback((id:string) => {
@@ -29,7 +30,7 @@ function useCarSimcards (initialItems = []) {
   return { cartSims, handleAddSimcard, handleRemoveItem, setCartSims }
 }
 
-function useCarSimcards2 (initialItems = []) {
+function useCarSimcards2 (initialItems = [] as string[]) {
   const [cartSims2, setCartSims2] = useState(initialItems)
 
   const handleAddSimcard2 = useCallback((id:string) => {
@@ -55,8 +56,8 @@ function useCarSimcards2 (initialItems = []) {
 export function CreaMovimientosSim () {
   const { user } = useAuth()
   const company = user?.empresa || ''
-  const [bodegaDestino, setBodegaDestino] = useState(null)
-  const [bodegaOrigen, setBodegaOrigen] = useState(null)
+  const [bodegaOrigen, setBodegaOrigen] = useState<BodegaWithSims>({ _id: '', nombre: '', direccion: '', sucursal: 0, items: [], simcards: [], updatedAt: ''})
+  const [bodegaDestino, setBodegaDestino] = useState<BodegaWithSims>({ _id: '', nombre: '', direccion: '', sucursal: 0, items: [], simcards: [], updatedAt: ''})
 
   const [descripcion, setDescripcion] = useState('')
   const [incidente, setIncidente] = useState('')
@@ -89,8 +90,10 @@ export function CreaMovimientosSim () {
       company
     })
       .then(res => {
-        setMessage(res.data.message); setBodegaOrigen(null); setBodegaDestino(null); setCartSims([])
-        setCartSims2([]); setDescripcion(''); setIncidente(''); setTimeout(() => { setMessage(''); setError('') }, 4000)
+        setMessage(res.data.message); 
+        setBodegaOrigen({ _id: '', nombre: '', direccion: '', sucursal: 0, items: [], simcards: [], updatedAt: ''}); 
+        setBodegaDestino({ _id: '', nombre: '', direccion: '', sucursal: 0, items: [], simcards: [], updatedAt: ''}); 
+        setCartSims([]); setCartSims2([]); setDescripcion(''); setIncidente(''); setTimeout(() => { setMessage(''); setError('') }, 4000)
       })
       .catch(err => {
         setError(err.response.data.error)
