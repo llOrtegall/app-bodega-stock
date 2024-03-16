@@ -1,9 +1,8 @@
-import { utils, writeFile } from 'xlsx'
+import { SimcardWithBodega } from '../../interfaces/Simcard.interfaces'
+import { ColInfo, utils, writeFile } from 'xlsx'
 
-export const BottonExportSimcards = ({ simcards }) => {
+export const BottonExportSimcards = ({simcards} : {simcards: SimcardWithBodega[]}) => {
   const titulo = [{ A: 'Reporte De Simcards' }, {}]
-  // const hora = new Date()
-  // const infoCreacción = { A: `Fecha De Creación ${formatFecha(hora)}` }
 
   const longitudes = [25, 25, 20, 10, 10, 10, 10, 20, 20]
 
@@ -32,7 +31,7 @@ export const BottonExportSimcards = ({ simcards }) => {
         F: sim.apn,
         G: sim.user,
         H: sim.pass,
-        I: sim.bodega.nombre || sim.bodega
+        I: (typeof sim.bodega === 'string' ? sim.bodega : sim.bodega?.nombre) || ''
       })
     })
 
@@ -43,7 +42,7 @@ export const BottonExportSimcards = ({ simcards }) => {
     }, 1000)
   }
 
-  const creandoArchivo = (dataFinal) => {
+  const creandoArchivo = (dataFinal: unknown[]) => {
     const libro = utils.book_new()
     const hoja = utils.json_to_sheet(dataFinal, { skipHeader: true })
 
@@ -53,7 +52,7 @@ export const BottonExportSimcards = ({ simcards }) => {
       utils.decode_range('A3:G3')
     ]
 
-    let simpiedades = []
+    const simpiedades: ColInfo[] | { width: number }[] | undefined = []
 
     longitudes.forEach((col) => {
       simpiedades.push({ width: col })

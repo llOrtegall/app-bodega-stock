@@ -8,10 +8,10 @@ import { useAuth } from '../../Auth/AuthContext'
 import { useCallback, useState } from 'react'
 import axios from 'axios'
 
-function useCarSimcards (initialItems = [] as string[]) {
+function useCarSimcards(initialItems = [] as string[]) {
   const [cartSims, setCartSims] = useState(initialItems)
 
-  const handleAddSimcard = useCallback((id:string) => {
+  const handleAddSimcard = useCallback((id: string) => {
     setCartSims(prevItems => {
       if (!prevItems.includes(id)) {
         return [...prevItems, id]
@@ -21,7 +21,7 @@ function useCarSimcards (initialItems = [] as string[]) {
     })
   }, [])
 
-  const handleRemoveItem = useCallback((id:string) => {
+  const handleRemoveItem = useCallback((id: string) => {
     setCartSims(prevItems => {
       return prevItems.filter(item => item !== id)
     })
@@ -30,10 +30,10 @@ function useCarSimcards (initialItems = [] as string[]) {
   return { cartSims, handleAddSimcard, handleRemoveItem, setCartSims }
 }
 
-function useCarSimcards2 (initialItems = [] as string[]) {
+function useCarSimcards2(initialItems = [] as string[]) {
   const [cartSims2, setCartSims2] = useState(initialItems)
 
-  const handleAddSimcard2 = useCallback((id:string) => {
+  const handleAddSimcard2 = useCallback((id: string) => {
     setCartSims2(prevItems => {
       if (!prevItems.includes(id)) {
         return [...prevItems, id]
@@ -43,7 +43,7 @@ function useCarSimcards2 (initialItems = [] as string[]) {
     })
   }, [])
 
-  const handleRemoveItem2 = useCallback((id:string) => {
+  const handleRemoveItem2 = useCallback((id: string) => {
     setCartSims2(prevItems => {
       return prevItems.filter(item => item !== id)
     })
@@ -53,11 +53,11 @@ function useCarSimcards2 (initialItems = [] as string[]) {
 }
 
 
-export function CreaMovimientosSim () {
+export function CreaMovimientosSim() {
   const { user } = useAuth()
   const company = user?.empresa || ''
-  const [bodegaOrigen, setBodegaOrigen] = useState<BodegaWithSims>({ _id: '', nombre: '', direccion: '', sucursal: 0, items: [], simcards: [], updatedAt: ''})
-  const [bodegaDestino, setBodegaDestino] = useState<BodegaWithSims>({ _id: '', nombre: '', direccion: '', sucursal: 0, items: [], simcards: [], updatedAt: ''})
+  const [bodegaOrigen, setBodegaOrigen] = useState<BodegaWithSims>({ _id: '', nombre: '', direccion: '', sucursal: 0, items: [], simcards: [], updatedAt: '' })
+  const [bodegaDestino, setBodegaDestino] = useState<BodegaWithSims>({ _id: '', nombre: '', direccion: '', sucursal: 0, items: [], simcards: [], updatedAt: '' })
 
   const [descripcion, setDescripcion] = useState('')
   const [incidente, setIncidente] = useState('')
@@ -90,9 +90,9 @@ export function CreaMovimientosSim () {
       company
     })
       .then(res => {
-        setMessage(res.data.message); 
-        setBodegaOrigen({ _id: '', nombre: '', direccion: '', sucursal: 0, items: [], simcards: [], updatedAt: ''}); 
-        setBodegaDestino({ _id: '', nombre: '', direccion: '', sucursal: 0, items: [], simcards: [], updatedAt: ''}); 
+        setMessage(res.data.message);
+        setBodegaOrigen({ _id: '', nombre: '', direccion: '', sucursal: 0, items: [], simcards: [], updatedAt: '' });
+        setBodegaDestino({ _id: '', nombre: '', direccion: '', sucursal: 0, items: [], simcards: [], updatedAt: '' });
         setCartSims([]); setCartSims2([]); setDescripcion(''); setIncidente(''); setTimeout(() => { setMessage(''); setError('') }, 4000)
       })
       .catch(err => {
@@ -108,11 +108,11 @@ export function CreaMovimientosSim () {
 
       <section className="grid grid-cols-4 p-2 gap-2">
 
-        <RenderBodegaOrigen bodegaOrigen={bodegaOrigen} setBodegaOrigen={setBodegaOrigen} 
-          cartSims={cartSims} handleAddSimcard={handleAddSimcard} fun={hadlesearchnew} company={company}/>
+        <RenderBodegaOrigen bodegaOrigen={bodegaOrigen} setBodegaOrigen={setBodegaOrigen}
+          cartSims={cartSims} handleAddSimcard={handleAddSimcard} fun={hadlesearchnew} company={company} />
 
-        <RenderBodegaDestino bodegaDestino={bodegaDestino} setBodegaDestino={setBodegaDestino} 
-          cartSims2={cartSims2} handleAddSimcard2={handleAddSimcard2} fun={hadlesearchnew} company={company}/>
+        <RenderBodegaDestino bodegaDestino={bodegaDestino} setBodegaDestino={setBodegaDestino}
+          cartSims2={cartSims2} handleAddSimcard2={handleAddSimcard2} fun={hadlesearchnew} company={company} />
       </section>
 
       <article className='mx-2 rounded-md'>
@@ -125,7 +125,7 @@ export function CreaMovimientosSim () {
 
         <FooterMovSim encargado={nombres} incidente={incidente} setIncidente={setIncidente}
           descripcion={descripcion} setDescripcion={setDescripcion} handleClick={handleClick} />
-      </section> 
+      </section>
 
       <section className='pt-4'>
 

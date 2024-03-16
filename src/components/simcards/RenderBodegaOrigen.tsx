@@ -2,19 +2,21 @@ import { useFilterSimcards } from '../../hooks'
 import { AddIcon } from '../icons'
 import { useState } from 'react'
 import axios from 'axios'
+import { BodegaWithSims } from '../../interfaces/Simcard.interfaces'
 
-export function RenderBodegaOrigen ({ bodegaOrigen, setBodegaOrigen, cartSims, handleAddSimcard, fun, company }) {
-  
+export function RenderBodegaOrigen({ bodegaOrigen, setBodegaOrigen, cartSims, handleAddSimcard, fun, company }:
+  { bodegaOrigen: BodegaWithSims, setBodegaOrigen: React.Dispatch<React.SetStateAction<BodegaWithSims>>, cartSims: string[], handleAddSimcard: (id: string) => void, fun: () => void, company: string }) {
+
   const [searchBodegaOrigen, setSearchBodegaOrigen] = useState('')
 
   const hadlesearchnew = fun
 
-  const searchOrigen = (ev) => {
+  const searchOrigen = (ev: { preventDefault: () => void }) => {
     ev.preventDefault()
 
     if (bodegaOrigen !== null) {
       hadlesearchnew()
-      setBodegaOrigen(null)
+      setBodegaOrigen({ _id: '', nombre: '', direccion: '', sucursal: 0, items: [], simcards: [], updatedAt: '' })
       axios.get(`/getBodegaSimcards/${company}/${searchBodegaOrigen}`)
         .then(response => {
           setBodegaOrigen(response.data)

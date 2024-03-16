@@ -1,4 +1,12 @@
-export function FooterMovSim ({ encargado, incidente, setIncidente, descripcion, setDescripcion, handleClick }) {
+export function FooterMovSim ({ encargado, incidente, setIncidente, descripcion, setDescripcion, handleClick }: {
+  encargado: string,
+  incidente: string,
+  setIncidente: React.Dispatch<React.SetStateAction<string>>,
+  descripcion: string,
+  setDescripcion: React.Dispatch<React.SetStateAction<string>>,
+  handleClick: () => void
+
+}) {
   return (
     <>
       <footer className="py-4 bg-slate-600 rounded-md text-white mx-2 mt-2">

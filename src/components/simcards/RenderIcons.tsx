@@ -22,8 +22,8 @@ const IconMap = {
   Tigo: TigoIcon
 }
 
-export function RenderIconSims ({operador}) {
-  const IconComponent = IconMap[operador]
+export function RenderIconSims ({operador}: {operador: string}) {
+  const IconComponent = IconMap[operador as keyof typeof IconMap]
 
   return IconComponent
     ? (
