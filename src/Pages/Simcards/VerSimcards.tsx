@@ -1,21 +1,22 @@
+import { BottonExportSimcards } from '../../components/simcards/ExportSimcards.js'
+import { SimcardWithBodega } from '../../interfaces/Simcard.interfaces.js'
+import { RenderIconSims } from '../../components/simcards/RenderIcons.js'
 import { simcardsBodegas } from '../../services/Simcards.services'
 import { useFilterSimcards } from '../../hooks/useFilterSimcards'
-import { useEffect, useState } from 'react'
 import { useAuth } from '../../Auth/AuthContext.js'
-import { BottonExportSimcards } from '../../components/simcards/ExportSimcards.js'
-import { RenderIconSims } from '../../components/simcards/RenderIcons.js'
+import { useEffect, useState } from 'react'
 
 export function VerSimcards () {
   const { user } = useAuth()
   const company = user?.empresa || ''
-  const [simcardsConBodega, setSimcardsConBodega] = useState([])
+  const [simcardsConBodega, setSimcardsConBodega] = useState<SimcardWithBodega[]>([])
   useEffect(() => {
     simcardsBodegas(company)
       .then(data => {
         setSimcardsConBodega(data)
       })
       .catch(err => console.log(err))
-  }, [])
+  }, [company])
 
   const { filteredSimcards, searchSimcard, setSearchSimcard } = useFilterSimcards(simcardsConBodega)
 
@@ -52,7 +53,7 @@ export function VerSimcards () {
               <p className="text-gray-500">{item.estado}</p>
               <p className="text-gray-500">{item.user}</p>
               <p className="text-gray-500">{item.pass}</p>
-              <p className='text-gray-700 font-semibold text-xs'>{item.bodega.nombre || item.bodega}</p>
+              <p className='text-gray-700 font-semibold text-xs'>{ typeof item.bodega === 'string' ? item.bodega : item.bodega.nombre}</p>
             </article>
           ))
           : <p className='text-center text-2xl font-semibold'>No Existen Items</p>
