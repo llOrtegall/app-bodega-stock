@@ -4,7 +4,7 @@ interface Bodega {
   _id: string
 }
 
-interface SimcardNoBodega {
+export interface SimcardNoBodega {
   _id: string;
   numero: string;
   operador: string;

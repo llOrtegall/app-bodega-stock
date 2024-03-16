@@ -53,7 +53,7 @@ export function VerSimcards () {
               <p className="text-gray-500">{item.estado}</p>
               <p className="text-gray-500">{item.user}</p>
               <p className="text-gray-500">{item.pass}</p>
-              <p className='text-gray-700 font-semibold text-xs'>{ typeof item.bodega === 'string' ? item.bodega : item.bodega.nombre}</p>
+              <p className='text-gray-700 font-semibold text-xs'>{ typeof item.bodega !== 'string' ? item.bodega?.nombre : item.bodega }</p>
             </article>
           ))
           : <p className='text-center text-2xl font-semibold'>No Existen Items</p>

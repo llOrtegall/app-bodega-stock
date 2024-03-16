@@ -1,6 +1,13 @@
+import { BodegaWithSims } from '../../interfaces/Simcard.interfaces'
 import { SimcardAgregada } from '../simcards/SimcardAgregada'
 
-export function ComponenteSimcards ({ bodegaOrigen, bodegaDestino, handleRemoveItem, handleRemoveItem2, cartSims, cartSims2 }) {
+
+
+export function ComponenteSimcards ({ bodegaOrigen, bodegaDestino, handleRemoveItem, handleRemoveItem2, cartSims, cartSims2 }: 
+  { bodegaOrigen: BodegaWithSims, bodegaDestino: BodegaWithSims, 
+    handleRemoveItem: (id: string) => void, 
+    handleRemoveItem2: (id: string) => void, 
+    cartSims: string[], cartSims2: string[] }) {
   return (<>
 
     <h1 className='text-xl font-semibold text-center py-1 rounded-t-md bg-blue-600 text-white'>Movimiento </h1>

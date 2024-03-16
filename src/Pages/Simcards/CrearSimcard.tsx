@@ -19,7 +19,7 @@ export function CrearSimcard () {
     company
   })
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault()
 
     axios.post('/createSimcard', simcard)

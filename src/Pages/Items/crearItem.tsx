@@ -40,6 +40,7 @@ export function CrearItems () {
   const [error, setError] = useState('')
 
   const [item, setItem] = useState<createItem>({
+    _id: '',
     nombre: '',
     descripcion: '',
     placa: '',
@@ -60,6 +61,7 @@ export function CrearItems () {
     axios.post('/createItem', item)
       .then(res => {
         setItem({
+          _id: '',
           nombre: '',
           descripcion: '',
           placa: '',
