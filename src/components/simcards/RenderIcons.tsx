@@ -1,18 +1,18 @@
 const ClaroIcon = () => {
   return(
-    <img width={30} src="../public/claroIcon.png" alt="icono clar" />
+    <img width={30} src="/claroIcon.png" alt="icono clar" />
   )
 }
 
 const MovistarIcon = () => {
   return(
-    <img width={30} src="../public/logoMovistar.png" alt="icono movistar" />
+    <img width={30} src="/logoMovistar.png" alt="icono movistar" />
   )
 }
 
 const TigoIcon = () => {
   return(
-    <img width={30} src="../public/logoTigo.png" alt="icono tigo" />
+    <img width={30} src="/logoTigo.png" alt="icono tigo" />
   )
 }
 

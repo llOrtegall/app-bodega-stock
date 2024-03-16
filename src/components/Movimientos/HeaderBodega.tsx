@@ -1,6 +1,14 @@
+import { Bodega } from "../../interfaces/Movimientos.interfaces";
 import { Button, Input, Label } from "../ui";
 
-export function HeaderBodega({funGetBodega, valueBodega, searBodega, bodega, children}) {
+export function HeaderBodega({funGetBodega, valueBodega, searBodega, bodega, children} :
+  {
+    bodega: Bodega | undefined,
+    funGetBodega: (ev: { preventDefault: () => void }) => void,
+    valueBodega: string,
+    searBodega: React.Dispatch<React.SetStateAction<string>>,
+    children: string
+  }) {
   return (
     <article className='flex flex-col bg-slate-700 rounded-md'>
 
