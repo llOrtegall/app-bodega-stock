@@ -1,6 +1,6 @@
 import { FilterComponentBodegas } from '../../components/ui/FilterComponenBodegas';
+import { ListItemsComponent } from '../../components/Items/ListItemsComponent';
 import { FilterComponentItems } from '../../components/ui/FilterComponentItems';
-import { AddIcon, CheckIcon, DeleteIcon } from '../../components/icons'
 import { MessageDisplay } from '../../components/ui/MessagesDisplay'
 import { BodegaIntIS } from "../../interfaces/Bodega.Interfaces";
 import { useFiltersBodegas } from '../../hooks/useFilterBodegas';
@@ -9,6 +9,7 @@ import { ItemWithBodega } from "../../interfaces/Item.Intece";
 import { useFiltersItems } from '../../hooks/useFilterItems';
 import { getAllItems } from "../../services/Item.services";
 import { useCallback, useEffect, useState } from "react";
+import { DeleteIcon } from '../../components/icons'
 import { useAuth } from "../../Auth/AuthContext";
 import axios from "axios";
 
@@ -110,26 +111,7 @@ export function AsignarItemBodega() {
 
           <main style={{ maxHeight: '550px', overflowY: 'auto' }}>
             {
-              filteredItems.map(item => (
-                item.bodega === "No Asignado" && (
-                  <article key={item._id} className='flex justify-between px-6 py-2 border rounded-md font-semibold my-2' >
-                    <p className=''>{item.placa}</p>
-                    <p className=''>{item.nombre}</p>
-                    <button onClick={() => handleAddItem(item._id)} className="">
-                      {
-                        carItems.includes(item._id) ?
-                          <p className="bg-green-300 rounded-full">
-                            <CheckIcon />
-                          </p>
-                          :
-                          <p className="">
-                            <AddIcon />
-                          </p>
-                      }
-                    </button>
-                  </article>
-                )
-              ))
+              <ListItemsComponent items={filteredItems} carItems={carItems} handleAddItem={handleAddItem} /> 
             }
           </main>
 
