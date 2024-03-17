@@ -11,12 +11,8 @@ export function ShowMovimientos() {
 
 
   return (
-    loading ? (
-      <section className='w-full h-[92vh] flex flex-col justify-center items-center'>
-        <Loading />
-        <p>Cargando...</p>
-      </section>
-    ):
+    loading ? (<Loading>Cargando Movimientos</Loading>)
+      :
       (
         <section className="w-full h-[92vh] overflow-auto">
           <article className='p-2 bg-blue-700 flex items-center justify-center'>

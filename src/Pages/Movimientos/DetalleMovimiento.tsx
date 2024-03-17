@@ -23,9 +23,6 @@ export function DesatalleMovimiento() {
           {movimiento.simcards.entran.length > 0 ? (<RenderSimcardMov simcards={movimiento.simcards} />) : null}
         </main>
       )
-      : <main className='flex flex-col w-full h-[92vh] justify-center items-center'>
-          <Loading />
-          <h1>Cargando ...</h1>
-        </main>
+      : <Loading> Cargando Movimiento </Loading>
   )
 }
