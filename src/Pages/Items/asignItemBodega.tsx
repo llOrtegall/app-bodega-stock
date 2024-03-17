@@ -1,20 +1,21 @@
+import { FilterComponentBodegas } from '../../components/ui/FilterComponenBodegas';
+import { FilterComponentItems } from '../../components/ui/FilterComponentItems';
 import { AddIcon, CheckIcon, DeleteIcon } from '../../components/icons'
 import { MessageDisplay } from '../../components/ui/MessagesDisplay'
-import { getAllBodegas } from "../../services/Bodegas.services";
 import { BodegaIntIS } from "../../interfaces/Bodega.Interfaces";
+import { useFiltersBodegas } from '../../hooks/useFilterBodegas';
+import { getAllBodegas } from "../../services/Bodegas.services";
 import { ItemWithBodega } from "../../interfaces/Item.Intece";
+import { useFiltersItems } from '../../hooks/useFilterItems';
 import { getAllItems } from "../../services/Item.services";
 import { useCallback, useEffect, useState } from "react";
 import { useAuth } from "../../Auth/AuthContext";
 import axios from "axios";
-import { useFiltersItems } from '../../hooks/useFilterItems';
-import { FilterComponentItems } from '../../components/ui/FilterComponentItems';
-import { FilterComponentBodegas } from '../../components/ui/FilterComponenBodegas';
-import { useFiltersBodegas } from '../../hooks/useFilterBodegas';
 
 export function AsignarItemBodega() {
   const { user } = useAuth();
   const company = user?.empresa || '';
+
   const [error, setError] = useState<string>('');
   const [message, setMessage] = useState<string>('');
 
@@ -94,7 +95,7 @@ export function AsignarItemBodega() {
 
       <section className="grid grid-cols-3 gap-3 px-4">
 
-        <section className="" style={{ maxHeight: '650px', overflowY: 'auto' }}>
+        <section>
           <h3 className="text-center font-semibold border-b-2 border-black pb-1">Items Sin Bodega</h3>
           <header>
             <div className='flex w-full justify-center py-2'>
@@ -107,31 +108,34 @@ export function AsignarItemBodega() {
             </p>
           </header>
 
-          {
-            filteredItems.map(item => (
-              item.bodega === "No Asignado" && (
-                <article key={item._id} className='flex justify-between px-6 py-2 border rounded-md font-semibold my-2' >
-                  <p className=''>{item.placa}</p>
-                  <p className=''>{item.nombre}</p>
-                  <button onClick={() => handleAddItem(item._id)} className="">
-                    {
-                      carItems.includes(item._id) ?
-                        <p className="bg-green-300 rounded-full">
-                          <CheckIcon />
-                        </p>
-                        :
-                        <p className="">
-                          <AddIcon />
-                        </p>
-                    }
-                  </button>
-                </article>
-              )
-            ))
-          }
+          <main style={{ maxHeight: '550px', overflowY: 'auto' }}>
+            {
+              filteredItems.map(item => (
+                item.bodega === "No Asignado" && (
+                  <article key={item._id} className='flex justify-between px-6 py-2 border rounded-md font-semibold my-2' >
+                    <p className=''>{item.placa}</p>
+                    <p className=''>{item.nombre}</p>
+                    <button onClick={() => handleAddItem(item._id)} className="">
+                      {
+                        carItems.includes(item._id) ?
+                          <p className="bg-green-300 rounded-full">
+                            <CheckIcon />
+                          </p>
+                          :
+                          <p className="">
+                            <AddIcon />
+                          </p>
+                      }
+                    </button>
+                  </article>
+                )
+              ))
+            }
+          </main>
+
         </section>
 
-        <article className="" style={{ maxHeight: '650px', overflowY: 'auto' }}>
+        <section>
           <h3 className="text-center font-semibold border-b-2 border-black pb-1">Items Que Se Agregarán a Bodega</h3>
           <header>
             <div className='pb-14'></div>
@@ -141,24 +145,26 @@ export function AsignarItemBodega() {
               <span>Eliminar</span>
             </p>
           </header>
-          {
-            carItems.map(itemAdd => (
-              <article key={itemAdd} className='flex justify-between px-6 py-2 border rounded-md font-semibold my-2'>
-                <p className=''>
-                  {items.find(i => i._id === itemAdd)?.placa}
-                </p>
-                <p className=''>
-                  {items.find(i => i._id === itemAdd)?.nombre}
-                </p>
-                <button onClick={() => handleRemoveItem(itemAdd)} className="hover:text-red-600">
-                  <DeleteIcon />
-                </button>
-              </article>
-            ))
-          }
-        </article>
+          <main style={{ maxHeight: '550px', overflowY: 'auto' }}>
+            {
+              carItems.map(itemAdd => (
+                <article key={itemAdd} className='flex justify-between px-6 py-2 border rounded-md font-semibold my-2'>
+                  <p className=''>
+                    {items.find(i => i._id === itemAdd)?.placa}
+                  </p>
+                  <p className=''>
+                    {items.find(i => i._id === itemAdd)?.nombre}
+                  </p>
+                  <button onClick={() => handleRemoveItem(itemAdd)} className="hover:text-red-600">
+                    <DeleteIcon />
+                  </button>
+                </article>
+              ))
+            }
+          </main>
+        </section>
 
-        <article className="">
+        <section>
 
           <h3 className="text-center font-semibold border-b-2 border-black pb-1">Selección De Bodega</h3>
           <div className='flex w-full justify-center py-2'>
@@ -185,7 +191,7 @@ export function AsignarItemBodega() {
           <form onSubmit={handleSubmit} className='w-full flex justify-center'>
             <input type="submit" value="Agregar Items A Bodega" className="bg-blue-400 p-2 rounded-md w-96 hover:bg-blue-500 cursor-pointer text-white font-semibold text-center" id="submit" name="submit" />
           </form>
-        </article>
+        </section>
 
       </section>
 

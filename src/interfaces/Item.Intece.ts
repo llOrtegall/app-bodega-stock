@@ -1,9 +1,3 @@
-interface Bodega {
-  nombre: string;
-  sucursal: number;
-  _id: string;
-}
-
 export interface createItem {
   _id: string;
   nombre: string;
@@ -12,6 +6,12 @@ export interface createItem {
   serial: string;
   estado: 'Nuevo' | 'Bueno' | 'Malo' | 'DeBaja';
   company: string;
+}
+
+interface Bodega {
+  nombre: string;
+  sucursal: number;
+  _id: string;
 }
 
 export interface Item {
