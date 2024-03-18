@@ -1,8 +1,8 @@
 import { MessageDisplay } from '../../components/ui/MessagesDisplay'
+import { type newItem } from '../../interfaces/Item'
 import { useAuth } from '../../Auth/AuthContext'
 import { useState } from 'react'
 import axios from 'axios'
-import { createItem } from '../../interfaces/Item.Intece'
 
 const options = [
   { value: 'Impresora TMU USB/LPT', label: 'Impresora TMU | USB' },
@@ -33,53 +33,59 @@ const options = [
   { value: 'Silla', label: 'Silla' }
 ]
 
-export function CrearItems () {
+export function CrearItems (): JSX.Element {
   const { user } = useAuth()
-  const company = user?.empresa || ''
+  const company = (user != null) ? user.empresa : ''
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
 
-  const [item, setItem] = useState<createItem>({
-    _id: '',
-    nombre: '',
-    descripcion: '',
-    placa: '',
-    serial: '',
-    estado: "Bueno",
-    company
-  })
+  const [item, setItem] = useState<newItem>(
+    {
+      nombre: '',
+      descripcion: '',
+      placa: '',
+      serial: '',
+      estado: 'Bueno',
+      company
+    }
+  )
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>): void => {
     setItem({
       ...item,
       [e.target.name]: e.target.value
     })
   }
 
-  const handleSubmit = (e: { preventDefault: () => void }) => {
+  const handleSubmit = (e: { preventDefault: () => void }): void => {
     e.preventDefault()
     axios.post('/createItem', item)
       .then(res => {
-        setItem({
-          _id: '',
-          nombre: '',
-          descripcion: '',
-          placa: '',
-          serial: '',
-          estado: 'Bueno',
-          company
-        })
-        setMessage(res.data.message)
-        setTimeout(() => {
-          setMessage('')
-        }, 4000)
+        const msgString = res.data.message
+        if (typeof msgString === 'string') {
+          setItem({
+            nombre: '',
+            descripcion: '',
+            placa: '',
+            serial: '',
+            estado: 'Bueno',
+            company
+          })
+          setMessage(msgString)
+          setTimeout(() => {
+            setMessage('')
+          }, 4000)
+        }
       })
       .catch(err => {
         console.log(err)
-        setError(err.response.data.error)
-        setTimeout(() => {
-          setError('')
-        }, 4000)
+        const errString = err.response.data.error
+        if (typeof errString === 'string') {
+          setError(errString)
+          setTimeout(() => {
+            setError('')
+          }, 4000)
+        }
       })
   }
 

@@ -1,4 +1,4 @@
-import { ItemWithBodega } from "../../interfaces/Item.Intece";
+import { ItemWithBodega } from "../../interfaces/Item";
 import { AddIcon, CheckIcon } from "../icons";
 import { Loading } from "../ui";
 

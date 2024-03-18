@@ -1,8 +1,8 @@
-import { type ItemWithBodega } from '../interfaces/Item.Intece'
+import { type ItemsArray } from '../interfaces/Item'
 import axios from 'axios'
 
-export const getAllItems = async (company: string): Promise<ItemWithBodega> => {
+export const getAllItems = async (company: string): Promise<ItemsArray> => {
   const response = await axios.get(`/itemsConBodegas/${company}`)
-  const data = response.data
+  const data = response.data as ItemsArray
   return data
 }

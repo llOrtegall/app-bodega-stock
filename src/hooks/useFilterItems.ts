@@ -1,13 +1,13 @@
 import { useState, useMemo } from 'react'
-import { type ItemWithBodega } from '../interfaces/Item.Intece'
+import { type ItemsArray } from '../interfaces/Item'
 
 interface UseFiltersItemsProps {
   search: string
   setSearch: React.Dispatch<React.SetStateAction<string>>
-  filteredItems: ItemWithBodega
+  filteredItems: ItemsArray
 }
 
-export function useFiltersItems (items: ItemWithBodega): UseFiltersItemsProps {
+export function useFiltersItems (items: ItemsArray): UseFiltersItemsProps {
   const [search, setSearch] = useState('')
 
   const filteredItems = useMemo(() => {

@@ -1,9 +1,9 @@
-import { type ItemWithBodega } from '../../interfaces/Item.Intece'
+import { type ItemsArray } from '../../interfaces/Item'
 import { type ColInfo, utils, writeFile } from 'xlsx'
 import { Button } from '../ui'
 
 interface RenderItemsProps {
-  items: ItemWithBodega
+  items: ItemsArray
 }
 
 export const BottonExportItems = (datos: RenderItemsProps): JSX.Element => {

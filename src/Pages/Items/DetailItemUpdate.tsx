@@ -1,10 +1,9 @@
-import axios from 'axios'
-import { useEffect, useState } from 'react'
+import { type createItem } from '../../interfaces/Item'
 import { useLocation, useNavigate } from 'react-router-dom'
-
 import { MessageDisplay } from '../../components/ui'
 import { useAuth } from '../../Auth/AuthContext'
-import { createItem } from '../../interfaces/Item.Intece'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
 
 const options = [
   { value: 'Impresora TMU USB/LPT', label: 'Impresora TMU | USB' },
@@ -35,13 +34,13 @@ const options = [
   { value: 'Silla', label: 'Silla' }
 ]
 
-export function DetalleItem() {
+export function DetalleItem (): JSX.Element {
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
   const { id } = useLocation().state
   const navigate = useNavigate()
   const { user } = useAuth()
-  const company = user?.empresa || ''
+  const company = (user != null) ? user.empresa : ''
 
   const [item, setItem] = useState<createItem>({
     _id: '',
@@ -50,46 +49,51 @@ export function DetalleItem() {
     placa: '',
     serial: '',
     estado: 'Bueno',
-    company: company
+    company
   })
 
   useEffect(() => {
     axios.get(`/getItem/${company}/${id}`)
       .then(res => {
-        setItem(res.data)
+        setItem(res.data as createItem)
       })
       .catch(err => {
         console.log(err)
       })
   }, [company, id])
 
-  const handleChange = (event: { target: { name: string; value: string } }) => {
+  const handleChange = (event: { target: { name: string, value: string } }): void => {
     const { name, value } = event.target
     setItem(prevItem => ({ ...prevItem, [name]: value }))
   }
 
-  const handleSubmit = (event: { preventDefault: () => void }) => {
-    event.preventDefault();
-    const sendItem = {...item, id: item._id, company: company}
+  const handleSubmit = (event: { preventDefault: () => void }): void => {
+    event.preventDefault()
+    const sendItem = { ...item, id: item._id, company }
     axios.patch('/updateItem/', sendItem)
       .then(res => {
-        setMessage(res.data.message)
-        setItem({
-          _id: '',
-          nombre: '',
-          descripcion: '',
-          placa: '',
-          serial: '',
-          estado: 'Bueno',
-          company: company
-        })
-        setTimeout(() => {
-          navigate('/items/verItems')
-        }, 2000)
+        const msgString = res.data.message
+        if (typeof msgString === 'string') {
+          setMessage(msgString)
+          setItem({
+            _id: '',
+            nombre: '',
+            descripcion: '',
+            placa: '',
+            serial: '',
+            estado: 'Bueno',
+            company
+          })
+          setTimeout(() => {
+            navigate('/items/verItems')
+          }, 2000)
+        }
       })
       .catch(err => {
-        console.log(err)
-        setError(err.response.data.error || err.response.data)
+        const errStr = err.response.data.error
+        if (typeof errStr === 'string') {
+          setError(errStr)
+        }
       })
   }
 

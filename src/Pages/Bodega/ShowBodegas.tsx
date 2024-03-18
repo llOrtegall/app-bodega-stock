@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { getAllBodegas } from '../../services/Bodegas.services'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../../Auth/AuthContext'
-import { BodegaIntIS } from '../../interfaces/Bodega.Interfaces'
+import { BodegaIntIS } from '../../interfaces/Bodega'
 import { useFiltersBodegas } from '../../hooks/useFilterBodegas'
 
 export function ShowBodegas() {

@@ -1,9 +1,9 @@
-import { type ItemWithBodega } from '../interfaces/Item.Intece'
+import { type ItemsArray } from '../interfaces/Item'
 import { useCallback, useEffect, useState } from 'react'
 import { getAllItems } from '../services/Item.services'
 
 interface useItemsProps {
-  items: ItemWithBodega
+  items: ItemsArray
   loading: boolean
   search: string
   error: any
@@ -13,7 +13,7 @@ interface useItemsProps {
 
 export function useItems ({ company }: { company: string }): useItemsProps {
   const [loading, setLoading] = useState(false)
-  const [items, setItems] = useState<ItemWithBodega>([])
+  const [items, setItems] = useState<ItemsArray>([])
   const [error, setError] = useState(null)
   const [search, setSearch] = useState('')
 

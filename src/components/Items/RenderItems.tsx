@@ -1,10 +1,10 @@
 import { useNavigate } from 'react-router-dom'
-import { type ItemWithBodega } from '../../interfaces/Item.Intece'
+import { type ItemsArray } from '../../interfaces/Item'
 import { LockIcon } from '../icons'
 import { Button } from '../ui'
 
 interface RenderItemsProps {
-  items: ItemWithBodega
+  items: ItemsArray
   rol: string | undefined
 }
 

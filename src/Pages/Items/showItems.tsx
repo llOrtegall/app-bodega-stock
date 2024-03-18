@@ -1,6 +1,5 @@
 import { FilterComponentItems } from '../../components/ui/FilterComponentItems'
-import { BottonExportItems } from '../../components/Items/ExportExcelItem'
-import { RenderItems } from '../../components/Items/RenderItems'
+import { BottonExportItems, RenderItems } from '../../components/Items'
 import { useFiltersItems } from '../../hooks/useFilterItems'
 import { useAuth } from '../../Auth/AuthContext'
 import { useItems } from '../../hooks/useItems'

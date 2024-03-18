@@ -1,34 +1,33 @@
-import { FilterComponentBodegas } from '../../components/ui/FilterComponenBodegas';
-import { ListItemsComponent } from '../../components/Items/ListItemsComponent';
-import { FilterComponentItems } from '../../components/ui/FilterComponentItems';
+import { FilterComponentBodegas } from '../../components/ui/FilterComponenBodegas'
+import { ListItemsComponent } from '../../components/Items/ListItemsComponent'
+import { FilterComponentItems } from '../../components/ui/FilterComponentItems'
 import { MessageDisplay } from '../../components/ui/MessagesDisplay'
-import { BodegaIntIS } from "../../interfaces/Bodega.Interfaces";
-import { useFiltersBodegas } from '../../hooks/useFilterBodegas';
-import { getAllBodegas } from "../../services/Bodegas.services";
-import { ItemWithBodega } from "../../interfaces/Item.Intece";
-import { useFiltersItems } from '../../hooks/useFilterItems';
-import { getAllItems } from "../../services/Item.services";
-import { useCallback, useEffect, useState } from "react";
+import { type BodegaIntIS } from '../../interfaces/Bodega'
+import { useFiltersBodegas } from '../../hooks/useFilterBodegas'
+import { getAllBodegas } from '../../services/Bodegas.services'
+import { type ItemWithBodega } from '../../interfaces/Item'
+import { useFiltersItems } from '../../hooks/useFilterItems'
+import { getAllItems } from '../../services/Item.services'
+import { useCallback, useEffect, useState } from 'react'
 import { DeleteIcon } from '../../components/icons'
-import { useAuth } from "../../Auth/AuthContext";
-import axios from "axios";
+import { useAuth } from '../../Auth/AuthContext'
+import axios from 'axios'
 
-export function AsignarItemBodega() {
-  const { user } = useAuth();
-  const company = user?.empresa || '';
+export function AsignarItemBodega (): JSX.Element {
+  const { user } = useAuth()
+  const company = (user != null) ? user.empresa : ''
 
-  const [error, setError] = useState<string>('');
-  const [message, setMessage] = useState<string>('');
+  const [error, setError] = useState<string>('')
+  const [message, setMessage] = useState<string>('')
 
-  const [items, setItems] = useState<ItemWithBodega>([]);
-  const [bodegas, setBodegas] = useState<BodegaIntIS[]>([]);
-  const [sendBodega, setSendBodega] = useState<string>('');
+  const [items, setItems] = useState<ItemWithBodega>([])
+  const [bodegas, setBodegas] = useState<BodegaIntIS[]>([])
+  const [sendBodega, setSendBodega] = useState<string>('')
 
   const { filteredItems, search, setSearch } = useFiltersItems(items)
   const { filteredBodegas, searchBodega, setSearchBodega } = useFiltersBodegas(bodegas)
 
   useEffect(() => {
-
     setTimeout(() => {
       getAllBodegas(company)
         .then((data) => {
@@ -36,18 +35,16 @@ export function AsignarItemBodega() {
         })
         .catch((error) => {
           setError(error.message)
-        });
-
-    }, 300);
+        })
+    }, 300)
 
     setTimeout(() => {
       getAllItems(company)
         .then(data => {
           setItems(data)
         })
-    }, 600);
-
-  }, [message]);
+    }, 600)
+  }, [message])
 
   const carItemsInitial: string[] = []
 
@@ -69,7 +66,7 @@ export function AsignarItemBodega() {
     })
   }, [])
 
-  const handleSubmit = async (e: { preventDefault: () => void; }) => {
+  const handleSubmit = (e): void => {
     e.preventDefault()
     axios.post('/addItemsToBodega', { sucursal: sendBodega, itemIds: carItems, company })
       .then(res => {
@@ -79,16 +76,15 @@ export function AsignarItemBodega() {
         setSendBodega('')
         setTimeout(() => {
           setMessage('')
-        }, 3000);
+        }, 3000)
       })
       .catch(err => {
         setError(err.response.data.error)
         setTimeout(() => {
           setError('')
-        }, 3000);
+        }, 3000)
       })
   }
-
 
   return (
     <div className="w-full">
@@ -111,7 +107,7 @@ export function AsignarItemBodega() {
 
           <main style={{ maxHeight: '550px', overflowY: 'auto' }}>
             {
-              <ListItemsComponent items={filteredItems} carItems={carItems} handleAddItem={handleAddItem} /> 
+              <ListItemsComponent items={filteredItems} carItems={carItems} handleAddItem={handleAddItem} />
             }
           </main>
 
@@ -137,7 +133,7 @@ export function AsignarItemBodega() {
                   <p className=''>
                     {items.find(i => i._id === itemAdd)?.nombre}
                   </p>
-                  <button onClick={() => handleRemoveItem(itemAdd)} className="hover:text-red-600">
+                  <button onClick={() => { handleRemoveItem(itemAdd) }} className="hover:text-red-600">
                     <DeleteIcon />
                   </button>
                 </article>
@@ -159,7 +155,7 @@ export function AsignarItemBodega() {
           </header>
 
           <select className="bg-slate-200 rounded-md shadow-lg p-2 w-full flex flex-col gap-2 mb-4"
-            name="sucursal" id="sucursal" value={sendBodega} onChange={ev => setSendBodega(ev.target.value)}>
+            name="sucursal" id="sucursal" value={sendBodega} onChange={ev => { setSendBodega(ev.target.value) }}>
             <option value="">Seleccione una bodega</option>
             {
               filteredBodegas.map(bodega => (
@@ -179,5 +175,5 @@ export function AsignarItemBodega() {
 
       <MessageDisplay message={message} error={error} />
     </div>
-  );
+  )
 }
