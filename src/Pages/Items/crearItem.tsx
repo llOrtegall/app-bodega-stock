@@ -93,7 +93,7 @@ export function CrearItems (): JSX.Element {
   return (
     <main className="h-[92vh] flex flex-col items-center text-2xl">
 
-      <h2 className='bg-blue-700 text-white text-4xl py-4 w-full text-center font-semibold mb-20'>Creación Activos / Insumos </h2>
+      <h2 className='bg-blue-800 border text-white text-3xl py-4 w-full text-center font-semibold mb-20'>Creación Activos / Insumos </h2>
 
       <form className="grid grid-cols-3 gap-2 place-items-center mb-20"
         onSubmit={handleSubmit}>

@@ -1,9 +1,9 @@
 import axios from 'axios'
-import { type BodegaIntIS } from '../interfaces/Bodega'
+import { type Bodegas } from '../interfaces/Bodega'
 
-export async function getAllBodegas (company: string): Promise<BodegaIntIS> {
+export async function getAllBodegas (company: string): Promise<Bodegas> {
   const response = await axios.get(`/getBodegas/${company}`)
-  const data = response.data
+  const data = response.data as Bodegas
   return data
 }
 

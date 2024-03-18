@@ -1,14 +1,14 @@
 import { FilterComponentBodegas } from '../../components/ui/FilterComponenBodegas'
-import { ListItemsComponent } from '../../components/Items/ListItemsComponent'
 import { FilterComponentItems } from '../../components/ui/FilterComponentItems'
+import { ListItemsComponent } from '../../components/Items/ListItemsComponent'
 import { MessageDisplay } from '../../components/ui/MessagesDisplay'
-import { type BodegaIntIS } from '../../interfaces/Bodega'
 import { useFiltersBodegas } from '../../hooks/useFilterBodegas'
 import { getAllBodegas } from '../../services/Bodegas.services'
-import { type ItemWithBodega } from '../../interfaces/Item'
 import { useFiltersItems } from '../../hooks/useFilterItems'
 import { getAllItems } from '../../services/Item.services'
 import { useCallback, useEffect, useState } from 'react'
+import { type ItemsArray } from '../../interfaces/Item'
+import { type Bodegas } from '../../interfaces/Bodega'
 import { DeleteIcon } from '../../components/icons'
 import { useAuth } from '../../Auth/AuthContext'
 import axios from 'axios'
@@ -17,12 +17,12 @@ export function AsignarItemBodega (): JSX.Element {
   const { user } = useAuth()
   const company = (user != null) ? user.empresa : ''
 
-  const [error, setError] = useState<string>('')
-  const [message, setMessage] = useState<string>('')
+  const [error, setError] = useState('')
+  const [message, setMessage] = useState('')
+  const [sendBodega, setSendBodega] = useState('')
 
-  const [items, setItems] = useState<ItemWithBodega>([])
-  const [bodegas, setBodegas] = useState<BodegaIntIS[]>([])
-  const [sendBodega, setSendBodega] = useState<string>('')
+  const [items, setItems] = useState<ItemsArray>([])
+  const [bodegas, setBodegas] = useState<Bodegas>([])
 
   const { filteredItems, search, setSearch } = useFiltersItems(items)
   const { filteredBodegas, searchBodega, setSearchBodega } = useFiltersBodegas(bodegas)
@@ -30,19 +30,21 @@ export function AsignarItemBodega (): JSX.Element {
   useEffect(() => {
     setTimeout(() => {
       getAllBodegas(company)
-        .then((data) => {
-          setBodegas(data)
-        })
+        .then((data) => { setBodegas(data) })
         .catch((error) => {
-          setError(error.message)
+          const errorString = error.response.data.error
+          if (typeof errorString === 'string') {
+            setError(errorString)
+            setTimeout(() => {
+              setError('')
+            }, 3000)
+          }
         })
     }, 300)
 
     setTimeout(() => {
-      getAllItems(company)
-        .then(data => {
-          setItems(data)
-        })
+      void getAllItems(company)
+        .then(data => { setItems(data) })
     }, 600)
   }, [message])
 
@@ -66,12 +68,14 @@ export function AsignarItemBodega (): JSX.Element {
     })
   }, [])
 
-  const handleSubmit = (e): void => {
+  const handleSubmit = (e: { preventDefault: () => void }): void => {
     e.preventDefault()
     axios.post('/addItemsToBodega', { sucursal: sendBodega, itemIds: carItems, company })
       .then(res => {
-        setMessage(res.data.message)
-        // Resetear los stados y volver a solicitar la data del useEffect
+        const messageStr = res.data.message
+        if (typeof messageStr === 'string') {
+          setMessage(messageStr)
+        }
         setCarItems([])
         setSendBodega('')
         setTimeout(() => {
@@ -79,7 +83,10 @@ export function AsignarItemBodega (): JSX.Element {
         }, 3000)
       })
       .catch(err => {
-        setError(err.response.data.error)
+        const errorStr = err.response.data.error
+        if (typeof errorStr === 'string') {
+          setError(errorStr)
+        }
         setTimeout(() => {
           setError('')
         }, 3000)
@@ -87,7 +94,7 @@ export function AsignarItemBodega (): JSX.Element {
   }
 
   return (
-    <div className="w-full">
+    <main className="w-full">
       <h1 className="text-center py-4 text-2xl font-semibold border bg-blue-800 text-white mb-4">Asignar Items a Bodega</h1>
 
       <section className="grid grid-cols-3 gap-3 px-4">
@@ -173,7 +180,9 @@ export function AsignarItemBodega (): JSX.Element {
 
       </section>
 
-      <MessageDisplay message={message} error={error} />
-    </div>
+      <section className='w-full flex items-center justify-center'>
+        <MessageDisplay message={message} error={error} />
+      </section>
+    </main>
   )
 }
