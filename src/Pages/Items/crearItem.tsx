@@ -3,6 +3,7 @@ import { type newItem } from '../../interfaces/Item'
 import { useAuth } from '../../Auth/AuthContext'
 import { useState } from 'react'
 import axios from 'axios'
+import { Button, Input, Label } from '../../components/ui'
 
 const options = [
   { value: 'Impresora TMU USB/LPT', label: 'Impresora TMU | USB' },
@@ -90,52 +91,58 @@ export function CrearItems (): JSX.Element {
   }
 
   return (
-    <main className="h-[93vh] overflow-auto">
+    <main className="h-[92vh] flex flex-col items-center justify-center">
 
-      <section>
-        <form className="grid grid-cols-3 p-8 m-8 gap-3 rounded-lg bg-blue-5  00 place-items-center" onSubmit={handleSubmit}>
-          <div className="w-full flex flex-col mb-4">
-            <label className="mb-2 font-semibold text-gray-700">Nombre: </label>
-            <select name="nombre" id="item" onChange={handleChange} value={item.nombre} className='border rounded-md p-2 border-gray-300'>
-              <option value="">Selecciona un item</option>
-              {options.map((option, index) => (
-                <option key={index} value={option.value}>{option.label}</option>
-              ))}
-            </select>
-          </div>
-          <div className="w-full flex flex-col mb-4">
-            <label className="mb-2 font-semibold text-gray-700">Descripción | Marca</label>
-            <input type="text" name="descripcion" value={item.descripcion} onChange={handleChange} placeholder="Genius - Teclado Gamer ..."
-              className="px-3 py-2 border border-gray-300 rounded-md" />
-          </div>
-          <div className="w-full flex flex-col mb-4">
-            <label className="mb-2 font-semibold text-gray-700">Placa</label>
-            <input type="text" name="placa" value={item.placa} onChange={handleChange}
-              placeholder="MI-0001 / MA-0002 ..."
-              className="px-3 py-2 border border-gray-300 rounded-md" required />
-          </div>
-          <div className="w-full flex flex-col mb-4">
-            <label className="mb-2 font-semibold text-gray-700">Serial</label>
-            <input type="text" name="serial" value={item.serial} onChange={handleChange}
-              placeholder="XFGRTWE675 / SN:JSURY6373 ..."
-              className="px-3 py-2 border border-gray-300 rounded-md uppercase" required />
-          </div>
-          <div className="w-full flex flex-col mb-4">
-            <label className="mb-2 font-semibold text-gray-700">Estado</label>
-            <select name="estado" value={item.estado} onChange={handleChange} className="px-3 py-2 border border-gray-300 rounded-md">
-              <option value="">Selecciona un estado</option>
-              <option value="Nuevo">Nuevo</option>
-              <option value="Bueno">Bueno</option>
-              <option value="Malo">Malo</option>
-              <option value="Baja">Baja</option>
-            </select>
-          </div>
+      <form className="grid grid-cols-3 gap-2 place-items-center mb-20"
+        onSubmit={handleSubmit}>
 
-          <button className="w-52 h-10 text-md font-semibold text-white bg-blue-600 rounded-md hover:bg-green-300 hover:text-black">
-            Crear Item
-          </button>
-        </form>
-      </section>
+        <div className="w-full flex flex-col py-2 gap-2">
+          <Label>Nombre: </Label>
+          <select name="nombre" id="item"
+            onChange={handleChange} value={item.nombre}
+            className='border rounded-md p-2 border-gray-300'>
+            <option value="">Selecciona un item</option>
+            {options.map((option, index) => (
+              <option key={index} value={option.value}>{option.label}</option>
+            ))}
+          </select>
+        </div>
+
+        <div className="w-full flex flex-col py-2 gap-2">
+          <Label>Descripción | Marca</Label>
+          <Input type="text" name="descripcion"
+            value={item.descripcion} onChange={handleChange} placeholder="Genius - Teclado Gamer ..." />
+        </div>
+
+        <div className="w-full flex flex-col py-2 gap-2">
+          <Label>Placa</Label>
+          <Input type="text" name="placa"
+            value={item.placa} onChange={handleChange}
+            placeholder="MI-0001 / MA-0002 ..."
+            required />
+        </div>
+
+        <div className="w-full flex flex-col py-2 gap-2">
+          <Label>Serial</Label>
+          <Input type="text" name="serial"
+            value={item.serial} onChange={handleChange}
+            placeholder="XFGRTWE675 / SN:JSURY6373 ..."
+            required />
+        </div>
+
+        <div className="w-full flex flex-col py-2 gap-2">
+          <Label>Estado</Label>
+          <select name="estado" value={item.estado} onChange={handleChange} className="px-3 py-2 border border-gray-300 rounded-md">
+            <option value="">Selecciona un estado</option>
+            <option value="Nuevo">Nuevo</option>
+            <option value="Bueno">Bueno</option>
+            <option value="Malo">Malo</option>
+            <option value="Baja">Baja</option>
+          </select>
+        </div>
+
+        <Button>Crear Item</Button>
+      </form>
 
       <MessageDisplay message={message} error={error} />
     </main>
