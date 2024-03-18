@@ -1,15 +1,15 @@
-import { useAuth } from '../../Auth/AuthContext'
+import { FilterComponentItems } from '../../components/ui/FilterComponentItems'
 import { BottonExportItems } from '../../components/Items/ExportExcelItem'
 import { RenderItems } from '../../components/Items/RenderItems'
-import { FilterComponentItems } from '../../components/ui/FilterComponentItems'
 import { useFiltersItems } from '../../hooks/useFilterItems'
+import { useAuth } from '../../Auth/AuthContext'
 import { useItems } from '../../hooks/useItems'
 
-export function VerItems() {
+export function VerItems (): JSX.Element {
   const { user } = useAuth()
-  const company = user?.empresa || ''
+  const company = (user != null) ? user.empresa : ''
 
-  const { items } = useItems(company)
+  const { items } = useItems({ company })
   const { filteredItems, search, setSearch } = useFiltersItems(items)
 
   return (
@@ -19,7 +19,7 @@ export function VerItems() {
         <BottonExportItems items={filteredItems} />
       </section>
 
-      {items && (<RenderItems items={filteredItems} rol={user?.rol} />)}
+      <RenderItems items={filteredItems} rol={user?.rol} />
 
     </>
   )

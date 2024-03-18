@@ -1,7 +1,13 @@
 import { useState, useMemo } from 'react'
-import { ItemWithBodega } from '../interfaces/Item.Intece'
+import { type ItemWithBodega } from '../interfaces/Item.Intece'
 
-export function useFiltersItems(items: ItemWithBodega) {
+interface UseFiltersItemsProps {
+  search: string
+  setSearch: React.Dispatch<React.SetStateAction<string>>
+  filteredItems: ItemWithBodega
+}
+
+export function useFiltersItems (items: ItemWithBodega): UseFiltersItemsProps {
   const [search, setSearch] = useState('')
 
   const filteredItems = useMemo(() => {
@@ -9,10 +15,10 @@ export function useFiltersItems(items: ItemWithBodega) {
       nombre.toLowerCase().includes(search.toLowerCase()) ||
       placa.toLowerCase().includes(search.toLowerCase()) ||
       serial.toLowerCase().includes(search.toLowerCase()) ||
-      (bodega && typeof bodega !== 'string' && bodega.sucursal?.toString().includes(search.toLowerCase())|| false) ||
-      (bodega && typeof bodega !== 'string' && bodega?.sucursal?.toString().includes(search.toLowerCase()) || false)
+      (typeof bodega !== 'string' && bodega.nombre.toLowerCase().includes(search.toLowerCase())) ||
+      (typeof bodega !== 'string' && bodega.sucursal.toString().includes(search.toLowerCase()))
     )
-  }, [ items, search ])
+  }, [items, search])
 
   return { search, setSearch, filteredItems }
 }

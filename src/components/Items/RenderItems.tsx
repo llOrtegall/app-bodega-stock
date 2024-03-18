@@ -1,14 +1,14 @@
 import { useNavigate } from 'react-router-dom'
-import { ItemWithBodega } from '../../interfaces/Item.Intece'
+import { type ItemWithBodega } from '../../interfaces/Item.Intece'
 import { LockIcon } from '../icons'
-import { Button } from '../ui';
+import { Button } from '../ui'
 
 interface RenderItemsProps {
-  items: ItemWithBodega;
-  rol: string | undefined;
+  items: ItemWithBodega
+  rol: string | undefined
 }
 
-export const RenderItems = ({ items, rol }: RenderItemsProps) => {
+export const RenderItems = ({ items, rol }: RenderItemsProps): JSX.Element => {
   const navigate = useNavigate()
 
   return (
@@ -34,7 +34,7 @@ export const RenderItems = ({ items, rol }: RenderItemsProps) => {
             <p className="col-span-1">{item.estado}</p>
             {typeof item.bodega !== 'string'
               ? <>
-                <p className="col-span-2">{item.bodega?.nombre}</p> 
+                <p className="col-span-2">{item.bodega?.nombre}</p>
                 <p className="col-span-1">{item.bodega?.sucursal}</p>
               </>
               : <>
@@ -44,8 +44,7 @@ export const RenderItems = ({ items, rol }: RenderItemsProps) => {
             }
             {
               rol === 'Administrador' || rol === 'Aux Administrativa'
-                ? 
-                <Button onClick={() => navigate(`/items/verItem/${item._id}`, { state: { id: item._id } })} >Editar</Button>
+                ? <Button onClick={() => { navigate(`/items/verItem/${item._id}`, { state: { id: item._id } }) }} >Editar</Button>
                 : <figure className='text-red-500'><LockIcon /></figure>
             }
           </article>

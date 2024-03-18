@@ -1,14 +1,14 @@
-import { ProtectedRouteProps } from '../interfaces/Interfaces';
-import { Navigate, Outlet } from 'react-router-dom';
-import { NavBar } from './ui';
-import React from 'react';
-import { useAuth } from '../Auth/AuthContext';
+import { type ProtectedRouteProps } from '../interfaces/Interfaces'
+import { Navigate, Outlet } from 'react-router-dom'
+import { NavBar } from './ui'
+import React from 'react'
+import { useAuth } from '../Auth/AuthContext'
 
-export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ isAllowed, redirectTo = "/" }) => {
+export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ isAllowed, redirectTo = '/' }) => {
   const { user } = useAuth()
-  const empresa = user ? user.empresa : '';
+  const empresa = (user != null) ? user.empresa : ''
 
-  if (!isAllowed) {
+  if (!(isAllowed ?? false)) {
     return <Navigate to={redirectTo} />
   }
 
@@ -22,7 +22,7 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ isAllowed, redir
       </section>
 
       <div className="text-black absolute bottom-0 p-2">
-        <p className="font-semibold">Database: 
+        <p className="font-semibold">Database:
           <span className="text-red-500"> {empresa} </span>
         </p>
       </div>

@@ -1,8 +1,17 @@
+import { type ItemWithBodega } from '../interfaces/Item.Intece'
 import { useCallback, useEffect, useState } from 'react'
 import { getAllItems } from '../services/Item.services'
-import { ItemWithBodega } from '../interfaces/Item.Intece'
 
-export function useItems (company: string) {
+interface useItemsProps {
+  items: ItemWithBodega
+  loading: boolean
+  search: string
+  error: any
+  setSearch: (search: string) => void
+  fetchItems: () => void
+}
+
+export function useItems ({ company }: { company: string }): useItemsProps {
   const [loading, setLoading] = useState(false)
   const [items, setItems] = useState<ItemWithBodega>([])
   const [error, setError] = useState(null)
@@ -11,9 +20,12 @@ export function useItems (company: string) {
   const fetchItems = useCallback(() => {
     setLoading(true)
     getAllItems(company)
-      .then(data => setItems(data))
-      .catch(error => setError(error))
-      .finally(() => setLoading(false))
+      .then(data => { setItems(data) })
+      .catch(error => {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        setError(error)
+      })
+      .finally(() => { setLoading(false) })
   }, [company])
 
   useEffect(() => {

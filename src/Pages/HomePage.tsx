@@ -1,12 +1,12 @@
-import { CambiarCompany } from "../components/DefineCompany";
-import { useAuth } from "../Auth/AuthContext"
+import { CambiarCompany } from '../components/DefineCompany'
+import { useAuth } from '../Auth/AuthContext'
 
-export const HomePage = () => {
+export const HomePage = (): JSX.Element => {
   const { user } = useAuth()
-  const empresa = user ? user.empresa : '';
+  const empresa = (user != null) ? user.empresa : ''
 
-  const welcomeMessage = "¡Bienvenido!";
-  const welcomeDescription = "Estamos encantados de verte aquí. Explora y disfruta de todas las funcionalidades que tenemos para ti.";
+  const welcomeMessage = '¡Bienvenido!'
+  const welcomeDescription = 'Estamos encantados de verte aquí. Explora y disfruta de todas las funcionalidades que tenemos para ti.'
 
   return (
 
