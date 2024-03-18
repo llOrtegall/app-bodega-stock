@@ -1,66 +1,37 @@
-import { Label, Button, Input } from "../components/ui";
-import { useAuth } from "../Auth/AuthContext";
-import { useState } from "react";
-import axios from "axios";
 import { MessageDisplay } from "../components/ui/MessagesDisplay";
+import { Label, Button, Input, Loading } from "../components/ui";
+import { useLogin } from "../hooks/useLogin";
 
 export function LoginPage() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
-  const [error, setError] = useState('');
-
-  const { login } = useAuth();
-
-  const handleSubmit = async (ev: React.FormEvent) => {
-    ev.preventDefault();
-
-    setMessage('Iniciando sesión...');
-
-    axios.post('/login', { user: username, password })
-      .then(response => {
-        login(response.data.token);
-        localStorage.setItem('tokenBodega', response.data.token);
-      })
-      .catch(err => {
-        setMessage('');
-        setError(err.response.data.message);
-        setTimeout(() => {
-          setError('');
-        }, 3000);
-      })
-
-  }
-
+ const { setPassword, setUsername, handleSubmit, error, loading, message } = useLogin();
 
   return (
-    <section className="h-screen flex items-center justify-center flex-col pb-12 bg-slate-900">
+    <section className="w-full h-screen bg-slate-900 flex flex-col justify-center items-center space-y-4 relative">
 
-
-      <div className="flex flex-col items-center py-12 rounded-md bg-gray-300">
-        <figure>
+      <form className="flex flex-col items-center bg-slate-300 gap-12 py-12 px-12 rounded-md" onSubmit={handleSubmit}>
+        <figure className="">
           <img src="gane.png" width={200} alt="logo de gane" />
         </figure>
 
-        <form className="flex flex-col w-[420px] mt-10 gap-6 px-10" onSubmit={handleSubmit}>
-          <div className="flex w-full flex-col gap-2">
-            <Label htmlFor="username">Usuario</Label>
+        <article className="flex flex-col w-[300px] gap-4">
+          <div className="flex items-center justify-between">
+            <Label htmlFor="username">Usuario:</Label>
             <Input placeholder="CP141412422" onChange={ev => setUsername(ev.target.value)}
               type="text" id="username" required />
           </div>
-          <div className="flex w-full flex-col gap-2">
-            <Label htmlFor="password">Contraseña</Label>
+          <div className="flex items-center justify-between mb-6">
+            <Label htmlFor="password">Contraseña:</Label>
             <Input placeholder="**********" onChange={ev => setPassword(ev.target.value)}
               type="password" id="password" required />
           </div>
-          <Button type="submit">Iniciar Sesión</Button>
-        </form>
-      </div>
+          <Button>Iniciar Sesión</Button>
+        </article>
+      </form>
 
-
-      {
-        error && <MessageDisplay error={error} message={message} />
-      }
+      <section className="w-full flex flex-col items-center absolute bottom-40 mb-4">
+        <MessageDisplay message={message} error={error} />
+        {loading && <Loading />}
+      </section>
 
     </section>
   )

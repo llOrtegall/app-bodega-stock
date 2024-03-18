@@ -1,4 +1,4 @@
-export const Loading = ({ children }: { children: string }) => {
+export const Loading = ({ children }: { children?: string }) => {
   return (
     <article className="w-full items-center justify-center flex flex-col">
       <svg aria-hidden="true"

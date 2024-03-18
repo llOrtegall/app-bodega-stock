@@ -2,8 +2,8 @@ import { SuccesIcon, WarningIcon } from '../icons'
 
 export function MessageDisplay ({ message, error }:{ message: string, error: string }) {
   return (
-    <section className='h-10'>
-      <article className="flex items-center justify-center">
+    <section className='h-10'> 
+      <article className="">
         {message &&
           <div className='flex gap-2'>
             <figure className='bg-green-600 text-white font-bold flex items-center justify-center text-center px-2 rounded-md'>
