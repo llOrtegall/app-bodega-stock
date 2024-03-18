@@ -1,6 +1,6 @@
 import { ListItemsComponent } from '../../components/Items/ListItemsComponent'
 import { FilterComponentItems, Loading } from '../../components/ui'
-import { type ItemsArray } from '../../interfaces/Item'
+import { type ItemsArray } from '../../types/Item'
 
 interface ItemsWithoutBodegaComponentProps {
   items: ItemsArray

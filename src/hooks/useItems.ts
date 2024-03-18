@@ -1,4 +1,4 @@
-import { type ItemsArray } from '../interfaces/Item'
+import { type ItemsArray } from '../types/Item'
 import { useCallback, useEffect, useState } from 'react'
 import { getAllItems } from '../services/Item.services'
 

@@ -1,4 +1,4 @@
-import { Movimiento } from "../../interfaces/MovInterfaces";
+import { Movimiento } from "../../types/MovInterfaces";
 
 export function RenderSimcardMov({ simcards }: { simcards: Movimiento['simcards'] }) {
   return (

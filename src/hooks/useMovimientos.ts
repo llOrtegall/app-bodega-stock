@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { getMovimientos } from "../services/Mov.services";
-import { Movimiento } from "../interfaces/MovInterfaces";
+import { Movimiento } from "../types/MovInterfaces";
 
 function Filtrar(initProp: Movimiento[]) {
   const [busMov, setBusMov] = useState('');

@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from 'react'
-import { type AuthProviderProps, type User } from '../interfaces/Interfaces'
+import { type AuthProviderProps, type User } from '../types/Interfaces'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 

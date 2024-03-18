@@ -3,8 +3,8 @@ import { useFiltersBodegas } from '../hooks/useFilterBodegas'
 import { getAllBodegas } from '../services/Bodegas.services'
 import { useFiltersItems } from '../hooks/useFilterItems'
 import { getAllItems } from '../services/Item.services'
-import { type ItemsArray } from '../interfaces/Item'
-import { type Bodegas } from '../interfaces/Bodega'
+import { type ItemsArray } from '../types/Item'
+import { type Bodegas } from '../types/Bodega'
 
 interface ItemsAndBodegas {
   items: ItemsArray
@@ -16,7 +16,7 @@ interface ItemsAndBodegas {
   setSearchBodega: React.Dispatch<React.SetStateAction<string>>
 }
 
-export function useItemsAndBodegas (company: string): ItemsAndBodegas {
+export function useItemsAndBodegas (company: string, message: string): ItemsAndBodegas {
   const [items, setItems] = useState<ItemsArray>([])
   const [bodegas, setBodegas] = useState<Bodegas>([])
 
@@ -35,7 +35,7 @@ export function useItemsAndBodegas (company: string): ItemsAndBodegas {
       void getAllItems(company)
         .then(data => { setItems(data) })
     }, 600)
-  }, [company])
+  }, [company, message])
 
   return { filteredItems, search, setSearch, filteredBodegas, searchBodega, setSearchBodega, items }
 }

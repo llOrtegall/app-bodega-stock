@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react'
-import { type ItemsArray } from '../interfaces/Item'
+import { type ItemsArray } from '../types/Item'
 
 interface UseFiltersItemsProps {
   search: string

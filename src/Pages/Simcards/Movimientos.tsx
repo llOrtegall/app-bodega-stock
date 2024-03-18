@@ -3,7 +3,7 @@ import { RenderBodegaOrigen } from '../../components/simcards/RenderBodegaOrigen
 import { ComponenteSimcards } from '../../components/simcards/ComponenteSimcards.js'
 import { FooterMovSim } from '../../components/simcards/FooterCompSimcaMov.js'
 import { MessageDisplay } from '../../components/ui/MessagesDisplay.js'
-import { BodegaWithSims } from '../../interfaces/Simcard.interfaces.js'
+import { BodegaWithSims } from '../../types/Simcard.interfaces.js'
 import { useAuth } from '../../Auth/AuthContext'
 import { useCallback, useState } from 'react'
 import axios from 'axios'

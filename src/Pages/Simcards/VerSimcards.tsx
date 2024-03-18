@@ -1,5 +1,5 @@
 import { BottonExportSimcards } from '../../components/simcards/ExportSimcards.js'
-import { SimcardWithBodega } from '../../interfaces/Simcard.interfaces.js'
+import { SimcardWithBodega } from '../../types/Simcard.interfaces.js'
 import { RenderIconSims } from '../../components/simcards/RenderIcons.js'
 import { simcardsBodegas } from '../../services/Simcards.services'
 import { useFilterSimcards } from '../../hooks/useFilterSimcards'

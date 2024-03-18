@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Movimiento } from "../interfaces/MovInterfaces";
+import { Movimiento } from "../types/MovInterfaces";
 import { getMovimiento } from "../services/Mov.services";
 
 export function useDetailMovs({ id, company}: { id: string, company: string }) {

@@ -1,4 +1,4 @@
-import { SimcardNoBodega } from '../../interfaces/Simcard.interfaces'
+import { SimcardNoBodega } from '../../types/Simcard.interfaces'
 import { DeleteIcon } from '../icons'
 
 export function SimcardAgregada ({ id, simcards, handleRemoveItem, color }: { id: string, simcards: SimcardNoBodega[], handleRemoveItem: (id: string) => void, color: string }) {

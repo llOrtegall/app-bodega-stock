@@ -1,4 +1,4 @@
-import { type createItem } from '../../interfaces/Item'
+import { type createItem } from '../../types/Item'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { MessageDisplay } from '../../components/ui'
 import { useAuth } from '../../Auth/AuthContext'

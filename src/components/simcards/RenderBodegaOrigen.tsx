@@ -2,7 +2,7 @@ import { useFilterSimcards } from '../../hooks'
 import { AddIcon } from '../icons'
 import { useState } from 'react'
 import axios from 'axios'
-import { BodegaWithSims } from '../../interfaces/Simcard.interfaces'
+import { BodegaWithSims } from '../../types/Simcard.interfaces'
 
 export function RenderBodegaOrigen({ bodegaOrigen, setBodegaOrigen, cartSims, handleAddSimcard, fun, company }:
   { bodegaOrigen: BodegaWithSims, setBodegaOrigen: React.Dispatch<React.SetStateAction<BodegaWithSims>>, cartSims: string[], handleAddSimcard: (id: string) => void, fun: () => void, company: string }) {

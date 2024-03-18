@@ -1,4 +1,4 @@
-import { type ItemsArray } from '../interfaces/Item'
+import { type ItemsArray } from '../types/Item'
 import axios from 'axios'
 
 export const getAllItems = async (company: string): Promise<ItemsArray> => {

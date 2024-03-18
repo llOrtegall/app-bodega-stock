@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { useNavigate } from "react-router-dom";
-import { Movimiento } from "../../interfaces/MovInterfaces";
+import { Movimiento } from "../../types/MovInterfaces";
 import { formatFecha } from "../../utils/FormaFecha";
 
 interface Props {

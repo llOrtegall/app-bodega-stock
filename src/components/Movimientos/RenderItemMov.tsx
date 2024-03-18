@@ -1,4 +1,4 @@
-import { Movimiento } from "../../interfaces/MovInterfaces";
+import { Movimiento } from "../../types/MovInterfaces";
 
 export function RenderItemsMov({ items }: { items: Movimiento['items'] }) {
   return (

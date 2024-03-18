@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react"
-import { SimcardWithBodega } from "../interfaces/Simcard.interfaces"
+import { SimcardWithBodega } from "../types/Simcard.interfaces"
 
 export function useFilterSimcards (initialSimcards: SimcardWithBodega[]) {
   const [searchSimcard, setSearchSimcard] = useState('')

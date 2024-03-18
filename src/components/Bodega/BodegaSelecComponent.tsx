@@ -1,5 +1,5 @@
 import { FilterComponentBodegas } from '../../components/ui'
-import { type Bodegas } from '../../interfaces/Bodega'
+import { type Bodegas } from '../../types/Bodega'
 
 interface BodegaSelectionComponentProps {
   bodegas: Bodegas

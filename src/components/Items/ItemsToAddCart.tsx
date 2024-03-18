@@ -1,4 +1,4 @@
-import { type ItemsArray } from '../../interfaces/Item'
+import { type ItemsArray } from '../../types/Item'
 import { DeleteIcon } from '../icons'
 
 interface ItemsToAddComponentProps {

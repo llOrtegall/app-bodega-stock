@@ -1,6 +1,6 @@
 import { MessageDisplay } from '../../components/ui/MessagesDisplay'
 import { Button, Input, Label } from '../../components/ui'
-import { type newItem } from '../../interfaces/Item'
+import { type newItem } from '../../types/Item'
 import { useAuth } from '../../Auth/AuthContext'
 import { useState } from 'react'
 import axios from 'axios'

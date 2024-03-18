@@ -1,4 +1,4 @@
-import { type ProtectedRouteProps } from '../interfaces/Interfaces'
+import { type ProtectedRouteProps } from '../types/Interfaces'
 import { Navigate, Outlet } from 'react-router-dom'
 import { NavBar } from './ui'
 import React from 'react'

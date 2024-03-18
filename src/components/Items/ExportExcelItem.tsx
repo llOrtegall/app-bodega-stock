@@ -1,4 +1,4 @@
-import { type ItemsArray } from '../../interfaces/Item'
+import { type ItemsArray } from '../../types/Item'
 import { type ColInfo, utils, writeFile } from 'xlsx'
 import { Button } from '../ui'
 

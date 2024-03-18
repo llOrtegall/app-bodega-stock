@@ -1,4 +1,4 @@
-import { BodegaWithSims } from '../../interfaces/Simcard.interfaces'
+import { BodegaWithSims } from '../../types/Simcard.interfaces'
 import { SimcardAgregada } from '../simcards/SimcardAgregada'
 
 

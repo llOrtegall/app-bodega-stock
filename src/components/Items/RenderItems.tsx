@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { type ItemsArray } from '../../interfaces/Item'
+import { type ItemsArray } from '../../types/Item'
 import { LockIcon } from '../icons'
 import { Button } from '../ui'
 

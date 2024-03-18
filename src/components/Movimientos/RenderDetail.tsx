@@ -1,4 +1,4 @@
-import { Movimiento } from "../../interfaces/MovInterfaces";
+import { Movimiento } from "../../types/MovInterfaces";
 import { formatFecha } from "../../utils/FormaFecha";
 
 export function RenderDetailMov({ mov }: { mov: Movimiento }) {

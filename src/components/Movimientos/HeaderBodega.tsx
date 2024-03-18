@@ -1,4 +1,4 @@
-import { Bodega } from "../../interfaces/Movimientos.interfaces";
+import { Bodega } from "../../types/Movimientos.interfaces";
 import { Button, Input, Label } from "../ui";
 
 export function HeaderBodega({funGetBodega, valueBodega, searBodega, bodega, children} :

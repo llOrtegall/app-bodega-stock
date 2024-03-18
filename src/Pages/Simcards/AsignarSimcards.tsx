@@ -7,7 +7,7 @@ import axios from 'axios'
 import { useFilterSimcards, useFiltersBodegas } from '../../hooks'
 
 import { BodegaDataSims, simcardsBodegas } from '../../services/Simcards.services'
-import { SimcardWithBodega } from '../../interfaces/Simcard.interfaces'
+import { SimcardWithBodega } from '../../types/Simcard.interfaces'
 
 
 export function AsignarSimcards() {

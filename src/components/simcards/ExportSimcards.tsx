@@ -1,4 +1,4 @@
-import { SimcardWithBodega } from '../../interfaces/Simcard.interfaces'
+import { SimcardWithBodega } from '../../types/Simcard.interfaces'
 import { ColInfo, utils, writeFile } from 'xlsx'
 
 export const BottonExportSimcards = ({simcards} : {simcards: SimcardWithBodega[]}) => {

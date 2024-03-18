@@ -14,7 +14,7 @@ export function AsignarItemBodega (): JSX.Element {
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
 
-  const { items, filteredBodegas, filteredItems, search, searchBodega, setSearch, setSearchBodega } = useItemsAndBodegas(company)
+  const { items, filteredBodegas, filteredItems, search, searchBodega, setSearch, setSearchBodega } = useItemsAndBodegas(company, message)
 
   const carItemsInitial: string[] = []
 

@@ -1,4 +1,4 @@
-import { type UseLoginReturn } from '../interfaces/Interfaces'
+import { type UseLoginReturn } from '../types/Interfaces'
 import { useAuth } from '../Auth/AuthContext'
 import { useState } from 'react'
 import axios from 'axios'

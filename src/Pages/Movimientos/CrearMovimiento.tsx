@@ -1,5 +1,5 @@
 import { HeaderBodega } from '../../components/Movimientos/HeaderBodega'
-import { Bodega } from '../../interfaces/Movimientos.interfaces'
+import { Bodega } from '../../types/Movimientos.interfaces'
 import { AddIcon, CheckIcon, DeleteIcon } from '../../components/icons'
 import { MessageDisplay } from '../../components/ui'
 import { useAuth } from '../../Auth/AuthContext'

@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useAuth } from '../../Auth/AuthContext'
-import { BodegaIntIS } from '../../interfaces/Bodega'
+import { BodegaIntIS } from '../../types/Bodega'
 
 export function DetalleBodega() {
   const { user } = useAuth()

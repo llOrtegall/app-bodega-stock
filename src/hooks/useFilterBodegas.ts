@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { type BodegaIntIS } from '../interfaces/Bodega'
+import { type BodegaIntIS } from '../types/Bodega'
 
 export function useFiltersBodegas (initialBodegas: BodegaIntIS[]) {
   const [searchBodega, setSearchBodega] = useState('')
