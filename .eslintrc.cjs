@@ -13,7 +13,8 @@ module.exports = {
         node: true
       },
       files: [
-        '.eslintrc.{js,cjs}'
+        'src/**/*.ts',
+        'src/**/*.tsx'
       ],
       parserOptions: {
         sourceType: 'script'
@@ -22,11 +23,21 @@ module.exports = {
   ],
   parserOptions: {
     ecmaVersion: 'latest',
-    sourceType: module
+    sourceType: module,
+    project: ['./tsconfig.json']
   },
   plugins: [
     'react'
   ],
   rules: {
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off"
+  },
+
+  settings: {
+    react: {
+      version: "detect",
+      runtime: "automatic"
+    }
   }
 }
