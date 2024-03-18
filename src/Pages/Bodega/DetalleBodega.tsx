@@ -1,38 +1,36 @@
+import { getDetailBodegaById } from '../../services/Bodegas.services'
+import { type BodegaIntIS } from '../../types/Bodega'
+import { useAuth } from '../../Auth/AuthContext'
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import axios from 'axios'
-import { useAuth } from '../../Auth/AuthContext'
-import { BodegaIntIS } from '../../types/Bodega'
 
-export function DetalleBodega() {
+export function DetalleBodega (): JSX.Element {
   const { user } = useAuth()
-  const company = user?.empresa || ''
+  const company = (user != null) ? user.empresa : ''
   const { id } = useParams()
 
   const [bodega, setBodega] = useState<BodegaIntIS>()
   const [isExpanded, setIsExpanded] = useState(false)
   const [isExpandedSim, setIsExpandedSim] = useState(false)
 
-  const handleToggle = () => {
+  const handleToggle = (): void => {
     setIsExpanded(!isExpanded)
   }
 
-  const handleToggleSim = () => {
+  const handleToggleSim = (): void => {
     setIsExpandedSim(!isExpandedSim)
   }
 
   useEffect(() => {
-    axios.get(`/getBodegasItemsSims/${company}/${id}`)
-      .then(res => {
-        setBodega(res.data)
-      })
-      .catch(err => console.log(err))
+    if (id === undefined) return
+    void getDetailBodegaById({ company, id })
+      .then(data => { setBodega(data) })
   }, [id, company])
 
   return (
     <main className='w-full min-h-[90vh] bg-slate-200'>
       {
-        bodega && (
+        (bodega != null) && (
           <section >
             <h1 className='text-center p-2 bg-slate-700 text-white text-lg'>Detalle Bodega Con UUID: <span className='uppercase font-semibold'>{bodega._id}</span></h1>
             <article className='bg-blue-200 grid grid-cols-2 place-items-center py-4 px-4'>
@@ -60,7 +58,7 @@ export function DetalleBodega() {
         <h3 onClick={handleToggle} className='text-center hover:underline py-2 items-center cursor-pointer'>
           <span>{isExpanded ? '▲' : '▼'}</span> Ver Detalles Items
         </h3>
-        {isExpanded && bodega && (
+        {isExpanded && (bodega != null) && (
           <>
             <article className="flex justify-around text-center bg-blue-400 shadow-lg py-2 mb-2 text-sm">
               <p className="font-semibold">Items</p>
@@ -73,7 +71,7 @@ export function DetalleBodega() {
               {
                 Array.isArray(bodega.items) && bodega.items.length !== 0
                   ? (bodega.items.map(item => (
-                    typeof item !== 'string' && (
+                      typeof item !== 'string' && (
                       <article key={item._id} className="grid grid-cols-5 rounded-md bg-slate-100 uppercase text-sm py-2 my-2 text-center shadow-lg">
                         <p className="font-semibold">{item.nombre}</p>
                         <p className="text-gray-500">{item.descripcion}</p>
@@ -81,8 +79,8 @@ export function DetalleBodega() {
                         <p className="text-gray-500">{item.placa}</p>
                         <p className="text-gray-500">{item.estado}</p>
                       </article>
-                    )
-                  )))
+                      )
+                    )))
                   : (<p className='text-center text-2xl font-semibold'>No Existen Items Asignados</p>)
               }
             </article>
@@ -110,9 +108,9 @@ export function DetalleBodega() {
 
             <article className=''>
               {
-                bodega && Array.isArray(bodega.simcards) && bodega.simcards.length !== 0
+                (bodega != null) && Array.isArray(bodega.simcards) && bodega.simcards.length !== 0
                   ? (bodega.simcards.map(item => (
-                    typeof item !== 'string' && (
+                      typeof item !== 'string' && (
                       <article key={item._id} className="grid grid-cols-7 rounded-md bg-slate-100 uppercase text-sm py-2 my-2 text-center shadow-lg">
                         <p className="font-semibold">{item.numero}</p>
                         <p className="text-gray-500">{item.operador}</p>
@@ -122,8 +120,8 @@ export function DetalleBodega() {
                         <p className="text-gray-500">{item.user}</p>
                         <p className="text-gray-500">{item.pass}</p>
                       </article>
-                    )
-                  )))
+                      )
+                    )))
                   : (<p className='text-center text-2xl font-semibold'>No Existen Simcards Asignadas</p>)
               }
             </article>

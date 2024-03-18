@@ -38,11 +38,11 @@ export function ShowBodegas (): JSX.Element {
             </article>
 
             <article className="">
-              <p>Items Asignados: <span className="font-semibold">{bodega.items.length}</span></p>
+              <p>Items Asignados: <span className="font-semibold">{bodega.items?.length}</span></p>
             </article>
 
             <article className="">
-              <p>Simcards Asignadas: <span className="font-semibold">{bodega.simcards.length}</span></p>
+              <p>Simcards Asignadas: <span className="font-semibold">{bodega.simcards?.length}</span></p>
             </article>
 
             <Link className="p-2 text-white font-semibold rounded-md bg-blue-400 hover:bg-blue-600" to={`/bodega/detalle/${bodega._id}`} key={bodega._id}>

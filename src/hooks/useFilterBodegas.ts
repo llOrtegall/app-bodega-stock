@@ -1,7 +1,13 @@
 import { useMemo, useState } from 'react'
-import { type BodegaIntIS } from '../types/Bodega'
+import { type Bodegas } from '../types/Bodega'
 
-export function useFiltersBodegas (initialBodegas: BodegaIntIS[]) {
+interface IOFilterBodegas {
+  searchBodega: string
+  setSearchBodega: (value: string) => void
+  filteredBodegas: Bodegas
+}
+
+export function useFiltersBodegas (initialBodegas: Bodegas): IOFilterBodegas {
   const [searchBodega, setSearchBodega] = useState('')
 
   const filteredBodegas = useMemo(() => {

@@ -9,4 +9,34 @@ interface Bodega {
   simcards?: string[]
 }
 
+interface Item {
+  _id: string
+  nombre: string
+  descripcion: string
+  placa: string
+  serial: string
+  estado: string
+  createdAt?: string
+  updatedAt?: string
+}
+
+interface Simcard {
+  _id: string
+  numero: string
+  operador: string
+  estado: string
+  serial: string
+  apn: string
+  user: string
+  pass: string
+  createdAt?: string
+  updatedAt?: string
+}
+
+// * Extiende la interfaz Bodega para incluir los items y simcards de las interfaces Item y Simcard
+export type BodegaIntIS = Omit<Bodega, 'items' | 'simcards'> & {
+  items: Item[]
+  simcards: Simcard[]
+}
+
 export type Bodegas = Bodega[]

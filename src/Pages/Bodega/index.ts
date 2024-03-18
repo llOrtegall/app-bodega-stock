@@ -1,3 +1,3 @@
 export { DetalleBodega } from './DetalleBodega'
 export { CrearBodega } from './CrearBodega'
-export {ShowBodegas } from './ShowBodegas'
+export { ShowBodegas } from './ShowBodegas'
