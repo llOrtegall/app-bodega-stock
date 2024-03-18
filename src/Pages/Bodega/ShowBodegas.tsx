@@ -1,21 +1,21 @@
-import { useEffect, useState } from 'react'
-import { getAllBodegas } from '../../services/Bodegas.services'
-import { Link } from 'react-router-dom'
-import { useAuth } from '../../Auth/AuthContext'
-import { BodegaIntIS } from '../../types/Bodega'
+import { getBodegasItemsSimsIds } from '../../services/Bodegas.services'
 import { useFiltersBodegas } from '../../hooks/useFilterBodegas'
+import { type Bodegas } from '../../types/Bodega'
+import { useAuth } from '../../Auth/AuthContext'
+import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 
-export function ShowBodegas() {
-  const [bodegas, setBodegas] = useState<BodegaIntIS[]>([])
+export function ShowBodegas (): JSX.Element {
+  const [bodegas, setBodegas] = useState<Bodegas>([])
   const { user } = useAuth()
-  const company = user?.empresa || ''
+  const company = (user != null) ? user.empresa : ''
 
   const { filteredBodegas, searchBodega, setSearchBodega } = useFiltersBodegas(bodegas)
 
   useEffect(() => {
-    getAllBodegas(company)
-      .then(data => setBodegas(data))
-      .catch(err => console.log(err))
+    getBodegasItemsSimsIds(company)
+      .then(data => { setBodegas(data) })
+      .catch(err => { console.log(err) })
   }, [])
 
   return (
@@ -23,7 +23,7 @@ export function ShowBodegas() {
 
       <section className="flex items-center justify-center gap-6 p-1 bg-blue-500  rounded-md shadow-lg">
         <p className=""><span className="font-semibold pr-2">Filtrar:</span>| Sucursal | Nombre |</p>
-        <input type="text" value={searchBodega} onChange={ev => setSearchBodega(ev.target.value)}
+        <input type="text" value={searchBodega} onChange={ev => { setSearchBodega(ev.target.value) }}
           placeholder="Buscar Bodega..." className="bg-slate-100 w-64 p-1.5 rounded-md" />
       </section>
 

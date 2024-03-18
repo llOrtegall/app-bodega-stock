@@ -5,6 +5,8 @@ interface Bodega {
   sucursal: number
   created_at: string | undefined
   updated_at: string | undefined
+  items?: string[]
+  simcards?: string[]
 }
 
 export type Bodegas = Bodega[]

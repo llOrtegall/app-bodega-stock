@@ -7,6 +7,12 @@ export async function getAllBodegas (company: string): Promise<Bodegas> {
   return data
 }
 
+export async function getBodegasItemsSimsIds (company: string): Promise<Bodegas> {
+  const response = await axios.get(`/getBodegasItemsSimcardIds/${company}`)
+  const data = response.data
+  return data
+}
+
 export const postBodega = async (itemToSend: object): Promise<[]> => {
   try {
     const res = await axios.post('/createBodega', itemToSend)

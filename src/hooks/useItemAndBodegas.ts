@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react'
 import { useFiltersBodegas } from '../hooks/useFilterBodegas'
 import { getAllBodegas } from '../services/Bodegas.services'
 import { useFiltersItems } from '../hooks/useFilterItems'
 import { getAllItems } from '../services/Item.services'
 import { type ItemsArray } from '../types/Item'
 import { type Bodegas } from '../types/Bodega'
+import { useState, useEffect } from 'react'
 
 interface ItemsAndBodegas {
   items: ItemsArray
