@@ -1,12 +1,16 @@
-export function FilterComponentBodegas({ searchBodega, setSearchBodega }: { searchBodega: string, setSearchBodega: React.Dispatch<React.SetStateAction<string>> }) {
+import { Input, Label } from '../../components/ui'
 
+interface PropFilteBodega {
+  searchBodega: string
+  setSearchBodega: React.Dispatch<React.SetStateAction<string>>
+}
+
+export function FilterComponentBodegas ({ searchBodega, setSearchBodega }: PropFilteBodega): JSX.Element {
   return (
     <section className="flex min-w-64 items-center gap-4">
-      <h3 className='font-semibold text-black'>Filtrar Bodegas: </h3>
-      <input type='text' value={searchBodega} onChange={({ target }) => setSearchBodega(target.value)}
-        placeholder='Buscar Por Sucursal o Nombre de Bodega...'
-        className='w-96 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-800 focus:border-transparent bg-blue-100 text-blue-800 font-semibold'
-      />
+      <Label>Filtrar Bodegas: </Label>
+      <Input type='text' value={searchBodega} onChange={({ target }) => { setSearchBodega(target.value) }}
+        placeholder='Buscar Por Sucursal o Nombre de Bodega...' />
     </section>
   )
 }

@@ -1,7 +1,5 @@
-import { FilterComponentBodegas } from '../../components/ui/FilterComponenBodegas'
-import { FilterComponentItems } from '../../components/ui/FilterComponentItems'
+import { FilterComponentItems, MessageDisplay, Loading } from '../../components/ui'
 import { ListItemsComponent } from '../../components/Items/ListItemsComponent'
-import { MessageDisplay } from '../../components/ui/MessagesDisplay'
 import { useFiltersBodegas } from '../../hooks/useFilterBodegas'
 import { getAllBodegas } from '../../services/Bodegas.services'
 import { useFiltersItems } from '../../hooks/useFilterItems'
@@ -9,9 +7,10 @@ import { getAllItems } from '../../services/Item.services'
 import { useCallback, useEffect, useState } from 'react'
 import { type ItemsArray } from '../../interfaces/Item'
 import { type Bodegas } from '../../interfaces/Bodega'
-import { DeleteIcon } from '../../components/icons'
 import { useAuth } from '../../Auth/AuthContext'
 import axios from 'axios'
+import ItemsToAddComponent from '../../components/Items/ItemsToAddCart'
+import BodegaSelectionComponent from '../../components/Bodega/BodegaSelecComponent'
 
 export function AsignarItemBodega (): JSX.Element {
   const { user } = useAuth()
@@ -114,64 +113,20 @@ export function AsignarItemBodega (): JSX.Element {
 
           <main style={{ maxHeight: '550px', overflowY: 'auto' }}>
             {
-              <ListItemsComponent items={filteredItems} carItems={carItems} handleAddItem={handleAddItem} />
+              filteredItems.length > 0
+                ? (<ListItemsComponent items={filteredItems} carItems={carItems} handleAddItem={handleAddItem} />)
+                : <Loading>Cargando Items Sin Bodega...</Loading>
             }
           </main>
 
         </section>
 
-        <section>
-          <h3 className="text-center font-semibold border-b-2 border-black pb-1">Items Que Se Agregarán a Bodega</h3>
-          <header>
-            <div className='pb-14'></div>
-            <p className='flex justify-between px-4 py-2 border rounded-md font-semibold my-2 bg-yellow-200'>
-              <span>Placa</span>
-              <span>Nombre</span>
-              <span>Eliminar</span>
-            </p>
-          </header>
-          <main style={{ maxHeight: '550px', overflowY: 'auto' }}>
-            {
-              carItems.map(itemAdd => (
-                <article key={itemAdd} className='flex justify-between px-6 py-2 border rounded-md font-semibold my-2'>
-                  <p className=''>
-                    {items.find(i => i._id === itemAdd)?.placa}
-                  </p>
-                  <p className=''>
-                    {items.find(i => i._id === itemAdd)?.nombre}
-                  </p>
-                  <button onClick={() => { handleRemoveItem(itemAdd) }} className="hover:text-red-600">
-                    <DeleteIcon />
-                  </button>
-                </article>
-              ))
-            }
-          </main>
-        </section>
+        <ItemsToAddComponent items={items} carItems={carItems} handleRemoveItem={handleRemoveItem} />
 
         <section>
 
-          <h3 className="text-center font-semibold border-b-2 border-black pb-1">Selección De Bodega</h3>
-          <div className='flex w-full justify-center py-2'>
-            <FilterComponentBodegas searchBodega={searchBodega} setSearchBodega={setSearchBodega} />
-          </div>
-          <header className="w-full">
-            <p className='flex justify-center px-4 py-2 border rounded-md font-semibold my-2 bg-green-300'>
-              <span>Sucursal - Bodega</span>
-            </p>
-          </header>
-
-          <select className="bg-slate-200 rounded-md shadow-lg p-2 w-full flex flex-col gap-2 mb-4"
-            name="sucursal" id="sucursal" value={sendBodega} onChange={ev => { setSendBodega(ev.target.value) }}>
-            <option value="">Seleccione una bodega</option>
-            {
-              filteredBodegas.map(bodega => (
-                <option key={bodega._id} value={bodega.sucursal} className='justify-normal'>
-                  {bodega.sucursal} | {bodega.nombre}
-                </option>
-              ))
-            }
-          </select>
+          <BodegaSelectionComponent bodegas={filteredBodegas} searchBodega={searchBodega}
+            setSearchBodega={setSearchBodega} sendBodega={sendBodega} setSendBodega={setSendBodega} />
 
           <form onSubmit={handleSubmit} className='w-full flex justify-center'>
             <input type="submit" value="Agregar Items A Bodega" className="bg-blue-400 p-2 rounded-md w-96 hover:bg-blue-500 cursor-pointer text-white font-semibold text-center" id="submit" name="submit" />
