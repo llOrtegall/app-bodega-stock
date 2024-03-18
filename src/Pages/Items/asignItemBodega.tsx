@@ -1,51 +1,20 @@
-import { FilterComponentItems, MessageDisplay, Loading } from '../../components/ui'
-import { ListItemsComponent } from '../../components/Items/ListItemsComponent'
-import { useFiltersBodegas } from '../../hooks/useFilterBodegas'
-import { getAllBodegas } from '../../services/Bodegas.services'
-import { useFiltersItems } from '../../hooks/useFilterItems'
-import { getAllItems } from '../../services/Item.services'
-import { useCallback, useEffect, useState } from 'react'
-import { type ItemsArray } from '../../interfaces/Item'
-import { type Bodegas } from '../../interfaces/Bodega'
-import { useAuth } from '../../Auth/AuthContext'
-import axios from 'axios'
-import ItemsToAddComponent from '../../components/Items/ItemsToAddCart'
+import { ItemsWithoutBodegaComponent, ItemsToAddComponent } from '../../components/Items'
 import BodegaSelectionComponent from '../../components/Bodega/BodegaSelecComponent'
+import { useItemsAndBodegas } from '../../hooks/useItemAndBodegas'
+import { MessageDisplay } from '../../components/ui'
+import { useAuth } from '../../Auth/AuthContext'
+import { useCallback, useState } from 'react'
+import axios from 'axios'
 
 export function AsignarItemBodega (): JSX.Element {
   const { user } = useAuth()
   const company = (user != null) ? user.empresa : ''
 
-  const [error, setError] = useState('')
-  const [message, setMessage] = useState('')
   const [sendBodega, setSendBodega] = useState('')
+  const [message, setMessage] = useState('')
+  const [error, setError] = useState('')
 
-  const [items, setItems] = useState<ItemsArray>([])
-  const [bodegas, setBodegas] = useState<Bodegas>([])
-
-  const { filteredItems, search, setSearch } = useFiltersItems(items)
-  const { filteredBodegas, searchBodega, setSearchBodega } = useFiltersBodegas(bodegas)
-
-  useEffect(() => {
-    setTimeout(() => {
-      getAllBodegas(company)
-        .then((data) => { setBodegas(data) })
-        .catch((error) => {
-          const errorString = error.response.data.error
-          if (typeof errorString === 'string') {
-            setError(errorString)
-            setTimeout(() => {
-              setError('')
-            }, 3000)
-          }
-        })
-    }, 300)
-
-    setTimeout(() => {
-      void getAllItems(company)
-        .then(data => { setItems(data) })
-    }, 600)
-  }, [message])
+  const { items, filteredBodegas, filteredItems, search, searchBodega, setSearch, setSearchBodega } = useItemsAndBodegas(company)
 
   const carItemsInitial: string[] = []
 
@@ -98,28 +67,8 @@ export function AsignarItemBodega (): JSX.Element {
 
       <section className="grid grid-cols-3 gap-3 px-4">
 
-        <section>
-          <h3 className="text-center font-semibold border-b-2 border-black pb-1">Items Sin Bodega</h3>
-          <header>
-            <div className='flex w-full justify-center py-2'>
-              <FilterComponentItems search={search} setSearch={setSearch} />
-            </div>
-            <p className='flex justify-between px-4 py-2 border rounded-md font-semibold my-2 bg-blue-200'>
-              <span>Placa</span>
-              <span>Nombre</span>
-              <span>Agregar</span>
-            </p>
-          </header>
-
-          <main style={{ maxHeight: '550px', overflowY: 'auto' }}>
-            {
-              filteredItems.length > 0
-                ? (<ListItemsComponent items={filteredItems} carItems={carItems} handleAddItem={handleAddItem} />)
-                : <Loading>Cargando Items Sin Bodega...</Loading>
-            }
-          </main>
-
-        </section>
+        <ItemsWithoutBodegaComponent items={filteredItems} carItems={carItems}
+          handleAddItem={handleAddItem} search={search} setSearch={setSearch} />
 
         <ItemsToAddComponent items={items} carItems={carItems} handleRemoveItem={handleRemoveItem} />
 

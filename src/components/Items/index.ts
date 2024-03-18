@@ -1,3 +1,5 @@
-export { BottonExportItems } from './ExportExcelItem'
+export { ItemsWithoutBodegaComponent } from './ItemOutBodegaComp'
+export { ItemsToAddComponent } from './ItemsToAddCart'
 export { ListItemsComponent } from './ListItemsComponent'
+export { BottonExportItems } from './ExportExcelItem'
 export { RenderItems } from './RenderItems'

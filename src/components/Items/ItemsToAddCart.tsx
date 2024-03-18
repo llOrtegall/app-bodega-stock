@@ -7,7 +7,7 @@ interface ItemsToAddComponentProps {
   handleRemoveItem: (id: string) => void
 }
 
-const ItemsToAddComponent: React.FC<ItemsToAddComponentProps> = ({ items, carItems, handleRemoveItem }: ItemsToAddComponentProps) => {
+export const ItemsToAddComponent: React.FC<ItemsToAddComponentProps> = ({ items, carItems, handleRemoveItem }: ItemsToAddComponentProps) => {
   return (
     <section>
       <h3 className="text-center font-semibold border-b-2 border-black pb-1">Items Que Se Agregarán a Bodega</h3>
@@ -39,5 +39,3 @@ const ItemsToAddComponent: React.FC<ItemsToAddComponentProps> = ({ items, carIte
     </section>
   )
 }
-
-export default ItemsToAddComponent
