@@ -12,12 +12,12 @@ import { LoginPage, NotFound, HomePage } from './Pages'
 
 axios.defaults.baseURL = 'http://172.20.1.70:4000/api'
 // axios.defaults.baseURL = 'http://172.20.1.110:4000/api';
-export function App () {
+export function App (): JSX.Element {
   const { user, login } = useAuth()
 
   useEffect(() => {
     const token = localStorage.getItem('tokenBodega')
-    if (token) {
+    if (token !== null) {
       login(token)
     } else {
       console.log('No Token')

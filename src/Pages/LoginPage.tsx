@@ -1,9 +1,9 @@
-import { MessageDisplay } from "../components/ui/MessagesDisplay";
-import { Label, Button, Input, Loading } from "../components/ui";
-import { useLogin } from "../hooks/useLogin";
+import { MessageDisplay } from '../components/ui/MessagesDisplay'
+import { Label, Button, Input, Loading } from '../components/ui'
+import { useLogin } from '../hooks/useLogin'
 
-export function LoginPage() {
- const { setPassword, setUsername, handleSubmit, error, loading, message } = useLogin();
+export function LoginPage (): JSX.Element {
+  const { setPassword, setUsername, handleSubmit, error, loading, message } = useLogin()
 
   return (
     <section className="w-full h-screen bg-slate-900 flex flex-col justify-center items-center space-y-4 relative">
@@ -16,12 +16,12 @@ export function LoginPage() {
         <article className="flex flex-col w-[300px] gap-4">
           <div className="flex items-center justify-between">
             <Label htmlFor="username">Usuario:</Label>
-            <Input placeholder="CP141412422" onChange={ev => setUsername(ev.target.value)}
+            <Input placeholder="CP141412422" onChange={ev => { setUsername(ev.target.value) }}
               type="text" id="username" required />
           </div>
           <div className="flex items-center justify-between mb-6">
             <Label htmlFor="password">Contraseña:</Label>
-            <Input placeholder="**********" onChange={ev => setPassword(ev.target.value)}
+            <Input placeholder="**********" onChange={ev => { setPassword(ev.target.value) }}
               type="password" id="password" required />
           </div>
           <Button>Iniciar Sesión</Button>

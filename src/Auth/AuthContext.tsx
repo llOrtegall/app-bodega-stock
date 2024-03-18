@@ -1,48 +1,62 @@
-import React, { createContext, useContext, useState } from 'react';
-import { AuthContextData, AuthProviderProps, User } from '../interfaces/Interfaces';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import React, { createContext, useContext, useState } from 'react'
+import { type AuthProviderProps, type User } from '../interfaces/Interfaces'
+import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
-const AuthContext = createContext<AuthContextData | undefined>(undefined);
+interface AuthContextData {
+  user: User | undefined
+  setUser: React.Dispatch<React.SetStateAction<User | undefined>>
+  login: (auth: string) => void
+  logout: () => void
+}
+
+const AuthContext = createContext<AuthContextData>(
+  {
+    login: () => {},
+    logout: () => {},
+    user: { apellidos: '', correo: '', empresa: '', id: '', nombres: '', proceso: '', rol: '', username: '' },
+    setUser: () => {}
+  })
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null);
-  const navigate = useNavigate();
+  const [user, setUser] = useState<User>()
+  const navigate = useNavigate()
 
-  const login = (token: string) => {
-    if (token) {
+  const login = (token: string): void => {
+    if (typeof token === 'string') {
       axios.get('/profile', { headers: { Authorization: `Bearer ${token}` } })
         .then(response => {
           if (response.status === 200) {
-            setUser(response.data);
-            navigate('/home');
+            const user = response.data as User
+            setUser(user)
+            navigate('/home')
           }
         })
         .catch(err => {
-          console.log(err);
-          logout();
-        });
+          console.log(err)
+          logout()
+        })
     }
-  };
+  }
 
-  const logout = () => {
-    setUser(null);
-    localStorage.removeItem('tokenBodega');
-    navigate('/');
-  };
+  const logout = (): void => {
+    setUser({ apellidos: '', correo: '', empresa: '', id: '', nombres: '', proceso: '', rol: '', username: '' })
+    localStorage.removeItem('tokenBodega')
+    navigate('/')
+  }
 
   return (
     <AuthContext.Provider value={{ user, setUser, login, logout }}>
       {children}
     </AuthContext.Provider>
-  );
-};
+  )
+}
 
-// eslint-disable-next-line react-refresh/only-export-components
 export const useAuth = (): AuthContextData => {
-  const context = useContext(AuthContext);
+  const context = useContext(AuthContext)
+  // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
   if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
+    throw new Error('useAuth must be used within an AuthProvider')
   }
-  return context;
-};
+  return context
+}
