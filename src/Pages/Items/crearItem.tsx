@@ -1,9 +1,9 @@
 import { MessageDisplay } from '../../components/ui/MessagesDisplay'
+import { Button, Input, Label } from '../../components/ui'
 import { type newItem } from '../../interfaces/Item'
 import { useAuth } from '../../Auth/AuthContext'
 import { useState } from 'react'
 import axios from 'axios'
-import { Button, Input, Label } from '../../components/ui'
 
 const options = [
   { value: 'Impresora TMU USB/LPT', label: 'Impresora TMU | USB' },
@@ -91,7 +91,9 @@ export function CrearItems (): JSX.Element {
   }
 
   return (
-    <main className="h-[92vh] flex flex-col items-center justify-center">
+    <main className="h-[92vh] flex flex-col items-center text-2xl">
+
+      <h2 className='bg-blue-700 text-white text-4xl py-4 w-full text-center font-semibold mb-20'>Creación Activos / Insumos </h2>
 
       <form className="grid grid-cols-3 gap-2 place-items-center mb-20"
         onSubmit={handleSubmit}>
