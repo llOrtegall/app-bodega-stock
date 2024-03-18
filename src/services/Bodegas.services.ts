@@ -1,5 +1,5 @@
-import axios from 'axios'
-import { type BodegaIntIS, type Bodegas } from '../types/Bodega'
+import axios, { type AxiosResponse } from 'axios'
+import { type createBodega, type BodegaIntIS, type Bodegas } from '../types/Bodega'
 
 export async function getAllBodegas (company: string): Promise<Bodegas> {
   const response = await axios.get(`/getBodegas/${company}`)
@@ -19,11 +19,7 @@ export async function getDetailBodegaById ({ company, id }: { company: string, i
   return data
 }
 
-export const postBodega = async (itemToSend: object): Promise<[]> => {
-  try {
-    const res = await axios.post('/createBodega', itemToSend)
-    return { data: res.data, error: null }
-  } catch (err: string | any) {
-    return { data: null, error: err.response.data.error }
-  }
+export const postBodega = async (itemToSend: createBodega): Promise<AxiosResponse> => {
+  const response = await axios.post('/createBodega', itemToSend)
+  return response
 }

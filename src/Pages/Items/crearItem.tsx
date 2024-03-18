@@ -95,7 +95,7 @@ export function CrearItems (): JSX.Element {
 
       <h2 className='bg-blue-800 border text-white text-3xl py-4 w-full text-center font-semibold mb-20'>Creación Activos / Insumos </h2>
 
-      <form className="grid grid-cols-3 gap-2 place-items-center mb-20"
+      <form className="grid grid-cols-3 gap-2 place-items-center mb-20 bg-slate-200 px-20 py-12"
         onSubmit={handleSubmit}>
 
         <div className="w-full flex flex-col py-2 gap-2">

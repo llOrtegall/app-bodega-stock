@@ -33,6 +33,13 @@ interface Simcard {
   updatedAt?: string
 }
 
+export interface createBodega {
+  nombre: string
+  sucursal: string
+  direccion: string
+  company: string
+}
+
 // * Extiende la interfaz Bodega para incluir los items y simcards de las interfaces Item y Simcard
 export type BodegaIntIS = Omit<Bodega, 'items' | 'simcards'> & {
   items: Item[]
