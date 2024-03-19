@@ -13,18 +13,18 @@ export function LoginPage (): JSX.Element {
           <img src="gane.png" width={200} alt="logo de gane" />
         </figure>
 
-        <article className="flex flex-col w-[300px] gap-4">
+        <article className="flex flex-col w-[320px] gap-4">
           <div className="flex items-center justify-between">
-            <Label htmlFor="username">Usuario:</Label>
+            <Label htmlFor="username" textSize='xl'>Usuario:</Label>
             <Input placeholder="CP141412422" onChange={ev => { setUsername(ev.target.value) }}
               type="text" id="username" required />
           </div>
           <div className="flex items-center justify-between mb-6">
-            <Label htmlFor="password">Contraseña:</Label>
+            <Label htmlFor="password" textSize='xl'>Contraseña:</Label>
             <Input placeholder="**********" onChange={ev => { setPassword(ev.target.value) }}
               type="password" id="password" required />
           </div>
-          <Button>Iniciar Sesión</Button>
+          <Button textSize='xl'>Iniciar Sesión</Button>
         </article>
       </form>
 

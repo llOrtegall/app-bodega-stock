@@ -13,6 +13,10 @@ interface newItem {
   company: string
 }
 
+export interface updateItem extends newItem {
+  _id: string
+}
+
 interface Item {
   _id: string
   nombre: string

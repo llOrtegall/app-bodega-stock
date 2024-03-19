@@ -1,6 +1,6 @@
-import axios from "axios"
+import axios from 'axios'
 
-export const getMovimientos = async (company: string) => {
+export const getMovimientos = async (company: string): Promise<any> => {
   try {
     const MoviResponse = await axios.get(`/getMovimientos/${company}`)
     return MoviResponse.data
@@ -10,7 +10,7 @@ export const getMovimientos = async (company: string) => {
   }
 }
 
-export const getMovimiento = async (company: string, id: string) => {
+export const getMovimiento = async (company: string, id: string): Promise<any> => {
   try {
     const MoviResponse = await axios.get(`/movimiento/${company}/${id}`)
     return MoviResponse.data

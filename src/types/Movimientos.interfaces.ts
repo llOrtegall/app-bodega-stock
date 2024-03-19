@@ -1,32 +1,23 @@
-interface Item {
-  _id: string
-  nombre: string
-  descripcion: string
-  placa: string
-  serial: string
-  estado: string
-  createdAt: string
-  updatedAt: string
+import { type Movimiento } from './Movimiento'
+
+export interface FiltrosInt {
+  busMov: string
+  setBusMov: (val: string) => void
+  movFiltrados: Movimiento[]
 }
 
-interface Simcard {
-  _id: string
-  numero: string
-  operador: string
-  estado: string
-  serial: string
-  apn: string
-  user: string
-  pass: string
-  createdAt: string
-  updatedAt: string
+export interface FiltrosOrdInt {
+  sortedMovimientos: Movimiento[]
+  toggleSortOrder: () => void
+  sortOrder: string
 }
 
-export interface Bodega {
-  _id: string
-  sucursal: number
-  nombre: string
-  direccion: string
-  items: Item[]
-  simcards: Simcard[]
+export interface MovimientosInt {
+  sortedMovimientos: Movimiento[]
+  busMov: string
+  setBusMov: (val: string) => void
+  toggleSortOrder: () => void
+  sortOrder: string
+  error: string
+  loading: boolean
 }

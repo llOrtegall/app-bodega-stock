@@ -1,19 +1,19 @@
-import { useCallback } from 'react';
-import { useNavigate } from "react-router-dom";
-import { Movimiento } from "../../types/MovInterfaces";
-import { formatFecha } from "../../utils/FormaFecha";
+import { useCallback } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { type Movimiento } from '../../types/Movimiento'
+import { formatFecha } from '../../utils/FormaFecha'
 
 interface Props {
-  movimiento: Movimiento;
+  movimiento: Movimiento
 }
 
-export function RenderMovCom({
-  movimiento: { movimientoId, createdAt, incidente, encargado, bodegaOrigen, bodegaDestino, items, simcards, _id } }: Props) {
-  const navigate = useNavigate();
+export function RenderMovCom (
+  { movimiento: { movimientoId, createdAt, incidente, encargado, bodegaOrigen, bodegaDestino, items, simcards, _id } }: Props): JSX.Element {
+  const navigate = useNavigate()
 
   const handleOnClick = useCallback(() => {
-    navigate(`/movimientos/detalle/${_id}`);
-  }, [navigate, _id]);
+    navigate(`/movimientos/detalle/${_id}`)
+  }, [navigate, _id])
 
   return (
     <section key={movimientoId} onClick={handleOnClick}

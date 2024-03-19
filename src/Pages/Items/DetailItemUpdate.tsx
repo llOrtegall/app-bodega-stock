@@ -1,4 +1,4 @@
-import { type createItem } from '../../types/Item'
+import { type updateItem } from '../../types/Item'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { MessageDisplay } from '../../components/ui'
 import { useAuth } from '../../Auth/AuthContext'
@@ -42,7 +42,7 @@ export function DetalleItem (): JSX.Element {
   const { user } = useAuth()
   const company = (user != null) ? user.empresa : ''
 
-  const [item, setItem] = useState<createItem>({
+  const [item, setItem] = useState<updateItem>({
     _id: '',
     nombre: '',
     descripcion: '',
@@ -55,7 +55,7 @@ export function DetalleItem (): JSX.Element {
   useEffect(() => {
     axios.get(`/getItem/${company}/${id}`)
       .then(res => {
-        setItem(res.data as createItem)
+        setItem(res.data as updateItem)
       })
       .catch(err => {
         console.log(err)

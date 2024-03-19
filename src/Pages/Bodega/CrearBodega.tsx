@@ -60,17 +60,17 @@ export function CrearBodega (): JSX.Element {
       <form className="flex flex-col w-1/2 gap-4 py-20 px-12 border rounded-md my-12 bg-slate-300 text-2xl"
         onSubmit={handleSubmit} >
         <div className="w-full flex flex-col gap-2">
-          <Label>Nombre Bodega | PDV</Label>
+          <Label>Nombre Bodega | PDV:</Label>
           <Input type="text" name="nombre" value={item.nombre} onChange={handleChange}
             placeholder="Bodega Principal ... | PDV 12 ..." />
         </div>
         <div className="w-full flex flex-col gap-2">
-          <Label>N° Sucursal</Label>
+          <Label>N° Sucursal:</Label>
           <Input type="text" name="sucursal" value={item.sucursal} onChange={handleChange}
             placeholder="401923 | 401924 ..." />
         </div>
         <div className="w-full flex flex-col gap-2 mb-8">
-          <Label>Dirección</Label>
+          <Label>Dirección:</Label>
           <Input type="text" name="direccion" value={item.direccion} onChange={handleChange}
             placeholder="Cra 4 # 4-56 ... | Calle 5 # 5-67 ..."/>
         </div>

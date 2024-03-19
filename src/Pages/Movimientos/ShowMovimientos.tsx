@@ -3,21 +3,20 @@ import { useMovimientos } from '../../hooks/useMovimientos'
 import { useAuth } from '../../Auth/AuthContext'
 import { Loading } from '../../components/ui'
 
-export function ShowMovimientos() {
+export function ShowMovimientos (): JSX.Element {
   const { user } = useAuth()
-  const company = user?.empresa || ''
+  const company = (user != null) ? user.empresa : ''
 
   const { busMov, setBusMov, sortOrder, sortedMovimientos, toggleSortOrder, loading } = useMovimientos(company)
 
-
   return (
-    loading ? (<Loading>Cargando Movimientos</Loading>)
-      :
-      (
+    loading
+      ? (<section className='flex items-center justify-center pt-20'><Loading>Cargando Movimientos</Loading></section>)
+      : (
         <section className="w-full h-[92vh] overflow-auto">
           <article className='p-2 bg-blue-700 flex items-center justify-center'>
-            <label className='pr-2 font-semibold'>Filtro: N° Incidente | Encargado : </label >
-            <input type="text" value={busMov} onChange={ev => setBusMov(ev.target.value)} placeholder="Buscar Movimiento..."
+            <label className='pr-2 font-semibold'>Filtrar Por: N° Incidente || Encargado || N° Mov || Fecha Mov: </label >
+            <input type="text" value={busMov} onChange={ev => { setBusMov(ev.target.value) }} placeholder="Buscar Movimiento..."
               className="bg-slate-200 w-64 p-1 rounded-md border border-black" />
           </article >
           <section className='w-full'>
@@ -37,6 +36,6 @@ export function ShowMovimientos() {
           </section>
 
         </section >
-      )
+        )
   )
 }
