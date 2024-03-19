@@ -7,7 +7,6 @@ interface BodegaSelectionComponentProps {
   setSearchBodega: React.Dispatch<React.SetStateAction<string>>
   sendBodega: string
   setSendBodega: React.Dispatch<React.SetStateAction<string>>
-
 }
 
 const BodegaSelectionComponent: React.FC<BodegaSelectionComponentProps> =

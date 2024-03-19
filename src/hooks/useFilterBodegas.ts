@@ -3,7 +3,7 @@ import { type Bodegas } from '../types/Bodega'
 
 interface IOFilterBodegas {
   searchBodega: string
-  setSearchBodega: (value: string) => void
+  setSearchBodega: React.Dispatch<React.SetStateAction<string>>
   filteredBodegas: Bodegas
 }
 

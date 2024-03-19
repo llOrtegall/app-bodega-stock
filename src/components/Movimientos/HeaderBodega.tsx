@@ -1,14 +1,15 @@
-import { Bodega } from "../../types/Movimientos.interfaces";
-import { Button, Input, Label } from "../ui";
+import { type BodegaWithItems } from '../../types/Bodega'
+import { Button, Input, Label } from '../ui'
 
-export function HeaderBodega({funGetBodega, valueBodega, searBodega, bodega, children} :
-  {
-    bodega: Bodega | undefined,
-    funGetBodega: (ev: { preventDefault: () => void }) => void,
-    valueBodega: string,
-    searBodega: React.Dispatch<React.SetStateAction<string>>,
-    children: string
-  }) {
+interface HeaderBodegaProps {
+  bodega: BodegaWithItems
+  funGetBodega: (ev: { preventDefault: () => void }) => void
+  valueBodega: string
+  searBodega: React.Dispatch<React.SetStateAction<string>>
+  children: string
+}
+
+export function HeaderBodega ({ funGetBodega, valueBodega, searBodega, bodega, children }: HeaderBodegaProps): JSX.Element {
   return (
     <article className='flex flex-col bg-slate-700 rounded-md'>
 
@@ -16,7 +17,7 @@ export function HeaderBodega({funGetBodega, valueBodega, searBodega, bodega, chi
         <h1 className='text-2xl font-bold uppercase text-white'>{children}</h1>
         <form className="flex items-center gap-2" onSubmit={funGetBodega}>
           <Label color='text-white'>Sucursal Bodega:</Label>
-          <Input type="text" value={valueBodega} onChange={ev => searBodega(ev.target.value)}
+          <Input type="text" value={valueBodega} onChange={ev => { searBodega(ev.target.value) }}
             placeholder="40001 | 34545" />
           <Button type='submit'>Buscar Sucursal</Button>
         </form>
