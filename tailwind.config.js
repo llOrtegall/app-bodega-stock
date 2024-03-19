@@ -5,7 +5,11 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: theme => ({
+        'hero-pattern': "url('/1014.webp')",
+      }),
+    },
   },
   plugins: [],
 }

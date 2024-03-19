@@ -1,29 +1,36 @@
 import { MessageDisplay } from '../components/ui/MessagesDisplay'
 import { Label, Button, Input, Loading } from '../components/ui'
 import { useLogin } from '../hooks/useLogin'
+import { LockIcon, UserIcon } from '../components/icons'
 
 export function LoginPage (): JSX.Element {
   const { setPassword, setUsername, handleSubmit, error, loading, message } = useLogin()
 
   return (
-    <section className="w-full h-screen bg-gradient-to-r from-blue-400 to-blue-800 items-center justify-center flex flex-col">
+    <section className="w-full h-screen flex flex-col items-center justify-center bg-hero-pattern bg-center bg-no-repeat bg-cover">
 
-      <form className='w-1/3 backdrop-blur-md bg-white/30 py-12 rounded-lg flex flex-col gap-8 px-28 mb-4'>
+      <form className='backdrop-blur-md bg-white/30 py-12 rounded-lg flex flex-col gap-8 px-14 mb-4'>
         <figure className='flex justify-center'>
-          <img src="gane.png" alt="" width={180} />
+          <img src="gane.webp" alt="" width={180} />
         </figure>
 
-        <div className='flex flex-col gap-2'>
-          <Label>Usuario / Username </Label>
-          <Input type='text' placeholder='CP1118342523'
-            onChange={ev => { setUsername(ev.target.value) }} />
-        </div>
+        <article className='w-full flex flex-col gap-2 text-3xl'>
+          <Label>Usuario</Label>
+          <div className='w-full flex items-center gap-2'>
+            <UserIcon />
+            <Input type='text' placeholder='CP1118342523'
+              onChange={ev => { setUsername(ev.target.value) }} />
+          </div>
+        </article>
 
-        <div className='flex flex-col gap-2'>
-          <Label>Contraseña / Password</Label>
-          <Input type='password' placeholder='**********'
-            onChange={ev => { setPassword(ev.target.value) }} />
-        </div>
+        <article className='w-full flex flex-col gap-2 text-3xl'>
+          <Label>Contraseña</Label>
+          <div className='w-full flex items-center gap-2'>
+            <LockIcon />
+            <Input type='password' placeholder='**********'
+              onChange={ev => { setPassword(ev.target.value) }} />
+          </div>
+        </article>
 
         <Button onClick={handleSubmit}>Iniciar Sesión</Button>
       </form>

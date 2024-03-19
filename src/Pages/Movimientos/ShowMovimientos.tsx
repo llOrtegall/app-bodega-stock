@@ -1,7 +1,7 @@
 import { RenderMovCom } from '../../components/Movimientos'
 import { useMovimientos } from '../../hooks/useMovimientos'
 import { useAuth } from '../../Auth/AuthContext'
-import { Loading } from '../../components/ui'
+import { Input, Label, Loading } from '../../components/ui'
 
 export function ShowMovimientos (): JSX.Element {
   const { user } = useAuth()
@@ -14,10 +14,10 @@ export function ShowMovimientos (): JSX.Element {
       ? (<section className='flex items-center justify-center pt-20'><Loading>Cargando Movimientos</Loading></section>)
       : (
         <section className="w-full h-[92vh] overflow-auto">
-          <article className='p-2 bg-blue-700 flex items-center justify-center'>
-            <label className='pr-2 font-semibold'>Filtrar Por: N° Incidente || Encargado || N° Mov || Fecha Mov: </label >
-            <input type="text" value={busMov} onChange={ev => { setBusMov(ev.target.value) }} placeholder="Buscar Movimiento..."
-              className="bg-slate-200 w-64 p-1 rounded-md border border-black" />
+          <article className='flex items-center justify-center bg-blue-600 p-2 gap-2'>
+            <Label>Filtrar Por: </Label>
+            <Input type="text" value={busMov}
+              onChange={ev => { setBusMov(ev.target.value) }} placeholder="N° Mov | N° Incidente"/>
           </article >
           <section className='w-full'>
             <article className='grid grid-cols-12 px-2 text-center p-2 text-lg font-semibold bg-blue-200'>
