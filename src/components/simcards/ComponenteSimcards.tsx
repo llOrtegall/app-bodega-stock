@@ -1,13 +1,16 @@
-import { BodegaWithSims } from '../../types/Simcard.interfaces'
+import { type BodegaWithSims } from '../../types/Simcard.interfaces'
 import { SimcardAgregada } from '../simcards/SimcardAgregada'
 
+interface CartSims {
+  cartSims: string[]
+  handleRemoveItem: (id: string) => void
+  cartSims2: string[]
+  handleRemoveItem2: (id: string) => void
+  bodegaOrigen: BodegaWithSims
+  bodegaDestino: BodegaWithSims
+}
 
-
-export function ComponenteSimcards ({ bodegaOrigen, bodegaDestino, handleRemoveItem, handleRemoveItem2, cartSims, cartSims2 }: 
-  { bodegaOrigen: BodegaWithSims, bodegaDestino: BodegaWithSims, 
-    handleRemoveItem: (id: string) => void, 
-    handleRemoveItem2: (id: string) => void, 
-    cartSims: string[], cartSims2: string[] }) {
+export function ComponenteSimcards ({ bodegaOrigen, bodegaDestino, handleRemoveItem, handleRemoveItem2, cartSims, cartSims2 }: CartSims): JSX.Element {
   return (<>
 
     <h1 className='text-xl font-semibold text-center py-1 rounded-t-md bg-blue-600 text-white'>Movimiento </h1>
@@ -23,7 +26,7 @@ export function ComponenteSimcards ({ bodegaOrigen, bodegaDestino, handleRemoveI
         <section style={{ maxHeight: '450px', overflowY: 'auto' }}>
           <p className='grid grid-cols-3 place-items-center bg-green-200 text-black font-semibold'><span>Número</span> <span>Serial</span> <span> - </span></p>
           {
-            cartSims && (
+            (
               cartSims?.map(sim => (
                 <SimcardAgregada id={sim} key={sim} simcards={bodegaOrigen.simcards} handleRemoveItem={handleRemoveItem} color={'bg-green-200'} />
               ))
@@ -36,7 +39,7 @@ export function ComponenteSimcards ({ bodegaOrigen, bodegaDestino, handleRemoveI
         <section style={{ maxHeight: '450px', overflowY: 'auto' }}>
           <p className='grid grid-cols-3 place-items-center bg-red-200 text-black font-semibold'><span>Número</span> <span>Serial</span> <span> - </span></p>
           {
-            cartSims2 && (
+           (
               cartSims2?.map(sim => (
                 <SimcardAgregada id={sim} key={sim} simcards={bodegaDestino.simcards} handleRemoveItem={handleRemoveItem2} color={'bg-red-200'} />
               ))

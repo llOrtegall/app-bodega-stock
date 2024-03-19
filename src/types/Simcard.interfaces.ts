@@ -31,6 +31,8 @@ export interface SimcardWithBodega {
   bodega?: Bodega | 'No Asignado'
 }
 
+export type SimcardsArray = SimcardWithBodega[]
+
 export interface BodegaWithSims {
   _id: string
   nombre: string

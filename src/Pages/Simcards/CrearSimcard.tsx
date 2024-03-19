@@ -3,9 +3,9 @@ import { useState } from 'react'
 import axios from 'axios'
 import { useAuth } from '../../Auth/AuthContext'
 
-export function CrearSimcard () {
+export function CrearSimcard (): JSX.Element {
   const { user } = useAuth()
-  const company = user?.empresa || ''
+  const company = (user != null) ? user.empresa : ''
   const [error, setError] = useState('')
   const [message, setMessage] = useState('')
   const [simcard, setSimcard] = useState({
@@ -19,13 +19,12 @@ export function CrearSimcard () {
     company
   })
 
-  const handleSubmit = async (e: { preventDefault: () => void }) => {
+  const handleSubmit = (e: { preventDefault: () => void }): void => {
     e.preventDefault()
 
     axios.post('/createSimcard', simcard)
       .then((res) => {
-        console.log(res)
-        setMessage(res.data.message || 'Simcard Creada')
+        setMessage(res.data.message as string)
         setSimcard({
           numero: '',
           operador: '',
@@ -41,8 +40,7 @@ export function CrearSimcard () {
         }, 4000)
       })
       .catch((err) => {
-        console.log(err)
-        setError(err.response?.data?.error || 'An error occurred')
+        setError(err.response.data.error as string)
         setTimeout(() => {
           setError('')
         }, 4000)
@@ -56,12 +54,12 @@ export function CrearSimcard () {
         <div className='flex items-center'>
           <label htmlFor="numero" className='w-28 text-center'>Numero</label>
           <input type="text" name="numero" id="numero" className='p-2 rounded-md min-w-72 outline-none' placeholder='32021545652 | 3004567890'
-            value={simcard.numero} onChange={(e) => setSimcard({ ...simcard, numero: e.target.value })} />
+            value={simcard.numero} onChange={(e) => { setSimcard({ ...simcard, numero: e.target.value }) }} />
         </div>
         <div className='flex items-center'>
           <label htmlFor="operador" className='w-28 text-center'>Operador</label>
           <select name="operador" id="operador" className='p-2 rounded-md min-w-72 outline-none'
-            value={simcard.operador} onChange={(e) => setSimcard({ ...simcard, operador: e.target.value })}>
+            value={simcard.operador} onChange={(e) => { setSimcard({ ...simcard, operador: e.target.value }) }}>
             <option value="">Selecciona un operador</option>
             <option value="Claro">Claro</option>
             <option value="Movistar">Movistar</option>
@@ -71,7 +69,7 @@ export function CrearSimcard () {
         <div className='flex items-center'>
           <label htmlFor="estado" className='w-28 text-center'>Estado</label>
           <select name="estado" id="estado" className='p-2 rounded-md min-w-72 outline-none'
-            value={simcard.estado} onChange={(e) => setSimcard({ ...simcard, estado: e.target.value })}>
+            value={simcard.estado} onChange={(e) => { setSimcard({ ...simcard, estado: e.target.value }) }}>
             <option value="">Selecciona un estado</option>
             <option value="Activa">Activa</option>
             <option value="Inactiva">Inactiva</option>
@@ -82,22 +80,22 @@ export function CrearSimcard () {
         <div className='flex items-center'>
           <label htmlFor="serial" className='w-28 text-center'>Serial</label>
           <input type="text" name="serial" id="serial" className='p-2 rounded-md min-w-72 outline-none' placeholder='57455432264940023132'
-            value={simcard.serial} onChange={(e) => setSimcard({ ...simcard, serial: e.target.value })} />
+            value={simcard.serial} onChange={(e) => { setSimcard({ ...simcard, serial: e.target.value }) }} />
         </div>
         <div className='flex items-center'>
           <label htmlFor="apn" className='w-28 text-center'>APN</label>
           <input type="text" name="apn" id="apn" className='p-2 rounded-md min-w-72 outline-none' placeholder='claro.apn.com | movistar.apn.com | tigo.apn.com'
-            value={simcard.apn} onChange={(e) => setSimcard({ ...simcard, apn: e.target.value })} />
+            value={simcard.apn} onChange={(e) => { setSimcard({ ...simcard, apn: e.target.value }) }} />
         </div>
         <div className='flex items-center'>
           <label htmlFor="user" className='w-28 text-center'>User</label>
           <input type="text" name="user" id="user" className='p-2 rounded-md min-w-72 outline-none' placeholder='CD_320324112 | estrategias'
-            value={simcard.user} onChange={(e) => setSimcard({ ...simcard, user: e.target.value })} />
+            value={simcard.user} onChange={(e) => { setSimcard({ ...simcard, user: e.target.value }) }} />
         </div>
         <div className='flex items-center'>
           <label htmlFor="pass" className='w-28 text-center'>Contraseña</label>
           <input type="text" name="pass" id="pass" className='p-2 rounded-md min-w-72 outline-none' placeholder='13242 | comcelweb | estrategias ...'
-            value={simcard.pass} onChange={(e) => setSimcard({ ...simcard, pass: e.target.value })} />
+            value={simcard.pass} onChange={(e) => { setSimcard({ ...simcard, pass: e.target.value }) }} />
         </div>
 
         <button type='submit'
@@ -106,7 +104,9 @@ export function CrearSimcard () {
         </button>
 
       </form>
-      <MessageDisplay message={message} error={error} />
+      <section className='flex items-center justify-center pt-2'>
+        <MessageDisplay message={message} error={error} />
+      </section>
 
     </main>
 

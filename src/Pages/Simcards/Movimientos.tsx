@@ -3,12 +3,26 @@ import { RenderBodegaOrigen } from '../../components/simcards/RenderBodegaOrigen
 import { ComponenteSimcards } from '../../components/simcards/ComponenteSimcards.js'
 import { FooterMovSim } from '../../components/simcards/FooterCompSimcaMov.js'
 import { MessageDisplay } from '../../components/ui/MessagesDisplay.js'
-import { BodegaWithSims } from '../../types/Simcard.interfaces.js'
+import { type BodegaWithSims } from '../../types/Simcard.interfaces.js'
 import { useAuth } from '../../Auth/AuthContext'
 import { useCallback, useState } from 'react'
 import axios from 'axios'
 
-function useCarSimcards(initialItems = [] as string[]) {
+interface CartSims {
+  cartSims: string[]
+  handleAddSimcard: (id: string) => void
+  handleRemoveItem: (id: string) => void
+  setCartSims: (value: string[]) => void
+}
+
+interface CartSims2 {
+  cartSims2: string[]
+  handleAddSimcard2: (id: string) => void
+  handleRemoveItem2: (id: string) => void
+  setCartSims2: (value: string[]) => void
+}
+
+function useCarSimcards (initialItems = [] as string[]): CartSims {
   const [cartSims, setCartSims] = useState(initialItems)
 
   const handleAddSimcard = useCallback((id: string) => {
@@ -30,7 +44,7 @@ function useCarSimcards(initialItems = [] as string[]) {
   return { cartSims, handleAddSimcard, handleRemoveItem, setCartSims }
 }
 
-function useCarSimcards2(initialItems = [] as string[]) {
+function useCarSimcards2 (initialItems = [] as string[]): CartSims2 {
   const [cartSims2, setCartSims2] = useState(initialItems)
 
   const handleAddSimcard2 = useCallback((id: string) => {
@@ -52,10 +66,9 @@ function useCarSimcards2(initialItems = [] as string[]) {
   return { cartSims2, handleAddSimcard2, handleRemoveItem2, setCartSims2 }
 }
 
-
-export function CreaMovimientosSim() {
+export function CreaMovimientosSim (): JSX.Element {
   const { user } = useAuth()
-  const company = user?.empresa || ''
+  const company = (user != null) ? user.empresa : ''
   const [bodegaOrigen, setBodegaOrigen] = useState<BodegaWithSims>({ _id: '', nombre: '', direccion: '', sucursal: 0, items: [], simcards: [], updatedAt: '' })
   const [bodegaDestino, setBodegaDestino] = useState<BodegaWithSims>({ _id: '', nombre: '', direccion: '', sucursal: 0, items: [], simcards: [], updatedAt: '' })
 
@@ -68,18 +81,18 @@ export function CreaMovimientosSim() {
   const { cartSims, setCartSims, handleAddSimcard, handleRemoveItem } = useCarSimcards()
   const { cartSims2, setCartSims2, handleAddSimcard2, handleRemoveItem2 } = useCarSimcards2()
 
-  const hadlesearchnew = () => {
+  const hadlesearchnew = (): void => {
     setCartSims([])
     setCartSims2([])
   }
 
-  const handleClick = () => {
-    if (!bodegaOrigen || !bodegaDestino) {
+  const handleClick = (): void => {
+    if (bodegaOrigen === bodegaDestino) {
       setTimeout(() => {
         setMessage('')
         setError('')
       }, 4000)
-      return setError('Debe Ingresar Una Bodega De Origen y Una De Destino')
+      setError('Debe Ingresar Una Bodega De Origen y Una De Destino Diferentes !!!'); return
     }
     axios.post('/moveSimcard', {
       bodegas: { bodegaOrigen: bodegaOrigen._id, bodegaDestino: bodegaDestino._id },
@@ -90,13 +103,13 @@ export function CreaMovimientosSim() {
       company
     })
       .then(res => {
-        setMessage(res.data.message);
-        setBodegaOrigen({ _id: '', nombre: '', direccion: '', sucursal: 0, items: [], simcards: [], updatedAt: '' });
-        setBodegaDestino({ _id: '', nombre: '', direccion: '', sucursal: 0, items: [], simcards: [], updatedAt: '' });
+        setMessage(res.data.message as string)
+        setBodegaOrigen({ _id: '', nombre: '', direccion: '', sucursal: 0, items: [], simcards: [], updatedAt: '' })
+        setBodegaDestino({ _id: '', nombre: '', direccion: '', sucursal: 0, items: [], simcards: [], updatedAt: '' })
         setCartSims([]); setCartSims2([]); setDescripcion(''); setIncidente(''); setTimeout(() => { setMessage(''); setError('') }, 4000)
       })
       .catch(err => {
-        setError(err.response.data.error)
+        setError(err.response.data.error as string)
         setTimeout(() => { setMessage(''); setError('') }, 4000)
       })
   }
@@ -127,8 +140,7 @@ export function CreaMovimientosSim() {
           descripcion={descripcion} setDescripcion={setDescripcion} handleClick={handleClick} />
       </section>
 
-      <section className='pt-4'>
-
+      <section className='pt-4 flex items-center justify-center'>
         <MessageDisplay message={message} error={error} />
       </section>
     </main>

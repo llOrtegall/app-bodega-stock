@@ -1,21 +1,27 @@
-import { BottonExportSimcards } from '../../components/simcards/ExportSimcards.js'
-import { SimcardWithBodega } from '../../types/Simcard.interfaces.js'
-import { RenderIconSims } from '../../components/simcards/RenderIcons.js'
+import { BottonExportSimcards } from '../../components/simcards/ExportSimcards'
+import { type SimcardsArray } from '../../types/Simcard.interfaces'
+import { RenderIconSims } from '../../components/simcards/RenderIcons'
 import { simcardsBodegas } from '../../services/Simcards.services'
 import { useFilterSimcards } from '../../hooks/useFilterSimcards'
-import { useAuth } from '../../Auth/AuthContext.js'
+import { useAuth } from '../../Auth/AuthContext'
 import { useEffect, useState } from 'react'
 
-export function VerSimcards () {
+export function VerSimcards (): JSX.Element {
   const { user } = useAuth()
-  const company = user?.empresa || ''
-  const [simcardsConBodega, setSimcardsConBodega] = useState<SimcardWithBodega[]>([])
+  const company = (user != null) ? user.empresa : ''
+  const [simcardsConBodega, setSimcardsConBodega] = useState<SimcardsArray>([])
   useEffect(() => {
     simcardsBodegas(company)
       .then(data => {
-        setSimcardsConBodega(data)
+        setSimcardsConBodega(data as SimcardsArray)
       })
-      .catch(err => console.log(err))
+      .catch(err => {
+        const errorString = err.response.data.error
+        if (typeof errorString === 'string') console.log(errorString)
+        else {
+          console.log(err)
+        }
+      })
   }, [company])
 
   const { filteredSimcards, searchSimcard, setSearchSimcard } = useFilterSimcards(simcardsConBodega)
@@ -26,7 +32,7 @@ export function VerSimcards () {
       <section className='flex w-full justify-center items-center gap-4 py-1 bg-blue-600 px-4'>
         <p className=""><span className="font-semibold pr-2">Filtrar:</span>| Operador | Serial | Número</p>
         <input type="text" placeholder="Buscar simcards..."
-          value={searchSimcard} onChange={ev => setSearchSimcard(ev.target.value)}
+          value={searchSimcard} onChange={ev => { setSearchSimcard(ev.target.value) }}
           className="bg-slate-200 w-64 p-1.5 rounded-md" />
          <BottonExportSimcards simcards={filteredSimcards} />
       </section>

@@ -7,12 +7,11 @@ import axios from 'axios'
 import { useFilterSimcards, useFiltersBodegas } from '../../hooks'
 
 import { BodegaDataSims, simcardsBodegas } from '../../services/Simcards.services'
-import { SimcardWithBodega } from '../../types/Simcard.interfaces'
+import { type SimcardWithBodega } from '../../types/Simcard.interfaces'
 
-
-export function AsignarSimcards() {
+export function AsignarSimcards (): JSX.Element {
   const { user } = useAuth()
-  const company = user?.empresa || ''
+  const company = (user != null) ? user.empresa : ''
 
   const [simConBodega, setSimConBodega] = useState<SimcardWithBodega[]>([])
   const [bodegas, setBodegas] = useState([])
@@ -28,9 +27,12 @@ export function AsignarSimcards() {
   useEffect(() => {
     simcardsBodegas(company)
       .then(data => {
-        setSimConBodega(data)
+        setSimConBodega(data as SimcardWithBodega[])
       })
-      .catch(err => console.log(err))
+      .catch(err => {
+        const errorString = err.response.data.error
+        if (typeof errorString === 'string') setError(errorString)
+      })
 
     setTimeout(() => {
       BodegaDataSims(company)

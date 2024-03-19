@@ -1,16 +1,21 @@
-import { useMemo, useState } from "react"
-import { SimcardWithBodega } from "../types/Simcard.interfaces"
+import { useState } from 'react'
+import { type SimcardsArray } from '../types/Simcard.interfaces'
 
-export function useFilterSimcards (initialSimcards: SimcardWithBodega[]) {
+interface FilterSimcards {
+  searchSimcard: string
+  setSearchSimcard: (value: string) => void
+  filteredSimcards: SimcardsArray
+}
+
+export function useFilterSimcards (simcards: SimcardsArray): FilterSimcards {
   const [searchSimcard, setSearchSimcard] = useState('')
 
-  const filteredSimcards = useMemo(() => {
-    return initialSimcards.filter(({ numero, operador, serial }) =>
-      numero.toLowerCase().includes(searchSimcard.toLowerCase()) ||
-      operador.toLowerCase().includes(searchSimcard.toLowerCase()) ||
-      serial.toLowerCase().includes(searchSimcard.toLowerCase())
-    )
-  }, [searchSimcard, initialSimcards])
+  const filteredSimcards =
+  simcards.filter(({ numero, operador, serial }) =>
+    numero.toLowerCase().includes(searchSimcard.toLowerCase()) ||
+    operador.toLowerCase().includes(searchSimcard.toLowerCase()) ||
+    serial.toLowerCase().includes(searchSimcard.toLowerCase())
+  )
 
   return { searchSimcard, setSearchSimcard, filteredSimcards }
 }
