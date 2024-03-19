@@ -1,7 +1,7 @@
-import { Movimiento } from "../../types/Movimiento";
-import { formatFecha } from "../../utils/FormaFecha";
+import { type Movimiento } from '../../types/Movimiento'
+import { formatFecha } from '../../utils/FormaFecha'
 
-export function RenderDetailMov({ mov }: { mov: Movimiento }) {
+export function RenderDetailMov ({ mov }: { mov: Movimiento }): JSX.Element {
   const { bodegaOrigen, bodegaDestino, descripcion, encargado, fecha, incidente, items, movimientoId, simcards } = mov
 
   return (

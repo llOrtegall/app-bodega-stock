@@ -5,24 +5,23 @@ import { useAuth } from '../../Auth/AuthContext'
 import { Loading } from '../../components/ui'
 import { useParams } from 'react-router-dom'
 
-
-export function DesatalleMovimiento() {
+export function DesatalleMovimiento (): JSX.Element {
   const { user } = useAuth()
-  const company = user?.empresa || ''
+  const company = (user != null) ? user.empresa : ''
   const pasarId = useParams()
-  const id = pasarId.id || ''
-  
+  const id = pasarId.id ?? ''
+
   const { movimiento } = useDetailMovs({ id, company })
 
   return (
-    movimiento
+    (movimiento != null)
       ? (
         <main className='flex flex-col gap-4 h-[92vh]'>
           <RenderDetailMov mov={movimiento} />
           {movimiento.items.length > 0 ? (<RenderItemsMov items={movimiento.items} />) : null}
           {movimiento.simcards.entran.length > 0 ? (<RenderSimcardMov simcards={movimiento.simcards} />) : null}
         </main>
-      )
+        )
       : <Loading> Cargando Movimiento </Loading>
   )
 }

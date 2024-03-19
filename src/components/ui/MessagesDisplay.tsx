@@ -4,7 +4,7 @@ export function MessageDisplay ({ message, error }: { message: string, error: st
   return (
     <section className='h-10'>
       <article className="">
-        {(message) &&
+        {(message !== '') &&
           <div className='flex gap-2'>
             <figure className='bg-green-600 text-white font-bold flex items-center justify-center text-center px-2 rounded-md'>
               <SuccesIcon />
@@ -14,7 +14,7 @@ export function MessageDisplay ({ message, error }: { message: string, error: st
             </p>
           </div>
         }
-        {error &&
+        {(error !== '') &&
           <div className='flex gap-2'>
             <figure className='bg-red-500 text-white flex items-center justify-center text-center px-2 rounded-md'>
               <WarningIcon />

@@ -1,6 +1,6 @@
-import { Movimiento } from "../../types/Movimiento";
+import { type Movimiento } from '../../types/Movimiento'
 
-export function RenderItemsMov({ items }: { items: Movimiento['items'] }) {
+export function RenderItemsMov ({ items }: { items: Movimiento['items'] }): JSX.Element {
   return (
     <article className='w-full flex flex-col gap-2 '>
       <table className="table-auto w-full bg-slate-200">

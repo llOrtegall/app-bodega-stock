@@ -1,6 +1,6 @@
-import { Movimiento } from "../../types/Movimiento";
+import { type Movimiento } from '../../types/Movimiento'
 
-export function RenderSimcardMov({ simcards }: { simcards: Movimiento['simcards'] }) {
+export function RenderSimcardMov ({ simcards }: { simcards: Movimiento['simcards'] }): JSX.Element {
   return (
     <article className='w-full flex flex-col gap-2 bg-slate-200'>
       <table className="table-auto w-full ">
