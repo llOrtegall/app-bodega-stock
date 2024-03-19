@@ -24,6 +24,9 @@ export function App (): JSX.Element {
     }
   }, [])
 
+  const isAdminOrAux = !(user == null) && (user.rol === 'Administrador' || user?.rol === 'Aux Administrativo')
+  const isAdminOrCoord = !(user == null) && (user.rol === 'Administrador' || user?.rol === 'Coordinador Soporte')
+
   return (
     <>
       <Routes>
@@ -40,20 +43,17 @@ export function App (): JSX.Element {
           <Route path="/movimientos/detalle/:id" element={<DesatalleMovimiento />} />
         </Route>
 
-        <Route element={<ProtectedRoute
-          isAllowed={!(user == null) && (user.rol === 'Administrador' || user?.rol === 'Aux Administrativo') } redirectTo="/home" />}>
+        <Route element={<ProtectedRoute isAllowed={isAdminOrAux} redirectTo="/home" />}>
           <Route path="/items/crearItems" element={<CrearItems />} />
           <Route path="/items/asignarItems" element={<AsignarItemBodega />} />
         </Route>
 
-        <Route element={<ProtectedRoute
-          isAllowed={!(user == null) && (user.rol === 'Administrador' || user?.rol === 'Aux Administrativo') } redirectTo="/home" />}>
+        <Route element={<ProtectedRoute isAllowed={isAdminOrAux} redirectTo="/home" />}>
           <Route path="/bodega/crearBodega" element={<CrearBodega />} />
           <Route path="/bodega/crearMovimiento" element={<CrearMovimiento />} />
         </Route>
 
-        <Route element={<ProtectedRoute
-          isAllowed={!(user == null) && (user.rol === 'Administrador' || user?.rol === 'Coordinador Soporte') } redirectTo="/home" />}>
+        <Route element={<ProtectedRoute isAllowed={isAdminOrCoord} redirectTo="/home" />}>
           <Route path="/simcards/crearSimcard" element={<CrearSimcard />} />
           <Route path="/simcards/asignarSimcards" element={<AsignarSimcards />} />
           <Route path="/simcards/crearMovimiento" element={<CreaMovimientosSim /> } />
