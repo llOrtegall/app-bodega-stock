@@ -1,12 +1,8 @@
-interface Props extends React.LabelHTMLAttributes<HTMLLabelElement> {
-  textSize?: 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl' | '6xl'
-}
+interface Props extends React.LabelHTMLAttributes<HTMLLabelElement> {}
 
-export function Label ({ children, color, textSize, ...props }: Props): JSX.Element {
+export function Label ({ children, ...props }: Props): JSX.Element {
   return (
-    <label
-      className={`font-semibold ${color} text-${textSize}` }
-      {...props}
+    <label className='' {...props}
     >
       {children}
     </label>
