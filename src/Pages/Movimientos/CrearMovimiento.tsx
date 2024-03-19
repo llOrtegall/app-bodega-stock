@@ -1,19 +1,19 @@
 import { HeaderBodega } from '../../components/Movimientos/HeaderBodega'
-import { Bodega } from '../../types/Movimientos.interfaces'
 import { AddIcon, CheckIcon, DeleteIcon } from '../../components/icons'
+import { type BodegaWithItems } from '../../types/Bodega'
 import { MessageDisplay } from '../../components/ui'
 import { useAuth } from '../../Auth/AuthContext'
 import { useCallback, useState } from 'react'
 import axios from 'axios'
 
-export function CrearMovimiento() {
+export function CrearMovimiento (): JSX.Element {
   const { user } = useAuth()
-  const company = user?.empresa || ''
+  const company = (user != null) ? user.empresa : ''
   const nombres = user?.nombres + ' ' + user?.apellidos
 
   // Estado para traer bodega de origen
-  const [bodegaOrigen, setBodegaOrigen] = useState<Bodega>({ _id: '', nombre: '', direccion: '', sucursal: 0, items: [], simcards: [] })
-  const [bodegaDestino, setBodegaDestino] = useState<Bodega>({ _id: '', nombre: '', direccion: '', sucursal: 0, items: [], simcards: [] })
+  const [bodegaOrigen, setBodegaOrigen] = useState<BodegaWithItems>({ _id: '', nombre: '', direccion: '', sucursal: 0, items: [], created_at: '', updated_at: '' })
+  const [bodegaDestino, setBodegaDestino] = useState<BodegaWithItems>({ _id: '', nombre: '', direccion: '', sucursal: 0, items: [], created_at: '', updated_at: '' })
 
   const [searchBodegaOrigen, setSearchBodegaOrigen] = useState('')
   const [searchBodegaDestino, setSearchBodegaDestino] = useState('')
@@ -26,38 +26,37 @@ export function CrearMovimiento() {
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
 
-
-  const getBodOrigen = (ev: { preventDefault: () => void }) => {
+  const getBodOrigen = (ev: { preventDefault: () => void }): void => {
     ev.preventDefault()
     setMessage('Buscando Bodega ...')
     axios.get(`/getBodega/${company}/${searchBodegaOrigen}`)
       .then(response => {
         setMessage('')
-        setBodegaOrigen(response.data)
+        setBodegaOrigen(response.data as BodegaWithItems)
       })
       .catch(error => {
         setMessage('')
-        setError(error.response.data.error)
+        setError(error.response.data.error as string)
         console.log(error)
       })
   }
 
-  const getBodDestino = (ev: { preventDefault: () => void }) => {
+  const getBodDestino = (ev: { preventDefault: () => void }): void => {
     ev.preventDefault()
     setMessage('Buscando Bodega ...')
     axios.get(`/getBodega/${company}/${searchBodegaDestino}`)
       .then(response => {
         setMessage('')
-        setBodegaDestino(response.data)
+        setBodegaDestino(response.data as BodegaWithItems)
       })
       .catch(error => {
         setMessage('')
-        setError(error.response.data.error)
+        setError(error.response.data.error as string)
         console.log(error)
       })
   }
 
-  const handleClick = () => {
+  const handleClick = (): void => {
     axios.post('/moveItem', {
       bodegaOrigen: bodegaOrigen._id,
       bodegaDestino: bodegaDestino._id,
@@ -68,10 +67,10 @@ export function CrearMovimiento() {
       company
     })
       .then(res => {
-        setMessage(res.data.message)
+        setMessage(res.data.message as string)
         // resetea los estados
-        setBodegaOrigen({ _id: '', nombre: '', direccion: '', sucursal: 0, items: [], simcards: [] })
-        setBodegaDestino({ _id: '', nombre: '', direccion: '', sucursal: 0, items: [], simcards: [] })
+        setBodegaOrigen({ _id: '', nombre: '', direccion: '', sucursal: 0, items: [], created_at: '', updated_at: '' })
+        setBodegaDestino({ _id: '', nombre: '', direccion: '', sucursal: 0, items: [], created_at: '', updated_at: '' })
         setCartItems([])
         setDescripcion('')
         setIncidente('')
@@ -81,7 +80,7 @@ export function CrearMovimiento() {
         }, 4000)
       })
       .catch(err => {
-        setError(err.response.data.error)
+        setError(err.response.data.error as string)
         setTimeout(() => {
           setMessage('')
           setError('')
@@ -125,7 +124,7 @@ export function CrearMovimiento() {
                     <p className='w-4/12 text-center font-semibold'>{item.placa}</p>
                     <p className='w-4/12 text-center font-semibold'>{item.serial}</p>
                     <button className='w-1/12 text-center hover:text-green-400  flex justify-center'
-                      onClick={() => handleAddItem(item._id)} >
+                      onClick={() => { handleAddItem(item._id) }} >
                       {
                         cartItems.includes(item._id)
                           ? <p className="bg-green-300 rounded-full"><CheckIcon /></p>
@@ -155,7 +154,7 @@ export function CrearMovimiento() {
                 <p className=''>
                   {bodegaOrigen.items.find(i => i._id === itemAdd)?.nombre}
                 </p>
-                <button onClick={() => handleRemoveItem(itemAdd)} className="hover:text-red-600">
+                <button onClick={() => { handleRemoveItem(itemAdd) }} className="hover:text-red-600">
                   <DeleteIcon />
                 </button>
               </article>
@@ -177,14 +176,14 @@ export function CrearMovimiento() {
           <label className="flex h-10 items-center"> <span className="font-semibold w-32">N° Incidente:</span>
             <input type="text" className="w-full p-2 rounded-md bg-slate-100 no-underline text-black"
               value={incidente}
-              onChange={ev => setIncidente(ev.target.value)}
+              onChange={ev => { setIncidente(ev.target.value) }}
               placeholder="134564 | 234252 | 634532" />
           </label>
 
           <label className="col-span-3 mx-3"> <span className="font-semibold w-40">Observaciones:</span>
             <input type="text" className="w-full p-2 rounded-md bg-slate-100 no-underline text-black "
               value={descripcion}
-              onChange={ev => setDescripcion(ev.target.value)}
+              onChange={ev => { setDescripcion(ev.target.value) }}
               placeholder="texto para registrar observación ..." />
           </label>
         </form>
@@ -196,7 +195,9 @@ export function CrearMovimiento() {
         </button>
       </section>
 
-      <MessageDisplay message={message} error={error} />
+      <section className='flex items-center justify-center pt-2'>
+        <MessageDisplay message={message} error={error} />
+      </section>
     </main>
   )
 }

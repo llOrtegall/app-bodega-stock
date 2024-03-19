@@ -46,4 +46,8 @@ export type BodegaIntIS = Omit<Bodega, 'items' | 'simcards'> & {
   simcards: Simcard[]
 }
 
+export type BodegaWithItems = Omit<Bodega, 'items' | 'simcards'> & {
+  items: Item[]
+}
+
 export type Bodegas = Bodega[]
