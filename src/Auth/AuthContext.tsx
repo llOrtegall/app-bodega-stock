@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState } from 'react'
+import { getProfile } from '../services/Login.services'
 import { type User } from '../types/Interfaces'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
 
 interface InterfaceAuthContext {
   user: User
@@ -32,17 +32,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     if (typeof token === 'string') {
       localStorage.setItem('tokenBodega', token)
 
-      axios.get('/profile', { headers: { Authorization: `Bearer ${token}` } })
-        .then(response => {
-          if (response.status === 200) {
-            const { data } = response as { data: User }
-            setUser(data)
-            navigate('/home')
-          }
+      void getProfile({ token })
+        .then(res => {
+          setUser(res)
+          navigate('/home')
         })
         .catch(err => {
-          console.log(err)
-          logout()
+          console.error(err)
+          localStorage.removeItem('tokenBodega')
+          navigate('/')
         })
     }
   }

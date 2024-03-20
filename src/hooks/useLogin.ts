@@ -1,7 +1,17 @@
 import { useEffect, useState } from 'react'
-import { type UseLoginReturn } from '../types/Interfaces'
 import { getLogin } from '../services/Login.services'
 import { useAuth } from '../Auth/AuthContext'
+
+interface UseLoginReturn {
+  username: string
+  setUsername: React.Dispatch<React.SetStateAction<string>>
+  password: string
+  setPassword: React.Dispatch<React.SetStateAction<string>>
+  message: string
+  loading: boolean
+  error: string
+  handleSubmit: (ev: React.FormEvent) => void
+}
 
 export function useLogin (): UseLoginReturn {
   const [username, setUsername] = useState('')
