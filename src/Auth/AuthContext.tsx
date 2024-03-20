@@ -1,34 +1,42 @@
 import React, { createContext, useContext, useState } from 'react'
-import { type AuthProviderProps, type User } from '../types/Interfaces'
+import { type User } from '../types/Interfaces'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
-interface AuthContextData {
-  user: User | undefined
-  setUser: React.Dispatch<React.SetStateAction<User | undefined>>
-  login: (auth: string) => void
+interface InterfaceAuthContext {
+  user: User
+  setUser: React.Dispatch<React.SetStateAction<User>>
+  login: (token: string) => void
   logout: () => void
 }
 
-const AuthContext = createContext<AuthContextData>(
+interface AuthProviderProps {
+  children: React.ReactNode
+}
+
+const InitialUser: User = { apellidos: '', correo: '', empresa: '', id: '', nombres: '', proceso: '', rol: '', username: '', exp: 0, iat: 0 }
+
+const AuthContext = createContext<InterfaceAuthContext>(
   {
     login: () => {},
     logout: () => {},
-    user: { apellidos: '', correo: '', empresa: '', id: '', nombres: '', proceso: '', rol: '', username: '' },
+    user: InitialUser,
     setUser: () => {}
   })
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [user, setUser] = useState<User>()
+  const [user, setUser] = useState<User>(InitialUser)
   const navigate = useNavigate()
 
   const login = (token: string): void => {
     if (typeof token === 'string') {
+      localStorage.setItem('tokenBodega', token)
+
       axios.get('/profile', { headers: { Authorization: `Bearer ${token}` } })
         .then(response => {
           if (response.status === 200) {
-            const user = response.data as User
-            setUser(user)
+            const { data } = response as { data: User }
+            setUser(data)
             navigate('/home')
           }
         })
@@ -40,7 +48,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }
 
   const logout = (): void => {
-    setUser({ apellidos: '', correo: '', empresa: '', id: '', nombres: '', proceso: '', rol: '', username: '' })
+    setUser(InitialUser)
     localStorage.removeItem('tokenBodega')
     navigate('/')
   }
@@ -52,7 +60,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   )
 }
 
-export const useAuth = (): AuthContextData => {
+export const useAuth = (): InterfaceAuthContext => {
   const context = useContext(AuthContext)
   // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
   if (!context) {

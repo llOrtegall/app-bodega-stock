@@ -1,16 +1,14 @@
 export interface User {
-  apellidos: string
-  correo: string
-  empresa: string
   id: string
   nombres: string
+  apellidos: string
+  correo: string
+  username: string
+  empresa: string
   proceso: string
   rol: string
-  username: string
-}
-
-export interface AuthProviderProps {
-  children: React.ReactNode
+  iat: number
+  exp: number
 }
 
 export interface ProtectedRouteProps {
