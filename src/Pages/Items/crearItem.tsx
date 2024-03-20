@@ -1,9 +1,9 @@
 import { MessageDisplay } from '../../components/ui/MessagesDisplay'
-import { Button, Input, Label } from '../../components/ui'
+import { Button, Input, Label, Loading } from '../../components/ui'
+import { createItem } from '../../services/Item.services'
 import { type newItem } from '../../types/Item'
 import { useAuth } from '../../Auth/AuthContext'
 import { useState } from 'react'
-import axios from 'axios'
 
 const options = [
   { value: 'Impresora TMU USB/LPT', label: 'Impresora TMU | USB' },
@@ -38,18 +38,19 @@ export function CrearItems (): JSX.Element {
   const { user } = useAuth()
   const company = user.empresa
   const [message, setMessage] = useState('')
+  const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
-  const [item, setItem] = useState<newItem>(
-    {
-      nombre: '',
-      descripcion: '',
-      placa: '',
-      serial: '',
-      estado: 'Bueno',
-      company
-    }
-  )
+  const initialItem: newItem = {
+    nombre: '',
+    descripcion: '',
+    placa: '',
+    serial: '',
+    estado: 'Bueno',
+    company
+  }
+
+  const [item, setItem] = useState<newItem>(initialItem)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>): void => {
     setItem({
@@ -60,39 +61,25 @@ export function CrearItems (): JSX.Element {
 
   const handleSubmit = (e: { preventDefault: () => void }): void => {
     e.preventDefault()
-    axios.post('/createItem', item)
+    setLoading(true)
+    void createItem(item)
       .then(res => {
-        const msgString = res.data.message
-        if (typeof msgString === 'string') {
-          setItem({
-            nombre: '',
-            descripcion: '',
-            placa: '',
-            serial: '',
-            estado: 'Bueno',
-            company
-          })
-          setMessage(msgString)
-          setTimeout(() => {
-            setMessage('')
-          }, 4000)
-        }
+        setLoading(false)
+        setMessage(res.message)
+        setItem(initialItem)
+        setTimeout(() => { setMessage('') }, 5000)
       })
       .catch(err => {
-        console.log(err)
-        const errString = err.response.data.error
-        if (typeof errString === 'string') {
-          setError(errString)
-          setTimeout(() => {
-            setError('')
-          }, 4000)
-        }
+        setError(err.response.data.error as string)
+        setTimeout(() => { setError('') }, 5000)
+      })
+      .finally(() => {
+        setLoading(false)
       })
   }
 
   return (
-    <main className="h-[92vh] flex flex-col items-center text-2xl">
-
+    <main className="flex flex-col items-center text-2xl">
       <h2 className='bg-blue-800 border text-white text-3xl py-4 w-full text-center font-semibold mb-20'>Creación Activos / Insumos </h2>
 
       <form className="grid grid-cols-3 gap-2 place-items-center mb-20 bg-slate-200 px-20 py-12"
@@ -146,6 +133,9 @@ export function CrearItems (): JSX.Element {
         <Button>Crear Item</Button>
       </form>
 
+      {loading && (<section>
+        <Loading>Creando Item ...</Loading>
+      </section>)}
       <MessageDisplay message={message} error={error} />
     </main>
   )
