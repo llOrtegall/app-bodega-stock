@@ -8,7 +8,7 @@ import axios from 'axios'
 
 export function CrearMovimiento (): JSX.Element {
   const { user } = useAuth()
-  const company = (user != null) ? user.empresa : ''
+  const company = user.empresa
   const nombres = user?.nombres + ' ' + user?.apellidos
 
   // Estado para traer bodega de origen

@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react'
 
 export function VerSimcards (): JSX.Element {
   const { user } = useAuth()
-  const company = (user != null) ? user.empresa : ''
+  const company = user.empresa
   const [simcardsConBodega, setSimcardsConBodega] = useState<SimcardsArray>([])
   useEffect(() => {
     simcardsBodegas(company)

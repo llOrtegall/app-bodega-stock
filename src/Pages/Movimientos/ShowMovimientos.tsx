@@ -5,7 +5,7 @@ import { Input, Label, Loading } from '../../components/ui'
 
 export function ShowMovimientos (): JSX.Element {
   const { user } = useAuth()
-  const company = (user != null) ? user.empresa : ''
+  const company = user.empresa
 
   const { busMov, setBusMov, sortOrder, sortedMovimientos, toggleSortOrder, loading } = useMovimientos(company)
 

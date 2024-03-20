@@ -5,7 +5,7 @@ import { useAuth } from '../../Auth/AuthContext'
 
 export function CrearSimcard (): JSX.Element {
   const { user } = useAuth()
-  const company = (user != null) ? user.empresa : ''
+  const company = user.empresa
   const [error, setError] = useState('')
   const [message, setMessage] = useState('')
   const [simcard, setSimcard] = useState({

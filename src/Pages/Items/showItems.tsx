@@ -3,22 +3,34 @@ import { BottonExportItems, RenderItems } from '../../components/Items'
 import { useFiltersItems } from '../../hooks/useFilterItems'
 import { useAuth } from '../../Auth/AuthContext'
 import { useItems } from '../../hooks/useItems'
+import { Loading } from '../../components/ui'
 
 export function VerItems (): JSX.Element {
   const { user } = useAuth()
-  const company = (user != null) ? user.empresa : ''
+  const company = user.empresa
 
-  const { items } = useItems({ company })
+  const { items, loading } = useItems({ company })
   const { filteredItems, search, setSearch } = useFiltersItems(items)
 
   return (
     <>
-      <section className='flex justify-around p-2 bg-blue-800'>
-        <FilterComponentItems search={search} setSearch={setSearch} />
-        <BottonExportItems items={filteredItems} />
-      </section>
-
-      <RenderItems items={filteredItems} rol={user?.rol} />
+      {
+        loading
+          ? (
+              <section className='mt-12'>
+                <Loading >Cargando Items</Loading>
+              </section>
+            )
+          : (
+            <>
+              <section className='flex justify-around p-2 bg-blue-800'>
+                <FilterComponentItems search={search} setSearch={setSearch} />
+                <BottonExportItems items={filteredItems} />
+              </section>
+              <RenderItems items={filteredItems} rol={user?.rol} />
+            </>
+            )
+      }
 
     </>
   )

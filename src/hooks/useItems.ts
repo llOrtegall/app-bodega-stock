@@ -1,36 +1,31 @@
 import { type ItemsArray } from '../types/Item'
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { getAllItems } from '../services/Item.services'
 
 interface useItemsProps {
   items: ItemsArray
+  error: string
   loading: boolean
-  search: string
-  error: any
-  setSearch: (search: string) => void
-  fetchItems: () => void
 }
 
 export function useItems ({ company }: { company: string }): useItemsProps {
   const [loading, setLoading] = useState(false)
   const [items, setItems] = useState<ItemsArray>([])
-  const [error, setError] = useState(null)
-  const [search, setSearch] = useState('')
-
-  const fetchItems = useCallback(() => {
-    setLoading(true)
-    getAllItems(company)
-      .then(data => { setItems(data) })
-      .catch(error => {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-        setError(error)
-      })
-      .finally(() => { setLoading(false) })
-  }, [company])
+  const [error, setError] = useState('')
 
   useEffect(() => {
-    fetchItems()
-  }, [fetchItems])
+    setLoading(true)
+    void getAllItems(company)
+      .then((items) => {
+        setItems(items)
+        setLoading(false)
+      })
+      .catch((error) => {
+        setError(error as string)
+        setLoading(false)
+      })
+      .finally(() => { setLoading(false) })
+  }, [])
 
-  return { search, setSearch, loading, error, fetchItems, items }
+  return { loading, error, items }
 }

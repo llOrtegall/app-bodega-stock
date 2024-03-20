@@ -11,7 +11,7 @@ import { type SimcardWithBodega } from '../../types/Simcard.interfaces'
 
 export function AsignarSimcards (): JSX.Element {
   const { user } = useAuth()
-  const company = (user != null) ? user.empresa : ''
+  const company = user.empresa
 
   const [simConBodega, setSimConBodega] = useState<SimcardWithBodega[]>([])
   const [bodegas, setBodegas] = useState([])

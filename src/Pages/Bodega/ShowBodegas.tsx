@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom'
 export function ShowBodegas (): JSX.Element {
   const [bodegas, setBodegas] = useState<Bodegas>([])
   const { user } = useAuth()
-  const company = (user != null) ? user.empresa : ''
+  const company = user.empresa
 
   const { filteredBodegas, searchBodega, setSearchBodega } = useFiltersBodegas(bodegas)
 

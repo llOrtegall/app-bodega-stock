@@ -7,7 +7,7 @@ import { useParams } from 'react-router-dom'
 
 export function DesatalleMovimiento (): JSX.Element {
   const { user } = useAuth()
-  const company = (user != null) ? user.empresa : ''
+  const company = user.empresa
   const pasarId = useParams()
   const id = pasarId.id ?? ''
 

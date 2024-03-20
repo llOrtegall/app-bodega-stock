@@ -8,7 +8,7 @@ import axios from 'axios'
 
 export function AsignarItemBodega (): JSX.Element {
   const { user } = useAuth()
-  const company = (user != null) ? user.empresa : ''
+  const company = user.empresa
 
   const [sendBodega, setSendBodega] = useState('')
   const [message, setMessage] = useState('')

@@ -6,7 +6,7 @@ import { useAuth } from '../Auth/AuthContext'
 
 export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ isAllowed, redirectTo = '/' }) => {
   const { user } = useAuth()
-  const empresa = (user != null) ? user.empresa : ''
+  const empresa = user.empresa
 
   if (!(isAllowed ?? false)) {
     return <Navigate to={redirectTo} />

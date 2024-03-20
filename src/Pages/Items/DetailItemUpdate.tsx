@@ -40,7 +40,7 @@ export function DetalleItem (): JSX.Element {
   const { id } = useLocation().state
   const navigate = useNavigate()
   const { user } = useAuth()
-  const company = (user != null) ? user.empresa : ''
+  const company = user.empresa
 
   const [item, setItem] = useState<updateItem>({
     _id: '',
