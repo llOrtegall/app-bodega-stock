@@ -1,7 +1,7 @@
 import { ItemsWithoutBodegaComponent, ItemsToAddComponent } from '../../components/Items'
 import BodegaSelectionComponent from '../../components/Bodega/BodegaSelecComponent'
 import { useItemsAndBodegas } from '../../hooks/useItemAndBodegas'
-import { MessageDisplay } from '../../components/ui'
+import { Button, MessageDisplay } from '../../components/ui'
 import { useAuth } from '../../Auth/AuthContext'
 import { useCallback, useState } from 'react'
 import axios from 'axios'
@@ -78,7 +78,7 @@ export function AsignarItemBodega (): JSX.Element {
             setSearchBodega={setSearchBodega} sendBodega={sendBodega} setSendBodega={setSendBodega} />
 
           <form onSubmit={handleSubmit} className='w-full flex justify-center'>
-            <input type="submit" value="Agregar Items A Bodega" className="bg-blue-400 p-2 rounded-md w-96 hover:bg-blue-500 cursor-pointer text-white font-semibold text-center" id="submit" name="submit" />
+            <Button type="submit">Asignar Items a Bodega</Button>
           </form>
         </section>
 

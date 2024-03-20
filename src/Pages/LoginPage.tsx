@@ -7,7 +7,7 @@ export function LoginPage (): JSX.Element {
   const { setPassword, setUsername, handleSubmit, error, loading, message } = useLogin()
 
   return (
-    <section className="w-full h-screen flex flex-col items-center justify-center bg-gradient-to-t from-teal-200 to-teal-500">
+    <section className="w-full h-screen flex flex-col items-center justify-center bg-gradient-to-l from-blue-400 to-blue-500">
 
       <form className='backdrop-blur-md bg-white/30 py-12 rounded-lg flex flex-col gap-8 px-14 mb-4'>
         <figure className='flex justify-center'>
