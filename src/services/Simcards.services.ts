@@ -1,11 +1,13 @@
-import axios from 'axios'
+import { type SimcardWithBodega } from '../types/Simcard.interfaces'
+import axios, { type AxiosResponse } from 'axios'
+import { type Bodegas } from '../types/Bodega'
 
-export async function simcardsBodegas (company: string): Promise<any> {
-  const simcardsResponse = await axios.get(`/simcardWhitBodega/${company}`)
+export async function simcardsBodegas (company: string): Promise<SimcardWithBodega[]> {
+  const simcardsResponse: AxiosResponse<SimcardWithBodega[]> = await axios.get(`/simcardWhitBodega/${company}`)
   return simcardsResponse.data
 }
 
-export async function BodegaDataSims (company: string): Promise<any> {
-  const bodegaResponse = await axios.get(`/getBodegasSim/${company}`)
+export async function BodegaDataSims (company: string): Promise<Bodegas> {
+  const bodegaResponse: AxiosResponse<Bodegas> = await axios.get(`/getBodegasSim/${company}`)
   return bodegaResponse.data
 }

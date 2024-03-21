@@ -3,7 +3,7 @@ import { type SimcardsArray } from '../types/Simcard.interfaces'
 
 interface FilterSimcards {
   searchSimcard: string
-  setSearchSimcard: (value: string) => void
+  setSearchSimcard: React.Dispatch<React.SetStateAction<string>>
   filteredSimcards: SimcardsArray
 }
 
