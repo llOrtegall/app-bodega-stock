@@ -2,14 +2,13 @@ import { ListItemsComponent } from '../../components/simcards/ListSimcardsCompon
 import { FilterComponentSimcars } from '../../components/ui/FilterComponentSimcars'
 import BodegaSelectionComponent from '../../components/Bodega/BodegaSelecComponent'
 import { SimcardsToAddComponent } from '../../components/simcards/SimcarToAddCart'
-import { BodegaDataSims, simcardsBodegas } from '../../services/Simcards.services'
+import { BodegaDataSims, addSimcardsToBodega, simcardsBodegas } from '../../services/Simcards.services'
 import { type SimcardWithBodega } from '../../types/Simcard.interfaces'
 import { Button, Loading, MessageDisplay } from '../../components/ui'
 import { useFilterSimcards, useFiltersBodegas } from '../../hooks'
 import { useCallback, useEffect, useState } from 'react'
 import { type Bodegas } from '../../types/Bodega'
 import { useAuth } from '../../Auth/AuthContext'
-import axios from 'axios'
 
 export function AsignarSimcards (): JSX.Element {
   const { user } = useAuth()
@@ -47,34 +46,6 @@ export function AsignarSimcards (): JSX.Element {
     }, 1000)
   }, [message])
 
-  const handleSubmit = async (e: { preventDefault: () => void }) => {
-    e.preventDefault()
-    setLoading(true)
-    try {
-      const res = await axios.post('/addSimcardToBodega',
-        { sucursal: sendBodega, simcardIds: cartSims, company }
-      )
-      setLoading(false)
-      setMessage(res.data.message as string)
-      setSimConBodega([])
-      setBodegas([])
-      setSendBodega('')
-      setSearchSimcard('')
-      setSearchBodega('')
-      setCartSims([])
-      setTimeout(() => {
-        setMessage('')
-      }, 3000)
-    } catch (err) {
-      setLoading(false)
-      console.log(err)
-      setError('Ocurrio Un Error Inesperado')
-      setTimeout(() => {
-        setError('')
-      }, 3000)
-    }
-  }
-
   const [cartSims, setCartSims] = useState<string[]>([])
 
   const handleAddSimcard = useCallback((id: string) => {
@@ -92,6 +63,28 @@ export function AsignarSimcards (): JSX.Element {
       return prevItems.filter(item => item !== id)
     })
   }, [])
+
+  const handleSubmit = (e: { preventDefault: () => void }): void => {
+    e.preventDefault()
+    setLoading(true)
+    void addSimcardsToBodega(sendBodega, cartSims, company)
+      .then(res => {
+        setLoading(false)
+        setMessage(res.data.message)
+        setSimConBodega([])
+        setBodegas([])
+        setSendBodega('')
+        setSearchSimcard('')
+        setSearchBodega('')
+        setCartSims([])
+        setTimeout(() => { setMessage('') }, 3000)
+      })
+      .catch(err => {
+        setLoading(false)
+        setError(err.response.data.error as string)
+        setTimeout(() => { setError('') }, 3000)
+      })
+  }
 
   return (
     <main className='border'>
