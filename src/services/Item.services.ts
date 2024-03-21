@@ -15,3 +15,8 @@ export const createItem = async (item: newItem): Promise<createItemResponse> => 
   const response: AxiosResponse<createItemResponse> = await axios.post('/createItem', item)
   return response.data
 }
+
+export const addItemsToBodega = async (sucursal: string, itemIds: string[], company: string): Promise<createItemResponse> => {
+  const response: AxiosResponse<createItemResponse> = await axios.post('/addItemsToBodega', { sucursal, itemIds, company })
+  return response.data
+}

@@ -16,7 +16,7 @@ interface ItemsAndBodegas {
   setSearchBodega: React.Dispatch<React.SetStateAction<string>>
 }
 
-export function useItemsAndBodegas (company: string, message: string): ItemsAndBodegas {
+export function useItemsAndBodegas (company: string, fechData: boolean): ItemsAndBodegas {
   const [items, setItems] = useState<ItemsArray>([])
   const [bodegas, setBodegas] = useState<Bodegas>([])
 
@@ -25,17 +25,17 @@ export function useItemsAndBodegas (company: string, message: string): ItemsAndB
 
   useEffect(() => {
     setTimeout(() => {
+      void getAllItems(company)
+        .then(data => { setItems(data) })
+    }, 100)
+
+    setTimeout(() => {
       void getAllBodegas(company)
         .then((data) => {
           setBodegas(data)
         })
-    }, 300)
-
-    setTimeout(() => {
-      void getAllItems(company)
-        .then(data => { setItems(data) })
-    }, 600)
-  }, [company, message])
+    }, 1500)
+  }, [fechData])
 
   return { filteredItems, search, setSearch, filteredBodegas, searchBodega, setSearchBodega, items }
 }

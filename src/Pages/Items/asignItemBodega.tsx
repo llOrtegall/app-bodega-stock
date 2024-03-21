@@ -1,20 +1,22 @@
 import { ItemsWithoutBodegaComponent, ItemsToAddComponent } from '../../components/Items'
 import BodegaSelectionComponent from '../../components/Bodega/BodegaSelecComponent'
+import { Button, Loading, MessageDisplay } from '../../components/ui'
 import { useItemsAndBodegas } from '../../hooks/useItemAndBodegas'
-import { Button, MessageDisplay } from '../../components/ui'
+import { addItemsToBodega } from '../../services/Item.services'
 import { useAuth } from '../../Auth/AuthContext'
 import { useCallback, useState } from 'react'
-import axios from 'axios'
 
 export function AsignarItemBodega (): JSX.Element {
   const { user } = useAuth()
   const company = user.empresa
 
   const [sendBodega, setSendBodega] = useState('')
+  const [fechData, setFechData] = useState(false)
+  const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
 
-  const { items, filteredBodegas, filteredItems, search, searchBodega, setSearch, setSearchBodega } = useItemsAndBodegas(company, message)
+  const { items, filteredBodegas, filteredItems, search, searchBodega, setSearch, setSearchBodega } = useItemsAndBodegas(company, fechData)
 
   const carItemsInitial: string[] = []
 
@@ -38,32 +40,28 @@ export function AsignarItemBodega (): JSX.Element {
 
   const handleSubmit = (e: { preventDefault: () => void }): void => {
     e.preventDefault()
-    axios.post('/addItemsToBodega', { sucursal: sendBodega, itemIds: carItems, company })
+    setLoading(true)
+    void addItemsToBodega(sendBodega, carItems, company)
       .then(res => {
-        const messageStr = res.data.message
-        if (typeof messageStr === 'string') {
-          setMessage(messageStr)
-        }
+        setMessage(res.message)
         setCarItems([])
+        setLoading(false)
         setSendBodega('')
-        setTimeout(() => {
-          setMessage('')
-        }, 3000)
+        setFechData(!fechData)
+        setTimeout(() => { setMessage('') }, 4000)
       })
       .catch(err => {
-        const errorStr = err.response.data.error
-        if (typeof errorStr === 'string') {
-          setError(errorStr)
-        }
-        setTimeout(() => {
-          setError('')
-        }, 3000)
+        setError(err.response.data.error as string)
+        setLoading(false)
+        setTimeout(() => { setError('') }, 4000)
       })
   }
 
   return (
     <main className="w-full">
-      <h1 className="text-center py-4 text-2xl font-semibold border bg-blue-800 text-white mb-4">Asignar Items a Bodega</h1>
+      <h1 className="text-center py-4 text-2xl font-semibold border bg-blue-800 text-white mb-4">
+        Asignar Items a Bodega
+      </h1>
 
       <section className="grid grid-cols-3 gap-3 px-4">
 
@@ -83,6 +81,8 @@ export function AsignarItemBodega (): JSX.Element {
         </section>
 
       </section>
+
+      {loading && <section className='w-full flex items-center justify-center'><Loading>Agregando Items a bodega</Loading></section>}
 
       <section className='w-full flex items-center justify-center'>
         <MessageDisplay message={message} error={error} />
