@@ -1,9 +1,9 @@
-import { type updateItem } from '../../types/Item'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { getItem, sendUpdateItem } from '../../services/Item.services'
 import { MessageDisplay } from '../../components/ui'
+import { type updateItem } from '../../types/Item'
 import { useAuth } from '../../Auth/AuthContext'
 import { useEffect, useState } from 'react'
-import axios from 'axios'
 
 const options = [
   { value: 'Impresora TMU USB/LPT', label: 'Impresora TMU | USB' },
@@ -37,7 +37,7 @@ const options = [
 export function DetalleItem (): JSX.Element {
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
-  const { id } = useLocation().state
+  const { id } = useLocation().state as { id: string }
   const navigate = useNavigate()
   const { user } = useAuth()
   const company = user.empresa
@@ -53,10 +53,8 @@ export function DetalleItem (): JSX.Element {
   })
 
   useEffect(() => {
-    axios.get(`/getItem/${company}/${id}`)
-      .then(res => {
-        setItem(res.data as updateItem)
-      })
+    getItem(company, id)
+      .then(res => { setItem(res) })
       .catch(err => {
         console.log(err)
       })
@@ -70,30 +68,14 @@ export function DetalleItem (): JSX.Element {
   const handleSubmit = (event: { preventDefault: () => void }): void => {
     event.preventDefault()
     const sendItem = { ...item, id: item._id, company }
-    axios.patch('/updateItem/', sendItem)
+    void sendUpdateItem(sendItem)
       .then(res => {
-        const msgString = res.data.message
-        if (typeof msgString === 'string') {
-          setMessage(msgString)
-          setItem({
-            _id: '',
-            nombre: '',
-            descripcion: '',
-            placa: '',
-            serial: '',
-            estado: 'Bueno',
-            company
-          })
-          setTimeout(() => {
-            navigate('/items/verItems')
-          }, 2000)
-        }
+        setMessage(res.message)
+        setItem({ _id: '', nombre: '', descripcion: '', placa: '', serial: '', estado: 'Bueno', company })
+        setTimeout(() => { navigate('/items/verItems') }, 3000)
       })
       .catch(err => {
-        const errStr = err.response.data.error
-        if (typeof errStr === 'string') {
-          setError(errStr)
-        }
+        setError(err.response.data.error as string)
       })
   }
 

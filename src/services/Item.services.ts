@@ -1,9 +1,14 @@
-import { type newItem, type ItemsArray } from '../types/Item'
+import { type newItem, type ItemsArray, type updateItem } from '../types/Item'
 import axios, { type AxiosResponse } from 'axios'
 
 interface createItemResponse {
   message: string
   error: string
+}
+
+export const getItem = async (company: string, id: string): Promise<updateItem> => {
+  const response: AxiosResponse<any> = await axios.get(`/getItem/${company}/${id}`)
+  return response.data
 }
 
 export const getAllItems = async (company: string): Promise<ItemsArray> => {
@@ -18,5 +23,10 @@ export const createItem = async (item: newItem): Promise<createItemResponse> => 
 
 export const addItemsToBodega = async (sucursal: string, itemIds: string[], company: string): Promise<createItemResponse> => {
   const response: AxiosResponse<createItemResponse> = await axios.post('/addItemsToBodega', { sucursal, itemIds, company })
+  return response.data
+}
+
+export const sendUpdateItem = async (item: updateItem): Promise<createItemResponse> => {
+  const response: AxiosResponse<createItemResponse> = await axios.patch('/updateItem', item)
   return response.data
 }
