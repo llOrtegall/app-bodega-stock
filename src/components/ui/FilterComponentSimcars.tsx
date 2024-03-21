@@ -8,9 +8,9 @@ interface FilterComponentSimcardProps {
 export function FilterComponentSimcars ({ searchSimcard, setSearchSimcard }: FilterComponentSimcardProps): JSX.Element {
   return (
     <section className="flex min-w-64 items-center gap-4">
-      <Label textColor=''>Filtrar Items: </Label>
+      <Label textColor=''>Filtrar Simcards: </Label>
       <Input type='text' value={searchSimcard} onChange={({ target }) => { setSearchSimcard(target.value) }}
-        placeholder='Buscar por nombre, placa o serial'/>
+        placeholder='Buscar por número o serial'/>
     </section>
   )
 }
