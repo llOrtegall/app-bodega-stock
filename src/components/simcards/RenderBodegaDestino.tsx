@@ -1,8 +1,8 @@
-import axios from 'axios'
-import { useState } from 'react'
-import { DeleteIcon } from '../icons'
-import { useFilterSimcards } from '../../hooks'
 import { type BodegaWithSims } from '../../types/Simcard.interfaces'
+import { useFilterSimcards } from '../../hooks'
+import { DeleteIcon } from '../icons'
+import { useState } from 'react'
+import axios from 'axios'
 
 interface RenderBodegaDestinoProps {
   bodegaDestino: BodegaWithSims

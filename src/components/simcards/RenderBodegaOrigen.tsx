@@ -1,8 +1,8 @@
+import { type BodegaWithSims } from '../../types/Simcard.interfaces'
 import { useFilterSimcards } from '../../hooks'
 import { AddIcon } from '../icons'
 import { useState } from 'react'
 import axios from 'axios'
-import { type BodegaWithSims } from '../../types/Simcard.interfaces'
 
 interface RenderBodegaOrigenProps {
   bodegaOrigen: BodegaWithSims
