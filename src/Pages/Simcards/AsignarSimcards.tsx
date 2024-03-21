@@ -8,6 +8,7 @@ import { useAuth } from '../../Auth/AuthContext'
 import axios from 'axios'
 import { FilterComponentSimcars } from '../../components/ui/FilterComponentSimcars'
 import { ListItemsComponent } from '../../components/simcards/ListSimcardsComponent'
+import { SimcardsToAddComponent } from '../../components/simcards/SimcarToAddCart'
 
 export function AsignarSimcards(): JSX.Element {
   const { user } = useAuth()
@@ -94,7 +95,7 @@ export function AsignarSimcards(): JSX.Element {
       <section className='grid grid-cols-3 gap-3 px-4'>
 
         <section>
-          <h3 className="text-center font-semibold border-b-2 border-black pb-1">Items Sin Bodega</h3>
+          <h3 className="text-center font-semibold border-b-2 border-black pb-1">Simcards Sin Bodega</h3>
           <header>
             <div className='flex w-full justify-center py-2'>
               <FilterComponentSimcars searchSimcard={searchSimcard} setSearchSimcard={setSearchSimcard}/>
@@ -114,6 +115,8 @@ export function AsignarSimcards(): JSX.Element {
             }
           </main>
         </section>
+
+        <SimcardsToAddComponent simcards={simConBodega} cartSims={cartSims} handleRemoveItem={handleRemoveItem} />
 
       </section>
 
