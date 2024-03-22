@@ -46,13 +46,7 @@ function CalloutComp (): JSX.Element {
   const { user } = useAuth()
   const company = user.empresa
 
-  const definaBodega = (): string => {
-    if (company === 'Multired') {
-      return '65aa83481383faff659d4d58'
-    } else {
-      return '65c3d544f06f36524a98e72d'
-    }
-  }
+  const definaBodega = company === 'Multired' ? () => '65aa83481383faff659d4d58' : () => '65c3d544f06f36524a98e72d'
 
   useEffect(() => {
     void getDetailBodegaById({ company, id: definaBodega() })
@@ -64,7 +58,7 @@ function CalloutComp (): JSX.Element {
   }, [])
 
   return (
-    <div className="space-y-6">
+    <section className="">
       <Card className="mx-auto max-w-[450px]">
         <p className="text-2xl text-center underline text-tremor-content-strong dark:text-dark-tremor-content-strong font-semibold">Bodega Stock Soporte</p>
 
@@ -95,7 +89,7 @@ function CalloutComp (): JSX.Element {
         }
 
       </Card>
-    </div>
+    </section>
   )
 }
 

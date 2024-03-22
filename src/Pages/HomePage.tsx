@@ -9,6 +9,8 @@ export const HomePage = (): JSX.Element => {
   return (
     empresa !== 'Multired' && empresa !== 'Servired' && empresa !== null && empresa !== undefined
       ? <CambiarCompany />
-      : <Dashboard />
+      : (<section className='flex w-full'>
+          <Dashboard />
+        </section>)
   )
 }
