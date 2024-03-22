@@ -1,8 +1,8 @@
 import { getDetailBodegaById } from '../../services/Bodegas.services'
 import { type BodegaIntIS } from '../../types/Bodega'
 import { RiAlarmWarningLine } from '@remixicon/react'
-import { useAuth } from '../../Auth/AuthContext'
 import { Callout, Card, Title } from '@tremor/react'
+import { useAuth } from '../../Auth/AuthContext'
 import { useEffect, useState } from 'react'
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type

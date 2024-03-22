@@ -7,14 +7,14 @@ export function LoginPage (): JSX.Element {
   const { setPassword, setUsername, handleSubmit, error, loading, message } = useLogin()
 
   return (
-    <section className="w-full h-screen flex flex-col items-center justify-center bg-gradient-to-l from-blue-400 to-blue-500">
+    <section className="w-full h-[100vh] flex flex-col items-center justify-center bg-gradient-to-b from-blue-400 to-blue-200">
 
-      <form className='backdrop-blur-md bg-white/30 py-12 rounded-lg flex flex-col gap-8 px-14 mb-4'>
+      <form className='w-96 mb-2 border p-12 rounded-lg bg-white/30 flex flex-col gap-4 shadow-xl'>
         <figure className='flex justify-center'>
           <img src="gane.webp" alt="" width={180} />
         </figure>
 
-        <article className='w-full flex flex-col gap-2 text-3xl'>
+        <article className='w-full flex flex-col gap-2'>
           <Label>Usuario</Label>
           <div className='w-full flex items-center gap-2'>
             <UserIcon />
@@ -23,7 +23,7 @@ export function LoginPage (): JSX.Element {
           </div>
         </article>
 
-        <article className='w-full flex flex-col gap-2 text-3xl'>
+        <article className='w-full flex flex-col gap-2'>
           <Label>Contraseña</Label>
           <div className='w-full flex items-center gap-2'>
             <LockIcon />
