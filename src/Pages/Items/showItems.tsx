@@ -23,9 +23,11 @@ export function VerItems (): JSX.Element {
             )
           : (
             <>
-              <section className='flex justify-around p-2 bg-blue-800'>
+              <section className='flex justify-around p-2 bg-blue-900'>
                 <FilterComponentItems search={search} setSearch={setSearch} />
-                <BottonExportItems items={filteredItems} />
+                <div className='w-[250px]'>
+                  <BottonExportItems items={filteredItems} />
+                </div>
               </section>
               <RenderItems items={filteredItems} rol={user?.rol} />
             </>

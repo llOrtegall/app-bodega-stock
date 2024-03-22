@@ -18,7 +18,7 @@ export function LoginPage (): JSX.Element {
           <Label>Usuario</Label>
           <div className='w-full flex items-center gap-2'>
             <UserIcon />
-            <Input type='text' placeholder='CP1118342523'
+            <Input name='username' type='text' placeholder='CP1118342523' autoComplete='username'
               onChange={ev => { setUsername(ev.target.value) }} />
           </div>
         </article>
@@ -27,7 +27,7 @@ export function LoginPage (): JSX.Element {
           <Label>Contraseña</Label>
           <div className='w-full flex items-center gap-2'>
             <LockIcon />
-            <Input type='password' placeholder='**********'
+            <Input name='password' type='password' placeholder='**********' autoComplete='username'
               onChange={ev => { setPassword(ev.target.value) }} />
           </div>
         </article>

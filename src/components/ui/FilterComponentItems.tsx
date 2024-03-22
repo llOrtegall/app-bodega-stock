@@ -7,10 +7,13 @@ interface FilterComponentItemsProps {
 
 export function FilterComponentItems ({ search, setSearch }: FilterComponentItemsProps): JSX.Element {
   return (
-    <section className="flex min-w-64 items-center gap-4">
-      <Label textColor=''>Filtrar Items: </Label>
-      <Input type='text' value={search} onChange={({ target }) => { setSearch(target.value) }}
-        placeholder='Buscar por nombre, placa o serial'/>
+    <section className="flex items-center gap-4">
+      <div className='w-[120px]'>
+        <Label textColor='text-white'>Filtrar Items: </Label>
+      </div>
+      <div className='w-[420px] flex'>
+        <Input type='text' value={search} onChange={({ target }) => { setSearch(target.value) }} placeholder='Buscar por nombre, placa o serial'/>
+      </div>
     </section>
   )
 }

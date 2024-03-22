@@ -16,10 +16,15 @@ export function HeaderBodega ({ funGetBodega, valueBodega, searBodega, bodega, c
       <section className='flex justify-around items-center py-2'>
         <h1 className='text-2xl font-bold uppercase text-white'>{children}</h1>
         <form className="flex items-center gap-2" onSubmit={funGetBodega}>
-          <Label textColor='text-white'>Sucursal Bodega:</Label>
-          <Input type="text" value={valueBodega} onChange={ev => { searBodega(ev.target.value) }}
-            placeholder="40001 | 34545" />
-          <Button type='submit'>Buscar Sucursal</Button>
+          <div>
+            <Label textColor='text-white'>Sucursal Bodega:</Label>
+          </div>
+          <div>
+            <Input type="text" value={valueBodega} onChange={ev => { searBodega(ev.target.value) }} placeholder="40001 | 34545" />
+          </div>
+          <div>
+            <Button type='submit'>Buscar Sucursal</Button>
+          </div>
         </form>
       </section>
 

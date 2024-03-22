@@ -4,6 +4,7 @@ import { type Bodegas } from '../../types/Bodega'
 import { useAuth } from '../../Auth/AuthContext'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { Input, Label } from '../../components/ui'
 
 export function ShowBodegas (): JSX.Element {
   const [bodegas, setBodegas] = useState<Bodegas>([])
@@ -21,10 +22,14 @@ export function ShowBodegas (): JSX.Element {
   return (
     <main className="h-[92vh] overflow-auto">
 
-      <section className="flex items-center justify-center gap-6 p-1 bg-blue-500  rounded-md shadow-lg">
-        <p className=""><span className="font-semibold pr-2">Filtrar:</span>| Sucursal | Nombre |</p>
-        <input type="text" value={searchBodega} onChange={ev => { setSearchBodega(ev.target.value) }}
-          placeholder="Buscar Bodega..." className="bg-slate-100 w-64 p-1.5 rounded-md" />
+      <section className="flex items-center justify-center gap-6 p-1 bg-blue-900 shadow-lg">
+        <div>
+          <Label textColor='text-white'>Filtrar Bodega :</Label>
+        </div>
+        <div className='w-[350px]'>
+          <Input type='text' value={searchBodega} onChange={({ target }) => { setSearchBodega(target.value) }}
+            placeholder=' 31424 | Cll 13 an # 12-45 | PDV-24 ' />
+        </div>
       </section>
 
       {
