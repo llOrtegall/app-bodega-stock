@@ -2,7 +2,7 @@ import { getDetailBodegaById } from '../../services/Bodegas.services'
 import { type BodegaIntIS } from '../../types/Bodega'
 import { RiAlarmWarningLine } from '@remixicon/react'
 import { useAuth } from '../../Auth/AuthContext'
-import { Callout, Card } from '@tremor/react'
+import { Callout, Card, Title } from '@tremor/react'
 import { useEffect, useState } from 'react'
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
@@ -58,38 +58,38 @@ function CalloutComp (): JSX.Element {
   }, [])
 
   return (
-    <section className="">
-      <Card className="mx-auto max-w-[450px]">
-        <p className="text-2xl text-center underline text-tremor-content-strong dark:text-dark-tremor-content-strong font-semibold">Bodega Stock Soporte</p>
+    <Card className="">
+      <Title className='text-center underline'>
+        Bodega Stock Soporte
+      </Title>
 
-        <>
-          {
-            notFound.length > 0
-              ? (
+      <>
+        {
+          notFound.length > 0
+            ? (
               <Callout className="mt-4" title="Atención estos items no se encuentran en la bodega" icon={RiAlarmWarningLine} color="red">
                 <div className='w-full border border-slate-400 mb-2'></div>
                 {notFound.map((item, index) => (
                   <p key={index} className="font-semibold text-base">{item}</p>))
                 }
               </Callout>
-                )
-              : null
-          }
-        </>
-
-        {
-          lessThanTwo.length > 0
-            ? <Callout className="mt-4" title="Atención estos items se encuentran en la bodega pero solo hay uno" icon={RiAlarmWarningLine} color="yellow">
-              <div className='w-full border border-slate-400 mb-2'></div>
-              {lessThanTwo.map((item, index) => (
-                <p key={index} className="font-semibold text-base">{item}</p>))
-              }
-            </Callout>
+              )
             : null
         }
+      </>
 
-      </Card>
-    </section>
+      {
+        lessThanTwo.length > 0
+          ? <Callout className="mt-4" title="Atención estos items se encuentran en la bodega pero solo hay uno" icon={RiAlarmWarningLine} color="yellow">
+            <div className='w-full border border-slate-400 mb-2'></div>
+            {lessThanTwo.map((item, index) => (
+              <p key={index} className="font-semibold text-base">{item}</p>))
+            }
+          </Callout>
+          : null
+      }
+
+    </Card>
   )
 }
 

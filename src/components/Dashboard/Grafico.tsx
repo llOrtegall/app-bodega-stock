@@ -29,27 +29,22 @@ export const GraficoSistemas = (): JSX.Element => {
   const Sistemas = HardwareOSC()
 
   return (
-    <section className='flex flex-col w-fit'>
-      <Title className='text-center'>Sistemas Operativos</Title>
-      <Card className="flex">
-        <DonutChart
-          className="mt-6"
-          data={Sistemas}
-          category="count"
-          index="name"
-          colors={['pink', 'cyan', 'amber', 'purple']}
-          onValueChange={(v) => { setValue(v) }}
-        />
+    <Card className='flex flex-col justify-around'>
+      <Title className='text-center underline'>
+        Sistemas Operativos
+      </Title>
 
-        <List>
-          {Sistemas.map((item, index) => (
-            <ListItem key={index}>
-              <p className="font-semibold pr-4"><span>{item.name}</span></p>
-              <p className="font-semibold pr-4"><span>{item.count}</span></p>
-            </ListItem>
-          ))}
-        </List>
-      </Card>
-    </section>
+      <DonutChart category="count" index="name" colors={['pink', 'cyan', 'amber', 'purple']}
+        className="" data={Sistemas} onValueChange={(v) => { setValue(v) }} />
+
+      <List className=''>
+        {Sistemas.map((item, index) => (
+          <ListItem key={index} className='min-w-96'>
+            <p className="font-semibold pr-4"><span>{item.name}</span></p>
+            <p className="font-semibold pr-4"><span>{item.count}</span></p>
+          </ListItem>
+        ))}
+      </List>
+    </Card>
   )
 }
