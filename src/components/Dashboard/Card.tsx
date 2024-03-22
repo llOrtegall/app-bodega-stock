@@ -58,9 +58,9 @@ function CalloutComp (): JSX.Element {
   }, [])
 
   return (
-    <Card className="">
+    <Card className="max-w-max">
       <Title className='text-center underline'>
-        Bodega Stock Soporte
+        Bodega Stock Soporte ( 10001 )
       </Title>
 
       <>
@@ -80,7 +80,7 @@ function CalloutComp (): JSX.Element {
 
       {
         lessThanTwo.length > 0
-          ? <Callout className="mt-4" title="Atención estos items se encuentran en la bodega pero solo hay uno" icon={RiAlarmWarningLine} color="yellow">
+          ? <Callout className="mt-4" title="Atención Solo Existe 1 unidad por elemento:" icon={RiAlarmWarningLine} color="yellow">
             <div className='w-full border border-slate-400 mb-2'></div>
             {lessThanTwo.map((item, index) => (
               <p key={index} className="font-semibold text-base">{item}</p>))

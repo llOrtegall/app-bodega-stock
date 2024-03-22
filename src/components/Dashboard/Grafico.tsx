@@ -1,16 +1,16 @@
 import { Card, DonutChart, Title, List, ListItem } from '@tremor/react'
-import { useState } from 'react'
+import axios from 'axios'
+import { useEffect, useState } from 'react'
+import { useAuth } from '../../Auth/AuthContext'
 
-import JSON from '../../mocks/harwareocs.json'
-
-function HardwareOSC() {
-  const hardware = JSON.map((item) => {
+async function HardwareOSC(response) {
+  const hardware = await response.map((item) => {
     return {
       name: item.OSNAME
     }
   })
 
-  const hardware2 = hardware.reduce((acc, item) => {
+  const hardware2 = await hardware.reduce((acc, item) => {
     const found = acc.find(({ name }) => name === item.name)
     if (found) {
       found.count++
@@ -25,26 +25,38 @@ function HardwareOSC() {
 
 export const GraficoSistemas = (): JSX.Element => {
   const [value, setValue] = useState(null)
+  const { user } = useAuth()
+  const company = user.empresa
 
-  const Sistemas = HardwareOSC()
+  useEffect(() => {
+    void axios.get(`/info/${company}`)
+      .then(response => {
+        void HardwareOSC(response.data)
+          .then(data => setValue(data)
+          )
+      })
+  }, [])
 
   return (
-    <Card className='flex flex-col justify-around'>
-      <Title className='text-center underline'>
-        Sistemas Operativos
-      </Title>
+    value && (
+      <Card className='flex flex-col justify-around'>
+        <Title className='text-center underline'>
+          Sistemas Operativos
+        </Title>
 
-      <DonutChart category="count" index="name" colors={['pink', 'cyan', 'amber', 'purple']}
-        className="" data={Sistemas} onValueChange={(v) => { setValue(v) }} />
+        <DonutChart category="count" index="name" colors={['pink', 'cyan', 'amber', 'purple']}
+          className="" data={value} onValueChange={(v) => { setValue(v) }} />
 
-      <List className=''>
-        {Sistemas.map((item, index) => (
-          <ListItem key={index} className='min-w-96'>
-            <p className="font-semibold pr-4"><span>{item.name}</span></p>
-            <p className="font-semibold pr-4"><span>{item.count}</span></p>
-          </ListItem>
-        ))}
-      </List>
-    </Card>
+        <List className=''>
+          {value.map((item, index) => (
+            <ListItem key={index} className='min-w-96'>
+              <p className="font-semibold pr-4"><span>{item.name}</span></p>
+              <p className="font-semibold pr-4"><span>{item.count}</span></p>
+            </ListItem>
+          ))}
+        </List>
+      </Card>
+    )
+
   )
 }
