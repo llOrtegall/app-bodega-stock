@@ -1,12 +1,12 @@
-import { SimcardWithBodega } from '../../types/Simcard.interfaces'
-import { ColInfo, utils, writeFile } from 'xlsx'
+import { type SimcardWithBodega } from '../../types/Simcard.interfaces'
+import { type ColInfo, utils, writeFile } from 'xlsx'
 
-export const BottonExportSimcards = ({simcards} : {simcards: SimcardWithBodega[]}) => {
+export const BottonExportSimcards = ({ simcards }: { simcards: SimcardWithBodega[] }): JSX.Element => {
   const titulo = [{ A: 'Reporte De Simcards' }, {}]
 
   const longitudes = [25, 25, 20, 10, 10, 10, 10, 20, 20]
 
-  const handleDownload = () => {
+  const handleDownload = (): void => {
     const tabla = [
       {
         A: 'UUID',
@@ -31,7 +31,8 @@ export const BottonExportSimcards = ({simcards} : {simcards: SimcardWithBodega[]
         F: sim.apn,
         G: sim.user,
         H: sim.pass,
-        I: (typeof sim.bodega === 'string' ? sim.bodega : sim.bodega?.nombre) || ''
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+        I: (typeof sim.bodega === 'string' ? sim.bodega : sim.bodega?.nombre) ?? ''
       })
     })
 
@@ -42,7 +43,7 @@ export const BottonExportSimcards = ({simcards} : {simcards: SimcardWithBodega[]
     }, 1000)
   }
 
-  const creandoArchivo = (dataFinal: unknown[]) => {
+  const creandoArchivo = (dataFinal: unknown[]): void => {
     const libro = utils.book_new()
     const hoja = utils.json_to_sheet(dataFinal, { skipHeader: true })
 
@@ -52,7 +53,7 @@ export const BottonExportSimcards = ({simcards} : {simcards: SimcardWithBodega[]
       utils.decode_range('A3:G3')
     ]
 
-    const simpiedades: ColInfo[] | { width: number }[] | undefined = []
+    const simpiedades: ColInfo[] | Array<{ width: number }> | undefined = []
 
     longitudes.forEach((col) => {
       simpiedades.push({ width: col })
@@ -64,7 +65,7 @@ export const BottonExportSimcards = ({simcards} : {simcards: SimcardWithBodega[]
   }
 
   return (
-  <button onClick={handleDownload} 
+  <button onClick={handleDownload}
     className='bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-4 rounded'>
     Exportar a Excel
   </button>)

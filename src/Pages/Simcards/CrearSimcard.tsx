@@ -6,9 +6,7 @@ import { useAuth } from '../../Auth/AuthContext'
 export function CrearSimcard (): JSX.Element {
   const { user } = useAuth()
   const company = user.empresa
-  const [error, setError] = useState('')
-  const [message, setMessage] = useState('')
-  const [simcard, setSimcard] = useState({
+  const initialState = {
     numero: '',
     operador: '',
     estado: '',
@@ -17,7 +15,10 @@ export function CrearSimcard (): JSX.Element {
     user: '',
     pass: '',
     company
-  })
+  }
+  const [error, setError] = useState('')
+  const [message, setMessage] = useState('')
+  const [simcard, setSimcard] = useState(initialState)
 
   const handleSubmit = (e: { preventDefault: () => void }): void => {
     e.preventDefault()
@@ -25,16 +26,7 @@ export function CrearSimcard (): JSX.Element {
     axios.post('/createSimcard', simcard)
       .then((res) => {
         setMessage(res.data.message as string)
-        setSimcard({
-          numero: '',
-          operador: '',
-          estado: '',
-          serial: '',
-          apn: '',
-          user: '',
-          pass: '',
-          company
-        })
+        setSimcard(initialState)
         setTimeout(() => {
           setMessage('')
         }, 4000)
