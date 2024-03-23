@@ -1,8 +1,14 @@
 {
-  "name": "react-app-learning-05",
+  "name": "bodega-stock-soporte",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.1",
   "type": "module",
+  "author": {
+    "name": "Ivan Ortega Garzon",
+    "email": "IvanOrtega_97@hotmail.com"
+  },
+  "license": "MIT",
+  "description": "Bodega Stock Soporte",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -10,19 +16,19 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@headlessui/react": "^1.7.18",
-    "@headlessui/tailwindcss": "^0.2.0",
-    "@remixicon/react": "^4.2.0",
-    "@tremor/react": "^3.14.1",
+    "xlsx": "0.18.5",
     "axios": "1.6.7",
-    "moment-timezone": "0.5.45",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "@tremor/react": "3.14.1",
+    "moment-timezone": "0.5.45",
+    "@remixicon/react": "4.2.0",
     "react-router-dom": "6.22.3",
-    "xlsx": "0.18.5"
+    "@headlessui/react": "1.7.18",
+    "@headlessui/tailwindcss": "0.2.0"
   },
   "devDependencies": {
-    "@tailwindcss/forms": "^0.5.7",
+    "@tailwindcss/forms": "0.5.7",
     "@types/react": "18.2.56",
     "@types/react-dom": "18.2.19",
     "@typescript-eslint/eslint-plugin": "6.4.0",
