@@ -1,6 +1,6 @@
-import { useAuth } from "../Auth/AuthContext"
+import { useAuth } from '../Auth/AuthContext'
 
-export function CambiarCompany() {
+export function CambiarCompany (): JSX.Element {
   const { user, setUser } = useAuth()
 
   return (
@@ -17,7 +17,7 @@ export function CambiarCompany() {
             <span className="font-medium">Espera Antes De Continuar !</span> Tú cuenta se encuentra ligada a 2 Empresas
           </div>
           <select className='p-2 border rounded-lg text-blue-700 font-semibold cursor-pointer'
-            onChange={(e) => user && setUser({ ...user, empresa: e.target.value })} >
+            onChange={(e) => { setUser({ ...user, empresa: e.target.value }) }} >
             <option className="text-black font-semibold">Seleccione una empresa</option>
             <option value='Servired' className="font-bold ">Servired</option>
             <option value='Multired' className="font-bold ">Multired</option>

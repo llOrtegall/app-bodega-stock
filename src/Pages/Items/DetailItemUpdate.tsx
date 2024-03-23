@@ -42,7 +42,7 @@ export function DetalleItem (): JSX.Element {
   const { user } = useAuth()
   const company = user.empresa
 
-  const [item, setItem] = useState<updateItem>({
+  const initialItem: updateItem = {
     _id: '',
     nombre: '',
     descripcion: '',
@@ -50,7 +50,9 @@ export function DetalleItem (): JSX.Element {
     serial: '',
     estado: 'Bueno',
     company
-  })
+  }
+
+  const [item, setItem] = useState<updateItem>(initialItem)
 
   useEffect(() => {
     getItem(company, id)
@@ -71,7 +73,7 @@ export function DetalleItem (): JSX.Element {
     void sendUpdateItem(sendItem)
       .then(res => {
         setMessage(res.message)
-        setItem({ _id: '', nombre: '', descripcion: '', placa: '', serial: '', estado: 'Bueno', company })
+        setItem(initialItem)
         setTimeout(() => { navigate('/items/verItems') }, 3000)
       })
       .catch(err => {
