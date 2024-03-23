@@ -1,6 +1,6 @@
-import { useLocation, useNavigate } from 'react-router-dom'
 import { getItem, sendUpdateItem } from '../../services/Item.services'
-import { MessageDisplay } from '../../components/ui'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { Button, MessageDisplay } from '../../components/ui'
 import { type updateItem } from '../../types/Item'
 import { useAuth } from '../../Auth/AuthContext'
 import { useEffect, useState } from 'react'
@@ -82,6 +82,7 @@ export function DetalleItem (): JSX.Element {
   return (
     <section className='  flex flex-col p-4 w-full items-center'>
       <h1 className='text-center text-2xl font-semibold pb-8'>Detalle De Item </h1>
+
       <form onSubmit={handleSubmit} className='grid grid-cols-2 gap-4 pb-10 border p-8 rounded-md bg-blue-300 border-black mb-4'>
         <div className='flex flex-col w-96 gap-2'>
           <label className='font-semibold'>Nombre:</label>
@@ -114,7 +115,9 @@ export function DetalleItem (): JSX.Element {
             <option value="Baja">Baja</option>
           </select>
           <label className='font-semibold'> Acciones </label>
-          <button type="submit" className='p-2 border border-gray-200 rounded-md bg-yellow-400 font-semibold hover:bg-green-500'>Actualizar</button>
+
+          <Button>Actualizar</Button>
+
         </div>
       </form>
 
