@@ -1,11 +1,17 @@
 import { type SimcardNoBodega } from '../../types/Simcard.interfaces'
 import { DeleteIcon } from '../icons'
 
-export function SimcardAgregada ({ id, simcards, handleRemoveItem, color }: { id: string, simcards: SimcardNoBodega[], handleRemoveItem: (id: string) => void, color: string }): JSX.Element {
+interface PropSimcard {
+  id: string
+  simcards: SimcardNoBodega[]
+  handleRemoveItem: (id: string) => void
+  color: string
+}
+
+export function SimcardAgregada ({ id, simcards, handleRemoveItem, color }: PropSimcard): JSX.Element {
   const simcard = simcards?.find(sim => sim._id === id)
 
-  
-  const { _id, numero, serial } = simcard
+  const { _id, numero, serial } = simcard ?? { _id: '', numero: '', serial: '' }
   return (
     <>
       <main key={_id} className={`grid grid-cols-3 place-items-center ${color} p-1text-black my-1 rounded-lg`}>
