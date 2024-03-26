@@ -40,6 +40,7 @@ app.use('/api', BodegasMongoDB)
 app.use('/api', MovimientosMongoDB)
 app.use('/api', SimcardsMongoDB)
 
+// TODO: Métodos Información Hardware OCS Inventory
 app.use('/api', InfoHardRoutes)
 
 app.listen(PORT, () => {
