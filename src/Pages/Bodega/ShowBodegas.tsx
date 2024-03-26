@@ -38,13 +38,13 @@ export function ShowBodegas (): JSX.Element {
 
         <div>
           <Button title='Traer Solo Bodegas' onClick={(): void => { sendName('bodega') }}>
-            <BodegaIcon />
+            <BodegaIcon size='20' />
           </Button>
         </div>
 
         <div>
           <Button title='Traer Solo Punto De Venta' onClick={(): void => { sendName('pdv') }}>
-            <HomePdvIcon />
+            <HomePdvIcon size='20' />
           </Button>
         </div>
 
@@ -63,8 +63,8 @@ export function ShowBodegas (): JSX.Element {
 
               <article className='flex gap-12 items-center'>
                 {bodega.sucursal.toString().length > 5 ? <UserIcon /> : null}
-                {bodega.nombre.toLowerCase().includes('bodega') ? <BodegaIcon /> : null}
-                {bodega.nombre.toLocaleLowerCase().includes('pdv') ? <HomePdvIcon /> : null}
+                {bodega.nombre.toLowerCase().includes('bodega') ? <BodegaIcon size='36' /> : null}
+                {bodega.nombre.toLocaleLowerCase().includes('pdv') ? <HomePdvIcon size='36' /> : null}
                 {bodega.nombre.toLocaleLowerCase().includes('movil -') ? <MovilIcon /> : null}
                 {bodega.nombre.toLocaleLowerCase().includes('tat -') ? <ComputerIcon /> : null}
 
