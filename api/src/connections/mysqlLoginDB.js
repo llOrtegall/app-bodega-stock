@@ -4,14 +4,11 @@ export const getPoolLogin = async () => {
   let pool
   try {
     pool = createPool({
-      host: process.env.MYSQLLOGIN,
-      user: process.env.USR,
-      port: process.env.PORT,
-      password: process.env.PASS,
-      database: process.env.DATABASE,
-      waitForConnections: false,
-      connectionLimit: 3,
-      queueLimit: 5
+      host: process.env.LOGIN_HOST,
+      user: process.env.LOGIN_USER,
+      port: process.env.LOGIN_PORT,
+      password: process.env.LOGIN_PASS,
+      database: process.env.LOGIN_DB
     })
   } catch (error) {
     console.error('Error creating MySQL pool', error)
