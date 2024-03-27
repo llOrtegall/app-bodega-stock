@@ -13,8 +13,8 @@ module.exports = {
         node: true
       },
       files: [
-        'src/**/*.ts',
-        'src/**/*.tsx'
+        'client/src/**/*.ts',
+        'client/src/**/*.tsx'
       ],
       parserOptions: {
         sourceType: 'script'

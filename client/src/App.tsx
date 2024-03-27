@@ -10,7 +10,7 @@ import { AsignarItemBodega, CrearItems, DetalleItem, VerItems } from './Pages/It
 import { CrearBodega, DetalleBodega, ShowBodegas } from './Pages/Bodega'
 import { LoginPage, NotFound, HomePage } from './Pages'
 
-axios.defaults.baseURL = 'http://localhost:4000/api'
+axios.defaults.baseURL = '/api'
 
 export function App (): JSX.Element {
   const { user, login } = useAuth()
