@@ -56,7 +56,7 @@ export function ShowBodegas (): JSX.Element {
 
       </section>
 
-      <div className='grid grid-cols-2'>
+      <div className='grid xl:grid-cols-1 2xl:grid-cols-2'>
         {
           filteredBodegas.map(bodega => (
             <section key={bodega._id} className="flex h-auto bg-slate-300 m-2 rounded-md p-2 items-center justify-around">
