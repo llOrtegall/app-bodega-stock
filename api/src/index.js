@@ -13,8 +13,7 @@ import morgan from 'morgan'
 import cors from 'cors'
 
 const ACCEPTED_ORIGINS = [
-  'http://aplicaciones.gane.com',
-  'http://172.20.1.110:5173'
+  'http://localhost:8080',
 ]
 
 const app = express()
