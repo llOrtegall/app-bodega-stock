@@ -23,10 +23,10 @@ export const RenderItems = ({ items, rol }: RenderItemsProps): JSX.Element => {
         <p className="col-span-1">Sucursal</p>
         <p className="col-span-1">Acciones</p>
       </article>
-      <article>
+      <article className='dark:text-white'>
         {items.map(item => (
           <article key={item._id}
-            className='grid grid-cols-12 gap-2 px-2 text-center my-1 border place-items-center py-1 uppercase'>
+            className='grid grid-cols-12 gap-2 px-2 text-center my-1 border dark:border-dark-tremor-brand-inverted place-items-center py-1 uppercase'>
             <p className="col-span-2 font-semibold">{item.nombre}</p>
             <p className="col-span-2">{item.descripcion}</p>
             <p className="col-span-2">{item.serial}</p>

@@ -1,61 +1,74 @@
 import { type Movimiento } from '../../types/Movimiento'
 import { formatFecha } from '../../utils/FormaFecha'
+import { Card } from '@tremor/react'
 
-export function RenderDetailMov ({ mov }: { mov: Movimiento }): JSX.Element {
+export function RenderDetailMov({ mov }: { mov: Movimiento }): JSX.Element {
   const { bodegaOrigen, bodegaDestino, descripcion, encargado, fecha, incidente, items, movimientoId, simcards } = mov
 
   return (
     <article className='bg-slate-400'>
       <section className='black'>
-        <h1 className="text-lg text-center text-white bg-blue-600 p-2 font-semibold uppercase">Información Del Movimiento</h1>
+        <h1 className="text-lg text-center text-white bg-blue-600 p-2  uppercase">Información Del Movimiento</h1>
       </section>
 
-      <section className='flex justify-around py-2'>
-        <article className='flex gap-4 items-center'>
-          <div className=''>
-            <p className='text-md font-semibold flex items-center justify-between gap-4'>
-              <span>N° Incidente: </span><span className='text-sm text-black font-normal'>{incidente}</span>
-            </p>
-            <p className='text-md font-semibold flex items-center justify-between gap-4'>
-              <span>Encargado:</span> <span className='text-sm text-black font-normal'>{encargado}</span>
-            </p>
-            <p className='text-md font-semibold flex items-center justify-between gap-4'>
-              <span>Fecha y Hora: </span><span className='text-sm text-black font-normal'>{formatFecha(fecha)}</span>
-            </p>
+      <section className='grid lg:grid-cols-2 2xl:grid-cols-4 gap-2 p-2'>
+
+        <Card className='flex flex-col gap-2 dark:text-white'>
+          <div className='flex justify-between'>
+            <p className='font-semibold'>N° Incidente: </p>
+            <span>{incidente}</span>
           </div>
-          <div className=''>
-            <p className='text-md font-semibold flex items-center justify-between gap-4'>
-              <span>Cantidad De Simcards Movidas:</span> <span className='text-sm text-black font-normal'>{simcards.entran.length + simcards.salen.length}</span>
-            </p>
-            <p className='text-md font-semibold flex items-center justify-between gap-4'>
-              <span>Cantidad De Items Movidos:</span> <span className='text-sm text-black font-normal'>{items.length}</span>
-            </p>
-            <p className='text-md font-semibold flex items-center justify-between gap-4'>
-              <span>N° Movimiento:</span> <span className='text-sm text-black font-normal'>{movimientoId}</span>
-            </p>
+          <div className='flex justify-between'>
+            <p className='font-semibold'>Encargado:</p>
+            <span>{encargado}</span>
           </div>
-        </article>
-        <article className=''>
-          <p className='flex items-center gap-4 justify-between'>
-            <span className='font-semibold'>Bodega De Origen: </span><span className='text-sm text-black font-normal'>{bodegaOrigen.nombre}</span>
-          </p>
-          <p className='flex items-center gap-4 justify-between'>
-            <span className='font-semibold'>Bodega De Destino:</span> <span className='text-sm text-black font-normal'>{bodegaDestino.nombre}</span>
-          </p>
-          <div className='flex justify-between gap-4 items-center'>
-            <p>
-              <span className='font-semibold'>N° Sucursal Origen:</span> <span className='text-sm text-black font-normal'>{bodegaOrigen.sucursal}</span>
-            </p>
-            <p>
-              <span className='font-semibold'>N° Sucursal Destino: </span><span className='text-sm text-black font-normal'>{bodegaDestino.sucursal}</span>
-            </p>
+          <div className='flex justify-between'>
+            <p className='font-semibold'>Fecha y Hora: </p>
+            <span>{formatFecha(fecha)}</span>
           </div>
-        </article>
-        <article className='flex flex-col items-center'>
-          <h3 className='font-semibold'>Descripción</h3>
-          <p className='text-black'>{descripcion}</p>
-        </article>
+        </Card>
+
+        <Card className='flex flex-col gap-2 dark:text-white'>
+          <div className='flex justify-between'>
+            <p className='font-semibold'>Cantidad De Simcards Movidas:</p>
+            <span>{simcards.entran.length + simcards.salen.length}</span>
+          </div>
+          <div className='flex justify-between'>
+            <p className='font-semibold'>Cantidad De Items Movidos:</p>
+            <span>{items.length}</span>
+          </div>
+          <div className='flex justify-between'>
+            <p className='font-semibold'>N° Movimiento:</p>
+            <span>{movimientoId}</span>
+          </div>
+        </Card>
+
+        <Card className='flex flex-col dark:text-white'>
+          <div className='flex justify-between'>
+            <p className='font-semibold'>B. Origen: </p>
+            <span>{bodegaOrigen.nombre}</span>
+          </div>
+          <div className='flex justify-between'>
+            <p className='font-semibold'># Suc. Origen:</p>
+            <span>{bodegaOrigen.sucursal}</span>
+          </div>
+          <div className='flex justify-between'>
+            <p className='font-semibold'>B. Destino: </p>
+            <span>{bodegaDestino.nombre}</span>
+          </div>
+          <div className='flex justify-between'>
+            <p className='font-semibold'># Suc. Destino:</p>
+            <span>{bodegaDestino.sucursal}</span>
+          </div>
+        </Card>
+
+        <Card className='flex flex-col gap-2 dark:text-white'>
+          <p className='font-semibold'>Descripción</p>
+          <div className='flex justify-between'>{descripcion}</div>
+        </Card>
+
       </section>
+
     </article>
   )
 }

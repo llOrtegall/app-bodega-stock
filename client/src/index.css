@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 .active {
-  @apply text-blue-400 font-semibold;
+  @apply text-blue-600 font-semibold;
 }

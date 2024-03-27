@@ -80,16 +80,16 @@ export function CrearItems (): JSX.Element {
 
   return (
     <main className="flex flex-col items-center text-2xl">
-      <h2 className='bg-blue-800 border text-white text-3xl py-4 w-full text-center font-semibold mb-20'>Creación Activos / Insumos </h2>
+      <h2 className='bg-blue-800 border dark:border-dark-tremor-brand-subtle text-white text-3xl py-4 w-full text-center font-semibold mb-20'>Creación Activos / Insumos </h2>
 
-      <form className="grid grid-cols-3 gap-2 place-items-center mb-20 bg-slate-200 px-20 py-12"
+      <form className="grid grid-cols-3 gap-2 rounded-lg place-items-center mb-20 bg-slate-200 dark:bg-dark-tremor-brand-muted dark:text-white px-20 py-12"
         onSubmit={handleSubmit}>
 
         <div className="w-full flex flex-col py-2 gap-2">
           <Label>Nombre: </Label>
           <select name="nombre" id="item"
             onChange={handleChange} value={item.nombre}
-            className='border rounded-md p-2 border-gray-300'>
+            className='text-black border rounded-md p-2 border-gray-300'>
             <option value="">Selecciona un item</option>
             {options.map((option, index) => (
               <option key={index} value={option.value}>{option.label}</option>
@@ -121,7 +121,7 @@ export function CrearItems (): JSX.Element {
 
         <div className="w-full flex flex-col py-2 gap-2">
           <Label>Estado</Label>
-          <select name="estado" value={item.estado} onChange={handleChange} className="px-3 py-2 border border-gray-300 rounded-md">
+          <select name="estado" value={item.estado} onChange={handleChange} className="text-black px-3 py-2 border border-gray-300 rounded-md">
             <option value="">Selecciona un estado</option>
             <option value="Nuevo">Nuevo</option>
             <option value="Bueno">Bueno</option>

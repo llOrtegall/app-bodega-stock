@@ -1,10 +1,10 @@
-import { Articulos, Bodegas, Simcards } from './NavLinks'
 import { useOutsideClick } from '../hooks/useOutsideClick'
+import { Articulos, Bodegas, Simcards } from './NavLinks'
 import { ButtonDow, CloseIcon, HomeIcon } from './icons'
-import { useAuth } from '../Auth/AuthContext'
-import { useState, useRef } from 'react'
-import { LogoGane, NavItem } from './ui'
 import { useTheme } from '../contexts/ThemeContext'
+import { useAuth } from '../Auth/AuthContext'
+import { LogoGane, NavItem } from './ui'
+import { useState, useRef } from 'react'
 import { Switch } from '@tremor/react'
 
 export function NavBar (): JSX.Element {
@@ -21,11 +21,11 @@ export function NavBar (): JSX.Element {
   }
 
   return (
-    <nav className="flex p-3 bg-slate-900 justify-around" ref={navRef}>
+    <nav className="flex p-3 bg-slate-200 dark:bg-slate-950 justify-around dark:text-white" ref={navRef}>
 
       <LogoGane />
 
-      <ul className="flex items-center gap-4 text-white text-xl">
+      <ul className="flex items-center gap-4  text-xl">
 
         <NavItem to="/home" title="Inicio / Home">
           <HomeIcon />
@@ -36,8 +36,8 @@ export function NavBar (): JSX.Element {
         </NavItem>
 
         {/* TODO:  Menu Despegable de Arículos */}
-        <li className="relative">
-          <button id='Articulos' className="flex font-semibold text-white items-center hover:text-blue-400" onClick={() => { handleClick('Articulos') }} >
+        <li className="relative z-50">
+          <button id='Articulos' className="flex font-semibold  items-center hover:text-blue-600" onClick={() => { handleClick('Articulos') }} >
             <span>Artículos</span>
             <figure className="flex items-center pt-1">
               <ButtonDow />
@@ -49,8 +49,8 @@ export function NavBar (): JSX.Element {
         </li>
 
         {/* TODO:  Menu Despegable de Bodegas */}
-        <li className="relative">
-          <button id='Bodegas' className="flex font-semibold text-white items-center hover:text-blue-400" onClick={() => { handleClick('Bodegas') }} >
+        <li className="relative z-50">
+          <button id='Bodegas' className="flex font-semibold  items-center hover:text-blue-600" onClick={() => { handleClick('Bodegas') }} >
             <span>Bodegas</span>
             <figure className="flex items-center pt-1">
               <ButtonDow />
@@ -62,8 +62,8 @@ export function NavBar (): JSX.Element {
         </li>
 
         {/* TODO:  Menu Despegable de Simcards */}
-        <li className="relative">
-          <button id='Simcards' className="flex font-semibold text-white items-center hover:text-blue-400" onClick={() => { handleClick('Simcards') }} >
+        <li className="relative z-50">
+          <button id='Simcards' className="flex font-semibold  items-center hover:text-blue-600" onClick={() => { handleClick('Simcards') }} >
             <span>Simcards</span>
             <figure className="flex items-center pt-1">
               <ButtonDow />
@@ -78,7 +78,7 @@ export function NavBar (): JSX.Element {
           <CloseIcon />
         </li>
 
-        <li className='pt-2 pl-6'>
+        <li className='flex rounded-md p-2  bg-dark-tremor-brand-muted'>
           <Switch onChange={toggleTheme} />
         </li>
       </ul>
