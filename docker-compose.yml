@@ -1,0 +1,17 @@
+version: '3.7'
+services:
+  api:
+    image: node:latest
+    ports:
+      - "5040:5040"
+    volumes:
+      - ./api:/app
+    working_dir: /app
+    command: yarn && yarn start
+
+  client:
+    image: nginx:latest
+    ports:
+      - "5050:80"
+    volumes:
+      - ./client/dist:/usr/share/nginx/html

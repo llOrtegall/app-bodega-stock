@@ -14,6 +14,7 @@ import cors from 'cors'
 
 const ACCEPTED_ORIGINS = [
   'http://aplicaciones.gane.com',
+  'http://172.20.1.110:5173'
 ]
 
 const app = express()
