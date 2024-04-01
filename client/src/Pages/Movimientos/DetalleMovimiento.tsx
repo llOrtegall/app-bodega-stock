@@ -16,12 +16,12 @@ export function DesatalleMovimiento (): JSX.Element {
   return (
     (movimiento != null)
       ? (
-        <main className='flex flex-col gap-4 h-[92vh]'>
+        <main className=''>
           <RenderDetailMov mov={movimiento} />
           {movimiento.items.length > 0 ? (<RenderItemsMov items={movimiento.items} />) : null}
           {movimiento.simcards.entran.length > 0 ? (<RenderSimcardMov simcards={movimiento.simcards} />) : null}
         </main>
         )
-      : <Loading> Cargando Movimiento </Loading>
+      : (<div className='flex justify-center pt-20'><Loading> Cargando Movimiento </Loading></div>)
   )
 }

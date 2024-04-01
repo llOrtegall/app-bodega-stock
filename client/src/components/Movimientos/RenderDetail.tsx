@@ -6,10 +6,9 @@ export function RenderDetailMov({ mov }: { mov: Movimiento }): JSX.Element {
   const { bodegaOrigen, bodegaDestino, descripcion, encargado, fecha, incidente, items, movimientoId, simcards } = mov
 
   return (
-    <article className='bg-slate-400'>
-      <section className='black'>
-        <h1 className="text-lg text-center text-white bg-blue-600 p-2  uppercase">Información Del Movimiento</h1>
-      </section>
+    <article className=''>
+
+      <h1 className="bg-blue-300 dark:bg-blue-950 text-lg font-semibold text-center dark:text-white p-2 uppercase">Información Del Movimiento</h1>
 
       <section className='grid lg:grid-cols-2 2xl:grid-cols-4 gap-2 p-2'>
 
