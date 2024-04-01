@@ -13,7 +13,7 @@ export const RenderItems = ({ items, rol }: RenderItemsProps): JSX.Element => {
 
   return (
     <section>
-      <article className='grid grid-cols-12 px-2 py-2 bg-blue-200 font-semibold text-center'>
+      <article className='grid grid-cols-12 px-2 py-2 bg-blue-200 dark:bg-blue-700 dark:text-white font-semibold text-center'>
         <p className="col-span-2">Items</p>
         <p className="col-span-2">Descripción</p>
         <p className="col-span-2">Serial</p>
