@@ -28,7 +28,7 @@ export function DetalleBodega (): JSX.Element {
   }, [id, company])
 
   return (
-    <main className='w-full min-h-[90vh] bg-slate-200'>
+    <main>
       {
         (bodega != null) && (
           <section >

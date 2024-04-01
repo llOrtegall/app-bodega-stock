@@ -25,11 +25,11 @@ export function ShowBodegas (): JSX.Element {
   }
 
   return (
-    <main className="h-[92vh] overflow-auto">
+    <main className="overflow-auto">
 
-      <section className="flex items-center justify-center gap-6 p-2 bg-blue-900 shadow-lg">
+      <section className="flex items-center justify-center gap-6 p-2 bg-blue-200 dark:bg-blue-900 shadow-lg">
         <div>
-          <Label textColor='text-white'>Filtrar Bodega :</Label>
+          <Label textColor='dark:text-white'>Filtrar Bodega :</Label>
         </div>
         <div className='w-[350px]'>
           <Input type='text' value={searchBodega} onChange={({ target }) => { setSearchBodega(target.value) }}
@@ -59,7 +59,7 @@ export function ShowBodegas (): JSX.Element {
       <div className='grid xl:grid-cols-1 2xl:grid-cols-2'>
         {
           filteredBodegas.map(bodega => (
-            <section key={bodega._id} className="flex h-auto bg-slate-300 m-2 rounded-md p-2 items-center justify-around">
+            <section key={bodega._id} className="flex bg-slate-300 dark:text-white dark:bg-slate-800 m-1 rounded-md p-2 items-center justify-around">
 
               <article className='flex gap-12 items-center'>
                 {bodega.sucursal.toString().length > 5 ? <UserIcon /> : null}

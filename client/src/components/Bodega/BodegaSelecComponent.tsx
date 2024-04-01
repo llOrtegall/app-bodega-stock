@@ -13,7 +13,7 @@ const BodegaSelectionComponent: React.FC<BodegaSelectionComponentProps> =
   ({ bodegas, searchBodega, setSearchBodega, sendBodega, setSendBodega }: BodegaSelectionComponentProps): JSX.Element => {
     return (
       <section>
-        <h3 className="text-center font-semibold border-b-2 border-black pb-1">Selección De Bodega</h3>
+        <h3 className="text-center font-semibold border-b-2 dark:text-white border-black dark:border-white pb-1">Selección De Bodega</h3>
         <div className='flex w-full justify-center py-2'>
           <FilterComponentBodegas searchBodega={searchBodega} setSearchBodega={setSearchBodega} />
         </div>

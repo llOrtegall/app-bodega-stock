@@ -17,7 +17,7 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ isAllowed, redir
       <section className='w-full'>
         <NavBar />
       </section>
-      <section className='h-[90vh] overflow-auto'>
+      <section className='h-[92vh] overflow-auto'>
         <Outlet />
       </section>
 

@@ -59,7 +59,7 @@ export function AsignarItemBodega (): JSX.Element {
 
   return (
     <main className="w-full">
-      <h1 className="text-center py-4 text-2xl font-semibold border dark:border-blue-800 bg-blue-800 text-white mb-4">
+      <h1 className="text-center py-4 text-2xl font-semibold dark:text-white mb-4 bg-blue-200 dark:bg-blue-900">
         Asignar Items a Bodega
       </h1>
 

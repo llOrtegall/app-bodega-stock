@@ -34,7 +34,7 @@ const options = [
   { value: 'Silla', label: 'Silla' }
 ]
 
-export function CrearItems (): JSX.Element {
+export function CrearItems(): JSX.Element {
   const { user } = useAuth()
   const company = user.empresa
   const [message, setMessage] = useState('')
@@ -79,8 +79,8 @@ export function CrearItems (): JSX.Element {
   }
 
   return (
-    <main className="flex flex-col items-center text-2xl">
-      <h2 className='bg-blue-800 border dark:border-dark-tremor-brand-subtle text-white text-3xl py-4 w-full text-center font-semibold mb-20'>Creación Activos / Insumos </h2>
+    <main className="flex flex-col items-center text-xl">
+      <h2 className='bg-blue-200 dark:bg-blue-900 dark:text-white text-3xl py-4 w-full text-center font-semibold mb-20'>Creación Activos / Insumos </h2>
 
       <form className="grid grid-cols-3 gap-2 rounded-lg place-items-center mb-20 bg-slate-200 dark:bg-dark-tremor-brand-muted dark:text-white px-20 py-12"
         onSubmit={handleSubmit}>
@@ -130,7 +130,10 @@ export function CrearItems (): JSX.Element {
           </select>
         </div>
 
-        <Button>Crear Item</Button>
+        <div>
+          <Label>Acciones</Label>
+          <Button>Crear Item</Button>
+        </div>
       </form>
 
       {loading && (<section>
