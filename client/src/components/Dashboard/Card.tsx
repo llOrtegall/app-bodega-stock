@@ -56,7 +56,7 @@ function CalloutComp(): JSX.Element {
   }, [])
 
   return (
-    <Card className="max-w-max">
+    <Card className='flex flex-col gap-4'>
       <Title className='text-center underline'>
         Bodega Stock Soporte 1001
       </Title>
@@ -64,15 +64,15 @@ function CalloutComp(): JSX.Element {
       {
         notFound.length > 0 && (
           <Callout icon={RiAlarmWarningLine} color="red" title="Atención estos items no se encuentran en la bodega">
-            {notFound.map(item => item)}
+            {notFound.map((item, index) => <span className='flex font-semibold' key={index}>{item}</span>)}
           </Callout>
         )
       }
 
       {
         lessThanTwo.length > 0 && (
-          <Callout className="mt-4" icon={RiAlarmWarningLine} color="yellow" title="Atención Solo Existe 1 unidad por elemento:">
-            {lessThanTwo.map(item => item)}
+          <Callout icon={RiAlarmWarningLine} color="yellow" title="Atención Solo Existe 1 unidad por elemento:">
+            {lessThanTwo.map((item, index) => <span className='flex font-semibold' key={index}>{item}</span>)}
           </Callout>
         )
       }

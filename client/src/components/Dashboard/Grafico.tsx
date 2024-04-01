@@ -55,9 +55,9 @@ export const GraficoSistemas = (): JSX.Element => {
 
       <List className=''>
         {value.map((item, index) => (
-          <ListItem key={index} className='min-w-96'>
-            <p className="font-semibold pr-4"><span>{item.name}</span></p>
-            <p className="font-semibold pr-4"><span>{item.count}</span></p>
+          <ListItem key={index}>
+            <span>{item.name}</span>
+            <span>{item.count}</span>
           </ListItem>
         ))}
       </List>
