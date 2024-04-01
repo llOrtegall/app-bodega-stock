@@ -46,9 +46,9 @@ export function obtenerFechaActual() {
 export async function sendEmailReport(movimiento, company) {
   let emailSend
   if (company === 'Multired'){
-    emailSend = 'asistenteadministrativo@grupomultired.com.co, coordinadoressoporte@grupomultired.com.co, jefetecnologia@grupomultired.com.co'
+    emailSend = `${process.env.EMAIL_AUX_ADMIN_MUL}, ${process.env.EMAIL_COOR_SOP_MUL}, ${process.env.EMAIL_JEFE_TEC}`
   } else if (company === 'Servired'){
-    emailSend = 'asistenteadministrativo@gruposervired.com.co, coordinadoressoporte@gruposervired.com.co, jefetecnologia@grupomultired.com.co'
+    emailSend = `${process.env.EMAIL_AUX_ADMIN_SER}, ${process.env.EMAIL_COOR_SOP_SER}, ${process.env.EMAIL_JEFE_TEC}`
   }
 
   const transporter = nodemailer.createTransport({

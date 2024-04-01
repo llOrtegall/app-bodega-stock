@@ -22,7 +22,7 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ isAllowed, redir
       </section>
 
       <div className="text-black absolute bottom-0 p-2">
-        <p className="font-semibold">Database:
+        <p className="font-semibold dark:text-white">Database:
           <span className="text-red-500"> {empresa} </span>
         </p>
       </div>

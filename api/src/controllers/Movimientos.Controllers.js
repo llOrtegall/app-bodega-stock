@@ -83,6 +83,7 @@ export const moveItems = async (req, res) => {
       .populate('simcards.entran', 'numero operador serial estado')
       .populate('simcards.salen', 'numero operador serial estado')
 
+    // TODO: Envia correo del movimiento generado de forma automatica
     sendEmailReport(newMovimiento, company)
       .then(() => console.log('Correo Enviado'))
 
