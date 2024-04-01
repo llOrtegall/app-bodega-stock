@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+body{
+  @apply bg-gray-50 dark:bg-dark-tremor-brand-faint;
+}
+
 .active {
   @apply text-blue-600 font-semibold;
 }
+

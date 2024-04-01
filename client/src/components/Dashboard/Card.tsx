@@ -6,7 +6,7 @@ import { useAuth } from '../../Auth/AuthContext'
 import { useEffect, useState } from 'react'
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-function CountItems ({ items }: { items: BodegaIntIS | undefined, ArrayItemsNames: string[] }) {
+function CountItems({ items }: { items: BodegaIntIS | undefined, ArrayItemsNames: string[] }) {
   const counts: Record<string, number> = {}
   const notFound: string[] = []
   const lessThanTwo: string[] = []
@@ -26,8 +26,6 @@ function CountItems ({ items }: { items: BodegaIntIS | undefined, ArrayItemsName
     }
   })
 
-  // Agregar a notFound todos los nombres que tienen un conteo de 0
-  // y a lessThanTwo todos los nombres que tienen un conteo de menos de 2
   for (const count in counts) {
     if (counts[count] === 0) {
       notFound.push(count)
@@ -39,7 +37,7 @@ function CountItems ({ items }: { items: BodegaIntIS | undefined, ArrayItemsName
   return { notFound, lessThanTwo }
 }
 
-function CalloutComp (): JSX.Element {
+function CalloutComp(): JSX.Element {
   const [lessThanTwo, setLessThanTwo] = useState<string[]>([])
   const [notFound, setNotFound] = useState<string[]>([])
 
@@ -60,33 +58,23 @@ function CalloutComp (): JSX.Element {
   return (
     <Card className="max-w-max">
       <Title className='text-center underline'>
-        Bodega Stock Soporte ( 10001 )
+        Bodega Stock Soporte 1001
       </Title>
 
-      <>
-        {
-          notFound.length > 0
-            ? (
-              <Callout className="mt-4" title="Atención estos items no se encuentran en la bodega" icon={RiAlarmWarningLine} color="red">
-                <div className='w-full border border-slate-400 mb-2'></div>
-                {notFound.map((item, index) => (
-                  <p key={index} className="font-semibold text-base">{item}</p>))
-                }
-              </Callout>
-              )
-            : null
-        }
-      </>
+      {
+        notFound.length > 0 && (
+          <Callout icon={RiAlarmWarningLine} color="red" title="Atención estos items no se encuentran en la bodega">
+            {notFound.map(item => item)}
+          </Callout>
+        )
+      }
 
       {
-        lessThanTwo.length > 0
-          ? <Callout className="mt-4" title="Atención Solo Existe 1 unidad por elemento:" icon={RiAlarmWarningLine} color="yellow">
-            <div className='w-full border border-slate-400 mb-2'></div>
-            {lessThanTwo.map((item, index) => (
-              <p key={index} className="font-semibold text-base">{item}</p>))
-            }
+        lessThanTwo.length > 0 && (
+          <Callout className="mt-4" icon={RiAlarmWarningLine} color="yellow" title="Atención Solo Existe 1 unidad por elemento:">
+            {lessThanTwo.map(item => item)}
           </Callout>
-          : null
+        )
       }
 
     </Card>

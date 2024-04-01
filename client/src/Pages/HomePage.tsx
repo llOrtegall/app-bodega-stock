@@ -1,5 +1,5 @@
 import { CambiarCompany } from '../components/DefineCompany'
-import { Dashboard } from './Dashboard/Dashboar'
+import { Dashboard } from './Dashboard/Dashboard'
 import { useAuth } from '../Auth/AuthContext'
 
 export const HomePage = (): JSX.Element => {
@@ -9,8 +9,7 @@ export const HomePage = (): JSX.Element => {
   return (
     empresa !== 'Multired' && empresa !== 'Servired' && empresa !== null && empresa !== undefined
       ? <CambiarCompany />
-      : (<section className='flex w-full'>
-          <Dashboard />
-        </section>)
+      : <Dashboard />
+
   )
 }
