@@ -1,9 +1,11 @@
-interface Props extends React.InputHTMLAttributes<HTMLInputElement> {}
+interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
+  displaySize?: 'w-full' | 'block'
+}
 
-export function Input (props: Props): JSX.Element {
+export function Input ({displaySize, ...props}: Props): JSX.Element {
   return (
     <input
-      className='rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent'
+      className={`${displaySize} rounded-md border text-black border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
       {...props}
     />
   )

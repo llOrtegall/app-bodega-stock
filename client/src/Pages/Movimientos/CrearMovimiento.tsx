@@ -1,12 +1,12 @@
 import { HeaderBodega } from '../../components/Movimientos/HeaderBodega'
 import { AddIcon, CheckIcon, DeleteIcon } from '../../components/icons'
 import { type BodegaWithItems } from '../../types/Bodega'
-import { MessageDisplay } from '../../components/ui'
+import { Button, Input, Label, MessageDisplay } from '../../components/ui'
 import { useAuth } from '../../Auth/AuthContext'
 import { useCallback, useState } from 'react'
 import axios from 'axios'
 
-export function CrearMovimiento (): JSX.Element {
+export function CrearMovimiento(): JSX.Element {
   const { user } = useAuth()
   const company = user.empresa
   const nombres = user?.nombres + ' ' + user?.apellidos
@@ -105,7 +105,7 @@ export function CrearMovimiento (): JSX.Element {
   }, [])
 
   return (
-    <main className="w-full min-h-[92vh] pt-2">
+    <main className="min-h-[92vh] pt-2">
 
       <section className='flex gap-2 px-2'>
 
@@ -119,7 +119,7 @@ export function CrearMovimiento (): JSX.Element {
             {
               bodegaOrigen.items.map(item => (
                 typeof item !== 'string' && (
-                  <section key={item._id} className="flex justify-between py-1 my-1 border rounded-md">
+                  <section key={item._id} className="flex justify-between py-1 my-1 border rounded-md text-xs 2xl:text-base dark:text-white">
                     <p className='w-3/12 text-center font-semibold'>{item.nombre}</p>
                     <p className='w-4/12 text-center font-semibold'>{item.placa}</p>
                     <p className='w-4/12 text-center font-semibold'>{item.serial}</p>
@@ -147,7 +147,7 @@ export function CrearMovimiento (): JSX.Element {
 
           {
             cartItems.map(itemAdd => (
-              <article key={itemAdd} className='flex justify-between px-6 py-2 border rounded-md font-semibold my-2'>
+              <article key={itemAdd} className='flex justify-between px-6 py-2 border rounded-md font-semibold my-2 dark:text-white'>
                 <p className=''>
                   {bodegaOrigen.items.find(i => i._id === itemAdd)?.placa}
                 </p>
@@ -165,37 +165,29 @@ export function CrearMovimiento (): JSX.Element {
 
       </section>
 
-      <footer className="py-4 bg-slate-600 rounded-md text-white mx-2">
-        <form className="grid grid-cols-2 gap-3">
-          <label className="flex h-10 items-center ml-3"> <span className="font-semibold w-32">Encargado:</span>
-            <input type="text" className="w-full p-2 rounded-md col-span-1 bg-green-300 no-underline text-black"
-              value={nombres} readOnly
-              placeholder="Pepito Perez Muñoz" />
-          </label>
 
-          <label className="flex h-10 items-center"> <span className="font-semibold w-32">N° Incidente:</span>
-            <input type="text" className="w-full p-2 rounded-md bg-slate-100 no-underline text-black"
-              value={incidente}
-              onChange={ev => { setIncidente(ev.target.value) }}
-              placeholder="134564 | 234252 | 634532" />
-          </label>
+      <form className="flex flex-col py-4 px-2 bg-slate-300 dark:bg-dark-tremor-brand-muted dark:text-white rounded-md mx-2">
+        <div className='flex items-center justify-center gap-4'>
+          <Label>Encargado:</Label>
+          <Input type="text" value={nombres} readOnly placeholder="Pepito Perez Muñoz" />
 
-          <label className="col-span-3 mx-3"> <span className="font-semibold w-40">Observaciones:</span>
-            <input type="text" className="w-full p-2 rounded-md bg-slate-100 no-underline text-black "
-              value={descripcion}
-              onChange={ev => { setDescripcion(ev.target.value) }}
-              placeholder="texto para registrar observación ..." />
-          </label>
-        </form>
-      </footer>
+          <Label>N° Incidente:</Label>
+          <Input type="text" value={incidente} onChange={ev => { setIncidente(ev.target.value) }} placeholder="134564 | 234252 | 634532" />
 
-      <section className="flex w-full justify-center mt-4">
-        <button className="p-2 text-white font-semibold w-48 bg-green-600 rounded-md hover:bg-white  hover:text-black" onClick={handleClick}>
-          Realizar Movimiento
-        </button>
+        </div>
+        <Label>Observaciones:</Label>
+        <Input type="text" value={descripcion} onChange={ev => { setDescripcion(ev.target.value) }} placeholder="texto para registrar observación ..." />
+      </form>
+
+      <section className="w-full flex items-center justify-center mt-4">
+        <div>
+          <Button onClick={handleClick}>
+            Realizar Movimiento
+          </Button>
+        </div>
       </section>
 
-      <section className='flex items-center justify-center pt-2'>
+      <section className='flex justify-center pt-2'>
         <MessageDisplay message={message} error={error} />
       </section>
     </main>

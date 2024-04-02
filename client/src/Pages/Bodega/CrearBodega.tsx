@@ -57,7 +57,9 @@ export function CrearBodega (): JSX.Element {
   }
   return (
     <main className="flex flex-col items-center justify-center">
-      <form className="flex flex-col w-1/2 gap-4 py-20 px-12 border rounded-md my-12 bg-slate-300 text-2xl"
+      <h2 className='bg-blue-200 dark:bg-blue-900 dark:text-white text-3xl py-4 w-full text-center font-semibold'>Creación Bodegas / PDV </h2>
+      
+      <form className="flex flex-col w-1/3 gap-4 py-20 px-12 rounded-md my-12 bg-slate-300 dark:text-white dark:bg-dark-tremor-brand-muted text-xl"
         onSubmit={handleSubmit} >
         <div className="w-full flex flex-col gap-2">
           <Label>Nombre Bodega | PDV:</Label>
