@@ -11,13 +11,13 @@ export function ListItemsComponent ({ simcards, cartSims, handleAddItem }: Prosp
   return (
     simcards.map(sim => (
       sim.bodega === 'No Asignado' && (
-        <article key={sim._id} className='flex justify-between px-6 py-2 border rounded-md font-semibold my-2' >
+        <article key={sim._id} className='flex justify-between px-6 py-2 border rounded-md font-semibold my-2 dark:text-white' >
           <p className=''>{sim.numero}</p>
           <p className=''>{sim.serial}</p>
           <button onClick={() => { handleAddItem(sim._id) }} className="">
             {
               cartSims.includes(sim._id)
-                ? <p className="bg-green-300 rounded-full"><CheckIcon /></p>
+                ? <p className="bg-green-300 rounded-full text-black"><CheckIcon /></p>
                 : <p className=""><AddIcon /></p>
             }
           </button>

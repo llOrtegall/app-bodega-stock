@@ -87,13 +87,13 @@ export function AsignarSimcards (): JSX.Element {
   }
 
   return (
-    <main className='border'>
-      <h2 className='bg-blue-800 text-white py-4 text-2xl font-semibold text-center'>Asignar Simcards a Bodega</h2>
+    <main className=''>
+      <h2 className='bg-blue-200 dark:bg-blue-900 dark:text-white text-3xl py-4 w-full text-center font-semibold'>Asignar Simcards a Bodega</h2>
 
       <section className='grid grid-cols-3 gap-3 px-4'>
 
         <section>
-          <h3 className="text-center font-semibold border-b-2 border-black pb-1">Simcards Sin Bodega</h3>
+          <h3 className="text-center font-semibold border-b-2 border-black dark:border-white pb-1 dark:text-white">Simcards Sin Bodega</h3>
           <header>
             <div className='flex w-full justify-center py-2'>
               <FilterComponentSimcars searchSimcard={searchSimcard} setSearchSimcard={setSearchSimcard} />
