@@ -127,7 +127,7 @@ export function CrearMovimiento(): JSX.Element {
                       onClick={() => { handleAddItem(item._id) }} >
                       {
                         cartItems.includes(item._id)
-                          ? <p className="bg-green-300 rounded-full"><CheckIcon /></p>
+                          ? <p className="bg-green-300 rounded-full text-black"><CheckIcon /></p>
                           : <p className=""><AddIcon /></p>
                       }
                     </button>

@@ -1,5 +1,6 @@
 import { type SimcardWithBodega } from '../../types/Simcard.interfaces'
 import { type ColInfo, utils, writeFile } from 'xlsx'
+import { Button } from '../ui'
 
 export const BottonExportSimcards = ({ simcards }: { simcards: SimcardWithBodega[] }): JSX.Element => {
   const titulo = [{ A: 'Reporte De Simcards' }, {}]
@@ -65,8 +66,7 @@ export const BottonExportSimcards = ({ simcards }: { simcards: SimcardWithBodega
   }
 
   return (
-  <button onClick={handleDownload}
-    className='bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-4 rounded'>
-    Exportar a Excel
-  </button>)
+    <Button onClick={handleDownload}>
+      Exportar a Excel
+    </Button>)
 }
