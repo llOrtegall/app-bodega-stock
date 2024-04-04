@@ -56,7 +56,7 @@ export function RenderBodega({ fun, sendBodega, renderInfo }: Props): JSX.Elemen
       </section>
 
       <section className="flex flex-col h-[250px] overflow-y-auto">
-        {filteredSimcards.map(sim => <RenderSimcard key={sim._id} simcard={sim} />)}
+        {filteredSimcards.map(sim => <RenderSimcard key={sim._id} simcard={sim} bodegaOrigen={renderInfo._id}/>)}
       </section>
 
       <section ref={setNodeRef}
