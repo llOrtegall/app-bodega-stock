@@ -3,6 +3,7 @@ import { RenderSimcard } from "./RenderSimcard"
 import { useAuth } from "../../Auth/AuthContext"
 import { Button, Input, Label } from "../ui"
 import { useState } from "react"
+import { AddIcon } from "../icons"
 
 interface Props {
   fun: ({ company, sucursal }: { sucursal: string, company: string }) => Promise<BodegaWithSims>
@@ -44,6 +45,11 @@ export function RenderBodega({ fun, sendBodega, renderInfo }: Props): JSX.Elemen
 
       <section className="flex flex-col h-[250px] overflow-y-auto">
         {renderInfo.simcards.map(sim => <RenderSimcard key={sim._id} simcard={sim} />)}
+      </section>
+
+      <section className="flex h-[100px] justify-center items-center bg-green-300 rounded-lg border-2 border-slate-400 text-slate-600">
+        <p><AddIcon /></p>
+        <p>Arrastre Simcard Aquí Para Agregar</p>
       </section>
 
     </article>
