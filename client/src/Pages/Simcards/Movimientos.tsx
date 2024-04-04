@@ -13,8 +13,12 @@ export function CreaMovimientosSim(): JSX.Element {
   const [bodegaOrigen, setBodegaOrigen] = useState<BodegaWithSims>(initialState)
   const [bodegaDestino, setBodegaDestino] = useState<BodegaWithSims>(initialState)
 
+  const [cartSims, setCartSims] = useState<string[]>([])
+  const [cartSims2, setCartSims2] = useState<string[]>([])
+
   // TODO: Esta función se está pasando como prop a los componentes Render bodega pero lo mejor sera llamarlo desde el componente con un servicio
   const getBodega = async ({ company, sucursal }: { sucursal: string, company: string }): Promise<BodegaWithSims> => {
+    setCartSims([]); setCartSims2([]);
     const response = await axios.get(`/getBodegaSimcards/${company}/${sucursal}`)
     return response.data as BodegaWithSims
   }
@@ -42,30 +46,35 @@ export function CreaMovimientosSim(): JSX.Element {
 
     const simcarMov = active.id
 
+    //Si la Simcards Estan en Bodega Origen
+    const SimInBodOri = bodegaOrigen.simcards.find(i => i._id === simcarMov)
+    if (SimInBodOri) {
 
-    const SimBodOrigen = bodegaOrigen.simcards.find(i => i._id == simcarMov)
-    if (SimBodOrigen) {
+      setCartSims([...cartSims, SimInBodOri._id])
+
       setBodegaOrigen(prev => {
-        const simcards = prev.simcards.filter(i => i._id != simcarMov)
+        const simcards = prev.simcards.filter(i => i._id !== simcarMov)
         return { ...prev, simcards }
       })
 
       setBodegaDestino(prev => {
-        const simcards = [...prev.simcards, SimBodOrigen]
+        const simcards = [...prev.simcards, SimInBodOri]
         return { ...prev, simcards }
       })
     }
 
-    // Si el item activo está en la bodega 2
-    const SimBodDest = bodegaDestino.simcards.find(i => i._id == simcarMov)
-    if (SimBodDest) {
+    //Si la Simcards Estan en Bodega Destino
+    const SimInBodDes = bodegaDestino.simcards.find(i => i._id === simcarMov)
+
+    if (SimInBodDes) {
+      setCartSims2([...cartSims2, SimInBodDes._id])
       setBodegaDestino(prev => {
-        const simcards = prev.simcards.filter(i => i._id != simcarMov)
+        const simcards = prev.simcards.filter(i => i._id !== simcarMov)
         return { ...prev, simcards }
       })
 
       setBodegaOrigen(prev => {
-        const simcards = [...prev.simcards, SimBodDest]
+        const simcards = [...prev.simcards, SimInBodDes]
         return { ...prev, simcards }
       })
     }

@@ -3,9 +3,9 @@ import { RenderSimcard } from "./RenderSimcard"
 import { useAuth } from "../../Auth/AuthContext"
 import { useFilterSimcards } from "../../hooks"
 import { Button, Input, Label } from "../ui"
+import { useDroppable } from "@dnd-kit/core"
 import { useState } from "react"
 import { AddIcon } from "../icons"
-import { useDroppable } from "@dnd-kit/core"
 
 interface Props {
   fun: ({ company, sucursal }: { sucursal: string, company: string }) => Promise<BodegaWithSims>
@@ -46,7 +46,10 @@ export function RenderBodega({ fun, sendBodega, renderInfo }: Props): JSX.Elemen
 
       <section className="flex items-center justify-center gap-4 mx-4">
         <Label>Filtrar Simcard: </Label>
-        <div className="w-3/5"><Input value={searchSimcard} onChange={ev => setSearchSimcard(ev.target.value)} displaySize="w-full" type="text" placeholder="Número | Serial | Operador" /></div>
+        <div className="w-3/5">
+          <Input value={searchSimcard} onChange={ev => setSearchSimcard(ev.target.value)}
+            displaySize="w-full" type="text" placeholder="Número | Serial | Operador" />
+        </div>
       </section>
 
       <section className="w-full flex p-2 rounded-lg text-white text-center bg-blue-600">
@@ -56,11 +59,11 @@ export function RenderBodega({ fun, sendBodega, renderInfo }: Props): JSX.Elemen
       </section>
 
       <section className="flex flex-col h-[250px] overflow-y-auto" ref={setNodeRef}>
-        {filteredSimcards.map(sim => <RenderSimcard key={sim._id} simcard={sim} bodegaOrigen={renderInfo._id}/>)}
+        {filteredSimcards.map(sim => <RenderSimcard key={sim._id} simcard={sim} bodegaOrigen={renderInfo._id} />)}
       </section>
 
       <section ref={setNodeRef}
-        className={`flex h-[100px] justify-center items-center  rounded-lg border-2 border-slate-400 text-slate-600 ${isOver ? 'bg-green-600' : 'bg-green-300'}`}>
+        className={`flex h-[100px] justify-center items-center  rounded-lg border-2 border-slate-400 text-slate-600 ${isOver ? 'bg-green-200' : 'bg-green-100'}`}>
         <p><AddIcon /></p>
         <p>Arrastre Simcard Aquí Para Agregar</p>
       </section>
