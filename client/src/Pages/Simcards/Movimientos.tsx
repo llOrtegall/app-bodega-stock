@@ -1,13 +1,13 @@
+import { DndContext, DragEndEvent, DragOverlay, DragStartEvent } from '@dnd-kit/core'
 import { BodegaWithSims, SimcardNoBodega } from '../../types/Simcard.interfaces'
 import { RenderSimcard } from '../../components/simcards/RenderSimcard'
 import { RenderBodega } from '../../components/simcards/RenderBodega'
-import { DndContext, DragOverlay } from '@dnd-kit/core'
 import { SortableContext } from '@dnd-kit/sortable'
 import { createPortal } from 'react-dom'
 import { useState } from 'react'
 import axios from 'axios'
 
-const initialState = { _id: '', nombre: '', direccion: '', sucursal: 0, items: [], simcards: [], updatedAt: '' }
+const initialState = { _id: '', nombre: '', direccion: '', sucursal: 0, simcards: [], items: [], updatedAt: '' }
 
 export function CreaMovimientosSim(): JSX.Element {
   const [bodegaOrigen, setBodegaOrigen] = useState<BodegaWithSims>(initialState)
@@ -22,8 +22,61 @@ export function CreaMovimientosSim(): JSX.Element {
   const bodegasIds = [bodegaOrigen._id, bodegaDestino._id]
   const [SimcardActive, setSimcardActive] = useState<SimcardNoBodega | null>(null)
 
+  function handleDragStart(ev: DragStartEvent) {
+    if (ev.active.data.current?.type === 'simcard') {
+      
+      const data = ev.active.data.current?.simcard
+      if (data) return
+      setSimcardActive(data)
+      return
+    }
+  }
+
+  function handleDragEnd(ev: DragEndEvent) {
+    const { active, over } = ev
+
+    const SimcarActivaId = active.data.current?.bodegaOrigen
+    const BodegaOverId = over?.data.current?.bodega.id
+
+    if (SimcarActivaId === BodegaOverId) {
+      console.log('Mismo lugar');
+      return
+    }
+
+    const simcarMov = active.id
+
+
+    const SimBodOrigen = bodegaOrigen.simcards.find(i => i._id == simcarMov)
+    if (SimBodOrigen) {
+      setBodegaOrigen(prev => {
+        const simcards = prev.simcards.filter(i => i._id != simcarMov)
+        return { ...prev, simcards }
+      })
+
+      setBodegaDestino(prev => {
+        const simcards = [...prev.simcards, SimBodOrigen]
+        return { ...prev, simcards }
+      })
+    }
+
+    // Si el item activo está en la bodega 2
+    const SimBodDest = bodegaDestino.simcards.find(i => i._id == simcarMov)
+    if (SimBodDest) {
+      setBodegaDestino(prev => {
+        const simcards = prev.simcards.filter(i => i._id != simcarMov)
+        return { ...prev, simcards }
+      })
+
+      setBodegaDestino(prev => {
+        const simcards = [...prev.simcards, SimBodDest]
+        return { ...prev, simcards }
+      })
+    }
+
+  }
+
   return (
-    <DndContext>
+    <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
       <main className="flex gap-2 mx-2 mt-2">
         <SortableContext items={bodegasIds}>
           <RenderBodega fun={getBodega} sendBodega={setBodegaOrigen} renderInfo={bodegaOrigen} />
@@ -38,7 +91,7 @@ export function CreaMovimientosSim(): JSX.Element {
       {
         createPortal(
           <DragOverlay>
-            {SimcardActive ? <RenderSimcard simcard={SimcardActive} /> : null}
+            {SimcardActive && (<RenderSimcard key={SimcardActive._id} simcard={SimcardActive} />)}
           </DragOverlay>,
           document.body
         )
@@ -66,8 +119,8 @@ export function CreaMovimientosSim(): JSX.Element {
 //   })
 //     .then(res => {
 //       setMessage(res.data.message as string)
-//       setBodegaOrigen({ _id: '', nombre: '', direccion: '', sucursal: 0, items: [], simcards: [], updatedAt: '' })
-//       setBodegaDestino({ _id: '', nombre: '', direccion: '', sucursal: 0, items: [], simcards: [], updatedAt: '' })
+//       setBodegaOrigen({ _id: '', nombre: '', direccion: '', sucursal: 0, simcards: [], simcards: [], updatedAt: '' })
+//       setBodegaDestino({ _id: '', nombre: '', direccion: '', sucursal: 0, simcards: [], simcards: [], updatedAt: '' })
 //       setCartSims([]); setCartSims2([]); setDescripcion(''); setIncidente(''); setTimeout(() => { setMessage(''); setError('') }, 4000)
 //     })
 //     .catch(err => {

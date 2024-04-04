@@ -16,7 +16,7 @@ const style = {
   transform: CSS.Transform.toString(transform),
 }
 
-const cssClasses = "flex w-full h-[42px] justify-around my-4 py-2 border rounded-lg bg-sky-200 text-black"
+const cssClasses = "flex h-10 bg-slate-200 p-2 rounded-md text-center pl-10 mb-1"
 
 if (isDragging) {
   return (

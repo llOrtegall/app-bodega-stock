@@ -27,7 +27,7 @@ export function RenderBodega({ fun, sendBodega, renderInfo }: Props): JSX.Elemen
   }
 
   const { isOver, setNodeRef } = useDroppable({
-    id: renderInfo._id, data: { type: 'bodega', renderInfo }
+    id: renderInfo._id, data: { type: 'bodega', bodega: renderInfo }
   });
 
   return (
