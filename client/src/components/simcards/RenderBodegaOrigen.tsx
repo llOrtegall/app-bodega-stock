@@ -1,7 +1,7 @@
-import { useState } from "react"
-import { useAuth } from "../../Auth/AuthContext"
 import { BodegaWithSims } from "../../types/Simcard.interfaces"
+import { useAuth } from "../../Auth/AuthContext"
 import { Button, Input, Label } from "../ui"
+import { useState } from "react"
 
 interface Props {
   fun: ({ company, sucursal }: { sucursal: string, company: string }) => Promise<BodegaWithSims>

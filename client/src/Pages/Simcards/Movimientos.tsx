@@ -3,7 +3,26 @@ import { BodegaWithSims } from '../../types/Simcard.interfaces'
 import { useState } from 'react'
 import axios from 'axios'
 
+const initialState = { _id: '', nombre: '', direccion: '', sucursal: 0, items: [], simcards: [], updatedAt: '' }
+
 export function CreaMovimientosSim(): JSX.Element {
+  const [bodegaOrigen, setBodegaOrigen] = useState<BodegaWithSims>(initialState)
+  const [bodegaDestino, setBodegaDestino] = useState<BodegaWithSims>(initialState)
+
+  // TODO: Esta función se está pasando como prop a los componentes Render bodega pero lo mejor sera llamarlo desde cada componente con un servicio
+  const getBodega = async ({ company, sucursal }: { sucursal: string, company: string }): Promise<BodegaWithSims> => {
+    const response = await axios.get(`/getBodegaSimcards/${company}/${sucursal}`)
+    return response.data as BodegaWithSims
+  }
+ 
+  return (
+    <main className="w-full min-h-[92vh] flex gap-2 mx-2 mt-2">
+      <RenderBodega fun={getBodega} sendBodega={setBodegaOrigen} renderInfo={bodegaOrigen}/>
+      <RenderBodega fun={getBodega} sendBodega={setBodegaDestino} renderInfo={bodegaDestino}/>
+    </main>
+  )
+}
+
 
   // const handleClick = (): void => {
   //   if (bodegaOrigen === bodegaDestino) {
@@ -32,19 +51,3 @@ export function CreaMovimientosSim(): JSX.Element {
   //       setTimeout(() => { setMessage(''); setError('') }, 4000)
   //     })
   // }
-
-  const [bodegaOrigen, setBodegaOrigen] = useState<BodegaWithSims>({ _id: '', nombre: '', direccion: '', sucursal: 0, items: [], simcards: [], updatedAt: '' })
-  const [bodegaDestino, setBodegaDestino] = useState<BodegaWithSims>({ _id: '', nombre: '', direccion: '', sucursal: 0, items: [], simcards: [], updatedAt: '' })
-
-  const getBodega = async ({ company, sucursal }: { sucursal: string, company: string }): Promise<BodegaWithSims> => {
-    const response = await axios.get(`/getBodegaSimcards/${company}/${sucursal}`)
-    return response.data as BodegaWithSims
-  }
- 
-  return (
-    <main className="w-full min-h-[92vh] flex gap-2 mx-2 mt-2">
-      <RenderBodega fun={getBodega} sendBodega={setBodegaOrigen} renderInfo={bodegaOrigen}/>
-      <RenderBodega fun={getBodega} sendBodega={setBodegaDestino} renderInfo={bodegaDestino}/>
-    </main>
-  )
-}
