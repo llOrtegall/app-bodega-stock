@@ -1,6 +1,7 @@
 import { BodegaWithSims } from "../../types/Simcard.interfaces"
 import { RenderSimcard } from "./RenderSimcard"
 import { useAuth } from "../../Auth/AuthContext"
+import { useFilterSimcards } from "../../hooks"
 import { Button, Input, Label } from "../ui"
 import { useState } from "react"
 import { AddIcon } from "../icons"
@@ -13,6 +14,7 @@ interface Props {
 
 export function RenderBodega({ fun, sendBodega, renderInfo }: Props): JSX.Element {
   const [sucursal, setSucursal] = useState('')
+  const { searchSimcard, setSearchSimcard, filteredSimcards } = useFilterSimcards(renderInfo.simcards)
 
   const { user } = useAuth()
   const company = user.empresa
@@ -37,6 +39,11 @@ export function RenderBodega({ fun, sendBodega, renderInfo }: Props): JSX.Elemen
         <p> <span className="font-semibold">Sucursal: </span> {renderInfo.sucursal}</p>
       </header>
 
+      <section className="flex items-center justify-center gap-4 mx-4">
+        <Label>Filtrar Simcard: </Label>
+        <div className="w-3/5"><Input value={searchSimcard} onChange={ev => setSearchSimcard(ev.target.value)} displaySize="w-full" type="text" placeholder="Número | Serial | Operador"/></div>
+      </section>
+
       <section className="w-full flex p-2 rounded-lg text-white text-center bg-blue-600">
         <p className="w-1/3 font-semibold">Número</p>
         <p className="w-1/3 font-semibold">Operador</p>
@@ -44,7 +51,7 @@ export function RenderBodega({ fun, sendBodega, renderInfo }: Props): JSX.Elemen
       </section>
 
       <section className="flex flex-col h-[250px] overflow-y-auto">
-        {renderInfo.simcards.map(sim => <RenderSimcard key={sim._id} simcard={sim} />)}
+        {filteredSimcards.map(sim => <RenderSimcard key={sim._id} simcard={sim} />)}
       </section>
 
       <section className="flex h-[100px] justify-center items-center bg-green-300 rounded-lg border-2 border-slate-400 text-slate-600">

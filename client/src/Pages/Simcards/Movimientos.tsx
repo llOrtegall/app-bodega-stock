@@ -14,40 +14,46 @@ export function CreaMovimientosSim(): JSX.Element {
     const response = await axios.get(`/getBodegaSimcards/${company}/${sucursal}`)
     return response.data as BodegaWithSims
   }
- 
+
   return (
-    <main className="flex gap-2 mx-2 mt-2">
-      <RenderBodega fun={getBodega} sendBodega={setBodegaOrigen} renderInfo={bodegaOrigen}/>
-      <RenderBodega fun={getBodega} sendBodega={setBodegaDestino} renderInfo={bodegaDestino}/>
-    </main>
+    <>
+      <main className="flex gap-2 mx-2 mt-2">
+        <RenderBodega fun={getBodega} sendBodega={setBodegaOrigen} renderInfo={bodegaOrigen} />
+        <RenderBodega fun={getBodega} sendBodega={setBodegaDestino} renderInfo={bodegaDestino} />
+      </main>
+
+      <footer className='flex w-full justify-center pt-2'>
+        <p className='text-center text-slate-600'>Aquí va ir la inf extra del mov simcard</p>
+      </footer>
+    </>
   )
 }
 
 
-  // const handleClick = (): void => {
-  //   if (bodegaOrigen === bodegaDestino) {
-  //     setTimeout(() => {
-  //       setMessage('')
-  //       setError('')
-  //     }, 4000)
-  //     setError('Debe Ingresar Una Bodega De Origen y Una De Destino Diferentes !!!'); return
-  //   }
-  //   axios.post('/moveSimcard', {
-  //     bodegas: { bodegaOrigen: bodegaOrigen._id, bodegaDestino: bodegaDestino._id },
-  //     simsIds: { entran: cartSims, salen: cartSims2 },
-  //     encargado: nombres,
-  //     descripcion,
-  //     incidente,
-  //     company
-  //   })
-  //     .then(res => {
-  //       setMessage(res.data.message as string)
-  //       setBodegaOrigen({ _id: '', nombre: '', direccion: '', sucursal: 0, items: [], simcards: [], updatedAt: '' })
-  //       setBodegaDestino({ _id: '', nombre: '', direccion: '', sucursal: 0, items: [], simcards: [], updatedAt: '' })
-  //       setCartSims([]); setCartSims2([]); setDescripcion(''); setIncidente(''); setTimeout(() => { setMessage(''); setError('') }, 4000)
-  //     })
-  //     .catch(err => {
-  //       setError(err.response.data.error as string)
-  //       setTimeout(() => { setMessage(''); setError('') }, 4000)
-  //     })
-  // }
+// const handleClick = (): void => {
+//   if (bodegaOrigen === bodegaDestino) {
+//     setTimeout(() => {
+//       setMessage('')
+//       setError('')
+//     }, 4000)
+//     setError('Debe Ingresar Una Bodega De Origen y Una De Destino Diferentes !!!'); return
+//   }
+//   axios.post('/moveSimcard', {
+//     bodegas: { bodegaOrigen: bodegaOrigen._id, bodegaDestino: bodegaDestino._id },
+//     simsIds: { entran: cartSims, salen: cartSims2 },
+//     encargado: nombres,
+//     descripcion,
+//     incidente,
+//     company
+//   })
+//     .then(res => {
+//       setMessage(res.data.message as string)
+//       setBodegaOrigen({ _id: '', nombre: '', direccion: '', sucursal: 0, items: [], simcards: [], updatedAt: '' })
+//       setBodegaDestino({ _id: '', nombre: '', direccion: '', sucursal: 0, items: [], simcards: [], updatedAt: '' })
+//       setCartSims([]); setCartSims2([]); setDescripcion(''); setIncidente(''); setTimeout(() => { setMessage(''); setError('') }, 4000)
+//     })
+//     .catch(err => {
+//       setError(err.response.data.error as string)
+//       setTimeout(() => { setMessage(''); setError('') }, 4000)
+//     })
+// }
