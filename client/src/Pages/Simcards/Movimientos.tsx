@@ -24,10 +24,7 @@ export function CreaMovimientosSim(): JSX.Element {
 
   function handleDragStart(ev: DragStartEvent) {
     if (ev.active.data.current?.type === 'simcard') {
-      
-      const data = ev.active.data.current?.simcard
-      if (data) return
-      setSimcardActive(data)
+      setSimcardActive(ev.active.data.current?.simcard)
       return
     }
   }
@@ -36,7 +33,7 @@ export function CreaMovimientosSim(): JSX.Element {
     const { active, over } = ev
 
     const SimcarActivaId = active.data.current?.bodegaOrigen
-    const BodegaOverId = over?.data.current?.bodega.id
+    const BodegaOverId = over?.data.current?.bodega._id
 
     if (SimcarActivaId === BodegaOverId) {
       console.log('Mismo lugar');
@@ -67,7 +64,7 @@ export function CreaMovimientosSim(): JSX.Element {
         return { ...prev, simcards }
       })
 
-      setBodegaDestino(prev => {
+      setBodegaOrigen(prev => {
         const simcards = [...prev.simcards, SimBodDest]
         return { ...prev, simcards }
       })

@@ -16,7 +16,7 @@ const style = {
   transform: CSS.Transform.toString(transform),
 }
 
-const cssClasses = "flex h-10 bg-slate-200 p-2 rounded-md text-center pl-10 mb-1"
+const cssClasses = "flex h-10 bg-sky-700 p-2 rounded-md text-center pl-10 mb-1"
 
 if (isDragging) {
   return (
@@ -26,7 +26,7 @@ if (isDragging) {
 
   return (
     <article ref={setNodeRef} style={style} {...attributes} {...listeners}
-      className='no-select flex bg-slate-200 p-2 rounded-md text-center pl-10 mb-1 hover:bg-yellow-200 cursor-pointer hover:font-semibold transition-all'>
+      className='no-select flex bg-slate-200 p-2 rounded-md text-center h-10 pl-10 mb-1 hover:bg-yellow-200 cursor-pointer hover:font-semibold transition-all'>
       <p className='w-1/3'>{simcard.numero}</p>
       <p className='w-1/3'>{simcard.operador}</p>
       <p className='w-1/3'>{simcard.serial}</p>
