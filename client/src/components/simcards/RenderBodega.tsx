@@ -11,9 +11,10 @@ interface Props {
   fun: ({ company, sucursal }: { sucursal: string, company: string }) => Promise<BodegaWithSims>
   sendBodega: (bodega: BodegaWithSims) => void
   renderInfo: BodegaWithSims
+  title: string
 }
 
-export function RenderBodega({ fun, sendBodega, renderInfo }: Props): JSX.Element {
+export function RenderBodega({ fun, sendBodega, renderInfo, title }: Props): JSX.Element {
   const [sucursal, setSucursal] = useState('')
   const { searchSimcard, setSearchSimcard, filteredSimcards } = useFilterSimcards(renderInfo.simcards)
 
@@ -33,7 +34,7 @@ export function RenderBodega({ fun, sendBodega, renderInfo }: Props): JSX.Elemen
   return (
     <article className="w-full flex flex-col gap-2">
       <form className="w-full p-1 bg-blue-300 flex items-center gap-2 text-center col-span-2 place-content-center" onSubmit={handleSubmit}>
-        <Label>Buscar Bodega Origen</Label>
+        <Label>Buscar {title}</Label>
         <Input type="text" placeholder="40001 | 34545" value={sucursal} onChange={(ev) => setSucursal(ev.target.value)} />
         <div><Button>Buscar Sucursal</Button></div>
       </form>

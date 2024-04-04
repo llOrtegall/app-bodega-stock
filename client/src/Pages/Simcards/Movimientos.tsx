@@ -79,8 +79,8 @@ export function CreaMovimientosSim(): JSX.Element {
     <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
       <main className="flex gap-2 mx-2 mt-2">
         <SortableContext items={bodegasIds}>
-          <RenderBodega fun={getBodega} sendBodega={setBodegaOrigen} renderInfo={bodegaOrigen} />
-          <RenderBodega fun={getBodega} sendBodega={setBodegaDestino} renderInfo={bodegaDestino} />
+          <RenderBodega title={'Bodega Origen'} fun={getBodega} sendBodega={setBodegaOrigen} renderInfo={bodegaOrigen} />
+          <RenderBodega title={'Bodega Destino'} fun={getBodega} sendBodega={setBodegaDestino} renderInfo={bodegaDestino} />
         </SortableContext>
       </main>
 
