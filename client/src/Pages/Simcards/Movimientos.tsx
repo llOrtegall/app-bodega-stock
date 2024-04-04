@@ -2,6 +2,8 @@ import { RenderBodega } from '../../components/simcards/RenderBodega'
 import { BodegaWithSims } from '../../types/Simcard.interfaces'
 import { useState } from 'react'
 import axios from 'axios'
+import { DndContext } from '@dnd-kit/core'
+import { SortableContext } from '@dnd-kit/sortable'
 
 const initialState = { _id: '', nombre: '', direccion: '', sucursal: 0, items: [], simcards: [], updatedAt: '' }
 
@@ -15,17 +17,21 @@ export function CreaMovimientosSim(): JSX.Element {
     return response.data as BodegaWithSims
   }
 
+  const bodegasIds = [bodegaOrigen._id, bodegaDestino._id]
+
   return (
-    <>
+    <DndContext>
       <main className="flex gap-2 mx-2 mt-2">
-        <RenderBodega fun={getBodega} sendBodega={setBodegaOrigen} renderInfo={bodegaOrigen} />
-        <RenderBodega fun={getBodega} sendBodega={setBodegaDestino} renderInfo={bodegaDestino} />
+        <SortableContext items={bodegasIds}>
+          <RenderBodega fun={getBodega} sendBodega={setBodegaOrigen} renderInfo={bodegaOrigen} />
+          <RenderBodega fun={getBodega} sendBodega={setBodegaDestino} renderInfo={bodegaDestino} />
+        </SortableContext>
       </main>
 
       <footer className='flex w-full justify-center pt-2'>
         <p className='text-center text-slate-600'>Aquí va ir la inf extra del mov simcard</p>
       </footer>
-    </>
+    </DndContext>
   )
 }
 
