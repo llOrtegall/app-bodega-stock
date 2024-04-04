@@ -35,21 +35,44 @@ export function CreaMovimientosSim(): JSX.Element {
 
   function handleDragEnd(ev: DragEndEvent) {
 
-    if(ev.active.id === ev.over?.id) {
+    if (ev.active.id === ev.over?.id) {
       console.log('Simcard No Se Movio');
       return
     }
-    if(ev.active.data.current?.bodegaOrigen === ev.over?.id){
+    if (ev.active.data.current?.bodegaOrigen === ev.over?.id) {
       console.log('Misma bodega');
       return
     }
-    if(ev.active.data.current?.bodegaOrigen === ev.over?.data.current?.bodegaOrigen){
+    if (ev.active.data.current?.bodegaOrigen === ev.over?.data.current?.bodegaOrigen) {
       console.log('Items De La Misma Bodega No Son Sortables Ya Que No Nos Interesa Esa Implementación');
       return
     }
 
-    console.log(ev.active);
-    console.log(ev.over);
+    if (ev.active.data.current?.type === ev.over?.data.current?.type) {
+      console.log('El Item Debe Estar Encima Del Recuadro Verde');
+      return
+    }
+
+    const bodegaSelectedId = ev.over?.data.current?.bodega._id
+    updateBodega(bodegaSelectedId)
+    // console.log(SimcardActive);
+
+    function updateBodega(id: string) {
+      if (id === bodegaDestino._id) {
+        console.log('Simcard(En Origen) => Bodega Destino');
+        SimcardActive ? setBodegaDestino({ ...bodegaDestino, simcards: [...bodegaDestino.simcards, SimcardActive]}) : null
+        setBodegaOrigen({ ...bodegaOrigen, simcards: bodegaOrigen.simcards.filter(sim => sim._id !== SimcardActive?._id)})
+        return
+      }
+
+      if (id === bodegaOrigen._id) {
+        console.log('Simcard(En Destino)  => Bodega Origen');
+        SimcardActive ? setBodegaOrigen({ ...bodegaOrigen, simcards: [...bodegaOrigen.simcards, SimcardActive]}) : null
+        setBodegaDestino({ ...bodegaDestino, simcards: bodegaDestino.simcards.filter(sim => sim._id !== SimcardActive?._id)})
+        return
+      }
+    }
+
   }
 
   return (
