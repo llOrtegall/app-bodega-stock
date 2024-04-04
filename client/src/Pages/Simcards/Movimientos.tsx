@@ -1,9 +1,11 @@
+import { BodegaWithSims, SimcardNoBodega } from '../../types/Simcard.interfaces'
+import { RenderSimcard } from '../../components/simcards/RenderSimcard'
 import { RenderBodega } from '../../components/simcards/RenderBodega'
-import { BodegaWithSims } from '../../types/Simcard.interfaces'
+import { DndContext, DragOverlay } from '@dnd-kit/core'
+import { SortableContext } from '@dnd-kit/sortable'
+import { createPortal } from 'react-dom'
 import { useState } from 'react'
 import axios from 'axios'
-import { DndContext } from '@dnd-kit/core'
-import { SortableContext } from '@dnd-kit/sortable'
 
 const initialState = { _id: '', nombre: '', direccion: '', sucursal: 0, items: [], simcards: [], updatedAt: '' }
 
@@ -18,6 +20,7 @@ export function CreaMovimientosSim(): JSX.Element {
   }
 
   const bodegasIds = [bodegaOrigen._id, bodegaDestino._id]
+  const [SimcardActive, setSimcardActive] = useState<SimcardNoBodega | null>(null)
 
   return (
     <DndContext>
@@ -31,6 +34,15 @@ export function CreaMovimientosSim(): JSX.Element {
       <footer className='flex w-full justify-center pt-2'>
         <p className='text-center text-slate-600'>Aquí va ir la inf extra del mov simcard</p>
       </footer>
+
+      {
+        createPortal(
+          <DragOverlay>
+            {SimcardActive ? <RenderSimcard simcard={SimcardActive} /> : null}
+          </DragOverlay>,
+          document.body
+        )
+      }
     </DndContext>
   )
 }
