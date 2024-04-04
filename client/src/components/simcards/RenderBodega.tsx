@@ -1,4 +1,5 @@
 import { BodegaWithSims } from "../../types/Simcard.interfaces"
+import { RenderSimcard } from "./RenderSimcard"
 import { useAuth } from "../../Auth/AuthContext"
 import { Button, Input, Label } from "../ui"
 import { useState } from "react"
@@ -35,13 +36,15 @@ export function RenderBodega({ fun, sendBodega, renderInfo }: Props): JSX.Elemen
         <p> <span className="font-semibold">Sucursal: </span> {renderInfo.sucursal}</p>
       </header>
 
-      <section className="grid grid-cols-4 w-full place-items-center p-2 bg-slate-600 rounded-md  text-white">
-        <p className="font-semibold">Número</p>
-        <p className="font-semibold">Operador</p>
-        <p className="font-semibold">Serial</p>
-        <p className="font-semibold">Agregar</p>
+      <section className="w-full flex p-2 rounded-lg text-white text-center bg-blue-600">
+        <p className="w-1/3 font-semibold">Número</p>
+        <p className="w-1/3 font-semibold">Operador</p>
+        <p className="w-1/3 font-semibold">Serial</p>
       </section>
 
+      <section className="flex flex-col h-[250px] overflow-y-auto">
+        {renderInfo.simcards.map(sim => <RenderSimcard key={sim._id} simcard={sim} />)}
+      </section>
 
     </article>
   )

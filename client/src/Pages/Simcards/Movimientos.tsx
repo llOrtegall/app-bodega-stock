@@ -1,4 +1,4 @@
-import { RenderBodega } from '../../components/simcards/RenderBodegaOrigen'
+import { RenderBodega } from '../../components/simcards/RenderBodega'
 import { BodegaWithSims } from '../../types/Simcard.interfaces'
 import { useState } from 'react'
 import axios from 'axios'
@@ -9,14 +9,14 @@ export function CreaMovimientosSim(): JSX.Element {
   const [bodegaOrigen, setBodegaOrigen] = useState<BodegaWithSims>(initialState)
   const [bodegaDestino, setBodegaDestino] = useState<BodegaWithSims>(initialState)
 
-  // TODO: Esta función se está pasando como prop a los componentes Render bodega pero lo mejor sera llamarlo desde cada componente con un servicio
+  // TODO: Esta función se está pasando como prop a los componentes Render bodega pero lo mejor sera llamarlo desde el componente con un servicio
   const getBodega = async ({ company, sucursal }: { sucursal: string, company: string }): Promise<BodegaWithSims> => {
     const response = await axios.get(`/getBodegaSimcards/${company}/${sucursal}`)
     return response.data as BodegaWithSims
   }
  
   return (
-    <main className="w-full min-h-[92vh] flex gap-2 mx-2 mt-2">
+    <main className="flex gap-2 mx-2 mt-2">
       <RenderBodega fun={getBodega} sendBodega={setBodegaOrigen} renderInfo={bodegaOrigen}/>
       <RenderBodega fun={getBodega} sendBodega={setBodegaDestino} renderInfo={bodegaDestino}/>
     </main>
