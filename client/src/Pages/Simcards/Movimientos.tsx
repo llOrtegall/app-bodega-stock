@@ -34,51 +34,22 @@ export function CreaMovimientosSim(): JSX.Element {
   }
 
   function handleDragEnd(ev: DragEndEvent) {
-    const { active, over } = ev
 
-    const SimcarActivaId = active.data.current?.bodegaOrigen
-    const BodegaOverId = over?.data.current?.bodega._id
-
-    if (SimcarActivaId === BodegaOverId) {
-      console.log('Mismo lugar');
+    if(ev.active.id === ev.over?.id) {
+      console.log('Simcard No Se Movio');
+      return
+    }
+    if(ev.active.data.current?.bodegaOrigen === ev.over?.id){
+      console.log('Misma bodega');
+      return
+    }
+    if(ev.active.data.current?.bodegaOrigen === ev.over?.data.current?.bodegaOrigen){
+      console.log('Items De La Misma Bodega No Son Sortables Ya Que No Nos Interesa Esa Implementación');
       return
     }
 
-    const simcarMov = active.id
-
-    //Si la Simcards Estan en Bodega Origen
-    const SimInBodOri = bodegaOrigen.simcards.find(i => i._id === simcarMov)
-    if (SimInBodOri) {
-
-      setCartSims([...cartSims, SimInBodOri._id])
-
-      setBodegaOrigen(prev => {
-        const simcards = prev.simcards.filter(i => i._id !== simcarMov)
-        return { ...prev, simcards }
-      })
-
-      setBodegaDestino(prev => {
-        const simcards = [...prev.simcards, SimInBodOri]
-        return { ...prev, simcards }
-      })
-    }
-
-    //Si la Simcards Estan en Bodega Destino
-    const SimInBodDes = bodegaDestino.simcards.find(i => i._id === simcarMov)
-
-    if (SimInBodDes) {
-      setCartSims2([...cartSims2, SimInBodDes._id])
-      setBodegaDestino(prev => {
-        const simcards = prev.simcards.filter(i => i._id !== simcarMov)
-        return { ...prev, simcards }
-      })
-
-      setBodegaOrigen(prev => {
-        const simcards = [...prev.simcards, SimInBodDes]
-        return { ...prev, simcards }
-      })
-    }
-
+    console.log(ev.active);
+    console.log(ev.over);
   }
 
   return (
