@@ -5,7 +5,7 @@ export function CambiarCompany (): JSX.Element {
 
   return (
     <>
-      <div className="absolute inset-0 bg-black opacity-60"></div>
+      <div className="absolute inset-0 bg-black opacity-90 z-50"></div>
       <section className="fixed inset-0 flex items-center justify-center z-50">
 
         <article className="flex items-center py-8 border flex-col gap-4 p-4 mb-4 text-xl text-yellow-400 bg-gray-900 rounded-xl" role="alert">

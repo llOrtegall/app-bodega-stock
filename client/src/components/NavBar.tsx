@@ -38,17 +38,17 @@ export function NavBar(): JSX.Element {
           <p className='font-semibold text-sm xl:text-base 1xl:text-lg 2xl:text-xl 3xl:text-2xl'>Movimientos</p>
         </NavItem>
 
-        <article className="relative z-50">
+        <article className="relative z-30">
           <ButtonActiComp id='Articulos' handleClick={handleClick} />
           {activeComponent === 'Articulos' && <Articulos rol={user.rol} close={setActiveComponent} />}
         </article>
 
-        <article className="relative z-50">
+        <article className="relative z-30">
           <ButtonActiComp id='Bodegas' handleClick={handleClick} />
           {activeComponent === 'Bodegas' && <Bodegas rol={user.rol} close={setActiveComponent} />}
         </article>
 
-        <article className="relative z-50">
+        <article className="relative z-30">
           <ButtonActiComp id='Simcards' handleClick={handleClick} />
           {activeComponent === 'Simcards' && <Simcards rol={user.rol} close={setActiveComponent} />}
         </article>
