@@ -109,7 +109,7 @@ export const moveSimcards = async (req, res) => {
   }
 
   if (simsIds.entran.length === 0) {
-    return res.status(400).json({ error: 'Debe seleccionar al menos un ítem Para El Movimiento' })
+    return res.status(400).json({ error: 'Debe seleccionar Mínimo ( 1 ) Simcard Para El Movimiento' })
   }
 
   if (bodegas.bodegaOrigen === bodegas.bodegaDestino) {

@@ -36,39 +36,37 @@ export function RenderBodega({ fun, sendBodega, renderInfo, title, cart }: Props
   });
 
   return (
-    <article className="w-full flex flex-col gap-2">
-      <form className="w-full p-1 bg-blue-300 flex items-center gap-2 text-center col-span-2 place-content-center" onSubmit={handleSubmit}>
+    <article className="flex flex-col w-full gap-1 text-xs">
+
+      <form className="bg-blue-200 flex justify-center gap-2 items-center py-2" onSubmit={handleSubmit}>
         <Label>Buscar {title}</Label>
         <Input type="text" placeholder="40001 | 34545" value={sucursal} onChange={(ev) => setSucursal(ev.target.value)} />
-        <div><Button>Buscar Sucursal</Button></div>
+        <Button>Buscar Sucursal</Button>
       </form>
 
-      <header className="w-full p-1 bg-blue-300 flex items-center gap-4 text-center col-span-2 place-content-center">
+      <header className="py-1 bg-blue-300 flex justify-around">
         <p> <span className="font-semibold">Nombre: </span> {renderInfo?.nombre} </p>
         <p> <span className="font-semibold">Direccion: </span> {renderInfo?.direccion}</p>
         <p> <span className="font-semibold">Sucursal: </span> {renderInfo?.sucursal}</p>
       </header>
 
-      <section className="flex items-center justify-center gap-4 mx-4">
+      <section className="flex items-center justify-center gap-2 py-1 bg-blue-200">
         <Label>Filtrar Simcard: </Label>
-        <div className="w-3/5">
-          <Input value={searchSimcard} onChange={ev => setSearchSimcard(ev.target.value)}
-            displaySize="w-full" type="text" placeholder="Número | Serial | Operador" />
-        </div>
+        <Input value={searchSimcard} onChange={ev => setSearchSimcard(ev.target.value)} type="text" placeholder="Número | Serial | Operador" />
       </section>
 
-      <section className="w-full flex p-2 rounded-lg text-white text-center bg-blue-600">
+      <section className="flex p-1 text-white text-center bg-blue-600">
         <p className="w-1/3 font-semibold">Número</p>
         <p className="w-1/3 font-semibold">Operador</p>
         <p className="w-1/3 font-semibold">Serial</p>
       </section>
 
-      <section className="flex flex-col h-[250px] overflow-y-auto" ref={setNodeRef}>
+      <section className="flex flex-col h-[220px] overflow-y-auto" ref={setNodeRef}>
         {filteredSimcards.map(sim => <RenderSimcard key={sim._id} simcard={sim} bodegaOrigen={renderInfo?._id} cart={cart}/>)}
       </section>
 
       <section ref={setNodeRef}
-        className={`flex h-[100px] justify-center items-center  rounded-lg border-2 border-slate-400 text-slate-600 ${isOver ? 'bg-green-200' : 'bg-green-100'}`}>
+        className={`flex h-[50px] rounded-lg justify-center items-center  border-2 border-slate-400 text-slate-600 ${isOver ? 'bg-green-200' : 'bg-green-100'}`}>
         <p><AddIcon /></p>
         <p>Arrastre Simcard Aquí Para Agregar</p>
       </section>

@@ -25,7 +25,7 @@ export function NavBar (): JSX.Element {
 
       <LogoGane />
 
-      <ul className="flex items-center gap-4  text-xl">
+      <ul className="flex items-center gap-4  text-xs">
 
         <NavItem to="/home" title="Inicio / Home">
           <HomeIcon />
@@ -78,7 +78,7 @@ export function NavBar (): JSX.Element {
           <CloseIcon />
         </li>
 
-        <li className='flex rounded-md p-2  bg-dark-tremor-brand-muted'>
+        <li className='flex rounded-md p-2 h-7 w-16 bg-dark-tremor-brand-muted'>
           <Switch onChange={toggleTheme} />
         </li>
       </ul>

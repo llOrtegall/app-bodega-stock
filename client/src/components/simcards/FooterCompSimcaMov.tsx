@@ -1,3 +1,5 @@
+import { Button, Input, Label } from "../ui"
+
 interface FooterMovSimProps {
   encargado: string
   incidente: string
@@ -7,32 +9,26 @@ interface FooterMovSimProps {
   handleClick: () => void
 }
 
-export function FooterMovSim ({ encargado, incidente, setIncidente, descripcion, setDescripcion, handleClick }: FooterMovSimProps): JSX.Element {
+export function FooterMovSim({ encargado, incidente, setIncidente, descripcion, setDescripcion, handleClick }: FooterMovSimProps): JSX.Element {
   return (
-    <>
-      <footer className="py-4 bg-slate-600 rounded-md text-white mx-2 mt-2">
-        <form className="grid grid-cols-2 gap-3">
-          <label className="flex h-10 items-center ml-3"> <span className="font-semibold w-32">Encargado:</span>
-            <input type="text" className="w-full p-2 rounded-md col-span-1 bg-green-200 no-underline text-black"
-              value={encargado} placeholder="Pepito Perez Muñoz" readOnly/>
-          </label>
-          <label className="flex h-10 items-center"> <span className="font-semibold w-32">N° Incidente:</span>
-            <input type="text" className="w-full p-2 rounded-md bg-slate-100 no-underline text-black"
-              value={incidente} onChange={ev => { setIncidente(ev.target.value) }}
-              placeholder="134564 | 234252 | 634532" />
-          </label>
-          <label className="col-span-3 mx-3"> <span className="font-semibold w-40">Observaciones:</span>
-            <input type="text" className="w-full p-2 rounded-md bg-slate-100 no-underline text-black"
-              value={descripcion} onChange={ev => { setDescripcion(ev.target.value) }}
-              placeholder="texto para registrar observación ..." />
-          </label>
-        </form>
-      </footer>
-      <section className="flex w-full justify-center mt-4">
-        <button className="p-2 text-white font-bold w-48 bg-green-600 rounded-md hover:bg-white  hover:text-black" onClick={handleClick}>
-          Realizar Movimiento
-        </button>
-      </section>
-    </>
+    <footer className="bg-blue-200 text-xs py-2 grid grid-cols-12 place-content-center place-items-center mt-1 px-2">
+      <div className="col-span-3 text-center flex flex-col w-full">
+        <Label>Encargado:</Label>
+        <Input type="text" value={encargado} readOnly />
+      </div>
+      <div className="col-span-2 text-center flex flex-col">
+        <Label>N° Incidente:</Label>
+        <Input type="text" value={incidente} onChange={ev => { setIncidente(ev.target.value) }} placeholder="134564 | 234252 | 634532" />
+      </div>
+      <div className="col-span-4 text-center flex flex-col w-full">
+        <Label>Observaciones:</Label>
+        <Input type="text" value={descripcion} onChange={ev => { setDescripcion(ev.target.value) }} placeholder="texto para registrar observación ..." />
+      </div>
+      <div className="col-span-2 text-center flex flex-col">
+        <Button onClick={handleClick}>Realizar Movimiento</Button>
+      </div>
+    </footer>
   )
 }
+
+

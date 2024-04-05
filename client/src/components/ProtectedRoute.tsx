@@ -17,11 +17,11 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ isAllowed, redir
       <section className='w-full'>
         <NavBar />
       </section>
-      <section className='h-[92vh] overflow-auto'>
+      <section className='h-[90vh] overflow-auto'>
         <Outlet />
       </section>
 
-      <div className="text-black absolute bottom-0 p-2">
+      <div className="text-black absolute bottom-0 left-0 text-xs">
         <p className="font-semibold dark:text-white">Database:
           <span className="text-red-500"> {empresa} </span>
         </p>

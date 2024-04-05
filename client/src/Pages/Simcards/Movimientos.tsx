@@ -6,6 +6,9 @@ import { SortableContext } from '@dnd-kit/sortable'
 import { createPortal } from 'react-dom'
 import { useState } from 'react'
 import axios from 'axios'
+import { useAuth } from '../../Auth/AuthContext'
+import { MessageDisplay } from '../../components/ui'
+import { FooterMovSim } from '../../components/simcards/FooterCompSimcaMov'
 
 const initialState = { _id: '', nombre: '', direccion: '', sucursal: 0, simcards: [], items: [], updatedAt: '' }
 
@@ -13,8 +16,18 @@ export function CreaMovimientosSim(): JSX.Element {
   const [bodegaOrigen, setBodegaOrigen] = useState<BodegaWithSims>(initialState)
   const [bodegaDestino, setBodegaDestino] = useState<BodegaWithSims>(initialState)
 
+  const { user } = useAuth()
+  const nombres = user.nombres + ' ' + user.apellidos
+  const company = user.empresa
+
   const [cartSims, setCartSims] = useState<string[]>([])
   const [cartSims2, setCartSims2] = useState<string[]>([])
+
+  const [descripcion, setDescripcion] = useState<string>('')
+  const [incidente, setIncidente] = useState<string>('')
+
+  const [message, setMessage] = useState<string>('')
+  const [error, setError] = useState<string>('')
 
   // TODO: Esta función se está pasando como prop a los componentes Render bodega pero lo mejor sera llamarlo desde el componente con un servicio
   const getBodega = async ({ company, sucursal }: { sucursal: string, company: string }): Promise<BodegaWithSims> => {
@@ -65,30 +78,58 @@ export function CreaMovimientosSim(): JSX.Element {
           setBodegaOrigen({ ...bodegaOrigen, simcards: bodegaOrigen.simcards.filter(sim => sim._id !== SimcardActive?._id) })
           setCartSims([...cartSims, SimcardActive._id])
           return
-        }else {
-          console.log('Debe Seleccionar Una Bodega Destino');
+        } else {
+          setError('Debe Seleccionar Una Bodega Destino')
+          setTimeout(() => {
+            setError('')
+          }, 4000)
           return
         }
       }
 
       if (id === bodegaOrigen._id && SimcardActive) {
-        if (bodegaOrigen !== initialState){
+        if (bodegaOrigen !== initialState) {
           console.log('Simcard(En Destino)  => Bodega Origen');
           SimcardActive ? setBodegaOrigen({ ...bodegaOrigen, simcards: [...bodegaOrigen.simcards, SimcardActive] }) : null
           setBodegaDestino({ ...bodegaDestino, simcards: bodegaDestino.simcards.filter(sim => sim._id !== SimcardActive?._id) })
           setCartSims2([...cartSims2, SimcardActive._id])
           return
-        }else{
-          console.log('Debe Seleccionar Una Bodega Origen');
+        } else {
+          setError('Debe Seleccionar Una Bodega Origen')
+          setTimeout(() => {
+            setError('')
+          }, 4000)
           return
         }
       }
     }
   }
 
+  const handleClick = (): void => {
+    axios.post('/moveSimcard', {
+      bodegas: { bodegaOrigen: bodegaOrigen._id, bodegaDestino: bodegaDestino._id },
+      simsIds: { entran: cartSims, salen: cartSims2 },
+      encargado: nombres,
+      descripcion,
+      incidente,
+      company
+    })
+      .then(res => {
+        setMessage(res.data.message as string)
+        setBodegaOrigen(initialState)
+        setBodegaDestino(initialState)
+        setCartSims([]); setCartSims2([]); setDescripcion(''); setIncidente(''); setTimeout(() => { setMessage(''); setError('') }, 4000)
+
+      })
+      .catch(err => {
+        setError(err.response.data.error as string)
+        setTimeout(() => { setMessage(''); setError('') }, 4000)
+      })
+  }
+
   return (
     <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
-      <main className="flex gap-2 mx-2 mt-2">
+      <main className="flex gap-1">
         <SortableContext items={bodegasIds}>
           <RenderBodega title={'Bodega Origen'} fun={getBodega}
             sendBodega={setBodegaOrigen} renderInfo={bodegaOrigen} cart={cartSims2} />
@@ -97,10 +138,12 @@ export function CreaMovimientosSim(): JSX.Element {
         </SortableContext>
       </main>
 
-      <footer className='flex w-full justify-center pt-2'>
-        <p className='text-center text-slate-600'>Aquí va ir la inf extra del mov simcard</p>
-      </footer>
+      <FooterMovSim encargado={nombres} incidente={incidente} setIncidente={setIncidente}
+        descripcion={descripcion} setDescripcion={setDescripcion} handleClick={handleClick} />
 
+      <section className='flex items-center justify-center w-full'>
+        <MessageDisplay error={error} message={message} />
+      </section>
       {
         createPortal(
           <DragOverlay>
@@ -113,31 +156,3 @@ export function CreaMovimientosSim(): JSX.Element {
   )
 }
 
-
-// const handleClick = (): void => {
-//   if (bodegaOrigen === bodegaDestino) {
-//     setTimeout(() => {
-//       setMessage('')
-//       setError('')
-//     }, 4000)
-//     setError('Debe Ingresar Una Bodega De Origen y Una De Destino Diferentes !!!'); return
-//   }
-//   axios.post('/moveSimcard', {
-//     bodegas: { bodegaOrigen: bodegaOrigen._id, bodegaDestino: bodegaDestino._id },
-//     simsIds: { entran: cartSims, salen: cartSims2 },
-//     encargado: nombres,
-//     descripcion,
-//     incidente,
-//     company
-//   })
-//     .then(res => {
-//       setMessage(res.data.message as string)
-//       setBodegaOrigen({ _id: '', nombre: '', direccion: '', sucursal: 0, simcards: [], simcards: [], updatedAt: '' })
-//       setBodegaDestino({ _id: '', nombre: '', direccion: '', sucursal: 0, simcards: [], simcards: [], updatedAt: '' })
-//       setCartSims([]); setCartSims2([]); setDescripcion(''); setIncidente(''); setTimeout(() => { setMessage(''); setError('') }, 4000)
-//     })
-//     .catch(err => {
-//       setError(err.response.data.error as string)
-//       setTimeout(() => { setMessage(''); setError('') }, 4000)
-//     })
-// }
