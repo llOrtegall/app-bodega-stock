@@ -28,11 +28,13 @@ export function NavBar(): JSX.Element {
       <section className="flex items-center gap-4">
 
         <NavItem to="/home" title="Inicio / Home">
-          <HomeIcon />
+          <figure className='text-sm xl:text-base 1xl:text-lg'>
+            <HomeIcon />
+          </figure>
         </NavItem>
 
-        <NavItem to="/movimientos" title="Movimientos">
-          <p className='font-semibold'>Movimientos</p>
+        <NavItem to="/movimientos" title="Movimientos" >
+          <p className='font-semibold text-sm xl:text-base 1xl:text-lg'>Movimientos</p>
         </NavItem>
 
         <article className="relative z-50">
