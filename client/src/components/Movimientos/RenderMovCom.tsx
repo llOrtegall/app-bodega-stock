@@ -17,7 +17,7 @@ export function RenderMovCom (
 
   return (
     <section key={movimientoId} onClick={handleOnClick}
-      className='grid grid-cols-12 h-6 2xl:h-10 text-center border-b dark:border-b-blue-950 py-1 cursor-pointer dark:hover:text-black hover:bg-yellow-100 dark:text-white text-xs 2xl:text-lg text-clip'>
+      className='grid grid-cols-12 h-6 2xl:h-10 text-center border-b dark:border-b-blue-950 py-1 cursor-pointer dark:hover:text-black hover:bg-yellow-100 dark:text-white  2xl:text-lg text-clip'>
       <p className='col-span-1'>{movimientoId}</p>
       <p className='col-span-2'>{formatFecha(createdAt)}</p>
       <p className='col-span-1'>{incidente}</p>

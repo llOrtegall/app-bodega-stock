@@ -62,7 +62,7 @@ export function VerSimcards(): JSX.Element {
               <p className="text-gray-500 dark:text-gray-300">{item.estado}</p>
               <p className="text-gray-500 dark:text-gray-300">{item.user}</p>
               <p className="text-gray-500 dark:text-gray-300">{item.pass}</p>
-              <p className='text-gray-700 dark:text-gray-100 font-semibold text-xs'>{typeof item.bodega !== 'string' ? item.bodega?.nombre : item.bodega}</p>
+              <p className='text-gray-700 dark:text-gray-100 font-semibold '>{typeof item.bodega !== 'string' ? item.bodega?.nombre : item.bodega}</p>
             </article>
           ))
           : <p className='text-center text-2xl font-semibold'>No Existen Items</p>

@@ -36,7 +36,7 @@ export function RenderBodega({ fun, sendBodega, renderInfo, title, cart }: Props
   });
 
   return (
-    <article className="flex flex-col w-full gap-1 text-xs">
+    <article className="flex flex-col w-full gap-1 ">
 
       <form className="bg-blue-200 flex justify-center gap-2 items-center py-2 rounded-lg" onSubmit={handleSubmit}>
         <Label>Buscar {title}</Label>

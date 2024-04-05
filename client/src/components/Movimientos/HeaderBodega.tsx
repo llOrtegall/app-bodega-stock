@@ -15,7 +15,7 @@ export function HeaderBodega ({ funGetBodega, valueBodega, searBodega, bodega, c
 
       <section className='flex justify-around items-center py-2'>
         <h1 className='text-md font-bold uppercase 2xl:text-xl'>{children}</h1>
-        <form className="flex items-center gap-2 text-xs 2xl:text-xl" onSubmit={funGetBodega}>
+        <form className="flex items-center gap-2  2xl:text-xl" onSubmit={funGetBodega}>
           <div>
             <Label textColor=''>Sucursal Bodega:</Label>
           </div>
@@ -28,7 +28,7 @@ export function HeaderBodega ({ funGetBodega, valueBodega, searBodega, bodega, c
         </form>
       </section>
 
-      <section className="flex justify-around pb-4 text-xs 2xl:text-base">
+      <section className="flex justify-around pb-4  2xl:text-base">
         <p className="font-semibold">Nombre:</p>
         <p className="font-bold">{bodega?.nombre}</p>
         <p className="font-semibold">Direccion:</p>

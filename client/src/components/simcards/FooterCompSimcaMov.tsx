@@ -11,7 +11,7 @@ interface FooterMovSimProps {
 
 export function FooterMovSim({ encargado, incidente, setIncidente, descripcion, setDescripcion, handleClick }: FooterMovSimProps): JSX.Element {
   return (
-    <footer className="bg-blue-200 text-xs py-2 grid grid-cols-12 place-content-center place-items-center mt-1 px-2">
+    <footer className="bg-blue-200  py-2 grid grid-cols-12 place-content-center place-items-center mt-1 px-2">
       <div className="col-span-3 text-center flex flex-col w-full">
         <Label>Encargado:</Label>
         <Input type="text" value={encargado} readOnly />

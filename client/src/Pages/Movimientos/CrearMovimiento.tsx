@@ -119,7 +119,7 @@ export function CrearMovimiento(): JSX.Element {
             {
               bodegaOrigen.items.map(item => (
                 typeof item !== 'string' && (
-                  <section key={item._id} className="flex justify-between py-1 my-1 border rounded-md text-xs 2xl:text-base dark:text-white">
+                  <section key={item._id} className="flex justify-between py-1 my-1 border rounded-md  2xl:text-base dark:text-white">
                     <p className='w-3/12 text-center font-semibold'>{item.nombre}</p>
                     <p className='w-4/12 text-center font-semibold'>{item.placa}</p>
                     <p className='w-4/12 text-center font-semibold'>{item.serial}</p>

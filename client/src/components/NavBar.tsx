@@ -25,7 +25,7 @@ export function NavBar (): JSX.Element {
 
       <LogoGane />
 
-      <ul className="flex items-center gap-4  text-xs">
+      <ul className="flex items-center gap-4  ">
 
         <NavItem to="/home" title="Inicio / Home">
           <HomeIcon />
