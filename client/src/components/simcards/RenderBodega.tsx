@@ -61,12 +61,12 @@ export function RenderBodega({ fun, sendBodega, renderInfo, title, cart }: Props
         <p className="w-1/3 font-semibold">Serial</p>
       </section>
 
-      <section className="flex flex-col h-[220px] overflow-y-auto" ref={setNodeRef}>
+      <section className="flex flex-col h-[220px] 2xl:h-[280px]  3xl:h-[330px] overflow-y-auto" ref={setNodeRef}>
         {filteredSimcards.map(sim => <RenderSimcard key={sim._id} simcard={sim} bodegaOrigen={renderInfo?._id} cart={cart}/>)}
       </section>
 
       <section ref={setNodeRef}
-        className={`flex h-[50px] rounded-lg justify-center items-center  border-2 border-slate-400 text-slate-600 ${isOver ? 'bg-green-200' : 'bg-green-100'}`}>
+        className={`flex h-[50px] 2xl:h-[65px] 3xl:h-[75px] rounded-lg justify-center items-center  border-2 border-slate-400 text-slate-600 ${isOver ? 'bg-green-200' : 'bg-green-100'}`}>
         <p><AddIcon /></p>
         <p>Arrastre Simcard Aquí Para Agregar</p>
       </section>
