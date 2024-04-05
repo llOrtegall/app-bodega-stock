@@ -27,8 +27,8 @@ if (isDragging) {
 
   return (
     <article ref={setNodeRef} style={style} {...attributes} {...listeners}
-      className={`${cart?.includes(simcard._id) ? 'bg-yellow-200' : 'bg-slate-200'} 
-      no-select flex p-2 rounded-md text-center  h-8 mb-1 hover:bg-yellow-200 cursor-pointer hover:font-semibold transition-all`}>
+      className={`${cart?.includes(simcard._id) ? 'bg-yellow-200' : 'bg-slate-200 dark:bg-slate-500 dark:text-white'} 
+      no-select flex p-2 rounded-md text-center h-10 mb-1 hover:bg-yellow-200 dark:hover:bg-yellow-200 dark:hover:text-black cursor-pointer hover:font-semibold transition-all`}>
       <p className='w-1/3'>{simcard.numero}</p>
       <p className='w-1/3'>{simcard.operador}</p>
       <p className='w-1/3'>{simcard.serial}</p>

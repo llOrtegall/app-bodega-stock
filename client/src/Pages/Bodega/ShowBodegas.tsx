@@ -29,7 +29,7 @@ export function ShowBodegas (): JSX.Element {
 
       <section className="flex items-center justify-center gap-6 p-2 bg-blue-200 dark:bg-blue-900 shadow-lg">
         <div>
-          <Label textColor='dark:text-white'>Filtrar Bodega :</Label>
+          <Label>Filtrar Bodega :</Label>
         </div>
         <div className='w-[350px]'>
           <Input type='text' value={searchBodega} onChange={({ target }) => { setSearchBodega(target.value) }}

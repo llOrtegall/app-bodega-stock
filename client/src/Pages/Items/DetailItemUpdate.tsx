@@ -1,6 +1,6 @@
 import { getItem, sendUpdateItem } from '../../services/Item.services'
-import { useLocation, useNavigate } from 'react-router-dom'
 import { Button, Label, MessageDisplay } from '../../components/ui'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { type updateItem } from '../../types/Item'
 import { useAuth } from '../../Auth/AuthContext'
 import { useEffect, useState } from 'react'
@@ -87,7 +87,7 @@ export function DetalleItem (): JSX.Element {
 
       <form onSubmit={handleSubmit} className='grid grid-cols-2 gap-4 pb-10 p-8 rounded-md bg-blue-300 dark:bg-blue-900'>
         <div className='flex flex-col w-96 gap-2'>
-          <Label textColor='dark:text-white'>Nombre:</Label>
+          <Label>Nombre:</Label>
           <select name="nombre" value={item.nombre} onChange={handleChange} className="px-3 py-2 border border-gray-300 rounded-md">
             <option value="">Seleccionar Un Item</option>
             {options.map((option, index) => (
@@ -96,19 +96,19 @@ export function DetalleItem (): JSX.Element {
               </option>
             ))}
           </select>
-          <Label textColor='dark:text-white'>Descripción / Marca :</Label>
+          <Label>Descripción / Marca :</Label>
           <input className='p-2 rounded-md border border-gray-300'
             type="text" name="descripcion" value={item.descripcion} onChange={handleChange} />
-          <Label textColor='dark:text-white'>Placa:</Label>
+          <Label>Placa:</Label>
           <input className='p-2 rounded-md border border-gray-300'
             type="text" name="placa" value={item.placa} onChange={handleChange} />
         </div>
 
         <div className='flex flex-col w-96 gap-2'>
-          <Label textColor='dark:text-white'>Serial / N° Referencia:</Label>
+          <Label>Serial / N° Referencia:</Label>
           <input className='p-2 rounded-md border border-gray-300'
             type="text" name="serial" value={item.serial} onChange={handleChange} />
-          <Label textColor='dark:text-white'>Estado:</Label>
+          <Label>Estado:</Label>
           <select name="estado" value={item.estado} onChange={handleChange} className="px-3 py-2 border border-gray-300 rounded-md">
             <option value="">Selecciona un estado</option>
             <option value="Nuevo">Nuevo</option>
@@ -116,7 +116,7 @@ export function DetalleItem (): JSX.Element {
             <option value="Malo">Malo</option>
             <option value="Baja">Baja</option>
           </select>
-          <Label textColor='dark:text-white'>Acciones:</Label>
+          <Label>Acciones:</Label>
 
           <Button>Actualizar</Button>
 

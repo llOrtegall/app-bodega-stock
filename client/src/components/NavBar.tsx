@@ -57,7 +57,7 @@ export function NavBar(): JSX.Element {
           <CloseIcon />
         </article>
 
-        <article className='flex rounded-md p-2 h-7 w-16 bg-dark-tremor-brand-muted'>
+        <article className='flex rounded-md p-2 h-7 w-16 dark:bg-slate-500'>
           <Switch onChange={toggleTheme} />
         </article>
       </section>

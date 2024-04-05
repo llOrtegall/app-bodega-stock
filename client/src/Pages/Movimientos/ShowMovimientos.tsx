@@ -15,7 +15,7 @@ export function ShowMovimientos(): JSX.Element {
       : (
         <section className="">
           <article className='flex items-center justify-center py-2 gap-2 bg-blue-300 dark:bg-blue-950'>
-            <Label textColor='text-black dark:text-white'>Filtrar Por: </Label>
+            <Label>Filtrar Por: </Label>
             <Input type="text" value={busMov} onChange={ev => { setBusMov(ev.target.value) }} placeholder="N° Mov | N° Incidente" />
           </article >
           <section className=''>

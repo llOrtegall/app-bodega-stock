@@ -17,7 +17,7 @@ export function HeaderBodega ({ funGetBodega, valueBodega, searBodega, bodega, c
         <h1 className='text-md font-bold uppercase 2xl:text-xl'>{children}</h1>
         <form className="flex items-center gap-2  2xl:text-xl" onSubmit={funGetBodega}>
           <div>
-            <Label textColor=''>Sucursal Bodega:</Label>
+            <Label>Sucursal Bodega:</Label>
           </div>
           <div>
             <Input type="text" value={valueBodega} onChange={ev => { searBodega(ev.target.value) }} placeholder="40001 | 34545" />
