@@ -4,9 +4,10 @@ import ButtonActiComp from './NavLinks/ButtonLinkComp'
 import { useTheme } from '../contexts/ThemeContext'
 import { CloseIcon, HomeIcon } from './icons'
 import { useAuth } from '../Auth/AuthContext'
-import { LogoGane, NavItem } from './ui'
+import { Image } from './icons/Image'
 import { useState, useRef } from 'react'
 import { Switch } from '@tremor/react'
+import { NavItem } from './ui'
 
 export function NavBar(): JSX.Element {
   const [activeComponent, setActiveComponent] = useState<string | null>(null)
@@ -21,20 +22,20 @@ export function NavBar(): JSX.Element {
   }
 
   return (
-    <nav className="flex py-2 bg-slate-200 dark:bg-slate-950 justify-around dark:text-white" ref={navRef}>
+    <nav className="flex py-2 xl:py-3 2xl:py-4 bg-slate-200 dark:bg-slate-950 justify-around dark:text-white" ref={navRef}>
 
-      <LogoGane />
+      <Image src="/gane.webp" alt="Foto Gane" className='w-20 xl:w-24 1xl:w-28 3xl:w-32'/>
 
       <section className="flex items-center gap-4">
 
         <NavItem to="/home" title="Inicio / Home">
-          <figure className='text-sm xl:text-base 1xl:text-lg'>
+          <figure className='text-sm xl:text-base 1xl:text-lg 2xl:text-xl 3xl:text-2xl'>
             <HomeIcon />
           </figure>
         </NavItem>
 
         <NavItem to="/movimientos" title="Movimientos" >
-          <p className='font-semibold text-sm xl:text-base 1xl:text-lg'>Movimientos</p>
+          <p className='font-semibold text-sm xl:text-base 1xl:text-lg 2xl:text-xl 3xl:text-2xl'>Movimientos</p>
         </NavItem>
 
         <article className="relative z-50">

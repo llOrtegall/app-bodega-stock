@@ -5,8 +5,6 @@ interface Props {
   close: (value: string | null) => void;
 }
 
-const classStyles = "absolute -left-14 top-7 w-44 xl:w-48 1xl:w-52 bg-slate-200 rounded-b-lg pb-1 text-sm xl:text-base 1xl:text-lg"
-
 function Articulos({ rol, close }: Props) {
   const items = [
     { id: 1, link: "/items/verItems", title: "Ver Items", validate: false },
@@ -15,7 +13,7 @@ function Articulos({ rol, close }: Props) {
   ]
 
   return (
-    <ul className={classStyles}>
+    <ul className='absolute -left-12 top-7 xl:top-9 1xl:top-10 2xl:top-12 3xl:top-14 w-40 xl:w-48 2xl:w-52 3xl:w-56 1xl:w-52 bg-slate-200 rounded-b-lg pb-1 text-sm xl:text-base 1xl:text-lg 2xl:text-lg 3xl:text-xl'>
       {items.map(item => <NavLinkItem key={item.id} link={item.link} title={item.title} rol={rol} fun={close} validateRol={item.validate} />)}
     </ul>
   )
@@ -29,7 +27,7 @@ function Bodegas({ rol, close }: Props) {
   ]
 
   return (
-    <ul className={classStyles}>
+    <ul className='absolute -left-12 top-7 xl:top-9 1xl:top-10 2xl:top-12 3xl:top-14 w-40 xl:w-48 2xl:w-52 3xl:w-56 1xl:w-52 bg-slate-200 rounded-b-lg pb-1 text-sm xl:text-base 1xl:text-lg 2xl:text-lg 3xl:text-xl'>
       {items.map(item => <NavLinkItem key={item.id} link={item.link} title={item.title} rol={rol} fun={close} validateRol={item.validate} />)}
     </ul>
   )
@@ -44,7 +42,7 @@ function Simcards({ rol, close }: Props) {
   ]
 
   return (
-    <ul className={classStyles}>
+    <ul className='absolute -left-12 top-7 xl:top-9 1xl:top-10 2xl:top-12 3xl:top-14 w-40 xl:w-48 2xl:w-52 3xl:w-56 1xl:w-52 bg-slate-200 rounded-b-lg pb-1 text-sm xl:text-base 1xl:text-lg 2xl:text-lg 3xl:text-xl'>
       {items.map(item => (<NavLinkItem key={item.id} link={item.link} title={item.title} rol={rol} fun={close} validateRol={item.validate} />))}
     </ul>
   )
