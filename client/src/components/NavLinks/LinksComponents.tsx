@@ -8,13 +8,11 @@ interface Props {
 const classStyles = "absolute -left-14 top-7 w-44 bg-slate-200 rounded-b-lg pb-1"
 
 function Articulos({ rol, close }: Props) {
-
   const items = [
     { id: 1, link: "/items/verItems", title: "Ver Items", validate: false },
     { id: 2, link: "/items/crearItems", title: "Crear Items", validate: true },
     { id: 3, link: "/items/asignarItems", title: "Asginar Items", validate: true }
   ]
-
 
   return (
     <ul className={classStyles}>
@@ -24,7 +22,6 @@ function Articulos({ rol, close }: Props) {
 }
 
 function Bodegas({ rol, close }: Props) {
-
   const items = [
     { id: 1, link: "/bodega/verBodegas", title: "Ver Bodegas", validate: false },
     { id: 2, link: "/bodega/crearBodega", title: "Crear Bodega", validate: true },
@@ -39,7 +36,6 @@ function Bodegas({ rol, close }: Props) {
 }
 
 function Simcards({ rol, close }: Props) {
-
   const items = [
     { id: 1, link: "/simcards/verSimcards", title: "Ver Simcards", validate: false },
     { id: 2, link: "/simcards/crearSimcard", title: "Crear Simcards", validate: true },

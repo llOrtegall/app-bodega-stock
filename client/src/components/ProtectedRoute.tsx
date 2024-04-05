@@ -1,10 +1,14 @@
-import { type ProtectedRouteProps } from '../types/Interfaces'
 import { Navigate, Outlet } from 'react-router-dom'
-import { NavBar } from './ui'
-import React from 'react'
 import { useAuth } from '../Auth/AuthContext'
+import { type FC } from 'react'
+import { NavBar } from './ui'
 
-export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ isAllowed, redirectTo = '/' }) => {
+interface ProtectedRouteProps {
+  redirectTo?: string
+  isAllowed?: boolean
+}
+
+export const ProtectedRoute: FC<ProtectedRouteProps> = ({ isAllowed, redirectTo = '/' }) => {
   const { user } = useAuth()
   const empresa = user.empresa
 

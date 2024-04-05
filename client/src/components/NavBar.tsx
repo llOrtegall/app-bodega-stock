@@ -45,7 +45,6 @@ export function NavBar(): JSX.Element {
           {activeComponent === 'Bodegas' && <Bodegas rol={user.rol} close={setActiveComponent} />}
         </article>
 
-        {/* TODO:  Menu Despegable de Simcards */}
         <article className="relative z-50">
           <ButtonActiComp id='Simcards' handleClick={handleClick} />
           {activeComponent === 'Simcards' && <Simcards rol={user.rol} close={setActiveComponent} />}

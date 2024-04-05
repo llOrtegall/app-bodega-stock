@@ -10,8 +10,3 @@ export interface User {
   iat: number
   exp: number
 }
-
-export interface ProtectedRouteProps {
-  redirectTo?: string
-  isAllowed?: boolean
-}

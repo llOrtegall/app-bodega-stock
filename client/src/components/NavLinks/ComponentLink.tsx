@@ -13,7 +13,7 @@ function NavLinkItem({ link, title, rol, fun, validateRol }: PropNavLinks): JSX.
 
   return (
     <NavLink to={link} onClick={() => fun(null)}
-      className="hover:text-blue-600 font-semibold flex items-center justify-between px-4 py-1 w-full">
+      className="hover:text-blue-600 font-semibold flex items-center justify-between px-4 py-1.5 w-full">
       <span>{title}</span>
       {
         validateRol
