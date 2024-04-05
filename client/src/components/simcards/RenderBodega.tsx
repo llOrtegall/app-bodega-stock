@@ -10,14 +10,15 @@ import { AddIcon } from "../icons"
 interface Props {
   fun: ({ company, sucursal }: { sucursal: string, company: string }) => Promise<BodegaWithSims>
   sendBodega: (bodega: BodegaWithSims) => void
-  renderInfo: BodegaWithSims
+  renderInfo?: BodegaWithSims
   title: string
   cart: string[]
 }
 
 export function RenderBodega({ fun, sendBodega, renderInfo, title, cart }: Props): JSX.Element {
   const [sucursal, setSucursal] = useState('')
-  const { searchSimcard, setSearchSimcard, filteredSimcards } = useFilterSimcards(renderInfo.simcards)
+
+  const { searchSimcard, setSearchSimcard, filteredSimcards } = useFilterSimcards(renderInfo?.simcards || [])
 
   const { user } = useAuth()
   const company = user.empresa
@@ -31,7 +32,7 @@ export function RenderBodega({ fun, sendBodega, renderInfo, title, cart }: Props
   }
 
   const { isOver, setNodeRef } = useDroppable({
-    id: renderInfo._id, data: { type: 'bodega', bodega: renderInfo }
+    id: renderInfo?._id || '', data: { type: 'bodega', bodega: renderInfo }
   });
 
   return (
@@ -43,9 +44,9 @@ export function RenderBodega({ fun, sendBodega, renderInfo, title, cart }: Props
       </form>
 
       <header className="w-full p-1 bg-blue-300 flex items-center gap-4 text-center col-span-2 place-content-center">
-        <p> <span className="font-semibold">Nombre: </span> {renderInfo.nombre} </p>
-        <p> <span className="font-semibold">Direccion: </span> {renderInfo.direccion}</p>
-        <p> <span className="font-semibold">Sucursal: </span> {renderInfo.sucursal}</p>
+        <p> <span className="font-semibold">Nombre: </span> {renderInfo?.nombre} </p>
+        <p> <span className="font-semibold">Direccion: </span> {renderInfo?.direccion}</p>
+        <p> <span className="font-semibold">Sucursal: </span> {renderInfo?.sucursal}</p>
       </header>
 
       <section className="flex items-center justify-center gap-4 mx-4">
@@ -63,7 +64,7 @@ export function RenderBodega({ fun, sendBodega, renderInfo, title, cart }: Props
       </section>
 
       <section className="flex flex-col h-[250px] overflow-y-auto" ref={setNodeRef}>
-        {filteredSimcards.map(sim => <RenderSimcard key={sim._id} simcard={sim} bodegaOrigen={renderInfo._id} cart={cart}/>)}
+        {filteredSimcards.map(sim => <RenderSimcard key={sim._id} simcard={sim} bodegaOrigen={renderInfo?._id} cart={cart}/>)}
       </section>
 
       <section ref={setNodeRef}

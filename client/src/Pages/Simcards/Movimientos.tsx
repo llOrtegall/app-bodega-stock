@@ -23,7 +23,7 @@ export function CreaMovimientosSim(): JSX.Element {
     return response.data as BodegaWithSims
   }
 
-  const bodegasIds = [bodegaOrigen._id, bodegaDestino._id]
+  const bodegasIds = [bodegaOrigen?._id, bodegaDestino?._id]
   const [SimcardActive, setSimcardActive] = useState<SimcardNoBodega | null>(null)
 
   function handleDragStart(ev: DragStartEvent) {
