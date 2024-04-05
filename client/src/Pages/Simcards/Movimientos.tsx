@@ -58,17 +58,19 @@ export function CreaMovimientosSim(): JSX.Element {
     // console.log(SimcardActive);
 
     function updateBodega(id: string) {
-      if (id === bodegaDestino._id) {
+      if (id === bodegaDestino._id && SimcardActive) {
         console.log('Simcard(En Origen) => Bodega Destino');
         SimcardActive ? setBodegaDestino({ ...bodegaDestino, simcards: [...bodegaDestino.simcards, SimcardActive]}) : null
         setBodegaOrigen({ ...bodegaOrigen, simcards: bodegaOrigen.simcards.filter(sim => sim._id !== SimcardActive?._id)})
+        setCartSims([...cartSims, SimcardActive._id])
         return
       }
 
-      if (id === bodegaOrigen._id) {
+      if (id === bodegaOrigen._id && SimcardActive) {
         console.log('Simcard(En Destino)  => Bodega Origen');
         SimcardActive ? setBodegaOrigen({ ...bodegaOrigen, simcards: [...bodegaOrigen.simcards, SimcardActive]}) : null
         setBodegaDestino({ ...bodegaDestino, simcards: bodegaDestino.simcards.filter(sim => sim._id !== SimcardActive?._id)})
+        setCartSims2([...cartSims2, SimcardActive._id])
         return
       }
     }
@@ -79,8 +81,8 @@ export function CreaMovimientosSim(): JSX.Element {
     <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
       <main className="flex gap-2 mx-2 mt-2">
         <SortableContext items={bodegasIds}>
-          <RenderBodega title={'Bodega Origen'} fun={getBodega} sendBodega={setBodegaOrigen} renderInfo={bodegaOrigen} />
-          <RenderBodega title={'Bodega Destino'} fun={getBodega} sendBodega={setBodegaDestino} renderInfo={bodegaDestino} />
+          <RenderBodega title={'Bodega Origen'} fun={getBodega} sendBodega={setBodegaOrigen} renderInfo={bodegaOrigen} cart={cartSims2}/>
+          <RenderBodega title={'Bodega Destino'} fun={getBodega} sendBodega={setBodegaDestino} renderInfo={bodegaDestino} cart={cartSims}/>
         </SortableContext>
       </main>
 

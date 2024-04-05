@@ -12,9 +12,10 @@ interface Props {
   sendBodega: (bodega: BodegaWithSims) => void
   renderInfo: BodegaWithSims
   title: string
+  cart: string[]
 }
 
-export function RenderBodega({ fun, sendBodega, renderInfo, title }: Props): JSX.Element {
+export function RenderBodega({ fun, sendBodega, renderInfo, title, cart }: Props): JSX.Element {
   const [sucursal, setSucursal] = useState('')
   const { searchSimcard, setSearchSimcard, filteredSimcards } = useFilterSimcards(renderInfo.simcards)
 
@@ -60,7 +61,7 @@ export function RenderBodega({ fun, sendBodega, renderInfo, title }: Props): JSX
       </section>
 
       <section className="flex flex-col h-[250px] overflow-y-auto" ref={setNodeRef}>
-        {filteredSimcards.map(sim => <RenderSimcard key={sim._id} simcard={sim} bodegaOrigen={renderInfo._id} />)}
+        {filteredSimcards.map(sim => <RenderSimcard key={sim._id} simcard={sim} bodegaOrigen={renderInfo._id} cart={cart}/>)}
       </section>
 
       <section ref={setNodeRef}

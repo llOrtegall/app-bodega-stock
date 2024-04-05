@@ -5,9 +5,10 @@ import { CSS } from '@dnd-kit/utilities'
 interface Props {
   simcard: SimcardNoBodega
   bodegaOrigen?: string
+  cart?: string[]
 }
 
-export function RenderSimcard({ simcard, bodegaOrigen }: Props): JSX.Element {
+export function RenderSimcard({ simcard, bodegaOrigen, cart }: Props): JSX.Element {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = 
   useSortable({ id: `${simcard._id}`, data: { bodegaOrigen, type: 'simcard', simcard }})
 
@@ -26,7 +27,7 @@ if (isDragging) {
 
   return (
     <article ref={setNodeRef} style={style} {...attributes} {...listeners}
-      className='no-select flex bg-slate-200 p-2 rounded-md text-center h-10 pl-10 mb-1 hover:bg-yellow-200 cursor-pointer hover:font-semibold transition-all'>
+      className={`no-select flex ${simcard._id === cart?.find(i => i) ? 'bg-yellow-200' : 'bg-slate-200'} p-2 rounded-md text-center h-10 pl-10 mb-1 hover:bg-yellow-200 cursor-pointer hover:font-semibold transition-all`}>
       <p className='w-1/3'>{simcard.numero}</p>
       <p className='w-1/3'>{simcard.operador}</p>
       <p className='w-1/3'>{simcard.serial}</p>

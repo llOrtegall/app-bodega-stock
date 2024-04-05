@@ -87,7 +87,7 @@ export const moveItems = async (req, res) => {
     sendEmailReport(newMovimiento, company)
       .then(() => console.log('Correo Enviado'))
 
-    return res.status(200).json({ message: 'Ítems movidos con éxito' })
+    return res.status(200).json({ message: 'Simcards movidos con éxito' })
   } catch (error) {
     console.log(error)
     if (error.code === 11000) {
@@ -97,7 +97,7 @@ export const moveItems = async (req, res) => {
       return res.status(400)
         .json({ error: `Error: ${Code}, ${name} = ${Value} Ya Existe !!!` })
     }
-    return res.status(500).json({ error: 'Error al mover los ítems' })
+    return res.status(500).json({ error: 'Error al mover los Simcards' })
   }
 }
 
@@ -163,7 +163,7 @@ export const moveSimcards = async (req, res) => {
     await sourceBodega.save()
     await targetBodega.save()
 
-    return res.status(200).json({ message: 'Ítems movidos con éxito' })
+    return res.status(200).json({ message: 'Simcards movidas con éxito' })
   } catch (error) {
     if (error.code === 11000) {
       console.log(error)
@@ -173,7 +173,7 @@ export const moveSimcards = async (req, res) => {
       return res.status(400)
         .json({ error: `Error: ${Code}, ${name} = ${Value} Ya Existe !!!` })
     }
-    return res.status(500).json({ error: 'Error al mover los ítems' })
+    return res.status(500).json({ error: 'Error al mover los Simcards' })
   }
 }
 
