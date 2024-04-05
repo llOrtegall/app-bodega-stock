@@ -8,7 +8,6 @@ import { useState } from 'react'
 import axios from 'axios'
 
 const initialState = { _id: '', nombre: '', direccion: '', sucursal: 0, simcards: [], items: [], updatedAt: '' }
-// const initialSimcard = { _id: '', numero: '', user: '', pass: '', serial: '', operador: '', apn: '', estado: '', updatedAt: '', createdAt: '' }
 
 export function CreaMovimientosSim(): JSX.Element {
   const [bodegaOrigen, setBodegaOrigen] = useState<BodegaWithSims>(initialState)
@@ -16,9 +15,6 @@ export function CreaMovimientosSim(): JSX.Element {
 
   const [cartSims, setCartSims] = useState<string[]>([])
   const [cartSims2, setCartSims2] = useState<string[]>([])
-
-  const SimBodOriIniRef: SimcardNoBodega[] = []
-  const SimBodDesIniRef: SimcardNoBodega[] = []
 
   // TODO: Esta función se está pasando como prop a los componentes Render bodega pero lo mejor sera llamarlo desde el componente con un servicio
   const getBodega = async ({ company, sucursal }: { sucursal: string, company: string }): Promise<BodegaWithSims> => {
@@ -58,37 +54,46 @@ export function CreaMovimientosSim(): JSX.Element {
     }
 
     const bodegaSelectedId = ev.over?.data.current?.bodega._id
+
     updateBodega(bodegaSelectedId)
-    // console.log(SimcardActive);
 
     function updateBodega(id: string) {
       if (id === bodegaDestino._id && SimcardActive) {
-        console.log('Simcard(En Origen) => Bodega Destino');
-        SimcardActive ? setBodegaDestino({ ...bodegaDestino, simcards: [...bodegaDestino.simcards, SimcardActive]}) : null
-        setBodegaOrigen({ ...bodegaOrigen, simcards: bodegaOrigen.simcards.filter(sim => sim._id !== SimcardActive?._id)})
-        setCartSims([...cartSims, SimcardActive._id])
-        return
+        if (bodegaDestino !== initialState) {
+          console.log('Simcard(En Origen) => Bodega Destino');
+          SimcardActive ? setBodegaDestino({ ...bodegaDestino, simcards: [...bodegaDestino.simcards, SimcardActive] }) : null
+          setBodegaOrigen({ ...bodegaOrigen, simcards: bodegaOrigen.simcards.filter(sim => sim._id !== SimcardActive?._id) })
+          setCartSims([...cartSims, SimcardActive._id])
+          return
+        }else {
+          console.log('Debe Seleccionar Una Bodega Destino');
+          return
+        }
       }
 
       if (id === bodegaOrigen._id && SimcardActive) {
-        console.log('Simcard(En Destino)  => Bodega Origen');
-        SimcardActive ? setBodegaOrigen({ ...bodegaOrigen, simcards: [...bodegaOrigen.simcards, SimcardActive]}) : null
-        setBodegaDestino({ ...bodegaDestino, simcards: bodegaDestino.simcards.filter(sim => sim._id !== SimcardActive?._id)})
-        setCartSims2([...cartSims2, SimcardActive._id])
-        return
+        if (bodegaOrigen !== initialState){
+          console.log('Simcard(En Destino)  => Bodega Origen');
+          SimcardActive ? setBodegaOrigen({ ...bodegaOrigen, simcards: [...bodegaOrigen.simcards, SimcardActive] }) : null
+          setBodegaDestino({ ...bodegaDestino, simcards: bodegaDestino.simcards.filter(sim => sim._id !== SimcardActive?._id) })
+          setCartSims2([...cartSims2, SimcardActive._id])
+          return
+        }else{
+          console.log('Debe Seleccionar Una Bodega Origen');
+          return
+        }
       }
     }
+  }
 
-  }  
-  
   return (
     <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
       <main className="flex gap-2 mx-2 mt-2">
         <SortableContext items={bodegasIds}>
-          <RenderBodega title={'Bodega Origen'} fun={getBodega} refInitial={SimBodOriIniRef}
-            sendBodega={setBodegaOrigen} renderInfo={bodegaOrigen} cart={cartSims2}/>
-          <RenderBodega title={'Bodega Destino'} fun={getBodega} refInitial={SimBodDesIniRef}
-            sendBodega={setBodegaDestino} renderInfo={bodegaDestino} cart={cartSims}/>
+          <RenderBodega title={'Bodega Origen'} fun={getBodega}
+            sendBodega={setBodegaOrigen} renderInfo={bodegaOrigen} cart={cartSims2} />
+          <RenderBodega title={'Bodega Destino'} fun={getBodega}
+            sendBodega={setBodegaDestino} renderInfo={bodegaDestino} cart={cartSims} />
         </SortableContext>
       </main>
 
