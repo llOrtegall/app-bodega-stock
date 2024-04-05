@@ -1,14 +1,14 @@
 import { DndContext, DragEndEvent, DragOverlay, DragStartEvent } from '@dnd-kit/core'
 import { BodegaWithSims, SimcardNoBodega } from '../../types/Simcard.interfaces'
+import { FooterMovSim } from '../../components/simcards/FooterCompSimcaMov'
 import { RenderSimcard } from '../../components/simcards/RenderSimcard'
 import { RenderBodega } from '../../components/simcards/RenderBodega'
+import { MessageDisplay } from '../../components/ui'
 import { SortableContext } from '@dnd-kit/sortable'
+import { useAuth } from '../../Auth/AuthContext'
 import { createPortal } from 'react-dom'
 import { useState } from 'react'
 import axios from 'axios'
-import { useAuth } from '../../Auth/AuthContext'
-import { MessageDisplay } from '../../components/ui'
-import { FooterMovSim } from '../../components/simcards/FooterCompSimcaMov'
 
 const initialState = { _id: '', nombre: '', direccion: '', sucursal: 0, simcards: [], items: [], updatedAt: '' }
 
@@ -129,7 +129,7 @@ export function CreaMovimientosSim(): JSX.Element {
 
   return (
     <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
-      <main className="flex gap-1">
+      <main className="flex gap-1 m-1">
         <SortableContext items={bodegasIds}>
           <RenderBodega title={'Bodega Origen'} fun={getBodega}
             sendBodega={setBodegaOrigen} renderInfo={bodegaOrigen} cart={cartSims2} />

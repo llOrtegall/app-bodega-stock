@@ -38,24 +38,24 @@ export function RenderBodega({ fun, sendBodega, renderInfo, title, cart }: Props
   return (
     <article className="flex flex-col w-full gap-1 text-xs">
 
-      <form className="bg-blue-200 flex justify-center gap-2 items-center py-2" onSubmit={handleSubmit}>
+      <form className="bg-blue-200 flex justify-center gap-2 items-center py-2 rounded-lg" onSubmit={handleSubmit}>
         <Label>Buscar {title}</Label>
         <Input type="text" placeholder="40001 | 34545" value={sucursal} onChange={(ev) => setSucursal(ev.target.value)} />
         <Button>Buscar Sucursal</Button>
       </form>
 
-      <header className="py-1 bg-blue-300 flex justify-around">
+      <header className="py-1 bg-blue-300 flex justify-around rounded-md">
         <p> <span className="font-semibold">Nombre: </span> {renderInfo?.nombre} </p>
         <p> <span className="font-semibold">Direccion: </span> {renderInfo?.direccion}</p>
         <p> <span className="font-semibold">Sucursal: </span> {renderInfo?.sucursal}</p>
       </header>
 
-      <section className="flex items-center justify-center gap-2 py-1 bg-blue-200">
+      <section className="flex items-center justify-center gap-2 py-1 bg-blue-200 rounded-md">
         <Label>Filtrar Simcard: </Label>
         <Input value={searchSimcard} onChange={ev => setSearchSimcard(ev.target.value)} type="text" placeholder="Número | Serial | Operador" />
       </section>
 
-      <section className="flex p-1 text-white text-center bg-blue-600">
+      <section className="flex p-1 text-white text-center bg-blue-600 rounded-md">
         <p className="w-1/3 font-semibold">Número</p>
         <p className="w-1/3 font-semibold">Operador</p>
         <p className="w-1/3 font-semibold">Serial</p>
