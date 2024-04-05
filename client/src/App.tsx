@@ -25,8 +25,8 @@ export function App (): JSX.Element {
     }
   }, [])
 
-  const isAdminOrAux = !(user == null) && (user.rol === 'Administrador' || user?.rol === 'Aux Administrativo')
-  const isAdminOrCoord = !(user == null) && (user.rol === 'Administrador' || user?.rol === 'Coordinador Soporte')
+  const isAdminOrAux = !(user == null) && (user.rol === 'Administrador' || user.rol === 'Aux Administrativo')
+  const isAdminOrCoord = !(user == null) && (user.rol === 'Administrador' || user.rol === 'Coordinador Soporte')
 
   return (
     <>

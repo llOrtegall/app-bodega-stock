@@ -21,18 +21,18 @@ export function NavBar (): JSX.Element {
   }
 
   return (
-    <nav className="flex p-3 bg-slate-200 dark:bg-slate-950 justify-around dark:text-white" ref={navRef}>
+    <nav className="flex py-2 bg-slate-200 dark:bg-slate-950 justify-around dark:text-white" ref={navRef}>
 
       <LogoGane />
 
-      <ul className="flex items-center gap-4  ">
+      <ul className="flex items-center gap-4">
 
         <NavItem to="/home" title="Inicio / Home">
           <HomeIcon />
         </NavItem>
 
         <NavItem to="/movimientos" title="Movimientos">
-          Movimientos
+          <p className='font-semibold'>Movimientos</p>
         </NavItem>
 
         {/* TODO:  Menu Despegable de Arículos */}
@@ -82,6 +82,7 @@ export function NavBar (): JSX.Element {
           <Switch onChange={toggleTheme} />
         </li>
       </ul>
+
     </nav>
   )
 }
