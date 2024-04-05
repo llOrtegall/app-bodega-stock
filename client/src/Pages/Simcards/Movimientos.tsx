@@ -8,6 +8,7 @@ import { useState } from 'react'
 import axios from 'axios'
 
 const initialState = { _id: '', nombre: '', direccion: '', sucursal: 0, simcards: [], items: [], updatedAt: '' }
+// const initialSimcard = { _id: '', numero: '', user: '', pass: '', serial: '', operador: '', apn: '', estado: '', updatedAt: '', createdAt: '' }
 
 export function CreaMovimientosSim(): JSX.Element {
   const [bodegaOrigen, setBodegaOrigen] = useState<BodegaWithSims>(initialState)
@@ -15,6 +16,9 @@ export function CreaMovimientosSim(): JSX.Element {
 
   const [cartSims, setCartSims] = useState<string[]>([])
   const [cartSims2, setCartSims2] = useState<string[]>([])
+
+  const SimBodOriIniRef: SimcardNoBodega[] = []
+  const SimBodDesIniRef: SimcardNoBodega[] = []
 
   // TODO: Esta función se está pasando como prop a los componentes Render bodega pero lo mejor sera llamarlo desde el componente con un servicio
   const getBodega = async ({ company, sucursal }: { sucursal: string, company: string }): Promise<BodegaWithSims> => {
@@ -75,14 +79,16 @@ export function CreaMovimientosSim(): JSX.Element {
       }
     }
 
-  }
-
+  }  
+  
   return (
     <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
       <main className="flex gap-2 mx-2 mt-2">
         <SortableContext items={bodegasIds}>
-          <RenderBodega title={'Bodega Origen'} fun={getBodega} sendBodega={setBodegaOrigen} renderInfo={bodegaOrigen} cart={cartSims2}/>
-          <RenderBodega title={'Bodega Destino'} fun={getBodega} sendBodega={setBodegaDestino} renderInfo={bodegaDestino} cart={cartSims}/>
+          <RenderBodega title={'Bodega Origen'} fun={getBodega} refInitial={SimBodOriIniRef}
+            sendBodega={setBodegaOrigen} renderInfo={bodegaOrigen} cart={cartSims2}/>
+          <RenderBodega title={'Bodega Destino'} fun={getBodega} refInitial={SimBodDesIniRef}
+            sendBodega={setBodegaDestino} renderInfo={bodegaDestino} cart={cartSims}/>
         </SortableContext>
       </main>
 

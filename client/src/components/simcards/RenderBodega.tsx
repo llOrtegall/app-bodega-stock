@@ -1,4 +1,4 @@
-import { BodegaWithSims } from "../../types/Simcard.interfaces"
+import { BodegaWithSims, SimcardNoBodega } from "../../types/Simcard.interfaces"
 import { RenderSimcard } from "./RenderSimcard"
 import { useAuth } from "../../Auth/AuthContext"
 import { useFilterSimcards } from "../../hooks"
@@ -11,11 +11,12 @@ interface Props {
   fun: ({ company, sucursal }: { sucursal: string, company: string }) => Promise<BodegaWithSims>
   sendBodega: (bodega: BodegaWithSims) => void
   renderInfo: BodegaWithSims
+  refInitial: SimcardNoBodega[]
   title: string
   cart: string[]
 }
 
-export function RenderBodega({ fun, sendBodega, renderInfo, title, cart }: Props): JSX.Element {
+export function RenderBodega({ fun, sendBodega, renderInfo, title, cart, refInitial }: Props): JSX.Element {
   const [sucursal, setSucursal] = useState('')
   const { searchSimcard, setSearchSimcard, filteredSimcards } = useFilterSimcards(renderInfo.simcards)
 
@@ -25,7 +26,10 @@ export function RenderBodega({ fun, sendBodega, renderInfo, title, cart }: Props
   const handleSubmit = (ev: { preventDefault: () => void }) => {
     ev.preventDefault()
     fun({ company, sucursal })
-      .then(res => sendBodega(res))
+      .then(res => {
+        sendBodega(res)
+        refInitial = res.simcards
+      })
   }
 
   const { isOver, setNodeRef } = useDroppable({
