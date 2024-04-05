@@ -45,7 +45,7 @@ export const RenderItems = ({ items, rol }: RenderItemsProps): JSX.Element => {
             {
               rol === 'Administrador' || rol === 'Aux Administrativa'
                 ? <Button onClick={() => { navigate(`/items/verItem/${item._id}`, { state: { id: item._id } }) }} >Editar</Button>
-                : <figure className='text-red-500'><LockIcon /></figure>
+                : <figure className='text-red-500'><LockIcon size='5' /></figure>
             }
           </article>
         ))

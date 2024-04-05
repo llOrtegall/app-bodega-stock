@@ -1,7 +1,8 @@
 import { Articulos, Bodegas, Simcards } from './NavLinks/LinksComponents'
 import { useOutsideClick } from '../hooks/useOutsideClick'
-import { ButtonDow, CloseIcon, HomeIcon } from './icons'
+import ButtonActiComp from './NavLinks/ButtonLinkComp'
 import { useTheme } from '../contexts/ThemeContext'
+import { CloseIcon, HomeIcon } from './icons'
 import { useAuth } from '../Auth/AuthContext'
 import { LogoGane, NavItem } from './ui'
 import { useState, useRef } from 'react'
@@ -34,40 +35,20 @@ export function NavBar(): JSX.Element {
           <p className='font-semibold'>Movimientos</p>
         </NavItem>
 
-        {/* TODO:  Menu Despegable de Arículos */}
         <article className="relative z-50">
-          <button id='Articulos' className="flex font-semibold  items-center hover:text-blue-600"
-            onClick={() => { handleClick('Articulos') }} >
-            <span>Artículos</span>
-            <figure className="flex items-center pt-1"><ButtonDow /></figure>
-          </button>
-
+          <ButtonActiComp id='Articulos' handleClick={handleClick} />
           {activeComponent === 'Articulos' && <Articulos rol={user.rol} close={setActiveComponent} />}
-
         </article>
 
-        {/* TODO:  Menu Despegable de Bodegas */}
         <article className="relative z-50">
-          <button id='Bodegas' className="flex font-semibold  items-center hover:text-blue-600"
-            onClick={() => { handleClick('Bodegas') }} >
-            <span>Bodegas</span>
-            <figure className="flex items-center pt-1"><ButtonDow /></figure>
-          </button>
-
+          <ButtonActiComp id='Bodegas' handleClick={handleClick} />
           {activeComponent === 'Bodegas' && <Bodegas rol={user.rol} close={setActiveComponent} />}
-
         </article>
 
         {/* TODO:  Menu Despegable de Simcards */}
         <article className="relative z-50">
-          <button id='Simcards' className="flex font-semibold  items-center hover:text-blue-600"
-            onClick={() => { handleClick('Simcards') }} >
-            <span>Simcards</span>
-            <figure className="flex items-center pt-1"><ButtonDow /></figure>
-          </button>
-
+          <ButtonActiComp id='Simcards' handleClick={handleClick} />
           {activeComponent === 'Simcards' && <Simcards rol={user.rol} close={setActiveComponent} />}
-
         </article>
 
         <article className="pt-1 cursor-pointer" onClick={logout} title="Cerrar Sesion">
