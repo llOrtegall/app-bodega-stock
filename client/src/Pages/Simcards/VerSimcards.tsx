@@ -28,7 +28,7 @@ export function VerSimcards(): JSX.Element {
   const { filteredSimcards, searchSimcard, setSearchSimcard } = useFilterSimcards(simcardsConBodega)
 
   return (
-    <main className="h-[92vh] overflow-auto">
+    <main className="overflow-auto">
 
       <section className='flex w-full justify-around gap-4 py-1 bg-blue-300 dark:bg-dark-tremor-brand-muted dark:text-white px-4'>
         <div className='flex items-center gap-2'>
