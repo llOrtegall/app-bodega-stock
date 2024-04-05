@@ -1,5 +1,5 @@
-import { useOutsideClick } from '../hooks/useOutsideClick'
 import { Articulos, Bodegas, Simcards } from './NavLinks/LinksComponents'
+import { useOutsideClick } from '../hooks/useOutsideClick'
 import { ButtonDow, CloseIcon, HomeIcon } from './icons'
 import { useTheme } from '../contexts/ThemeContext'
 import { useAuth } from '../Auth/AuthContext'
@@ -8,11 +8,10 @@ import { useState, useRef } from 'react'
 import { Switch } from '@tremor/react'
 
 export function NavBar(): JSX.Element {
-  const { toggleTheme } = useTheme()
   const [activeComponent, setActiveComponent] = useState<string | null>(null)
+  const { toggleTheme } = useTheme()
   const navRef = useRef<HTMLDivElement>(null)
   const { user, logout } = useAuth()
-  const rol = user?.rol
 
   useOutsideClick(navRef, () => { setActiveComponent(null) })
 
@@ -21,7 +20,7 @@ export function NavBar(): JSX.Element {
   }
 
   return (
-    <nav className="flex py-1 bg-slate-200 dark:bg-slate-950 justify-around dark:text-white" ref={navRef}>
+    <nav className="flex py-2 bg-slate-200 dark:bg-slate-950 justify-around dark:text-white" ref={navRef}>
 
       <LogoGane />
 
@@ -43,7 +42,7 @@ export function NavBar(): JSX.Element {
             <figure className="flex items-center pt-1"><ButtonDow /></figure>
           </button>
 
-          {activeComponent === 'Articulos' && <Articulos rol={rol} close={setActiveComponent} />}
+          {activeComponent === 'Articulos' && <Articulos rol={user.rol} close={setActiveComponent} />}
 
         </article>
 
@@ -55,7 +54,7 @@ export function NavBar(): JSX.Element {
             <figure className="flex items-center pt-1"><ButtonDow /></figure>
           </button>
 
-          {activeComponent === 'Bodegas' && <Bodegas rol={rol} close={setActiveComponent} />}
+          {activeComponent === 'Bodegas' && <Bodegas rol={user.rol} close={setActiveComponent} />}
 
         </article>
 
@@ -67,7 +66,7 @@ export function NavBar(): JSX.Element {
             <figure className="flex items-center pt-1"><ButtonDow /></figure>
           </button>
 
-          {activeComponent === 'Simcards' && <Simcards rol={rol} close={setActiveComponent} />}
+          {activeComponent === 'Simcards' && <Simcards rol={user.rol} close={setActiveComponent} />}
 
         </article>
 

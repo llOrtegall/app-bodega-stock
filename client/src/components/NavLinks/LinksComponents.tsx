@@ -5,6 +5,8 @@ interface Props {
   close: (value: string | null) => void;
 }
 
+const classStyles = "absolute -left-14 top-7 w-44 bg-slate-200 rounded-b-lg pb-1"
+
 function Articulos({ rol, close }: Props) {
 
   const items = [
@@ -15,7 +17,7 @@ function Articulos({ rol, close }: Props) {
 
 
   return (
-    <ul className="absolute -left-14 top-7 w-44 bg-slate-200">
+    <ul className={classStyles}>
       {items.map(item => <NavLinkItem key={item.id} link={item.link} title={item.title} rol={rol} fun={close} validateRol={item.validate} />)}
     </ul>
   )
@@ -30,7 +32,7 @@ function Bodegas({ rol, close }: Props) {
   ]
 
   return (
-    <ul className="absolute -left-14 top-7 w-44 bg-slate-200">
+    <ul className={classStyles}>
       {items.map(item => <NavLinkItem key={item.id} link={item.link} title={item.title} rol={rol} fun={close} validateRol={item.validate} />)}
     </ul>
   )
@@ -46,7 +48,7 @@ function Simcards({ rol, close }: Props) {
   ]
 
   return (
-    <ul className="absolute -left-14 top-7 w-44 bg-slate-200">
+    <ul className={classStyles}>
       {items.map(item => (<NavLinkItem key={item.id} link={item.link} title={item.title} rol={rol} fun={close} validateRol={item.validate} />))}
     </ul>
   )
