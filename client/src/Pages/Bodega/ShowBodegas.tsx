@@ -28,7 +28,7 @@ export function ShowBodegas (): JSX.Element {
     <main className="overflow-auto">
 
       <section className="flex items-center justify-center gap-6 p-2 bg-blue-200 dark:bg-blue-900 shadow-lg">
-        <div>
+        <div className='dark:text-white'>
           <Label>Filtrar Bodega :</Label>
         </div>
         <div className='w-[350px]'>
@@ -62,7 +62,7 @@ export function ShowBodegas (): JSX.Element {
             <section key={bodega._id} className="flex bg-slate-300 dark:text-white dark:bg-slate-800 m-1 rounded-md p-2 items-center justify-around">
 
               <article className='flex gap-12 items-center'>
-                {bodega.sucursal.toString().length > 5 ? <UserIcon /> : null}
+                {bodega.sucursal.toString().length > 5 ? <UserIcon size='w-5 xl:w-6 2xl:w-8'/> : null}
                 {bodega.nombre.toLowerCase().includes('bodega') ? <BodegaIcon size='36' /> : null}
                 {bodega.nombre.toLocaleLowerCase().includes('pdv') ? <HomePdvIcon size='36' /> : null}
                 {bodega.nombre.toLocaleLowerCase().includes('movil -') ? <MovilIcon /> : null}

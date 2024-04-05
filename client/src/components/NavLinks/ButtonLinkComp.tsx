@@ -7,7 +7,7 @@ interface Props {
 
 function ButtonActiComp ({ id, handleClick }: Props): JSX.Element {
   return (
-    <button id={id} className="flex bg-slate-200 dark:bg-slate-950 text-sm xl:text-base 1xl:text-lg 2xl:text-xl 3xl:text-2xl font-semibold items-center hover:text-blue-600"
+    <button id={id} className="flex bg-slate-100 dark:bg-slate-950 text-sm xl:text-base 1xl:text-lg 2xl:text-xl 3xl:text-2xl font-semibold items-center hover:text-blue-600"
       onClick={() => { handleClick(id) }} >
       <span>{id}</span>
       <figure className="flex items-center pt-1"><ButtonDow /></figure>

@@ -22,7 +22,7 @@ export function NavBar(): JSX.Element {
   }
 
   return (
-    <nav className="flex py-2 xl:py-3 2xl:py-4 bg-slate-200 dark:bg-slate-950 justify-around dark:text-white" ref={navRef}>
+    <nav className="flex py-2 xl:py-3 2xl:py-4 bg-slate-100 dark:bg-slate-950 justify-around dark:text-white" ref={navRef}>
 
       <Image src="/gane.webp" alt="Foto Gane" className='w-20 xl:w-24 1xl:w-28 3xl:w-32'/>
 
