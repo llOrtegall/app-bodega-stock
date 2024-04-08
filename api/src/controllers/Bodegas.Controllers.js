@@ -64,10 +64,22 @@ export const getBodegaSucursal = async (req, res) => {
   }
 }
 
+// TODO: getBodega con sucursal y simcards
 export const getBodegaSucursalSimcards = async (req, res) => {
   const { sucursal } = req.params
   try {
     const bodega = await BodegaModel.findOne({ sucursal }).populate('simcards')
+    return res.status(200).json(bodega)
+  } catch (error) {
+    console.error(error)
+    return res.status(500).json({ error: 'Error al obtener la bodega' })
+  }
+}
+
+export const getBodegaSucursalItems = async (req, res) => {
+  const { sucursal } = req.params
+  try {
+    const bodega = await BodegaModel.findOne({ sucursal }).populate('items')
     return res.status(200).json(bodega)
   } catch (error) {
     console.error(error)

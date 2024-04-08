@@ -5,15 +5,27 @@
 // import { useAuth } from '../../Auth/AuthContext'
 // import { useCallback, useState } from 'react'
 // import axios from 'axios'
-import { DndContext, DragEndEvent, DragOverlay, DragStartEvent } from '@dnd-kit/core'
 import { RenderBodega } from '../../components/Movimientos/RenderBodega'
+import { DndContext } from '@dnd-kit/core'
+import { useState } from 'react';
+import axios from 'axios';
 
 export function CrearMovimiento(){
+
+  const [cartItems, setCartItems] = useState<string[]>([])
+  const [cartItems2, setCartItems2] = useState<string[]>([])
+
+  const getBodega = async ({ company, sucursal }: { sucursal: string, company: string }): Promise<any> => {
+    setCartItems([]); setCartItems2([]);
+    const response = await axios.get(`/getBodegaItems/${company}/${sucursal}`)
+    return response
+  }
+
   return(
     <DndContext >
       <main className='flex gap-1 m-1'>
-        <RenderBodega title='Origen' isOver={false} />
-        <RenderBodega title='Destino' isOver={false} />
+        <RenderBodega title='Bodega Origen' isOver={false} fun={getBodega}/>
+        <RenderBodega title='Bodega Destino' isOver={false} fun={getBodega}/>
       </main>
     </DndContext>
   )

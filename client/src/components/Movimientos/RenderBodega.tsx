@@ -1,21 +1,33 @@
 import { Button, Input, Label } from "../ui"
-import { useDroppable } from "@dnd-kit/core"
-import { useState } from "react"
 import { AddIcon } from "../icons"
+import { useState } from "react"
+import { useAuth } from "../../Auth/AuthContext"
 
 interface Props {
   title: string
+  fun: ({ company, sucursal }: { sucursal: string, company: string }) => Promise<any>
   isOver: boolean
 }
 
-export function RenderBodega({ title, isOver }: Props): JSX.Element {
+export function RenderBodega({ title, isOver, fun }: Props): JSX.Element {
+  const [sucursal, setSucursal] = useState('')
+  const { user } = useAuth()
+  const company = user.empresa
+
+  const handleSubmit = (ev: { preventDefault: () => void }) => {
+    ev.preventDefault()
+    fun({ company, sucursal })
+      .then(res => {
+        console.log(res);
+      })
+  }
 
   return (
     <article className="flex flex-col w-full gap-1 ">
 
-      <form className="bg-blue-200 dark:bg-dark-tremor-brand-muted dark:text-white flex justify-center gap-2 items-center py-2 rounded-lg" >
+      <form className="bg-blue-200 dark:bg-dark-tremor-brand-muted dark:text-white flex justify-center gap-2 items-center py-2 rounded-lg" onSubmit={handleSubmit}>
         <Label>Buscar {title}</Label>
-        <div className="dark:text-black"><Input type="text" placeholder="40001 | 34545"/></div>
+        <div className="dark:text-black"><Input type="text" placeholder="40001 | 34545" value={sucursal} onChange={(ev) => setSucursal(ev.target.value)}/></div>
         <Button>Buscar Sucursal</Button>
       </form>
 
