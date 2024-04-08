@@ -9,7 +9,7 @@ interface Bodega {
   simcards?: string[]
 }
 
-interface Item {
+export interface Item {
   _id: string
   nombre: string
   descripcion: string
@@ -20,7 +20,7 @@ interface Item {
   updatedAt?: string
 }
 
-interface Simcard {
+export interface Simcard {
   _id: string
   numero: string
   operador: string
