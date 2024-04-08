@@ -1,24 +1,22 @@
-import { useState, useMemo } from 'react'
-import { type ItemsArray } from '../types/Item'
+import { useState} from 'react'
+import { Item } from '../types/Bodega'
 
-interface UseFiltersItemsProps {
-  search: string
-  setSearch: React.Dispatch<React.SetStateAction<string>>
-  filteredItems: ItemsArray
+interface FilterItems {
+  searchItems: string
+  setSearchItems: React.Dispatch<React.SetStateAction<string>>
+  filteredItems: Item[]
 }
 
-export function useFiltersItems (items: ItemsArray): UseFiltersItemsProps {
-  const [search, setSearch] = useState('')
+export function useFiltersItems (items: Item[]): FilterItems  {
+  const [searchItems, setSearchItems] = useState('')
 
-  const filteredItems = useMemo(() => {
-    return items.filter(({ nombre, placa, serial, bodega }) =>
-      nombre.toLowerCase().includes(search.toLowerCase()) ||
-      placa.toLowerCase().includes(search.toLowerCase()) ||
-      serial.toLowerCase().includes(search.toLowerCase()) ||
-      (typeof bodega !== 'string' && bodega.nombre.toLowerCase().includes(search.toLowerCase())) ||
-      (typeof bodega !== 'string' && bodega.sucursal.toString().includes(search.toLowerCase()))
-    )
-  }, [items, search])
+  const filteredItems =
+  items.filter(({ placa, nombre, serial }) =>
+    placa.toLowerCase().includes(searchItems.toLowerCase()) ||
+  nombre.toLowerCase().includes(searchItems.toLowerCase()) ||
+    serial.toLowerCase().includes(searchItems.toLowerCase())
+  )
 
-  return { search, setSearch, filteredItems }
+  return { searchItems, setSearchItems, filteredItems }
+
 }

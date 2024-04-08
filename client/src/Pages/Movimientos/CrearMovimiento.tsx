@@ -29,9 +29,9 @@ export function CrearMovimiento(){
   return(
     <DndContext >
       <main className='flex gap-1 m-1'>
-        <RenderBodega title='Bodega Origen' cart={cartItems2}
+        <RenderBodega title='Bodega Origen' cart={cartItems2} renderInfo={bodegaOrigen}
           sendBodega={setBodegaOrigen} isOver={false} fun={getBodega}/>
-        <RenderBodega title='Bodega Destino' cart={cartItems}
+        <RenderBodega title='Bodega Destino' cart={cartItems} renderInfo={bodegaDestino}
           sendBodega={setBodegaDestino} isOver={false} fun={getBodega}/>
       </main>
     </DndContext>

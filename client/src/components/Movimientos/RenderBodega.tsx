@@ -3,19 +3,23 @@ import { AddIcon } from "../icons"
 import { useState } from "react"
 import { useAuth } from "../../Auth/AuthContext"
 import { BodegaWithItems } from "../../types/Bodega"
+import { useFiltersItems } from "../../hooks"
 
 interface Props {
   title: string
   sendBodega: (bodega: BodegaWithItems) => any
   fun: ({ company, sucursal }: { sucursal: string, company: string }) => Promise<BodegaWithItems>
+  renderInfo?: BodegaWithItems
   isOver: boolean
   cart: string[]
 }
 
-export function RenderBodega({ title, isOver, fun, cart, sendBodega }: Props): JSX.Element {
+export function RenderBodega({ title, isOver, fun, cart, renderInfo, sendBodega }: Props): JSX.Element {
   const [sucursal, setSucursal] = useState('')
   const { user } = useAuth()
   const company = user.empresa
+
+  const { filteredItems, searchItems, setSearchItems } = useFiltersItems(renderInfo?.items || [])
 
   const handleSubmit = (ev: { preventDefault: () => void }) => {
     ev.preventDefault()
@@ -30,20 +34,20 @@ export function RenderBodega({ title, isOver, fun, cart, sendBodega }: Props): J
 
       <form className="bg-blue-200 dark:bg-dark-tremor-brand-muted dark:text-white flex justify-center gap-2 items-center py-2 rounded-lg" onSubmit={handleSubmit}>
         <Label>Buscar {title}</Label>
-        <div className="dark:text-black"><Input type="text" placeholder="40001 | 34545" value={sucursal} onChange={(ev) => setSucursal(ev.target.value)}/></div>
+        <div className="dark:text-black"><Input type="text" placeholder="40001 | 34545" value={sucursal} onChange={(ev) => setSucursal(ev.target.value)} /></div>
         <Button>Buscar Sucursal</Button>
       </form>
 
       <header className="py-1 bg-blue-300 dark:bg-blue-900 dark:text-white flex justify-around rounded-md">
-        <p> <span className="font-semibold">Nombre: </span> {} </p>
-        <p> <span className="font-semibold">Direccion: </span> {}</p>
-        <p> <span className="font-semibold">Sucursal: </span> {}</p>
+        <p> <span className="font-semibold">Nombre: </span> { } </p>
+        <p> <span className="font-semibold">Direccion: </span> { }</p>
+        <p> <span className="font-semibold">Sucursal: </span> { }</p>
       </header>
 
       <section className="flex items-center justify-center gap-2 py-1 bg-blue-200 dark:bg-dark-tremor-brand-muted dark:text-white rounded-md">
-        <Label>Filtrar Simcard: </Label>
+        <Label>Filtrar Item: </Label>
         <div className="dark:text-black">
-          <Input type="text" placeholder="Número | Serial | Operador" />
+          <Input type="text" value={searchItems} placeholder="Número | Serial | Operador" onChange={ev => setSearchItems(ev.target.value)} />
         </div>
       </section>
 
@@ -54,10 +58,10 @@ export function RenderBodega({ title, isOver, fun, cart, sendBodega }: Props): J
       </section>
 
       <section className="flex flex-col h-[220px] 2xl:h-[280px]  3xl:h-[330px] overflow-y-auto" >
-        {/* filteredSimcards.map(sim => <RenderSimcard key={sim._id} simcard={sim} bodegaOrigen={renderInfo?._id} cart={cart}/>) */}
+        {filteredItems.map(sim => { console.log(sim) })}
       </section>
 
-      <section 
+      <section
         className={`flex h-[50px] 2xl:h-[65px] 3xl:h-[75px] rounded-lg justify-center items-center  border-2 border-slate-400 text-slate-600 
         ${isOver ? 'bg-green-500 dark:' : 'bg-green-200 dark:bg-slate-700'}`}>
         <p className="text-black dark:text-white dark:font-semibold"><AddIcon /></p>
