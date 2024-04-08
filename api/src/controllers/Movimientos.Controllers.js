@@ -1,5 +1,5 @@
 import { BodegaModel, MovimientoModel } from '../Models/Models.js'
-import { sendEmailReport } from '../utils/funtionsReutilizables.js'
+// import { sendEmailReport } from '../utils/funtionsReutilizables.js' // * Implementar en Producción
 import moment from 'moment-timezone'
 
 export const getMovimientos = async (req, res) => {
@@ -15,39 +15,30 @@ export const getMovimientos = async (req, res) => {
 }
 
 export const moveItems = async (req, res) => {
-  const { itemsIds, bodegaOrigen, bodegaDestino, encargado, incidente, descripcion, company } = req.body
+  console.log(req.body);
 
-  if (!itemsIds || !bodegaOrigen || !bodegaDestino || !encargado || !incidente || !descripcion || !company) {
+  const { itemsIds, bodegas, encargado, incidente, descripcion, company } = req.body
+
+  if (!itemsIds || !bodegas || !encargado || !incidente || !descripcion || !company) {
     return res.status(400).json({ error: 'Faltan campos requeridos Bod Origen ? y/o Destino ?' })
   }
 
-  if (itemsIds.length === 0) {
-    return res.status(400).json({ error: 'Debe seleccionar al menos un ítem' })
+  if(itemsIds.entran.length === 0) {
+    return res.status(400).json({ error: 'Debe seleccionar Mínimo ( 1 ) Item Para El Movimiento' })
   }
 
-  if (bodegaOrigen === bodegaDestino) {
+  if(bodegas.bodegaOrigen === bodegas.bodegaDestino) {
     return res.status(400).json({ error: 'La bodega de Origen y Destino deben ser Diferentes' })
   }
 
   try {
     // Encuentra las bodegas
-    const sourceBodega = await BodegaModel.findById(bodegaOrigen)
-    const targetBodega = await BodegaModel.findById(bodegaDestino)
+    const sourceBodega = await BodegaModel.findById(bodegas.bodegaOrigen)
+    const targetBodega = await BodegaModel.findById(bodegas.bodegaDestino)
 
-    // Verifica si las bodegas existen
-    if (!sourceBodega || !targetBodega) {
-      return res.status(404).json({ error: 'No se encontró una o ambas bodegas' })
-    }
-
-    // Mueve cada ítem del array itemsIdsmoveItems
-    for (const itemId of itemsIds) {
+    for (const itemId of itemsIds.entran) {
       // Encuentra el ítem en la bodega original
       const itemIndex = sourceBodega.items.findIndex(item => item._id.toString() === itemId)
-
-      // Verifica si el ítem existe en la bodega original
-      if (itemIndex === -1) {
-        return res.status(404).json({ error: `No se encontró el ítem con id ${itemId} en la bodega original` })
-      }
 
       // Elimina el ítem de la bodega original
       const [item] = sourceBodega.items.splice(itemIndex, 1)
@@ -56,9 +47,19 @@ export const moveItems = async (req, res) => {
       targetBodega.items.push(item)
     }
 
+    for (const itemid of itemsIds.salen) {
+      // Encuentra el ítem en la bodega original
+      const itemIndex = targetBodega.items.findIndex(item => item._id.toString() === itemid)
+
+      // Elimina el ítem de la bodega original
+      const [item] = targetBodega.items.splice(itemIndex, 1)
+
+      // Agrega el ítem a la bodega de destino
+      sourceBodega.items.push(item)
+    }
+
     const movimientoId = await MovimientoModel.countDocuments() + 1
 
-    // Crea el movimiento
     const movimiento = new MovimientoModel({
       movimientoId,
       encargado,
@@ -66,31 +67,21 @@ export const moveItems = async (req, res) => {
       descripcion,
       fecha: moment().tz('America/Bogota').toDate(),
       items: itemsIds,
-      bodegaOrigen,
-      bodegaDestino
+      simcards: [],
+      bodegaOrigen: bodegas.bodegaOrigen,
+      bodegaDestino: bodegas.bodegaDestino
     })
-    // Guarda el movimiento
+
     await movimiento.save()
 
     // Guarda los cambios en las bodegas
     await sourceBodega.save()
     await targetBodega.save()
 
-    const { _id } = movimiento
-    const newMovimiento = await MovimientoModel.findById(_id).populate('items')
-      .populate('bodegaOrigen', 'sucursal nombre direccion')
-      .populate('bodegaDestino', 'sucursal nombre direccion')
-      .populate('simcards.entran', 'numero operador serial estado')
-      .populate('simcards.salen', 'numero operador serial estado')
-
-    // TODO: Envia correo del movimiento generado de forma automatica
-    sendEmailReport(newMovimiento, company)
-      .then(() => console.log('Correo Enviado'))
-
-    return res.status(200).json({ message: 'Simcards movidos con éxito' })
+    return res.status(200).json({ message: 'Items movidos con éxito' })
   } catch (error) {
-    console.log(error)
     if (error.code === 11000) {
+      console.log(error)
       const Code = error.code
       const name = Object.keys(error.keyValue)[0]
       const Value = error.keyValue[Object.keys(error.keyValue)[0]]
