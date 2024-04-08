@@ -37,36 +37,36 @@ export function DetalleBodega(): JSX.Element {
       {
         (bodega != null) && (
           <section>
-            <h1 className='text-center p-4 bg-slate-700 text-white xl:text-lg font-semibold 2xl:text-2xl'>{bodega.nombre}</h1>
-            <article className='bg-blue-200 grid grid-cols-12 py-4 place-items-center'>
+            <h1 className='text-center p-4 bg-blue-800 text-white xl:text-lg font-semibold 2xl:text-2xl dark:bg-blue-950'>{bodega.nombre}</h1>
+            <article className='bg-blue-200 dark:bg-blue-600 grid grid-cols-12 py-4 place-items-center'>
 
               <div className='col-span-6'>
                 <p className=''>
-                  <span className='text-blue-700 font-bold'>Sucursal: </span>
-                  <span className='font-semibold'>{bodega.sucursal}</span>
+                  <span className='text-blue-700 dark:text-blue-100 font-bold'>Sucursal: </span>
+                  <span className='font-semibold dark:text-yellow-200'>{bodega.sucursal}</span>
                 </p>
                 <p className=''>
-                  <span className='text-blue-700 font-bold'>UUID: </span>
-                  <span className='font-semibold uppercase'>{bodega._id}</span>
+                  <span className='text-blue-700 dark:text-blue-100 font-bold'>UUID: </span>
+                  <span className='font-semibold dark:text-yellow-200 uppercase'>{bodega._id}</span>
                 </p>
               </div>
 
               <p className='col-span-2 flex items-center gap-2'>
-                <span className='text-blue-700 font-bold'><LocationIcon /> </span>
-                <span className='font-semibold'>{bodega.direccion}</span>
+                <span className='text-blue-700 dark:text-blue-100 font-bold'><LocationIcon /> </span>
+                <span className='font-semibold dark:text-yellow-200'>{bodega.direccion}</span>
               </p>
               {
                 Array.isArray(bodega?.items) && bodega.items.length !== 0
                   ? (
                     <p className='col-span-2 flex items-center gap-2'>
-                      <span className='text-blue-700 font-bold'><BoxIcon /></span>
-                      <span className='font-semibold'>{bodega.items.length}</span>
+                      <span className='text-blue-700 dark:text-blue-100 font-bold'><BoxIcon /></span>
+                      <span className='font-semibold dark:text-yellow-200'>{bodega.items.length}</span>
                     </p>
                   )
                   : (
                     <p className='col-span-2 flex items-center gap-2'>
-                      <span className='text-blue-700 font-bold'><BoxIcon /></span>
-                      <span className='font-semibold'>0</span>
+                      <span className='text-blue-700 dark:text-blue-100 font-bold'><BoxIcon /></span>
+                      <span className='font-semibold dark:text-yellow-200'>0</span>
                     </p>
                   )
               }
@@ -75,15 +75,15 @@ export function DetalleBodega(): JSX.Element {
                 Array.isArray(bodega?.simcards) && bodega.simcards.length !== 0
                   ? (
                     <p className='col-span-2 flex items-center gap-2'>
-                      <span className='text-blue-700 font-bold'><SimcardIcon /> </span>
-                      <span className='font-semibold'>{bodega.simcards.length}</span>
+                      <span className='text-blue-700 dark:text-blue-100 font-bold'><SimcardIcon /> </span>
+                      <span className='font-semibold dark:text-yellow-200'>{bodega.simcards.length}</span>
                     </p>
                   )
                   :
                   (
                     <p className='col-span-2 flex items-center gap-2'>
-                      <span className='text-blue-700 font-bold'><SimcardIcon /> </span>
-                      <span className='font-semibold'>0</span>
+                      <span className='text-blue-700 dark:text-blue-100 font-bold'><SimcardIcon /> </span>
+                      <span className='font-semibold dark:text-yellow-200'>0</span>
                     </p>
                   )
               }
@@ -95,7 +95,7 @@ export function DetalleBodega(): JSX.Element {
       <div className=''>
         {/* // TODO: Renderizado De Items Si Existen */}
         <section className='' >
-          <h3 onClick={handleToggle} className='text-center hover:underline py-2 items-center cursor-pointer'>
+          <h3 onClick={handleToggle} className='text-center hover:underline py-2 items-center cursor-pointer dark:text-white'>
             <span>{isExpanded ? '▲' : '▼'}</span> Ver Detalles Items
           </h3>
           {isExpanded && (bodega != null) && (
@@ -105,7 +105,7 @@ export function DetalleBodega(): JSX.Element {
 
         {/* // TODO: Renderizado De Simcards Si Existen */}
         <section className=''>
-          <h3 onClick={handleToggleSim} className='text-center hover:underline py-2 items-center cursor-pointer'>
+          <h3 onClick={handleToggleSim} className='text-center hover:underline py-2 items-center cursor-pointer dark:text-white'>
             <span>{isExpandedSim ? '▲' : '▼'}</span> Ver Detalles Simcards
           </h3>
 
