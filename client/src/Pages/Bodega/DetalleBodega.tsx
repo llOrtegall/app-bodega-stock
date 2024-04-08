@@ -37,25 +37,55 @@ export function DetalleBodega(): JSX.Element {
       {
         (bodega != null) && (
           <section>
-            <h1 className='text-center p-4 bg-slate-700 text-white text-lg'>Bodega / PDV :  <span className='uppercase font-semibold'>{bodega.nombre}</span></h1>
+            <h1 className='text-center p-4 bg-slate-700 text-white xl:text-lg font-semibold 2xl:text-2xl'>{bodega.nombre}</h1>
             <article className='bg-blue-200 grid grid-cols-12 py-4 place-items-center'>
 
               <div className='col-span-6'>
-                <p className=''><span className='text-blue-700 font-bold'>UUID:</span> <span className='font-semibold uppercase'>{bodega._id}</span></p>
-                <p className=''><span className='text-blue-700 font-bold'>Sucursal: </span><span className='font-semibold'>{bodega.sucursal}</span></p>
+                <p className=''>
+                  <span className='text-blue-700 font-bold'>Sucursal: </span>
+                  <span className='font-semibold'>{bodega.sucursal}</span>
+                </p>
+                <p className=''>
+                  <span className='text-blue-700 font-bold'>UUID: </span>
+                  <span className='font-semibold uppercase'>{bodega._id}</span>
+                </p>
               </div>
 
-              <p className='col-span-2 flex items-center'> <LocationIcon /> <span className='font-semibold'>{bodega.direccion}</span></p>
+              <p className='col-span-2 flex items-center gap-2'>
+                <span className='text-blue-700 font-bold'><LocationIcon /> </span>
+                <span className='font-semibold'>{bodega.direccion}</span>
+              </p>
               {
                 Array.isArray(bodega?.items) && bodega.items.length !== 0
-                  ? (<p className='col-span-2 flex items-center'> <BoxIcon />  <span className='font-semibold'>{bodega.items.length}</span></p>)
-                  : (<p className='col-span-2 flex items-center'> <BoxIcon /> <span className='font-semibold'>0</span></p>)
+                  ? (
+                    <p className='col-span-2 flex items-center gap-2'>
+                      <span className='text-blue-700 font-bold'><BoxIcon /></span>
+                      <span className='font-semibold'>{bodega.items.length}</span>
+                    </p>
+                  )
+                  : (
+                    <p className='col-span-2 flex items-center gap-2'>
+                      <span className='text-blue-700 font-bold'><BoxIcon /></span>
+                      <span className='font-semibold'>0</span>
+                    </p>
+                  )
               }
 
               {
                 Array.isArray(bodega?.simcards) && bodega.simcards.length !== 0
-                  ? (<p className='col-span-2 flex items-center'> <SimcardIcon /> <span className='font-semibold'>{bodega.simcards.length}</span></p>)
-                  : (<p className='col-span-2 flex items-center'> <SimcardIcon /> <span className='font-semibold'>0</span></p>)
+                  ? (
+                    <p className='col-span-2 flex items-center gap-2'>
+                      <span className='text-blue-700 font-bold'><SimcardIcon /> </span>
+                      <span className='font-semibold'>{bodega.simcards.length}</span>
+                    </p>
+                  )
+                  :
+                  (
+                    <p className='col-span-2 flex items-center gap-2'>
+                      <span className='text-blue-700 font-bold'><SimcardIcon /> </span>
+                      <span className='font-semibold'>0</span>
+                    </p>
+                  )
               }
             </article>
           </section>

@@ -22,8 +22,8 @@ function BodSimsDetails({ simcards }: {simcards: Simcard[]}) {
                   <p className="font-semibold">{item.numero}</p>
                   <p className="text-gray-500">{item.operador}</p>
                   <p className="text-gray-500">{item.estado}</p>
-                  <p className="text-gray-700 overflow-ellipsis text-start overflow-hidden">{item.serial}</p>
-                  <p className="text-gray-500">{item.apn}</p>
+                  <p className="text-gray-700 overflow-ellipsis overflow-hidden">{item.serial}</p>
+                  <p className="text-gray-500 overflow-ellipsis overflow-hidden">{item.apn}</p>
                   <p className="text-gray-500">{item.user}</p>
                   <p className="text-gray-500">{item.pass}</p>
                 </article>

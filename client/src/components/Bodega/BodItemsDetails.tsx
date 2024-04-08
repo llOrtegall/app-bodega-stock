@@ -18,7 +18,7 @@ function BodegaItemsDetail({ items }: {items: Item[]}) {
                 <article key={item._id} className="grid grid-cols-5 rounded-md bg-slate-100 uppercase text-sm py-2 my-2 text-center shadow-lg">
                   <p className="font-semibold">{item.nombre}</p>
                   <p className="text-gray-500">{item.descripcion}</p>
-                  <p className="text-gray-700 overflow-ellipsis text-start overflow-hidden">{item.serial}</p>
+                  <p className="text-gray-700 overflow-ellipsis overflow-hidden">{item.serial}</p>
                   <p className="text-gray-500">{item.placa}</p>
                   <p className="text-gray-500">{item.estado}</p>
                 </article>

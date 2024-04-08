@@ -20,7 +20,7 @@ export function ShowMovimientos(): JSX.Element {
           </article >
           <section className=''>
             <article className='grid grid-cols-12 px-2 text-center p-2 font-semibold bg-blue-200 dark:bg-blue-700 dark:text-white  2xl:text-lg'>
-              <p className='col-span-1 cursor-pointer hover:underline' 
+              <p className='col-span-1 cursor-pointer hover:underline'
                 onClick={toggleSortOrder}> N° Mov <span>{sortOrder === 'asc' ? '▼' : '▲'}</span></p>
               <p className='col-span-2'> Fecha Mov</p>
               <p className='col-span-1'> N° Incidente</p>
