@@ -2,14 +2,17 @@ import { Button, Input, Label } from "../ui"
 import { AddIcon } from "../icons"
 import { useState } from "react"
 import { useAuth } from "../../Auth/AuthContext"
+import { BodegaWithItems } from "../../types/Bodega"
 
 interface Props {
   title: string
-  fun: ({ company, sucursal }: { sucursal: string, company: string }) => Promise<any>
+  sendBodega: (bodega: BodegaWithItems) => any
+  fun: ({ company, sucursal }: { sucursal: string, company: string }) => Promise<BodegaWithItems>
   isOver: boolean
+  cart: string[]
 }
 
-export function RenderBodega({ title, isOver, fun }: Props): JSX.Element {
+export function RenderBodega({ title, isOver, fun, cart, sendBodega }: Props): JSX.Element {
   const [sucursal, setSucursal] = useState('')
   const { user } = useAuth()
   const company = user.empresa
@@ -18,7 +21,7 @@ export function RenderBodega({ title, isOver, fun }: Props): JSX.Element {
     ev.preventDefault()
     fun({ company, sucursal })
       .then(res => {
-        console.log(res);
+        sendBodega(res);
       })
   }
 
