@@ -167,7 +167,7 @@ export function htmlCreatedUser(movimiento) {
           </article>
         </section>
     
-        <h2> Items que ingresan a ${bodegaDestino.nombre} </h2>
+        <h2> Item Movidos De ${bodegaOrigen.nombre}------> Con Destino a ${bodegaDestino.nombre} </h2>
         <table>
           <tr>
             <th>Nombre</th>
@@ -183,7 +183,7 @@ export function htmlCreatedUser(movimiento) {
   
         </table>
 
-        <h2> Items que ingresan a ${bodegaOrigen.nombre} </h2>
+        <h2> Item Movidos De ${bodegaDestino.nombre} ------> Con Destino a ${bodegaOrigen.nombre} </h2>
         <table>
           <tr>
             <th>Nombre</th>
