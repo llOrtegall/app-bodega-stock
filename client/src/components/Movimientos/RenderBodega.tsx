@@ -20,6 +20,8 @@ export function RenderBodega({ title, fun, cart, renderInfo, sendBodega }: Props
   const { user } = useAuth()
   const company = user.empresa
 
+  console.log(renderInfo);
+  
   const { filteredItems, searchItems, setSearchItems } = useFiltersItems(renderInfo?.items || [])
 
   const handleSubmit = (ev: { preventDefault: () => void }) => {
@@ -63,7 +65,7 @@ export function RenderBodega({ title, fun, cart, renderInfo, sendBodega }: Props
       </section>
 
       <section className="flex flex-col h-[220px] 2xl:h-[280px]  3xl:h-[330px] overflow-y-auto" ref={setNodeRef}>
-        {filteredItems.map(sim => <RenderItems key={sim._id} item={sim} cart={cart} /> )}
+        {filteredItems.map(sim => <RenderItems key={sim._id} item={sim} cart={cart} bodegaOrigen={renderInfo?._id} /> )}
       </section>
 
       <section ref={setNodeRef}

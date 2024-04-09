@@ -36,6 +36,9 @@ export function CrearMovimiento() {
   }
 
   function handleDragEnd(ev: DragEndEvent){
+    console.log(ev.active.data);
+    console.log(ev.over?.data);
+    
     if (ev.active.id === ev.over?.id) {
       console.log('Simcard No Se Movio');
       return
@@ -45,6 +48,8 @@ export function CrearMovimiento() {
       return
     }
     if (ev.active.data.current?.bodegaOrigen === ev.over?.data.current?.bodegaOrigen) {
+      console.log(ev.active.data.current?.bodegaOrigen);
+      
       console.log('Items De La Misma Bodega No Son Sortables Ya Que No Nos Interesa Esa Implementación');
       return
     }
