@@ -3,11 +3,9 @@ import { DeleteIcon } from '../icons'
 
 interface Props {
   items: ItemsArray
-  carItems: string[]
-  handleRemoveItem: (id: string) => void
 }
 
-const ItemsToAddComponent = ({ items, carItems, handleRemoveItem }: Props) => {
+const ItemsToAddComponent = ({ items }: Props) => {
   return (
     <section>
       <h3 className="text-center dark:text-white font-semibold border-b-2 border-black dark:border-white pb-1">Items Que Se Agregarán a Bodega</h3>
@@ -20,7 +18,7 @@ const ItemsToAddComponent = ({ items, carItems, handleRemoveItem }: Props) => {
         </p>
       </header>
       <main style={{ maxHeight: '550px', overflowY: 'auto' }}>
-        {
+        {/*
           carItems.map(itemAdd => (
             <article key={itemAdd} className='flex justify-between px-6 py-2 border rounded-md font-semibold my-2 dark:text-white'>
               <p className=''>
@@ -34,7 +32,7 @@ const ItemsToAddComponent = ({ items, carItems, handleRemoveItem }: Props) => {
               </button>
             </article>
           ))
-        }
+        */}
       </main>
     </section>
   )

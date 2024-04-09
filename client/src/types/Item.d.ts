@@ -30,5 +30,3 @@ interface Item {
 }
 
 export type ItemsArray = Item[]
-
-// TODO: Vamos a muerte con este type ... ya que representa el estado de un item con su bodega

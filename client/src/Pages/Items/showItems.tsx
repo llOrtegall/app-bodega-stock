@@ -14,18 +14,14 @@ export function VerItems(): JSX.Element {
 
   return (
     loading
-      ? (<section className='mt-12'><Loading >Cargando Items</Loading></section>)
-      : (
-        <>
-          <section className='flex justify-around p-2 bg-blue-300 dark:bg-blue-950'>
-            <FilterComponentItems search={searchItems} setSearch={setSearchItems} />
-            <div className='w-[250px]'>
-              <BottonExportItems items={filteredItems} />
-            </div>
-          </section>
-          <RenderItems items={filteredItems} rol={user?.rol} />
-        </>
-      )
-
+      ? <section className='mt-12'><Loading >Cargando Items</Loading></section>
+      :
+      <section>
+        <article className='flex justify-around py-2 bg-blue-300 dark:bg-blue-950'>
+          <FilterComponentItems search={searchItems} setSearch={setSearchItems} />
+          <BottonExportItems items={filteredItems} />
+        </article>
+        <RenderItems items={filteredItems} rol={user?.rol} />
+      </section>
   )
 }
