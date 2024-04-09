@@ -87,13 +87,20 @@ export const getBodegaSucursalItems = async (req, res) => {
   }
 }
 
-// TODO: Retorna los ítems con las bodegas a las que pertenecen
-export const findBodegaWithItems = async (req, res) => {
+/**
+ * * Esta función es un controlador de Express que maneja las solicitudes GET para obtener una lista de ítems junto con sus bodegas correspondientes.
+ * * Primero, busca todos los ítems y las bodegas en la base de datos.
+ * * Luego, crea un mapa de las bodegas con los ítems como claves para facilitar la búsqueda de la bodega de un ítem.
+ * * Después, mapea a través de todos los ítems y agrega la información de la bodega a cada ítem usando el mapa.
+ * * Si un ítem no tiene una bodega asignada, se asigna 'No Asignado' a la propiedad de la bodega.
+ * * Finalmente, devuelve una respuesta HTTP con un estado de 200 y los ítems con sus bodegas como cuerpo de la respuesta.
+ * * Si ocurre un error durante este proceso, se registra el error y se devuelve una respuesta HTTP con un estado de 500 y un mensaje de error.
+ **/
+export const findBodegaWithItems = async (_req, res) => {
   try {
     const items = await ItemModel.find()
     const bodegas = await BodegaModel.find().populate('items')
 
-    // Crea un mapa de bodegas para cada ítem
     const bodegasMap = bodegas.reduce((map, bodega) => {
       const { nombre, sucursal, _id } = bodega
       bodega.items.forEach(({ _id: itemId }) => {

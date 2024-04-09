@@ -8,6 +8,7 @@ ItemsMongoDB.post('/createItem', setDatabaseConnection, createItem)
 
 ItemsMongoDB.get('/getItem/:company/:id', setDatabaseConnection, getItem)
 
+// TODO: get all items from a company
 ItemsMongoDB.get('/getItems/:company', setDatabaseConnection, getItems)
 
 ItemsMongoDB.patch('/updateItem', setDatabaseConnection, updateItem)
