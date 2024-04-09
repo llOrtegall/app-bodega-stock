@@ -25,7 +25,7 @@ const ItemsSinBodegas = ({ items, search, setSearch, cartItems, handleAddItem }:
         </p>
       </header>
 
-      <main style={{ maxHeight: '550px', overflowY: 'auto' }}>
+      <main style={{ maxHeight: '500px', overflowY: 'auto' }}>
         {
           items.length > 0
             ? (<ListItemsComponent items={items} cartItems={cartItems} handleAddItem={handleAddItem}/>)

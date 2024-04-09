@@ -24,6 +24,7 @@ BodegasMongoDB.get('/getBodegaItems/:company/:sucursal', setDatabaseConnection, 
 // TODO: Items con bodegas [:ok:]
 BodegasMongoDB.get('/itemsConBodegas/:company', setDatabaseConnection, findItemWhitBodegas)
 
+// TODO: Items con bodegas [:ok:]
 BodegasMongoDB.post('/addItemsToBodega', setDatabaseConnection, addItemToBodega)
 
 BodegasMongoDB.get('/getBodegasSim/:company', setDatabaseConnection, getBodegasSim)

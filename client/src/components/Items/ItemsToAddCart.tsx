@@ -19,7 +19,7 @@ const ItemsToAddComponent = ({ items, cartItems, handleRemoveItem }: Props) => {
           <span>Eliminar</span>
         </p>
       </header>
-      <main style={{ maxHeight: '550px', overflowY: 'auto' }}>
+      <main style={{ maxHeight: '500px', overflowY: 'auto' }}>
         {
           cartItems.map(itemAdd => (
             <article key={itemAdd} className='flex justify-between px-6 py-2 border rounded-md font-semibold my-2 dark:text-white'>
