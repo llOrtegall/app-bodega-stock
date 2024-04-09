@@ -1,14 +1,14 @@
-import { useNavigate } from 'react-router-dom'
 import { type ItemsArray } from '../../types/Item'
+import { useNavigate } from 'react-router-dom'
 import { LockIcon } from '../icons'
 import { Button } from '../ui'
 
-interface RenderItemsProps {
+interface Props {
   items: ItemsArray
-  rol: string | undefined
+  rol: string
 }
 
-export const RenderItems = ({ items, rol }: RenderItemsProps): JSX.Element => {
+export const RenderItems = ({ items, rol }: Props): JSX.Element => {
   const navigate = useNavigate()
 
   return (

@@ -6,7 +6,7 @@ import axios from 'axios'
 
 import { CrearSimcard, VerSimcards, AsignarSimcards, CreaMovimientosSim } from './Pages/Simcards'
 import { CrearMovimiento, DesatalleMovimiento, ShowMovimientos } from './Pages/Movimientos'
-import { AsignarItemBodega, CrearItems, DetalleItem, VerItems } from './Pages/Items'
+import { AsignItemsToBodega, CrearItems, DetalleItem, VerItems } from './Pages/Items'
 import { CrearBodega, DetalleBodega, ShowBodegas } from './Pages/Bodega'
 import { LoginPage, NotFound, HomePage } from './Pages'
 
@@ -46,7 +46,7 @@ export function App (): JSX.Element {
 
         <Route element={<ProtectedRoute isAllowed={isAdminOrAux} redirectTo="/home" />}>
           <Route path="/items/crearItems" element={<CrearItems />} />
-          <Route path="/items/asignarItems" element={<AsignarItemBodega />} />
+          <Route path="/items/asignarItems" element={<AsignItemsToBodega />} />
         </Route>
 
         <Route element={<ProtectedRoute isAllowed={isAdminOrAux} redirectTo="/home" />}>

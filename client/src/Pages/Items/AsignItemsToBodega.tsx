@@ -6,7 +6,7 @@ import { addItemsToBodega } from '../../services/Item.services'
 import { useAuth } from '../../Auth/AuthContext'
 import { useCallback, useState } from 'react'
 
-export function AsignarItemBodega (): JSX.Element {
+export function AsignItemsToBodega (): JSX.Element {
   const { user } = useAuth()
   const company = user.empresa
 
@@ -16,7 +16,7 @@ export function AsignarItemBodega (): JSX.Element {
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
 
-  const { items, filteredBodegas, filteredItems, search, searchBodega, setSearch, setSearchBodega } = useItemsAndBodegas(company, fechData)
+  const { items, filteredBodegas, filteredItems, searchItems, searchBodega, setSearchItems, setSearchBodega } = useItemsAndBodegas(company, fechData)
 
   const carItemsInitial: string[] = []
 
@@ -66,7 +66,7 @@ export function AsignarItemBodega (): JSX.Element {
       <section className="grid grid-cols-3 gap-3 px-4">
 
         <ItemsWithoutBodegaComponent items={filteredItems} carItems={carItems}
-          handleAddItem={handleAddItem} search={search} setSearch={setSearch} />
+          handleAddItem={handleAddItem} search={searchItems} setSearch={setSearchItems} />
 
         <ItemsToAddComponent items={items} carItems={carItems} handleRemoveItem={handleRemoveItem} />
 

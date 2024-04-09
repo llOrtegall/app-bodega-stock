@@ -9,8 +9,8 @@ import { useState, useEffect } from 'react'
 interface ItemsAndBodegas {
   items: ItemsArray
   filteredItems: ItemsArray
-  search: string
-  setSearch: React.Dispatch<React.SetStateAction<string>>
+  searchItems: string
+  setSearchItems: React.Dispatch<React.SetStateAction<string>>
   filteredBodegas: Bodegas
   searchBodega: string
   setSearchBodega: React.Dispatch<React.SetStateAction<string>>
@@ -20,7 +20,7 @@ export function useItemsAndBodegas (company: string, fechData: boolean): ItemsAn
   const [items, setItems] = useState<ItemsArray>([])
   const [bodegas, setBodegas] = useState<Bodegas>([])
 
-  const { filteredItems, search, setSearch } = useFiltersItems(items)
+  const { filteredItems, searchItems, setSearchItems } = useFiltersItems(items)
   const { filteredBodegas, searchBodega, setSearchBodega } = useFiltersBodegas(bodegas)
 
   useEffect(() => {
@@ -37,5 +37,5 @@ export function useItemsAndBodegas (company: string, fechData: boolean): ItemsAn
     }, 1500)
   }, [fechData])
 
-  return { filteredItems, search, setSearch, filteredBodegas, searchBodega, setSearchBodega, items }
+  return { filteredItems, searchItems, setSearchItems, filteredBodegas, searchBodega, setSearchBodega, items }
 }
