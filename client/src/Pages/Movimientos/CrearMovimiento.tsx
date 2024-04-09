@@ -6,12 +6,22 @@ import { SortableContext } from '@dnd-kit/sortable';
 import { createPortal } from 'react-dom';
 import { useState } from 'react';
 import axios from 'axios';
+import { FooterMovSim } from '../../components/simcards/FooterCompSimcaMov';
+import { MessageDisplay } from '../../components/ui';
+import { useAuth } from '../../Auth/AuthContext';
 
 const initialState = { _id: '', nombre: '', direccion: '', sucursal: 0, items: [], created_at: '', updated_at: '' }
 
 export function CrearMovimiento() {
   const [bodegaOrigen, setBodegaOrigen] = useState<BodegaWithItems>(initialState)
   const [bodegaDestino, setBodegaDestino] = useState<BodegaWithItems>(initialState)
+
+  const { user } = useAuth()
+  const nombres = user.nombres + ' ' + user.apellidos
+  const company = user.empresa
+
+  const [descripcion, setDescripcion] = useState<string>('') 
+  const [incidente, setIncidente] = useState<string>('')
 
   const [cartItems, setCartItems] = useState<string[]>([])
   const [cartItems2, setCartItems2] = useState<string[]>([])
@@ -98,6 +108,27 @@ export function CrearMovimiento() {
     }
   }
  
+  function handleClick () {
+    axios.post('/moveItem', {
+      bodegas: { bodegaOrigen: bodegaOrigen._id, bodegaDestino: bodegaDestino._id },
+      itemsIds: { entran: cartItems, salen: cartItems2 },
+      encargado: nombres,
+      descripcion,
+      incidente,
+      company
+    })
+      .then(res => {
+        setMessage(res.data.message as string)
+        setBodegaOrigen(initialState)
+        setBodegaDestino(initialState)
+        setCartItems([]); setCartItems2([]); setDescripcion(''); setIncidente(''); setTimeout(() => { setMessage(''); setError('') }, 4000)
+
+      })
+      .catch(err => {
+        setError(err.response.data.error as string)
+        setTimeout(() => { setMessage(''); setError('') }, 4000)
+      })
+  }
 
   return (
     <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
@@ -108,7 +139,14 @@ export function CrearMovimiento() {
           <RenderBodega title='Bodega Destino' cart={cartItems} renderInfo={bodegaDestino}
             sendBodega={setBodegaDestino} fun={getBodega} />
         </SortableContext>
+
       </main>
+      
+      <FooterMovSim descripcion={descripcion} encargado={nombres} handleClick={handleClick} incidente={incidente} setDescripcion={setDescripcion} setIncidente={setIncidente} />
+
+      <section className='flex items-center justify-center w-full'>
+        <MessageDisplay error={error} message={message} />
+      </section>
 
       {
         createPortal(
