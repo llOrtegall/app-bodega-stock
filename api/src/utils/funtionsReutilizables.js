@@ -43,7 +43,7 @@ export function obtenerFechaActual() {
   return { dia, mes, ano, hora, minutos }
 }
 
-export async function sendEmailReport(movimiento, company) {
+export async function sendEmailReport(NewMov, company) {
   let emailSend
   if (company === 'Multired'){
     emailSend = `${process.env.EMAIL_AUX_ADMIN_MUL}, ${process.env.EMAIL_COOR_SOP_MUL}, ${process.env.EMAIL_JEFE_TEC}`
@@ -51,22 +51,27 @@ export async function sendEmailReport(movimiento, company) {
     emailSend = `${process.env.EMAIL_AUX_ADMIN_SER}, ${process.env.EMAIL_COOR_SOP_SER}, ${process.env.EMAIL_JEFE_TEC}`
   }
 
-  const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS
+  try {
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
+      }
+    })
+  
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: emailSend,
+      subject: 'Nuevo Movimiento Realizado',
+      html: htmlCreatedUser(NewMov)
     }
-  })
-
-  const mailOptions = {
-    from: process.env.EMAIL_USER,
-    to: emailSend,
-    subject: 'Nuevo Movimiento Realizado',
-    html: htmlCreatedUser(movimiento)
+  
+    await transporter.sendMail(mailOptions)
+  } catch (error) {
+    console.log(error);
   }
 
-  await transporter.sendMail(mailOptions)
 }
 
 export function htmlCreatedUser(movimiento) {
@@ -162,6 +167,23 @@ export function htmlCreatedUser(movimiento) {
           </article>
         </section>
     
+        <h2> Items que ingresan a ${bodegaDestino.nombre} </h2>
+        <table>
+          <tr>
+            <th>Nombre</th>
+            <th>Placa</th>
+            <th>Serial</th>
+          </tr>
+          ${items.entran.map((item) => (`
+           <tr>
+            <td>${item.nombre}</td>
+            <td>${item.placa}</td>
+            <td>${item.serial}</td>
+          </tr> `)).join('')}
+  
+        </table>
+
+        <h2> Items que ingresan a ${bodegaOrigen.nombre} </h2>
         <table>
           <tr>
             <th>Nombre</th>
@@ -169,12 +191,12 @@ export function htmlCreatedUser(movimiento) {
             <th>Serial</th>
           </tr>
     
-          ${items.map((item) => (` <tr>
+          ${items.salen.map((item) => (`
+          <tr>
             <td>${item.nombre}</td>
             <td>${item.placa}</td>
             <td>${item.serial}</td>
           </tr> `)).join('')}
-    
         </table>
     
         <section>

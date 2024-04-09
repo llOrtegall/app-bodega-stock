@@ -21,11 +21,11 @@ export const moveItems = async (req, res) => {
     return res.status(400).json({ error: 'Faltan campos requeridos Bod Origen ? y/o Destino ?' })
   }
 
-  if(itemsIds.entran.length === 0) {
+  if (itemsIds.entran.length === 0) {
     return res.status(400).json({ error: 'Debe seleccionar Mínimo ( 1 ) Item Para El Movimiento' })
   }
 
-  if(bodegas.bodegaOrigen === bodegas.bodegaDestino) {
+  if (bodegas.bodegaOrigen === bodegas.bodegaDestino) {
     return res.status(400).json({ error: 'La bodega de Origen y Destino deben ser Diferentes' })
   }
 
@@ -70,15 +70,25 @@ export const moveItems = async (req, res) => {
       bodegaDestino: bodegas.bodegaDestino
     })
 
-    // TODO: Envia correo del movimiento generado de forma automatica
-    sendEmailReport(movimiento, company)
-      .then(() => console.log('Correo Enviado'))
-
-    await movimiento.save()
+    const result = await movimiento.save()
 
     // Guarda los cambios en las bodegas
     await sourceBodega.save()
     await targetBodega.save()
+
+    const _idMov = await result.id
+
+    const NewMov = await MovimientoModel
+      .findById(_idMov)
+      .populate('items')
+      .populate('items.entran', 'nombre placa descripcion serial estado')
+      .populate('items.salen', 'nombre placa descripcion serial estado')
+      .populate('simcards.entran', 'numero operador serial estado')
+      .populate('simcards.salen', 'numero operador serial estado')
+      .populate('bodegaOrigen').populate('bodegaDestino')
+
+    sendEmailReport(NewMov, company)
+       .then(() => console.log('Correo Enviado'))
 
     return res.status(200).json({ message: 'Items movidos con éxito' })
   } catch (error) {
