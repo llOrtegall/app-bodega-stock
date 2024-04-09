@@ -96,7 +96,7 @@ export const getBodegaSucursalItems = async (req, res) => {
  * * Finalmente, devuelve una respuesta HTTP con un estado de 200 y los ítems con sus bodegas como cuerpo de la respuesta.
  * * Si ocurre un error durante este proceso, se registra el error y se devuelve una respuesta HTTP con un estado de 500 y un mensaje de error.
  **/
-export const findBodegaWithItems = async (_req, res) => {
+export const findItemWhitBodegas = async (_req, res) => {
   try {
     const items = await ItemModel.find()
     const bodegas = await BodegaModel.find().populate('items')

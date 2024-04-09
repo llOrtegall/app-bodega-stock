@@ -1,14 +1,18 @@
+import { getAllItems } from '../services/Item.services'
 import { type ItemsArray } from '../types/Item'
 import { useEffect, useState } from 'react'
-import { getAllItems } from '../services/Item.services'
 
-interface useItemsProps {
-  items: ItemsArray
-  error: string
-  loading: boolean
+interface Props {
+  company: string
 }
 
-export function useItems ({ company }: { company: string }): useItemsProps {
+interface UseItems {
+  loading: boolean
+  error: string
+  items: ItemsArray
+}
+
+export function useItems ({ company }: Props): UseItems {
   const [loading, setLoading] = useState(false)
   const [items, setItems] = useState<ItemsArray>([])
   const [error, setError] = useState('')
@@ -16,10 +20,7 @@ export function useItems ({ company }: { company: string }): useItemsProps {
   useEffect(() => {
     setLoading(true)
     void getAllItems(company)
-      .then((items) => {
-        setItems(items)
-        setLoading(false)
-      })
+      .then(items => {setItems(items); setLoading(false)}      )
       .catch((error) => {
         setError(error as string)
         setLoading(false)

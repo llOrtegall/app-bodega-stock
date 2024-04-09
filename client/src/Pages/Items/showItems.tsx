@@ -5,35 +5,27 @@ import { useAuth } from '../../Auth/AuthContext'
 import { useItems } from '../../hooks/useItems'
 import { Loading } from '../../components/ui'
 
-export function VerItems (): JSX.Element {
+export function VerItems(): JSX.Element {
   const { user } = useAuth()
   const company = user.empresa
 
   const { items, loading } = useItems({ company })
-  const { filteredItems, search, setSearch } = useFiltersItems(items)
+  const { filteredItems, searchItems, setSearchItems } = useFiltersItems(items)
 
   return (
-    <>
-      {
-        loading
-          ? (
-              <section className='mt-12'>
-                <Loading >Cargando Items</Loading>
-              </section>
-            )
-          : (
-            <>
-              <section className='flex justify-around p-2 bg-blue-300 dark:bg-blue-950'>
-                <FilterComponentItems search={search} setSearch={setSearch} />
-                <div className='w-[250px]'>
-                  <BottonExportItems items={filteredItems} />
-                </div>
-              </section>
-              <RenderItems items={filteredItems} rol={user?.rol} />
-            </>
-            )
-      }
+    loading
+      ? (<section className='mt-12'><Loading >Cargando Items</Loading></section>)
+      : (
+        <>
+          <section className='flex justify-around p-2 bg-blue-300 dark:bg-blue-950'>
+            <FilterComponentItems search={searchItems} setSearch={setSearchItems} />
+            <div className='w-[250px]'>
+              <BottonExportItems items={filteredItems} />
+            </div>
+          </section>
+          <RenderItems items={filteredItems} rol={user?.rol} />
+        </>
+      )
 
-    </>
   )
 }

@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { createBodega, getBodegaSucursal, getBodegas, findBodegaWithItems, addItemToBodega, getBodegasSim, getBodegaSucursalItemsSimcards, getBodegaSucursalSimcards, getBodegasWithItemsAndSimcardsIds, getBodegaSucursalItems } from '../controllers/Bodegas.Controllers.js'
+import { createBodega, getBodegaSucursal, getBodegas, findItemWhitBodegas, addItemToBodega, getBodegasSim, getBodegaSucursalItemsSimcards, getBodegaSucursalSimcards, getBodegasWithItemsAndSimcardsIds, getBodegaSucursalItems } from '../controllers/Bodegas.Controllers.js'
 import { setDatabaseConnection } from '../middleware/setDatabase.js'
 
 export const BodegasMongoDB = Router()
@@ -22,7 +22,7 @@ BodegasMongoDB.get('/getBodegaSimcards/:company/:sucursal', setDatabaseConnectio
 BodegasMongoDB.get('/getBodegaItems/:company/:sucursal', setDatabaseConnection, getBodegaSucursalItems)
 
 // TODO: Items con bodegas [:ok:]
-BodegasMongoDB.get('/itemsConBodegas/:company', setDatabaseConnection, findBodegaWithItems)
+BodegasMongoDB.get('/itemsConBodegas/:company', setDatabaseConnection, findItemWhitBodegas)
 
 BodegasMongoDB.post('/addItemsToBodega', setDatabaseConnection, addItemToBodega)
 
