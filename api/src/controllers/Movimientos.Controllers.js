@@ -1,5 +1,5 @@
 import { BodegaModel, MovimientoModel } from '../Models/Models.js'
-// import { sendEmailReport } from '../utils/funtionsReutilizables.js' // * Implementar en Producción
+import { sendEmailReport } from '../utils/funtionsReutilizables.js' // * Implementar en Producción
 import moment from 'moment-timezone'
 
 export const getMovimientos = async (req, res) => {
@@ -15,8 +15,6 @@ export const getMovimientos = async (req, res) => {
 }
 
 export const moveItems = async (req, res) => {
-  console.log(req.body);
-
   const { itemsIds, bodegas, encargado, incidente, descripcion, company } = req.body
 
   if (!itemsIds || !bodegas || !encargado || !incidente || !descripcion || !company) {
@@ -71,6 +69,10 @@ export const moveItems = async (req, res) => {
       bodegaOrigen: bodegas.bodegaOrigen,
       bodegaDestino: bodegas.bodegaDestino
     })
+
+    // TODO: Envia correo del movimiento generado de forma automatica
+    sendEmailReport(movimiento, company)
+      .then(() => console.log('Correo Enviado'))
 
     await movimiento.save()
 
