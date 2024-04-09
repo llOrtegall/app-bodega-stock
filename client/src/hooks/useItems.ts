@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 
 interface Props {
   company: string
+  active: boolean
 }
 
 interface UseItems {
@@ -12,7 +13,7 @@ interface UseItems {
   items: ItemsArray
 }
 
-export function useItems ({ company }: Props): UseItems {
+export function useItems ({ company, active }: Props): UseItems {
   const [loading, setLoading] = useState(false)
   const [items, setItems] = useState<ItemsArray>([])
   const [error, setError] = useState('')
@@ -26,7 +27,7 @@ export function useItems ({ company }: Props): UseItems {
         setLoading(false)
       })
       .finally(() => { setLoading(false) })
-  }, [])
+  }, [active])
 
   return { loading, error, items }
 }
