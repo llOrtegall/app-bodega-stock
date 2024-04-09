@@ -1,5 +1,5 @@
-import { ItemsWithoutBodegaComponent, ItemsToAddComponent } from '../../components/Items'
-import BodegaSelectionComponent from '../../components/Bodega/BodegaSelecComponent'
+import { ItemsSinBodegas, ItemsToAddComponent } from '../../components/Items'
+import BodegaSelection from '../../components/Bodega/BodegaSelecComponent'
 import { Button, Loading, MessageDisplay } from '../../components/ui'
 import { useItemsAndBodegas } from '../../hooks/useItemAndBodegas'
 import { addItemsToBodega } from '../../services/Item.services'
@@ -18,9 +18,7 @@ export function AsignItemsToBodega (): JSX.Element {
 
   const { items, filteredBodegas, filteredItems, searchItems, searchBodega, setSearchItems, setSearchBodega } = useItemsAndBodegas(company, fechData)
 
-  const carItemsInitial: string[] = []
-
-  const [carItems, setCarItems] = useState(carItemsInitial)
+  const [carItems, setCarItems] = useState<string[]>([])
 
   const handleAddItem = useCallback((id: string) => {
     setCarItems(prevItems => {
@@ -65,14 +63,14 @@ export function AsignItemsToBodega (): JSX.Element {
 
       <section className="grid grid-cols-3 gap-3 px-4">
 
-        <ItemsWithoutBodegaComponent items={filteredItems} carItems={carItems}
+        <ItemsSinBodegas items={filteredItems} carItems={carItems}
           handleAddItem={handleAddItem} search={searchItems} setSearch={setSearchItems} />
 
         <ItemsToAddComponent items={items} carItems={carItems} handleRemoveItem={handleRemoveItem} />
 
         <section>
 
-          <BodegaSelectionComponent bodegas={filteredBodegas} searchBodega={searchBodega}
+          <BodegaSelection bodegas={filteredBodegas} searchBodega={searchBodega}
             setSearchBodega={setSearchBodega} sendBodega={sendBodega} setSendBodega={setSendBodega} />
 
           <form onSubmit={handleSubmit} className='w-full flex justify-center'>

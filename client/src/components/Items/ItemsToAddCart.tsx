@@ -1,13 +1,13 @@
 import { type ItemsArray } from '../../types/Item'
 import { DeleteIcon } from '../icons'
 
-interface ItemsToAddComponentProps {
+interface Props {
   items: ItemsArray
   carItems: string[]
   handleRemoveItem: (id: string) => void
 }
 
-export const ItemsToAddComponent: React.FC<ItemsToAddComponentProps> = ({ items, carItems, handleRemoveItem }: ItemsToAddComponentProps) => {
+const ItemsToAddComponent = ({ items, carItems, handleRemoveItem }: Props) => {
   return (
     <section>
       <h3 className="text-center dark:text-white font-semibold border-b-2 border-black dark:border-white pb-1">Items Que Se Agregarán a Bodega</h3>
@@ -39,3 +39,5 @@ export const ItemsToAddComponent: React.FC<ItemsToAddComponentProps> = ({ items,
     </section>
   )
 }
+
+export default ItemsToAddComponent

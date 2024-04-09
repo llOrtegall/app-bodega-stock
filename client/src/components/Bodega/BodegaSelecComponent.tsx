@@ -9,7 +9,7 @@ interface Props {
   bodegas: Bodegas
 }
 
-const BodegaSelectionComponent: React.FC<Props> = ({ bodegas, searchBodega, setSearchBodega, sendBodega, setSendBodega }: Props): JSX.Element => {
+const BodegaSelectionComponent = ({ bodegas, searchBodega, setSearchBodega, sendBodega, setSendBodega }: Props): JSX.Element => {
   return (
     <section>
       <h3 className="text-center font-semibold border-b-2 dark:text-white border-black dark:border-white pb-1">Selección De Bodega</h3>

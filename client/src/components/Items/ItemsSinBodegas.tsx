@@ -1,22 +1,21 @@
-import { ListItemsComponent } from '../../components/Items/ListItemsComponent'
-import { FilterComponentItems, Loading } from '../../components/ui'
+import { ListItemsComponent } from './ListItemsComponent'
+import { FilterComponentItems, Loading } from '../ui'
 import { type ItemsArray } from '../../types/Item'
 
-interface ItemsWithoutBodegaComponentProps {
+interface Props {
+  search: string
   items: ItemsArray
   carItems: string[]
   handleAddItem: (id: string) => void
-  search: string
   setSearch: React.Dispatch<React.SetStateAction<string>>
 }
 
-export const ItemsWithoutBodegaComponent: React.FC<ItemsWithoutBodegaComponentProps> =
-  ({ items, carItems, handleAddItem, search, setSearch }: ItemsWithoutBodegaComponentProps) => {
-    return (
+const ItemsSinBodegas = ({ items, carItems, handleAddItem, search, setSearch }: Props) => {
+  return (
     <section className='dark:text-white'>
       <h3 className="text-center font-semibold border-b-2 border-black dark:border-white pb-1">Items Sin Bodega</h3>
       <header>
-        <div className='flex w-full justify-center py-2 '>
+        <div className='flex w-full justify-center py-2'>
           <FilterComponentItems search={search} setSearch={setSearch} />
         </div>
         <p className='flex justify-between px-4 py-2 rounded-md font-semibold my-2 bg-blue-200 dark:bg-blue-700 '>
@@ -34,5 +33,7 @@ export const ItemsWithoutBodegaComponent: React.FC<ItemsWithoutBodegaComponentPr
         }
       </main>
     </section>
-    )
-  }
+  )
+}
+
+export default ItemsSinBodegas
