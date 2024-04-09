@@ -1,14 +1,15 @@
 import { DndContext, DragEndEvent, DragOverlay, DragStartEvent } from '@dnd-kit/core'
+import { FooterMovSim } from '../../components/simcards/FooterCompSimcaMov';
 import { RenderBodega } from '../../components/Movimientos/RenderBodega'
 import { RenderItems } from '../../components/Movimientos/RenderItems';
-import { BodegaWithItems, Item } from '../../types/Bodega';
+import { BodegaWithItems } from '../../types/Bodega';
+import { MessageDisplay } from '../../components/ui';
 import { SortableContext } from '@dnd-kit/sortable';
+import { useAuth } from '../../Auth/AuthContext';
 import { createPortal } from 'react-dom';
 import { useState } from 'react';
+import { Item } from '../../types/Item'
 import axios from 'axios';
-import { FooterMovSim } from '../../components/simcards/FooterCompSimcaMov';
-import { MessageDisplay } from '../../components/ui';
-import { useAuth } from '../../Auth/AuthContext';
 
 const initialState = { _id: '', nombre: '', direccion: '', sucursal: 0, items: [], created_at: '', updated_at: '' }
 
@@ -142,7 +143,8 @@ export function CrearMovimiento() {
 
       </main>
       
-      <FooterMovSim descripcion={descripcion} encargado={nombres} handleClick={handleClick} incidente={incidente} setDescripcion={setDescripcion} setIncidente={setIncidente} />
+      <FooterMovSim descripcion={descripcion} encargado={nombres} handleClick={handleClick} 
+        incidente={incidente} setDescripcion={setDescripcion} setIncidente={setIncidente} />
 
       <section className='flex items-center justify-center w-full'>
         <MessageDisplay error={error} message={message} />

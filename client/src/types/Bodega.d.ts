@@ -1,3 +1,5 @@
+import { ItemsArray } from "./Item"
+
 interface Bodega {
   _id: string
   nombre: string
@@ -47,7 +49,7 @@ export type BodegaIntIS = Omit<Bodega, 'items' | 'simcards'> & {
 }
 
 export type BodegaWithItems = Omit<Bodega, 'items' | 'simcards'> & {
-  items: Item[]
+  items: ItemsArray
 }
 
 export type Bodegas = Bodega[]

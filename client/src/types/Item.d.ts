@@ -17,7 +17,7 @@ export interface updateItem extends newItem {
   _id: string
 }
 
-interface Item {
+export interface Item {
   _id: string
   nombre: string
   descripcion: string
