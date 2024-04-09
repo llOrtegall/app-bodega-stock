@@ -1,20 +1,21 @@
+import { BodegaWithItems } from "../../types/Bodega"
+import { useAuth } from "../../Auth/AuthContext"
+import { useFiltersItems } from "../../hooks"
 import { Button, Input, Label } from "../ui"
+import { RenderItems } from "./RenderItems"
 import { AddIcon } from "../icons"
 import { useState } from "react"
-import { useAuth } from "../../Auth/AuthContext"
-import { BodegaWithItems } from "../../types/Bodega"
-import { useFiltersItems } from "../../hooks"
+import { useDroppable } from "@dnd-kit/core"
 
 interface Props {
   title: string
   sendBodega: (bodega: BodegaWithItems) => any
   fun: ({ company, sucursal }: { sucursal: string, company: string }) => Promise<BodegaWithItems>
   renderInfo?: BodegaWithItems
-  isOver: boolean
   cart: string[]
 }
 
-export function RenderBodega({ title, isOver, fun, cart, renderInfo, sendBodega }: Props): JSX.Element {
+export function RenderBodega({ title, fun, cart, renderInfo, sendBodega }: Props): JSX.Element {
   const [sucursal, setSucursal] = useState('')
   const { user } = useAuth()
   const company = user.empresa
@@ -28,6 +29,10 @@ export function RenderBodega({ title, isOver, fun, cart, renderInfo, sendBodega 
         sendBodega(res);
       })
   }
+
+  const { isOver, setNodeRef } = useDroppable({
+    id: renderInfo?._id || '', data: { type: 'bodega', bodega: renderInfo }
+  });
 
   return (
     <article className="flex flex-col w-full gap-1 ">
@@ -52,16 +57,16 @@ export function RenderBodega({ title, isOver, fun, cart, renderInfo, sendBodega 
       </section>
 
       <section className="flex p-1 text-white text-center bg-blue-600 dark:bg-blue-900 rounded-md">
-        <p className="w-1/3 font-semibold">Número</p>
-        <p className="w-1/3 font-semibold">Operador</p>
+        <p className="w-1/3 font-semibold">Nombre</p>
+        <p className="w-1/3 font-semibold">Placa</p>
         <p className="w-1/3 font-semibold">Serial</p>
       </section>
 
-      <section className="flex flex-col h-[220px] 2xl:h-[280px]  3xl:h-[330px] overflow-y-auto" >
-        {filteredItems.map(sim => { console.log(sim) })}
+      <section className="flex flex-col h-[220px] 2xl:h-[280px]  3xl:h-[330px] overflow-y-auto" ref={setNodeRef}>
+        {filteredItems.map(sim => <RenderItems key={sim._id} item={sim} cart={cart} /> )}
       </section>
 
-      <section
+      <section ref={setNodeRef}
         className={`flex h-[50px] 2xl:h-[65px] 3xl:h-[75px] rounded-lg justify-center items-center  border-2 border-slate-400 text-slate-600 
         ${isOver ? 'bg-green-500 dark:' : 'bg-green-200 dark:bg-slate-700'}`}>
         <p className="text-black dark:text-white dark:font-semibold"><AddIcon /></p>
