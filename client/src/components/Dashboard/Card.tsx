@@ -58,7 +58,7 @@ function CalloutComp(): JSX.Element {
   return (
     <Card className='flex flex-col gap-4'>
       <Title className='text-center underline'>
-        Bodega Stock Soporte 1001
+        Bodega Stock Soporte ( 10001 )
       </Title>
 
       {

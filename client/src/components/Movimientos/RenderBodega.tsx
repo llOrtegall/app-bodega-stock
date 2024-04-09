@@ -2,10 +2,10 @@ import { BodegaWithItems } from "../../types/Bodega"
 import { useAuth } from "../../Auth/AuthContext"
 import { useFiltersItems } from "../../hooks"
 import { Button, Input, Label } from "../ui"
+import { useDroppable } from "@dnd-kit/core"
 import { RenderItems } from "./RenderItems"
 import { AddIcon } from "../icons"
 import { useState } from "react"
-import { useDroppable } from "@dnd-kit/core"
 
 interface Props {
   title: string
@@ -54,7 +54,7 @@ export function RenderBodega({ title, fun, cart, renderInfo, sendBodega }: Props
       <section className="flex items-center justify-center gap-2 py-1 bg-blue-200 dark:bg-dark-tremor-brand-muted dark:text-white rounded-md">
         <Label>Filtrar Item: </Label>
         <div className="dark:text-black">
-          <Input type="text" value={searchItems} placeholder="Número | Serial | Operador" onChange={ev => setSearchItems(ev.target.value)} />
+          <Input type="text" value={searchItems} placeholder="Nombre | N° Activo | Serial " onChange={ev => setSearchItems(ev.target.value)} />
         </div>
       </section>
 
@@ -72,7 +72,7 @@ export function RenderBodega({ title, fun, cart, renderInfo, sendBodega }: Props
         className={`flex h-[50px] 2xl:h-[65px] 3xl:h-[75px] rounded-lg justify-center items-center  border-2 border-slate-400 text-slate-600 
         ${isOver ? 'bg-green-500 dark:' : 'bg-green-200 dark:bg-slate-700'}`}>
         <p className="text-black dark:text-white dark:font-semibold"><AddIcon /></p>
-        <p className="text-black dark:text-white dark:font-semibold">Arrastre Simcard Aquí Para Agregar</p>
+        <p className="text-black dark:text-white dark:font-semibold">Arrastre Item Aquí Para Agregar</p>
       </section>
 
     </article>
