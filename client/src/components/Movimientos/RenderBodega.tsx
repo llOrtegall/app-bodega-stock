@@ -46,9 +46,9 @@ export function RenderBodega({ title, fun, cart, renderInfo, sendBodega }: Props
       </form>
 
       <header className="py-1 bg-blue-300 dark:bg-blue-900 dark:text-white flex justify-around rounded-md">
-        <p> <span className="font-semibold">Nombre: </span> { } </p>
-        <p> <span className="font-semibold">Direccion: </span> { }</p>
-        <p> <span className="font-semibold">Sucursal: </span> { }</p>
+        <p> <span className="font-semibold">Nombre: </span> { renderInfo?.nombre} </p>
+        <p> <span className="font-semibold">Direccion: </span> { renderInfo?.direccion }</p>
+        <p> <span className="font-semibold">Sucursal: </span> { renderInfo?.sucursal }</p>
       </header>
 
       <section className="flex items-center justify-center gap-2 py-1 bg-blue-200 dark:bg-dark-tremor-brand-muted dark:text-white rounded-md">
