@@ -18,8 +18,14 @@ export function DesatalleMovimiento(): JSX.Element {
       ? (
         <main className=''>
           <RenderDetailMov mov={movimiento} />
-          {movimiento.items.entran.length > 0 ? (<RenderItemsMov bodOri={movimiento.bodegaOrigen} bodDes={movimiento.bodegaDestino} items={movimiento.items} />) : null}
-          {movimiento.simcards.entran.length > 0 ? (<RenderSimcardMov bodOri={movimiento.bodegaOrigen} bodDes={movimiento.bodegaDestino} simcards={movimiento.simcards} />) : null}
+          {movimiento.items.entran.length > 0 
+            ? (<RenderItemsMov bodOri={movimiento.bodegaOrigen} bodDes={movimiento.bodegaDestino} items={movimiento.items} />) 
+            : null
+          }
+          {movimiento.simcards.entran.length > 0 
+            ? (<RenderSimcardMov bodOri={movimiento.bodegaOrigen} bodDes={movimiento.bodegaDestino} simcards={movimiento.simcards} />) 
+            : null
+          }
         </main>
       )
       : (<div className='flex justify-center pt-20'><Loading> Cargando Movimiento </Loading></div>)
