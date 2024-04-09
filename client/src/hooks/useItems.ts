@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 
 interface Props {
   company: string
-  active: boolean
+  active?: boolean
 }
 
 interface UseItems {

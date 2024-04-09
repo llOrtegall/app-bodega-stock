@@ -118,8 +118,8 @@ export function AsignarSimcards (): JSX.Element {
 
         <section>
 
-          <BodegaSelectionComponent bodegas={filteredBodegas} searchBodega={searchBodega}
-            setSearchBodega={setSearchBodega} sendBodega={sendBodega} setSendBodega={setSendBodega} />
+          <BodegaSelectionComponent bodegas={filteredBodegas} searchBodega={searchBodega} setSearchBodega={setSearchBodega}
+          setSucursal={setSendBodega}  sucursal={sendBodega}/>
 
           <form onSubmit={handleSubmit} className='w-full flex justify-center'>
             <Button type="submit">Asignar Simcards a Bodega</Button>
