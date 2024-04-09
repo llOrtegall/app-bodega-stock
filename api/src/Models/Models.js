@@ -32,7 +32,6 @@ const movimientoSchema = new Schema({
   incidente: { type: String, required: true, unique: true },
   descripcion: { type: String, required: true },
   fecha: { type: Date, required: true },
-  // items: [{ type: Schema.Types.ObjectId, ref: 'Item' }],
   bodegaOrigen: { type: Schema.Types.ObjectId, ref: 'bodega' },
   bodegaDestino: { type: Schema.Types.ObjectId, ref: 'bodega' },
   items: { entran: [{ type: Schema.Types.ObjectId, ref: 'Item' }], salen: [{ type: Schema.Types.ObjectId, ref: 'Item' }]},

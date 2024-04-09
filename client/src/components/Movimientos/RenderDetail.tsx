@@ -34,7 +34,7 @@ export function RenderDetailMov({ mov }: { mov: Movimiento }): JSX.Element {
           </div>
           <div className='flex justify-between'>
             <p className='font-semibold'>Cantidad De Items Movidos:</p>
-            <span>{items.length}</span>
+            <span>{items.entran.length + items.salen.length}</span>
           </div>
           <div className='flex justify-between'>
             <p className='font-semibold'>N° Movimiento:</p>

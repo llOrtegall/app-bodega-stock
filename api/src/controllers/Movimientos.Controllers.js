@@ -177,10 +177,11 @@ export const getMovimiento = async (req, res) => {
 
   try {
     const movimiento = await MovimientoModel.findById(id).populate('items')
-      .populate('items.entran', 'nombre placa serial')
-      .populate('items.salen', 'nombre placa serial')
+      .populate('items.entran', 'nombre placa descripcion serial estado')
+      .populate('items.salen', 'nombre placa descripcion serial estado')
       .populate('simcards.entran', 'numero operador serial estado')
       .populate('simcards.salen', 'numero operador serial estado')
+      .populate('bodegaOrigen').populate('bodegaDestino')
     return res.status(200).json(movimiento)
   } catch (error) {
     console.error(error)

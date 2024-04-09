@@ -5,7 +5,7 @@ import { useAuth } from '../../Auth/AuthContext'
 import { Loading } from '../../components/ui'
 import { useParams } from 'react-router-dom'
 
-export function DesatalleMovimiento (): JSX.Element {
+export function DesatalleMovimiento(): JSX.Element {
   const { user } = useAuth()
   const company = user.empresa
   const pasarId = useParams()
@@ -18,10 +18,10 @@ export function DesatalleMovimiento (): JSX.Element {
       ? (
         <main className=''>
           <RenderDetailMov mov={movimiento} />
-          {Array.isArray(movimiento.items) ? (<RenderItemsMov items={movimiento.items} />) : (<RenderItemsMov items={movimiento.items} />)}
+          {movimiento.items.entran.length > 0 ? (<RenderItemsMov items={movimiento.items} />) : null}
           {movimiento.simcards.entran.length > 0 ? (<RenderSimcardMov simcards={movimiento.simcards} />) : null}
         </main>
-        )
+      )
       : (<div className='flex justify-center pt-20'><Loading> Cargando Movimiento </Loading></div>)
   )
 }

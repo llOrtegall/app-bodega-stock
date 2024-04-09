@@ -11,20 +11,37 @@ export function RenderItemsMov({ items }: { items: Movimiento['items'] }): JSX.E
             <th className='py-2 dark:text-white'>N° Placa</th>
             <th className='py-2 dark:text-white'>Serial</th>
             <th className='py-2 dark:text-white'>Cantidad</th>
+            <th className='py-2 dark:text-white'>Movimiento</th>
           </tr>
         </thead>
         <tbody>
+        {
+            items.entran.length > 0
+              ? items.entran.map((item, index) => (
+                <tr key={item._id} className='bg-green-200'>
+                  <td className="text-center">{index + 1}</td>
+                  <td className="text-center">{item.nombre}</td>
+                  <td className="text-center">{item.placa}</td>
+                  <td className='text-center'>{item.estado}</td>
+                  <td className='uppercase text-center'>{item.serial}</td>
+                  <td className='text-center'>Entrada</td>
+                </tr>
+              ))
+              : <div className='text-center'>No Se Realizaron Entradas De items</div>
+          }
+
           {
-            Array.isArray(items) ? items.map(item => (
-              <tr key={item._id} className='bg-blue-100 dark:bg-blue-800 dark:text-white'>
-                <td className="text-center">{item.nombre}</td>
-                <td className="text-center">{item.descripcion}</td>
-                <td className='uppercase text-center'>{item.placa}</td>
-                <td className='uppercase text-center'>{item.serial}</td>
-                <td className="text-center">1</td>
-              </tr>
-            )) : null
-            
+            items.salen.length > 0
+              ? items.salen.map((item, index) => (
+                <tr key={item._id} className='bg-red-200'>
+                  <td className="text-center">{index + 1}</td>
+                  <td className="text-center">{item.nombre}</td>
+                  <td className="text-center">{item.placa}</td>
+                  <td className='text-center'>{item.estado}</td>
+                  <td className='uppercase text-center'>{item.serial}</td>
+                  <td className='text-center'>Salida</td>
+                </tr>))
+              : <div className='text-center'>No Se Realizaron Salida De items</div>
           }
         </tbody>
       </table>
@@ -33,13 +50,3 @@ export function RenderItemsMov({ items }: { items: Movimiento['items'] }): JSX.E
 }
 
 
-{/* {items.map(item => (
-  <tr key={item._id} className='bg-blue-100 dark:bg-blue-800 dark:text-white'>
-    <td className="text-center">{item.nombre}</td>
-    <td className="text-center">{item.descripcion}</td>
-    <td className='uppercase text-center'>{item.placa}</td>
-    <td className='uppercase text-center'>{item.serial}</td>
-    <td className="text-center">1</td>
-  </tr>
-  ))
-} */}
