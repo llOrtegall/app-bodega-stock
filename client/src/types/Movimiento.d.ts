@@ -37,7 +37,7 @@ export interface Movimiento {
   incidente: string
   descripcion: string
   fecha: string
-  items: Item[]
+  items: { entran: Item[], salen: Item[] } | Array<Item>
   bodegaOrigen: Bodega
   bodegaDestino: Bodega
   createdAt: string

@@ -25,7 +25,7 @@ export function RenderMovCom({ movimiento }: Props): JSX.Element {
       <p className='truncate col-span-2'>{encargado}</p>
       <p className='truncate col-span-2'>{bodegaOrigen?.nombre}</p>
       <p className='truncate col-span-2'>{bodegaDestino?.nombre}</p>
-      <p className='truncate col-span-1'>{items.length}</p>
+      <p className='truncate col-span-1'>{Array.isArray(items) ? items.length : items.entran.length + items.salen.length}</p>
       <p className='truncate col-span-1'>{simcards.entran.length + simcards.salen.length} </p>
     </section>
   )

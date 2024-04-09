@@ -14,18 +14,32 @@ export function RenderItemsMov({ items }: { items: Movimiento['items'] }): JSX.E
           </tr>
         </thead>
         <tbody>
-          {items.map(item => (
-            <tr key={item._id} className='bg-blue-100 dark:bg-blue-800 dark:text-white'>
-              <td className="text-center">{item.nombre}</td>
-              <td className="text-center">{item.descripcion}</td>
-              <td className='uppercase text-center'>{item.placa}</td>
-              <td className='uppercase text-center'>{item.serial}</td>
-              <td className="text-center">1</td>
-            </tr>
-          ))
+          {
+            Array.isArray(items) ? items.map(item => (
+              <tr key={item._id} className='bg-blue-100 dark:bg-blue-800 dark:text-white'>
+                <td className="text-center">{item.nombre}</td>
+                <td className="text-center">{item.descripcion}</td>
+                <td className='uppercase text-center'>{item.placa}</td>
+                <td className='uppercase text-center'>{item.serial}</td>
+                <td className="text-center">1</td>
+              </tr>
+            )) : null
+            
           }
         </tbody>
       </table>
     </article>
   )
 }
+
+
+{/* {items.map(item => (
+  <tr key={item._id} className='bg-blue-100 dark:bg-blue-800 dark:text-white'>
+    <td className="text-center">{item.nombre}</td>
+    <td className="text-center">{item.descripcion}</td>
+    <td className='uppercase text-center'>{item.placa}</td>
+    <td className='uppercase text-center'>{item.serial}</td>
+    <td className="text-center">1</td>
+  </tr>
+  ))
+} */}

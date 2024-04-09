@@ -18,7 +18,7 @@ export function DesatalleMovimiento (): JSX.Element {
       ? (
         <main className=''>
           <RenderDetailMov mov={movimiento} />
-          {movimiento.items.length > 0 ? (<RenderItemsMov items={movimiento.items} />) : null}
+          {Array.isArray(movimiento.items) ? (<RenderItemsMov items={movimiento.items} />) : (<RenderItemsMov items={movimiento.items} />)}
           {movimiento.simcards.entran.length > 0 ? (<RenderSimcardMov simcards={movimiento.simcards} />) : null}
         </main>
         )
