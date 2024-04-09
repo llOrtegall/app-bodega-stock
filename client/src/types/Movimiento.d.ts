@@ -29,15 +29,16 @@ interface Item {
   updatedAt: string
 }
 
+
 export interface Movimiento {
-  simcards: { entran: Simcard[], salen: Simcard[] }
   _id: string
   movimientoId: number
   encargado: string
   incidente: string
   descripcion: string
   fecha: string
-  items: { entran: Item[], salen: Item[] } | Array<Item>
+  items: { entran: Item[], salen: Item[] }
+  simcards: { entran: Simcard[], salen: Simcard[] }
   bodegaOrigen: Bodega
   bodegaDestino: Bodega
   createdAt: string

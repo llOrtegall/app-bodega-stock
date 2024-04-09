@@ -177,8 +177,8 @@ export const getMovimiento = async (req, res) => {
 
   try {
     const movimiento = await MovimientoModel.findById(id).populate('items')
-      .populate('bodegaOrigen', 'sucursal nombre direccion')
-      .populate('bodegaDestino', 'sucursal nombre direccion')
+      .populate('items.entran', 'nombre placa serial')
+      .populate('items.salen', 'nombre placa serial')
       .populate('simcards.entran', 'numero operador serial estado')
       .populate('simcards.salen', 'numero operador serial estado')
     return res.status(200).json(movimiento)
