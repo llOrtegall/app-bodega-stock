@@ -6,7 +6,7 @@ import { getAllBodegas } from '../../services/Bodegas.services';
 import { useAuth } from "../../Auth/AuthContext";
 import { Loading } from '../../components/ui';
 import { useFiltersItems, useItems } from "../../hooks";
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Bodegas } from '../../types/Bodega';
 
 export function AsignItemsToBodega() {
@@ -94,11 +94,30 @@ export function AsignItemsToBodega() {
   const { items, loading } = useItems({ company: user.empresa })
   const { filteredItems, searchItems, setSearchItems } = useFiltersItems(items)
 
+  const [carItems, setCarItems] = useState<string[]>([])
   const [bodegas, setBodegas] = useState<Bodegas>([])
 
   useEffect(() => {
-    void getAllBodegas(user.empresa)
+    setTimeout(() => {
+      void getAllBodegas(user.empresa)
       .then(res => { setBodegas(res) })
+    }, 1000)
+  }, [])
+
+  const handleAddItem = useCallback((id: string) => {
+    setCarItems(prevItems => {
+      if (!prevItems.includes(id)) {
+        return [...prevItems, id]
+      } else {
+        return prevItems
+      }
+    })
+  }, [])
+
+  const handleRemoveItem = useCallback((id: string) => {
+    setCarItems(prevItems => {
+      return prevItems.filter(item => item !== id)
+    })
   }, [])
 
   return (
@@ -109,8 +128,9 @@ export function AsignItemsToBodega() {
 
       <section className='flex w-full gap-2 px-2'>
         <div className='w-1/3'>{loading ? <Loading>Cargando Items</Loading> 
-          : <ItemsSinBodegas items={filteredItems} search={searchItems} setSearch={setSearchItems} />}</div>
-        <div className='w-1/3'><ItemsToAddComponent items={items} /></div>
+          : <ItemsSinBodegas items={filteredItems} search={searchItems} setSearch={setSearchItems} cartItems={carItems} handleAddItem={handleAddItem} />}
+        </div>
+        <div className='w-1/3'><ItemsToAddComponent items={items} cartItems={carItems} handleRemoveItem={handleRemoveItem} /></div>
         <div className='w-1/3'><BodegaSelection bodegas={bodegas} /></div>
       </section>
     </main>

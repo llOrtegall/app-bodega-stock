@@ -6,9 +6,11 @@ interface Props {
   items: ItemsArray
   search: string,
   setSearch: React.Dispatch<React.SetStateAction<string>>
+  cartItems: string []
+  handleAddItem: (id: string ) => void
 }
 
-const ItemsSinBodegas = ({ items, search, setSearch }: Props) => {
+const ItemsSinBodegas = ({ items, search, setSearch, cartItems, handleAddItem }: Props) => {
   return (
     <section className='dark:text-white'>
       <h3 className="text-center font-semibold border-b-2 border-black dark:border-white pb-1">Items Sin Bodega</h3>
@@ -26,7 +28,7 @@ const ItemsSinBodegas = ({ items, search, setSearch }: Props) => {
       <main style={{ maxHeight: '550px', overflowY: 'auto' }}>
         {
           items.length > 0
-            ? (<ListItemsComponent items={items} />)
+            ? (<ListItemsComponent items={items} cartItems={cartItems} handleAddItem={handleAddItem}/>)
             : <Loading>Cargando Items Sin Bodega...</Loading>
       }
       </main>
