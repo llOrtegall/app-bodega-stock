@@ -6,8 +6,6 @@ import { type newItem } from '../../types/Item'
 import { useAuth } from '../../Auth/AuthContext'
 import { useState } from 'react'
 
-
-
 export function CrearItems(): JSX.Element {
   const { user } = useAuth()
   const company = user.empresa
