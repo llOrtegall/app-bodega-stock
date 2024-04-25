@@ -1,6 +1,6 @@
-import { Router } from 'express'
-import { setDatabaseConnection } from '../middleware/setDatabase.js'
 import { createItem, getItems, deleteItem, updateItem, getItem } from '../controllers/Items.Controllers.js'
+import { setDatabaseConnection } from '../middleware/setDatabase.js'
+import { Router } from 'express'
 
 export const ItemsMongoDB = Router()
 
