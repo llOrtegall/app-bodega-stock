@@ -1,38 +1,12 @@
 import { MessageDisplay } from '../../components/ui/MessagesDisplay'
 import { Button, Input, Label, Loading } from '../../components/ui'
 import { createItem } from '../../services/Item.services'
+import { OPTION_ITEMS_CREATED_AND_UPDATE } from './index'
 import { type newItem } from '../../types/Item'
 import { useAuth } from '../../Auth/AuthContext'
 import { useState } from 'react'
 
-const options = [
-  { value: 'Impresora TMU USB/LPT', label: 'Impresora TMU | USB' },
-  { value: 'Impresora Termica', label: 'Impresora Termica USB' },
-  { value: 'Monitor / Pantalla', label: 'Monitor' },
-  { value: 'Torre', label: 'Torre' },
-  { value: 'Teclado', label: 'Teclado' },
-  { value: 'Mouse / Raton', label: 'Mouse' },
-  { value: 'Cámara', label: 'Cámara' },
-  { value: 'Proyector', label: 'Proyector' },
-  { value: 'PDA V1', label: 'PDA V1' },
-  { value: 'PDA V2', label: 'PDA V2' },
-  { value: 'CS10', label: 'CS10' },
-  { value: 'NVR', label: 'NVR' },
-  { value: 'Portátil', label: 'Portátil' },
-  { value: 'Lector De Barras', label: 'Lector De Barras' },
-  { value: 'Lector De Biometríco', label: 'Lector De Biometríco' },
-  { value: 'Modem', label: 'Modem' },
-  { value: 'UPS', label: 'UPS' },
-  { value: 'Switch', label: 'Switch' },
-  { value: 'Router', label: 'Router' },
-  { value: 'Batería', label: 'Batería' },
-  { value: 'Inversor', label: 'Inversor' },
-  { value: 'Televisor', label: 'Televisor' },
-  { value: 'Proyector', label: 'Proyector' },
-  { value: 'Telefono Fijo', label: 'Telefono Fijo' },
-  { value: 'Telefono Celular', label: 'Telefono Celular' },
-  { value: 'Silla', label: 'Silla' }
-]
+
 
 export function CrearItems(): JSX.Element {
   const { user } = useAuth()
@@ -91,9 +65,7 @@ export function CrearItems(): JSX.Element {
             onChange={handleChange} value={item.nombre}
             className='text-black border rounded-md p-2 border-gray-300'>
             <option value="">Selecciona un item</option>
-            {options.map((option, index) => (
-              <option key={index} value={option.value}>{option.label}</option>
-            ))}
+            {OPTION_ITEMS_CREATED_AND_UPDATE.map((option, index) => (<option key={index} value={option.value}>{option.label}</option>))}
           </select>
         </div>
 
