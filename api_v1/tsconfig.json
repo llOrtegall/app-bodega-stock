@@ -1,15 +1,13 @@
 {
   "compilerOptions": {
-    "target": "es2018",                     // Especifica la versión de ECMAScript de salida.
-    "module": "commonjs",                   // Especifica el módulo de código generado.
-    "outDir": "./dist",                     // Ruta de salida para los archivos compilados.
-    "rootDir": "./src",                     // Carpeta raíz de los archivos fuente.
-    "strict": true,                         // Habilita todas las opciones estrictas de comprobación de tipos.
-    "moduleResolution": "node",             // Estrategia de resolución de módulos.
-    "esModuleInterop": true,                // Habilita la interoperabilidad de módulos ES6.
-    "skipLibCheck": true,                   // Omite la comprobación de tipos en las declaraciones de archivos .d.ts.
-    "forceConsistentCasingInFileNames": true // Evita referencias a un mismo archivo con diferentes mayúsculas y minúsculas.
+    "target": "es2018",
+    "module": "commonjs",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true
   },
-  "include": ["src/**/*.ts"],               // Los archivos TypeScript a incluir en la compilación.
-  "exclude": ["node_modules"]               // Los archivos a excluir de la compilación.
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules"]
 }
