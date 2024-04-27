@@ -1,16 +1,8 @@
 import { Router } from 'express'
-import { createUser } from '../controllers/users'
+import { createUser, getUsers } from '../controllers/users'
 
 export const LoginUser = Router()
 
-// LoginUser.get('/users', getUsers)
-
 LoginUser.post('/register', createUser)
 
-/*
-LoginUser.post('/login', getUsers)
-
-LoginUser.get('/profile', UserByToken)
-
-
-*/
+LoginUser.get('/users', getUsers)

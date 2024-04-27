@@ -1,4 +1,4 @@
-import { RegisterServices } from '../services/users.services'
+import { RegisterService, UsersService } from '../services/users.services'
 import { validateUser } from '../schemas/user.schema'
 import { Request, Response } from 'express'
 import { MySQLError } from '../types/Mysql'
@@ -14,7 +14,7 @@ export const createUser = async (req: Request, res: Response) => {
 
   // TODO: llama al servicio de registro de usuarios y responde con el resultado de type ResultSetHeader (mysql2)
   try {
-    const result = await RegisterServices(validUser.data)
+    const result = await RegisterService(validUser.data)
     if (result.affectedRows > 0) {
       return res.status(201).json({ message: 'Usuario creado correctamente' })
     }
@@ -27,6 +27,16 @@ export const createUser = async (req: Request, res: Response) => {
     if (err.code === 'ECONNREFUSED') {
       return res.status(500).json({ message: 'Error de conexión con la base de datos' })
     }
+    return res.status(500).json({ message: 'Error interno del servidor' })
+  }
+}
+
+export const getUsers = async (req: Request, res: Response) => {
+  try {
+    const users = await UsersService()
+    return res.status(200).json(users)
+  } catch (error) {
+    console.error(error)
     return res.status(500).json({ message: 'Error interno del servidor' })
   }
 }
