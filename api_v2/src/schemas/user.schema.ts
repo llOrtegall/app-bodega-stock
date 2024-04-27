@@ -1,5 +1,5 @@
+import { UserNew, UserLogin } from '../types/user'
 import z from 'zod'
-import { UserNew } from '../types/user'
 
 const UserSchema = z.object({
   nombres: z.string({
@@ -36,6 +36,23 @@ const UserSchema = z.object({
     required_error: 'El rol es requerido'
   }).optional()
 })
+
+const LoginSchema = z.object({
+  usuario: z.string({
+    invalid_type_error: 'El usuario debe ser un texto',
+    required_error: 'El usuario es requerido'
+  }).refine(value => /^CP\d{5,15}$/.test(value), {
+    message: 'El usuario debe comenzar con "CP" seguido de entre 5 y 15 números',
+  }),
+  password: z.string({
+    invalid_type_error: 'El password debe ser un texto',
+    required_error: 'El password es requerido'
+  })
+})
+
+export function validateLogin(login: UserLogin){
+  return LoginSchema.safeParse(login)
+}
 
 export function validateUser(user: UserNew){
   return UserSchema.safeParse(user)

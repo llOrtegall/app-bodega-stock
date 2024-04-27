@@ -31,7 +31,7 @@ export const createUser = async (req: Request, res: Response) => {
   }
 }
 
-export const getUsers = async (req: Request, res: Response) => {
+export const getUsers = async (_req: Request, res: Response) => {
   try {
     const users = await UsersService()
     return res.status(200).json(users)
@@ -39,4 +39,8 @@ export const getUsers = async (req: Request, res: Response) => {
     console.error(error)
     return res.status(500).json({ message: 'Error interno del servidor' })
   }
+}
+
+export const loginUser = async (req: Request, res: Response) => {
+  
 }

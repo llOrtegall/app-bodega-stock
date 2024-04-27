@@ -7,7 +7,7 @@ import { IRowUser } from '../types/Mysql'
 
 export async function RegisterService(data: UserNew): Promise<ResultSetHeader> {
   const { apellidos, correo, documento, empresa, nombres, proceso, telefono, rol } = data
-
+  
   const USUARIO = `CP${documento}`
   const PASSWORD = `CP${documento.toString().slice(-3)}`
 
@@ -15,7 +15,7 @@ export async function RegisterService(data: UserNew): Promise<ResultSetHeader> {
 
   return InsertQuery({
     pool: pool_login,
-    queryStr: 'INSERT INTO usuarios (nombres, apellidos, documento, telefono, correo, usuario, pass_1, estado, empresa, proceso, rol) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+    queryStr: 'INSERT INTO usuarios (nombres, apellidos, documento, telefono, correo, usuario, pass_1, estado, empresa, proceso, rol) VALUES (?,?,?,?,?,?,?,?,?,?,?)',
     values: [nombres, apellidos, documento, telefono, correo, USUARIO, passwordHash, 1, empresa, proceso, rol]
   })
 }

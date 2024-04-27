@@ -50,3 +50,8 @@ export interface UserCreated {
   resetPasswordToken?: string
   resetPasswordExpires?: Date
 }
+
+export interface UserLogin {
+  usuario: string
+  password: string
+}
