@@ -34,7 +34,7 @@ const UserSchema = z.object({
   rol: z.string({
     invalid_type_error: 'El rol debe ser un texto',
     required_error: 'El rol es requerido'
-  })
+  }).optional()
 })
 
 export function validateUser(user: UserNew){

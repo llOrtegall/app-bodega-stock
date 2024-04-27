@@ -1,3 +1,31 @@
+import { pool_login } from '../connections/loginConnection'
+import { InserQuery } from '../databases/querys'
+import { UserNew } from '../types/user'
+
+export async function RegisterServices(data: UserNew){
+  console.log(data);
+  const { apellidos, correo, documento, empresa, nombres, proceso, telefono, rol } = data
+
+  const SQL = 'INSERT INTO usuarios (nombres, apellidos, documento, telefono, correo, usuario, pass_1, estado, empresa, proceso, rol, fecha_creacion)'
+  const VALUES = 'VALUES (?,?,?,?,?,?,?,?,?,?,?,?)'
+
+  const result = await InserQuery
+    (
+      pool_login, 
+      `${SQL} ${VALUES}`, 
+      [nombres, apellidos, documento, telefono, correo, 'juanperez', 'password123', 1, empresa, proceso, rol,'CURRENT_TIMESTAMP']
+    )
+  console.log(result);
+  
+  // INSERT INTO usuarios (
+  //  nombres, apellidos, documento, telefono, correo, usuario, pass_1, estado, empresa, proceso, rol, fecha_creacion
+  // ) VALUES (
+  //  'Juan', 'Perez', 12345678, 9876543210, 'juan.perez@example.com', 'juanperez', 'password123', 1, 0, 1, 'admin', NOW() );
+
+
+}
+
+
 // import { generatePassword, generateUsername } from '../utils/funtionsReutilizables.js'
 // import { Company, Proceso, State } from '../utils/Definiciones.js'
 // import { pool_login } from '../connections/loginConnection'
@@ -50,25 +78,5 @@ export const LoginService = async (data) => {
   return result[0]
 }
 
-export const registerUserService = async ({ data }) => {
-  const pool = await getPoolLogin()
-  const { nombres, apellidos, documento, telefono, correo, empresa, proceso, rol } = data.data
-  const [existingUser] = await pool.query('SELECT documento FROM login WHERE documento = ?', [documento])
-  if (existingUser.length > 0) {
-    throw new Error(`El usuario con el documento N° ${documento} ya existe.`)
-  }
-  const password = generatePassword(documento)
-  const username = generateUsername(documento)
-  const passwordHash = await bcrypt.hash(password, BCRYPT_SALT_ROUNDS)
-  const [createdUser] = await pool.query(
-    `INSERT INTO login (nombres, apellidos, documento, telefono, correo, username, password, estado, empresa, proceso, rol) 
-     VALUES (?, ?, ?, ?, ?, ?, ?, TRUE, ?, ?, ?);`,
-    [nombres, apellidos, documento, telefono, correo, username, passwordHash, empresa, proceso, rol]
-  )
-  if (createdUser.affectedRows === 0) {
-    throw new Error('Hubo un problema al crear el usuario. Por favor, inténtalo de nuevo.')
-  }
-  return { message: 'Usuario creado correctamente.' }
-}
 
 */

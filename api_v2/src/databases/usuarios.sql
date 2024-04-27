@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS usuarios (
   empresa INT NOT NULL,
   proceso INT NOT NULL,
   rol VARCHAR(255),
-  fecha_creacion DATETIME,
+  fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP,
   resetPasswordToken VARCHAR(255),
   resetPasswordExpires DATETIME
 );

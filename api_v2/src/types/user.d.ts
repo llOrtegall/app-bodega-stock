@@ -29,7 +29,7 @@ export interface UserNew {
   correo: string
   empresa: Empresa
   proceso: Proceso
-  rol: string
+  rol?: string | undefined
 }
 
 export interface UserCreated {

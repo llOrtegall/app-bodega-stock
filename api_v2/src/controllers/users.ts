@@ -1,14 +1,16 @@
-import { Request, Response } from 'express'
 import { validateUser } from '../schemas/user.schema'
+import { RegisterServices } from '../services/users.services'
+import { Request, Response } from 'express'
 
 export const createUser = async (req: Request, res: Response) => {
   const result = validateUser(req.body)
 
-  if(result.error){
+  if (!result.success) {
     return res.status(400).json(result.error)
   }
 
-  return res.status(200).json(result.data)
+  RegisterServices(result.data)
+
 }
 
 
