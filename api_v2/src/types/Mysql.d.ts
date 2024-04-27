@@ -16,7 +16,7 @@ export interface MySQLError {
 
 
 export interface IRowUser extends RowDataPacket {
-  id: number
+  _id: number
   nombres: string
   apellidos: string
   documento: string

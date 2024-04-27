@@ -1,5 +1,5 @@
-import { RegisterService, UsersService } from '../services/users.services'
-import { validateUser } from '../schemas/user.schema'
+import { LoginService, RegisterService, UsersService } from '../services/users.services'
+import { validateUser, validateLogin } from '../schemas/user.schema'
 import { Request, Response } from 'express'
 import { MySQLError } from '../types/Mysql'
 
@@ -42,5 +42,18 @@ export const getUsers = async (_req: Request, res: Response) => {
 }
 
 export const loginUser = async (req: Request, res: Response) => {
+  const validLogin = validateLogin(req.body)
+
+  if (!validLogin.success) {
+    return res.status(400).json(validLogin.error)
+  }
+
+  try {
+    const result = await LoginService(validLogin.data)
+    return res.status(200).json(result)
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: error })
+  }
   
 }

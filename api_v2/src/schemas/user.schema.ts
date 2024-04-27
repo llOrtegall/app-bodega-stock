@@ -42,7 +42,7 @@ const LoginSchema = z.object({
     invalid_type_error: 'El usuario debe ser un texto',
     required_error: 'El usuario es requerido'
   }).refine(value => /^CP\d{5,15}$/.test(value), {
-    message: 'El usuario debe comenzar con "CP" seguido de entre 5 y 15 números',
+    message: 'El usuario debe comenzar con "CP" seguido del número de documento',
   }),
   password: z.string({
     invalid_type_error: 'El password debe ser un texto',

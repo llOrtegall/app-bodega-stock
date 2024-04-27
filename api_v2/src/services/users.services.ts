@@ -1,13 +1,13 @@
+import { hashPassword, comparePasswords } from '../utils/passwordUtils'
 import { InsertQuery, SelectQuery } from '../databases/querys'
 import { pool_login } from '../connections/loginConnection'
-import { hashPassword } from '../utils/passwordUtils'
 import { type ResultSetHeader } from 'mysql2'
-import { type UserNew } from '../types/user'
+import { UserLogin, type UserNew } from '../types/user'
 import { IRowUser } from '../types/Mysql'
 
 export async function RegisterService(data: UserNew): Promise<ResultSetHeader> {
   const { apellidos, correo, documento, empresa, nombres, proceso, telefono, rol } = data
-  
+
   const USUARIO = `CP${documento}`
   const PASSWORD = `CP${documento.toString().slice(-3)}`
 
@@ -26,4 +26,32 @@ export async function UsersService() {
     queryStr: 'SELECT * FROM usuarios',
     values: []
   })
+}
+
+export async function LoginService(data: UserLogin) {
+  const { usuario, password } = data
+
+  const [user] = await SelectQuery<IRowUser>({
+    pool: pool_login,
+    queryStr: 'SELECT * FROM usuarios WHERE usuario = ?',
+    values: [usuario]
+  })
+
+  if (!user) {
+    throw 'Usuario no encontrado'
+  }
+
+  if(user.estado === 0){
+    throw 'Usuario Se Encuentra Inactivo'
+  }
+  
+  const isValid = await comparePasswords(password, user.pass_1 as string)
+  
+  if(!isValid){
+    throw 'Contraseña incorrecta'
+  }
+
+  const { nombres, apellidos, correo, documento, empresa, estado, _id, rol, telefono, proceso } = user
+
+  return { nombres, apellidos, correo, documento, empresa, estado, _id, rol, telefono, proceso }
 }
