@@ -1,25 +1,4 @@
-enum Empresa {
-  'Multired y Servired' = 0,
-  'Multired' = 1,
-  'Servired' = 2
-}
-
-enum Proceso {
-  'Técnología' = 1,
-  'Contabilidad' = 2,
-  'Comercial' = 3,
-  'Administración' = 4,
-  'Gestión Humana' = 5,
-  'Gerencia' = 6,
-  'Tesoreria' = 7,
-  'Auditoria' = 8,
-  'Cumplimiento' = 9
-}
-
-enum Estado {
-  'Inactivo' = 0,
-  'Activo' = 1
-}
+import { Empresa, Estado, Proceso } from './enums'
 
 export interface UserNew {
   nombres: string

@@ -1,8 +1,9 @@
 import { hashPassword, comparePasswords } from '../utils/passwordUtils'
 import { InsertQuery, SelectQuery } from '../databases/querys'
 import { pool_login } from '../connections/loginConnection'
+import { Empresa, Proceso, Estado } from '../types/enums'
+import { UserLogin, UserNew } from '../types/user'
 import { type ResultSetHeader } from 'mysql2'
-import { UserLogin, type UserNew } from '../types/user'
 import { IRowUser } from '../types/Mysql'
 
 export async function RegisterService(data: UserNew): Promise<ResultSetHeader> {
@@ -37,21 +38,28 @@ export async function LoginService(data: UserLogin) {
     values: [usuario]
   })
 
-  if (!user) {
-    throw 'Usuario no encontrado'
-  }
+  if (!user) throw 'Usuario no encontrado'
+  if (user.estado === 0) throw 'Usuario Se Encuentra Inactivo'
 
-  if(user.estado === 0){
-    throw 'Usuario Se Encuentra Inactivo'
-  }
-  
   const isValid = await comparePasswords(password, user.pass_1 as string)
-  
-  if(!isValid){
+
+  if (!isValid) {
     throw 'Contraseña incorrecta'
   }
 
-  const { nombres, apellidos, correo, documento, empresa, estado, _id, rol, telefono, proceso } = user
+  const { _id, apellidos, correo, documento, empresa, nombres, proceso, telefono, rol } = user
 
-  return { nombres, apellidos, correo, documento, empresa, estado, _id, rol, telefono, proceso }
+  return {
+    _id,
+    apellidos,
+    correo,
+    documento,
+    empresa: empresa !== undefined ? Empresa[empresa] : undefined,
+    proceso: proceso !== undefined ? Proceso[proceso] : undefined,
+    estado: user.estado !== undefined ? Estado[user.estado] : undefined,
+    nombres,
+    telefono,
+    rol,
+
+  }
 }

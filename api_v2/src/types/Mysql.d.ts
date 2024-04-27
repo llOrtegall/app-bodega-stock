@@ -1,5 +1,5 @@
 import { type Pool, type RowDataPacket } from "mysql2/promise";
-
+import { Empresa, Estado, Proceso } from './enums'
 type Params = string | number | Date | undefined;
 
 export interface SQL_Props {
@@ -24,8 +24,8 @@ export interface IRowUser extends RowDataPacket {
   correo: string
   usuario: string
   pass_1: string
-  estado: number
-  empresa: string
-  proceso: string
+  estado: Estado
+  empresa: Empresa
+  proceso: Proceso
   rol?: string
 }
