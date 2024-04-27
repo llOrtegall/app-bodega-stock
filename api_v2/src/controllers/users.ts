@@ -1,5 +1,5 @@
-import { validateUser } from '../schemas/user.schema'
 import { RegisterServices } from '../services/users.services'
+import { validateUser } from '../schemas/user.schema'
 import { Request, Response } from 'express'
 
 export const createUser = async (req: Request, res: Response) => {
@@ -10,7 +10,8 @@ export const createUser = async (req: Request, res: Response) => {
   }
 
   RegisterServices(result.data)
-
+    .then(result => { console.log(result)})
+    .catch(error => { console.log(error)})
 }
 
 

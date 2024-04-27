@@ -1,22 +1,19 @@
 import { ResultSetHeader } from 'mysql2'
-import { Pool } from 'mysql2/promise' 
+import { Pool } from 'mysql2/promise'
 
-export async function InserQuery(pool: Pool, queryStr: string, params: (string | number | Date | undefined )[]): Promise<ResultSetHeader>{
-  try {
-    const [results] = await pool.execute(queryStr, params)
-    return results as ResultSetHeader
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
+type Params = string | number | Date | undefined;
+
+interface Props {
+  pool: Pool
+  queryStr: string
+  values: Params[]
 }
 
-export async function ModifyQuery(pool: Pool, queryStr: string): Promise<ResultSetHeader>{
+export async function InsertQuery({ pool, queryStr, values }: Props): Promise<ResultSetHeader>{
   try {
-    const [results] = await pool.execute(queryStr)
+    const [results] = await pool.execute(queryStr, values)
     return results as ResultSetHeader
   } catch (error) {
-    console.error(error);
     throw error;
   }
 }
