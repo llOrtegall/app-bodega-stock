@@ -1,16 +1,16 @@
 // import { generatePassword, generateUsername } from '../utils/funtionsReutilizables.js'
 // import { Company, Proceso, State } from '../utils/Definiciones.js'
 import { pool_login } from '../connections/loginConnection'
+import { SelectQuery } from '../databases/querys'
 
 // import bcrypt from 'bcryptjs'
 
 const BCRYPT_SALT_ROUNDS = 10
 
 export const getUsersService = async () => {
-  const pool = pool_login
-  const [users] = await pool.execute('SELECT * FROM login')
-  return users
+  const [users] = SelectQuery(pool_login, 'SELECT * FROM login', [])
 
+  //return users
 }
 
 /* 

@@ -1,5 +1,5 @@
-import express from 'express'
 import { LoginUser } from './routes/user'
+import express from 'express'
 import morgan from 'morgan'
 import 'dotenv/config'
 
