@@ -1,6 +1,25 @@
-import { getUsersService } from '../services/users'
 import { Request, Response } from 'express'
-// import { ValidarUsuario } from '../schemas/userSchema.js'
+import { validateUser } from '../schemas/user.schema'
+
+export const createUser = async (req: Request, res: Response) => {
+  const result = validateUser(req.body)
+
+  if(result.error){
+    return res.status(400).json(result.error)
+  }
+
+  return res.status(200).json(result.data)
+}
+
+
+
+
+
+
+
+
+/*
+// import { getUsersService } from '../services/users'
 // import jwt from 'jsonwebtoken'
 
 // const JWT_SECRET = process.env.JWT_SECRET
@@ -14,7 +33,6 @@ export const getUsers = async (_req: Request, res: Response) => {
   }
 }
 
-/*
 
 export const UserByToken = async (req, res) => {
   const bearerHeader = req.headers.authorization
@@ -43,21 +61,4 @@ export const Login = async (req, res) => {
     return res.status(400).json({ message: error.message })
   }
 }
-
-export const createUser = async (req, res) => {
-  // TODO: Validar que lleguen los datos requeridos y de forma correcta
-  const result = await ValidarUsuario(req.body)
-
-  if (result.error) {
-    return res.status(400).json({ error: result.error })
-  }
-
-  try {
-    const response = await registerUserService({ data: result })
-    return res.status(200).json(response)
-  } catch (error) {
-    return res.status(500).json(error)
-  }
-}
-
 */

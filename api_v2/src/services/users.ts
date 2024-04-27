@@ -1,11 +1,11 @@
 // import { generatePassword, generateUsername } from '../utils/funtionsReutilizables.js'
 // import { Company, Proceso, State } from '../utils/Definiciones.js'
-import { pool_login } from '../connections/loginConnection'
-import { SelectQuery } from '../databases/querys'
-import { Empresa, Proceso, User } from '../types/user'
+// import { pool_login } from '../connections/loginConnection'
+// import { SelectQuery } from '../databases/querys'
+// import { Empresa, Proceso, User } from '../types/user'
 
 // import bcrypt from 'bcryptjs'
-
+/*
 const BCRYPT_SALT_ROUNDS = 10
 const PROPERTIES_SELECT = '_id, nombres, apellidos, documento, telefono, correo, username, estado, empresa, proceso, rol, fecha_creacion, resetPasswordToken, resetPasswordExpires'
 
@@ -15,6 +15,7 @@ export const getUsersService = async () => {
   
   return users
 }
+*/
 
 /* 
 

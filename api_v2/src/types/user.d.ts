@@ -21,7 +21,18 @@ enum Estado {
   'Activo' = 1
 }
 
-export interface User {
+export interface UserNew {
+  nombres: string
+  apellidos: string
+  documento: number
+  telefono: number
+  correo: string
+  empresa: Empresa
+  proceso: Proceso
+  rol: string
+}
+
+export interface UserCreated {
   _id: string
   nombres: string
   apellidos: string
