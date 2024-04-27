@@ -1,4 +1,4 @@
-import { ResultSetHeader } from 'mysql2'
+import { type ResultSetHeader } from 'mysql2'
 import { Pool } from 'mysql2/promise'
 
 type Params = string | number | Date | undefined;
@@ -9,6 +9,7 @@ interface Props {
   values: Params[]
 }
 
+// TODO: Función que ejecuta una consulta a la base de datos y retorna un ResultSetHeader
 export async function InsertQuery({ pool, queryStr, values }: Props): Promise<ResultSetHeader>{
   try {
     const [results] = await pool.execute(queryStr, values)
