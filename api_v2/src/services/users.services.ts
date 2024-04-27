@@ -40,26 +40,15 @@ export async function LoginService(data: UserLogin) {
 
   if (!user) throw 'Usuario no encontrado'
   if (user.estado === 0) throw 'Usuario Se Encuentra Inactivo'
-
   const isValid = await comparePasswords(password, user.pass_1 as string)
-
-  if (!isValid) {
-    throw 'Contraseña incorrecta'
-  }
+  if (!isValid) throw 'Contraseña incorrecta'
 
   const { _id, apellidos, correo, documento, empresa, nombres, proceso, telefono, rol } = user
 
   return {
-    _id,
-    apellidos,
-    correo,
-    documento,
+    _id, apellidos, correo, nombres, telefono, rol, documento,
     empresa: empresa !== undefined ? Empresa[empresa] : undefined,
     proceso: proceso !== undefined ? Proceso[proceso] : undefined,
     estado: user.estado !== undefined ? Estado[user.estado] : undefined,
-    nombres,
-    telefono,
-    rol,
-
   }
 }
