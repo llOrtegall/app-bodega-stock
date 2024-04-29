@@ -38,7 +38,7 @@ const UserSchema = z.object({
 })
 
 const LoginSchema = z.object({
-  usuario: z.string({
+  username: z.string({
     invalid_type_error: 'El usuario debe ser un texto',
     required_error: 'El usuario es requerido'
   }).refine(value => /^CP\d{5,15}$/.test(value), {

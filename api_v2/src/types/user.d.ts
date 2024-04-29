@@ -31,6 +31,6 @@ export interface UserCreated {
 }
 
 export interface UserLogin {
-  usuario: string
+  username: string
   password: string
 }

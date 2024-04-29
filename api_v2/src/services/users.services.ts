@@ -30,12 +30,12 @@ export async function UsersService() {
 }
 
 export async function LoginService(data: UserLogin) {
-  const { usuario, password } = data
+  const { username, password } = data
 
   const [user] = await SelectQuery<IRowUser>({
     pool: pool_login,
     queryStr: 'SELECT * FROM usuarios WHERE usuario = ?',
-    values: [usuario]
+    values: [username]
   })
 
   if (!user) throw 'Usuario no encontrado'
