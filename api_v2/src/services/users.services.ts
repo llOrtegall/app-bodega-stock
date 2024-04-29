@@ -1,3 +1,4 @@
+import { IncorrectPasswordError, UserInactiveError, UserNotFoundError } from '../utils/errors'
 import { hashPassword, comparePasswords } from '../utils/passwordUtils'
 import { InsertQuery, SelectQuery } from '../databases/querys'
 import { pool_login } from '../connections/loginConnection'
@@ -38,10 +39,10 @@ export async function LoginService(data: UserLogin) {
     values: [username]
   })
 
-  if (!user) throw 'Usuario no encontrado'
-  if (user.estado === 0) throw 'Usuario Se Encuentra Inactivo'
+  if (!user) throw new UserNotFoundError()
+  if (user.estado === 0) throw new UserInactiveError()
   const isValid = await comparePasswords(password, user.pass_1 as string)
-  if (!isValid) throw 'Contraseña incorrecta'
+  if (!isValid) throw new IncorrectPasswordError()
 
   const { _id, apellidos, correo, documento, empresa, nombres, proceso, telefono, rol } = user
 

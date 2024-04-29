@@ -1,3 +1,4 @@
+import { IncorrectPasswordError, UserInactiveError, UserNotFoundError } from '../utils/errors'
 import { LoginService, RegisterService, UsersService } from '../services/users.services'
 import { validateUser, validateLogin } from '../schemas/user.schema'
 import { Request, Response } from 'express'
@@ -52,7 +53,9 @@ export const loginUser = async (req: Request, res: Response) => {
     const result = await LoginService(validLogin.data)
     return res.status(200).json(result)
   } catch (error) {
-    console.log(error);
+    if (error instanceof UserNotFoundError || error instanceof UserInactiveError || error instanceof IncorrectPasswordError) {
+      return res.status(401).json({ message: error.message })
+    }
     return res.status(500).json({ message: error })
   }
   
