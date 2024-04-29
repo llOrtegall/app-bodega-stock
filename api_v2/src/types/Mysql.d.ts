@@ -9,11 +9,12 @@ export interface SQL_Props {
 }
 
 export interface MySQLError {
-  message: string
-  code?: string
-  sqlMessage?: string
+  code: string
+  errno: number
+  sql: string
+  sqlState: string
+  sqlMessage: string
 }
-
 
 export interface IRowUser extends RowDataPacket {
   _id: number

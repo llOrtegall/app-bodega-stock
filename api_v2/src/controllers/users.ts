@@ -1,6 +1,5 @@
-import { IncorrectPasswordError, UserInactiveError, UserNotFoundError } from '../utils/errors'
-import { LoginService, RegisterService, UsersService } from '../services/users.services'
-import { validateUser, validateLogin } from '../schemas/user.schema'
+import { RegisterService } from '../services/users.services'
+import { validateUser } from '../schemas/user.schema'
 import { Request, Response } from 'express'
 import { MySQLError } from '../types/Mysql'
 
@@ -13,24 +12,24 @@ export const createUser = async (req: Request, res: Response) => {
     return res.status(400).json(validUser.error)
   }
 
-  // TODO: llama al servicio de registro de usuarios y responde con el resultado de type ResultSetHeader (mysql2)
   try {
     const result = await RegisterService(validUser.data)
-    if (result.affectedRows > 0) {
+    if (result[0].affectedRows === 1) {
       return res.status(201).json({ message: 'Usuario creado correctamente' })
+    } else {
+      return res.status(500).json({ message: 'Error interno del servidor' })
     }
   } catch (error) {
     const err = error as MySQLError
-    console.error(err) // Log all errors
-    if (err.code === 'ER_DUP_ENTRY') {
-      return res.status(409).json({ message: 'El usuario ya se encuentra registrado' })
-    }
-    if (err.code === 'ECONNREFUSED') {
-      return res.status(500).json({ message: 'Error de conexión con la base de datos' })
+    console.log(err.sqlMessage)
+    if(err.errno === 1062 || err.code === 'ER_DUP_ENTRY'){
+      return res.status(400).json({ message: `${err.sqlMessage}` })
     }
     return res.status(500).json({ message: 'Error interno del servidor' })
   }
 }
+
+/* 
 
 export const getUsers = async (_req: Request, res: Response) => {
   try {
@@ -60,3 +59,5 @@ export const loginUser = async (req: Request, res: Response) => {
   }
   
 }
+
+*/
