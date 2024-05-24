@@ -11,7 +11,7 @@ import { CrearBodega, DetalleBodega, ShowBodegas } from './Pages/Bodega'
 import { LoginPage, NotFound, HomePage } from './Pages'
 
 // axios.defaults.baseURL = '/api'
-axios.defaults.baseURL = 'http://172.20.1.110:3000/api'
+axios.defaults.baseURL = 'http://localhost:4040/api'
 
 export function App (): JSX.Element {
   const { user, login } = useAuth()

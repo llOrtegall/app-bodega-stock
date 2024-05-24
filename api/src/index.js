@@ -13,6 +13,7 @@ import morgan from 'morgan'
 import cors from 'cors'
 
 const ACCEPTED_ORIGINS = [
+  'http://localhost:3000',
  'http://172.20.1.110:5173'
 ]
 
