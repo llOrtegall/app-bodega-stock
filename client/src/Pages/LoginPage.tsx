@@ -1,10 +1,9 @@
-import { MessageDisplay } from '../components/ui/MessagesDisplay'
-import { Label, Button, Input, Loading } from '../components/ui'
 import { Image, LockIcon, UserIcon } from '../components/icons'
+import { Label, Button, Input } from '../components/ui'
 import { useLogin } from '../hooks/useLogin'
 
 function LoginPage (): JSX.Element {
-  const { setPassword, setUsername, handleSubmit, error, loading, message } = useLogin()
+  const { setPassword, setUsername, handleSubmit } = useLogin()
 
   return (
     <section className="w-full h-[100vh] flex flex-col items-center justify-center bg-gradient-to-b from-blue-400 to-blue-200">
@@ -35,10 +34,6 @@ function LoginPage (): JSX.Element {
         <Button onClick={handleSubmit}>Iniciar Sesión</Button>
       </form>
 
-      <section className='h-10'>
-        <MessageDisplay message={message} error={error} />
-        {loading && <Loading />}
-      </section>
     </section>
   )
 }

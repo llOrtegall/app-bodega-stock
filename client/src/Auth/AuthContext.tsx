@@ -6,20 +6,15 @@ interface InterfaceAuthContext {
   setUser: React.Dispatch<React.SetStateAction<User>>
 }
 
-interface AuthProviderProps {
-  children: React.ReactNode
-}
 
-const InitialUser: User = { apellidos: '', correo: '', empresa: '', id: '', nombres: '', proceso: '', rol: '', username: '', exp: 0, iat: 0 }
 
-const AuthContext = createContext<InterfaceAuthContext>(
-  {
-    user: InitialUser,
-    setUser: () => {}
-  })
+const AuthContext = createContext<InterfaceAuthContext | undefined>({
+  user: { id: '', names: '', lastnames: '', username: '', email: '', company: '', process: '', sub_process: '', app: 'bodega-stock' },
+  setUser: () => { }
+})
 
-export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [user, setUser] = useState<User>(InitialUser)
+export const AuthProvider = ({ children }:{ children: React.ReactNode }) => {
+  const [user, setUser] = useState<User>({ id: '', names: '', lastnames: '', username: '', email: '', company: '', process: '', sub_process: '', app: 'bodega-stock' })
 
   return (
     <AuthContext.Provider value={{ user, setUser }}>
@@ -30,7 +25,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
 export const useAuth = (): InterfaceAuthContext => {
   const context = useContext(AuthContext)
-  // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
   if (!context) {
     throw new Error('useAuth must be used within an AuthProvider')
   }
