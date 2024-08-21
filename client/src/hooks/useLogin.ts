@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { getLogin } from '../services/Login.services'
 import { useAuth } from '../Auth/AuthContext'
 
@@ -21,18 +21,6 @@ export function useLogin (): UseLoginReturn {
   const [error, setError] = useState('')
 
   const { login } = useAuth()
-
-  useEffect(() => {
-    let timer: number
-    if (error !== '') {
-      timer = window.setTimeout(() => {
-        setError('')
-      }, 3000)
-    }
-    return () => {
-      window.clearTimeout(timer)
-    }
-  }, [error])
 
   const handleSubmit = (ev: React.FormEvent): void => {
     ev.preventDefault()

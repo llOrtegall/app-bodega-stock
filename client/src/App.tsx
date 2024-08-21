@@ -1,29 +1,20 @@
 import { ProtectedRoute } from './components/ProtectedRoute'
 import { Routes, Route } from 'react-router-dom'
 import { useAuth } from './Auth/AuthContext'
-import { useEffect } from 'react'
-import axios from 'axios'
 
 import { CrearSimcard, VerSimcards, AsignarSimcards, CreaMovimientosSim } from './Pages/Simcards'
 import { CrearMovimiento, DesatalleMovimiento, ShowMovimientos } from './Pages/Movimientos'
 import { AsignItemsToBodega, CrearItems, DetalleItem, VerItems } from './Pages/Items'
 import { CrearBodega, DetalleBodega, ShowBodegas } from './Pages/Bodega'
-import { LoginPage, NotFound, HomePage } from './Pages'
+import { NotFound, HomePage } from './Pages'
+
+import LoginPage from './Pages/LoginPage'
 
 // axios.defaults.baseURL = '/api'
-axios.defaults.baseURL = 'http://localhost:4040/api'
+// axios.defaults.baseURL = 'http://localhost:4040/api'
 
 export function App (): JSX.Element {
-  const { user, login } = useAuth()
-
-  useEffect(() => {
-    const token = localStorage.getItem('tokenBodega')
-    if (token !== null) {
-      login(token)
-    } else {
-      console.log('No Token')
-    }
-  }, [])
+  const { user } = useAuth()
 
   const isAdminOrAux = !(user == null) && (user.rol === 'Administrador' || user.rol === 'Aux Administrativo')
   const isAdminOrCoord = !(user == null) && (user.rol === 'Administrador' || user.rol === 'Coordinador Soporte')
@@ -33,7 +24,7 @@ export function App (): JSX.Element {
       <Routes>
         <Route path="/" element={<LoginPage />} />
 
-        <Route element={<ProtectedRoute isAllowed={!(user == null)} redirectTo="/" />}>
+        {/* <Route element={<ProtectedRoute isAllowed={!(user == null)} redirectTo="/" />}>
           <Route index path="/home" element={<HomePage />} />
           <Route path="/items/verItems" element={<VerItems />} />
           <Route path="/movimientos" element={<ShowMovimientos />} />
@@ -60,7 +51,7 @@ export function App (): JSX.Element {
           <Route path="/simcards/crearMovimiento" element={<CreaMovimientosSim /> } />
         </Route>
 
-        <Route path="*" element={<NotFound />} />
+        <Route path="*" element={<NotFound />} /> */}
       </Routes>
     </>
   )

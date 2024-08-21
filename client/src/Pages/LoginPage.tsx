@@ -1,9 +1,9 @@
 import { MessageDisplay } from '../components/ui/MessagesDisplay'
 import { Label, Button, Input, Loading } from '../components/ui'
-import { useLogin } from '../hooks/useLogin'
 import { Image, LockIcon, UserIcon } from '../components/icons'
+import { useLogin } from '../hooks/useLogin'
 
-export function LoginPage (): JSX.Element {
+function LoginPage (): JSX.Element {
   const { setPassword, setUsername, handleSubmit, error, loading, message } = useLogin()
 
   return (
@@ -42,3 +42,5 @@ export function LoginPage (): JSX.Element {
     </section>
   )
 }
+
+export default LoginPage
