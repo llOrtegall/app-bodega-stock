@@ -6,15 +6,15 @@ interface InterfaceAuthContext {
   setUser: React.Dispatch<React.SetStateAction<User>>
 }
 
-
+const UserInitialState: User = { id: '', names: '', lastnames: '', username: '', email: '', company: '', process: '', sub_process: '', app: 'bodega-stock' }
 
 const AuthContext = createContext<InterfaceAuthContext | undefined>({
-  user: { id: '', names: '', lastnames: '', username: '', email: '', company: '', process: '', sub_process: '', app: 'bodega-stock' },
-  setUser: () => { }
+  user: UserInitialState,
+  setUser: () => {}
 })
 
 export const AuthProvider = ({ children }:{ children: React.ReactNode }) => {
-  const [user, setUser] = useState<User>({ id: '', names: '', lastnames: '', username: '', email: '', company: '', process: '', sub_process: '', app: 'bodega-stock' })
+  const [user, setUser] = useState<User>(UserInitialState)
 
   return (
     <AuthContext.Provider value={{ user, setUser }}>

@@ -9,3 +9,8 @@ export interface User {
   sub_process: string
   app: 'bodega-stock'
 }
+
+export interface UserLogin {
+  message: string,
+  usuario: User
+}

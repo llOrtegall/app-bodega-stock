@@ -16,8 +16,10 @@ import LoginPage from './Pages/LoginPage'
 export function App (): JSX.Element {
   const { user } = useAuth()
 
-  const isAdminOrAux = !(user == null) && (user.rol === 'Administrador' || user.rol === 'Aux Administrativo')
-  const isAdminOrCoord = !(user == null) && (user.rol === 'Administrador' || user.rol === 'Coordinador Soporte')
+  // const isAdminOrAux = !(user == null) && (user.rol === 'Administrador' || user.rol === 'Aux Administrativo')
+  // const isAdminOrCoord = !(user == null) && (user.rol === 'Administrador' || user.rol === 'Coordinador Soporte')
+
+  console.log(user);
 
   return (
     <>
