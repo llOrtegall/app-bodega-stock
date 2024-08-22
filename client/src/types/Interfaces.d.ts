@@ -7,7 +7,7 @@ export interface User {
   company: string
   process: string
   sub_process: string
-  app: 'bodega-stock'
+  app: 'bodegastock'
 }
 
 export interface UserLogin {
