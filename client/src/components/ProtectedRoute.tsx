@@ -10,7 +10,6 @@ interface ProtectedRouteProps {
 
 export const ProtectedRoute: FC<ProtectedRouteProps> = ({ isAllowed, redirectTo = '/' }) => {
   const { user } = useAuth()
-  const empresa = user.empresa
 
   if (!(isAllowed ?? false)) {
     return <Navigate to={redirectTo} />
@@ -27,7 +26,7 @@ export const ProtectedRoute: FC<ProtectedRouteProps> = ({ isAllowed, redirectTo 
 
       <div className="text-black absolute bottom-0 left-0 ">
         <p className="font-semibold dark:text-white">Database:
-          <span className="text-red-500"> {empresa} </span>
+          <span className="text-red-500"> {user.company} </span>
         </p>
       </div>
     </>

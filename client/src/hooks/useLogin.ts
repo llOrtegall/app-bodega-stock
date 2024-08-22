@@ -1,7 +1,7 @@
-import { useState } from 'react'
-import axios, { AxiosResponse } from 'axios'
-import { UserLogin } from '../types/Interfaces'
+import { LOGIN_URL, APP_NAME } from '../utils/constans'
 import { useAuth } from '../Auth/AuthContext'
+import { useState } from 'react'
+import axios from 'axios'
 
 interface UseLoginReturn {
   username: string
@@ -15,23 +15,18 @@ export function useLogin(): UseLoginReturn {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
-  const { setUser } = useAuth()
+  const { setIsAuthenticated } = useAuth()
 
   const handleSubmit = (ev: React.FormEvent): void => {
     ev.preventDefault()
 
-    axios.post('http://localhost:4040/api/v1/login', { username, password, app: 'bodega-stock' })
-      .then((response: AxiosResponse<UserLogin>) => {
-        if (response.status === 200) {
-          setUser(response.data.usuario)
+    axios.post(`${LOGIN_URL}/login`, { username, password, app: APP_NAME })
+      .then(res => {
+        if( res.status === 200 ) {
+          setIsAuthenticated(true)
         }
       })
-
-
-
-
       .catch(err => console.log(err))
-      .finally(() => console.log('finally'))
   }
 
   return { username, setUsername, password, setPassword, handleSubmit }

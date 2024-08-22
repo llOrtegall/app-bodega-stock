@@ -1,6 +1,7 @@
 import { ProtectedRoute } from './components/ProtectedRoute'
 import { Routes, Route } from 'react-router-dom'
 import { useAuth } from './Auth/AuthContext'
+import axios from 'axios'
 
 import { CrearSimcard, VerSimcards, AsignarSimcards, CreaMovimientosSim } from './Pages/Simcards'
 import { CrearMovimiento, DesatalleMovimiento, ShowMovimientos } from './Pages/Movimientos'
@@ -8,13 +9,18 @@ import { AsignItemsToBodega, CrearItems, DetalleItem, VerItems } from './Pages/I
 import { CrearBodega, DetalleBodega, ShowBodegas } from './Pages/Bodega'
 import { NotFound, HomePage } from './Pages'
 
+axios.defaults.withCredentials = true
+
 import LoginPage from './Pages/LoginPage'
 
-// axios.defaults.baseURL = '/api'
-// axios.defaults.baseURL = 'http://localhost:4040/api'
 
-export function App (): JSX.Element {
-  const { user } = useAuth()
+
+export function App(): JSX.Element {
+  const { user, isAuthenticated } = useAuth()
+
+  if (!isAuthenticated) {
+    return <LoginPage />
+  }
 
   // const isAdminOrAux = !(user == null) && (user.rol === 'Administrador' || user.rol === 'Aux Administrativo')
   // const isAdminOrCoord = !(user == null) && (user.rol === 'Administrador' || user.rol === 'Coordinador Soporte')
@@ -24,10 +30,10 @@ export function App (): JSX.Element {
   return (
     <>
       <Routes>
-        <Route path="/" element={<LoginPage />} />
+        {/* <Route path="/" element={<LoginPage />} /> */}
 
-        {/* <Route element={<ProtectedRoute isAllowed={!(user == null)} redirectTo="/" />}>
-          <Route index path="/home" element={<HomePage />} />
+        <Route element={<ProtectedRoute isAllowed={!(user == null)} redirectTo="/" />}>
+          <Route index path='/' element={<HomePage />} />
           <Route path="/items/verItems" element={<VerItems />} />
           <Route path="/movimientos" element={<ShowMovimientos />} />
           <Route path="/items/verItem/:id" element={<DetalleItem />} />
@@ -37,23 +43,23 @@ export function App (): JSX.Element {
           <Route path="/movimientos/detalle/:id" element={<DesatalleMovimiento />} />
         </Route>
 
-        <Route element={<ProtectedRoute isAllowed={isAdminOrAux} redirectTo="/home" />}>
+        {/* <Route element={<ProtectedRoute isAllowed={isAdminOrAux} redirectTo='/' />}>
           <Route path="/items/crearItems" element={<CrearItems />} />
           <Route path="/items/asignarItems" element={<AsignItemsToBodega />} />
         </Route>
 
-        <Route element={<ProtectedRoute isAllowed={isAdminOrAux} redirectTo="/home" />}>
+        <Route element={<ProtectedRoute isAllowed={isAdminOrAux} redirectTo='/' />}>
           <Route path="/bodega/crearBodega" element={<CrearBodega />} />
           <Route path="/bodega/crearMovimiento" element={<CrearMovimiento />} />
         </Route>
 
-        <Route element={<ProtectedRoute isAllowed={isAdminOrCoord} redirectTo="/home" />}>
+        <Route element={<ProtectedRoute isAllowed={isAdminOrCoord} redirectTo='/' />}>
           <Route path="/simcards/crearSimcard" element={<CrearSimcard />} />
           <Route path="/simcards/asignarSimcards" element={<AsignarSimcards />} />
           <Route path="/simcards/crearMovimiento" element={<CreaMovimientosSim /> } />
-        </Route>
+        </Route> */}
 
-        <Route path="*" element={<NotFound />} /> */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   )

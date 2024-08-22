@@ -4,12 +4,9 @@ import { useAuth } from '../Auth/AuthContext'
 
 export const HomePage = (): JSX.Element => {
   const { user } = useAuth()
-  const empresa = user.empresa
 
-  console.log(empresa);
-  
   return (
-    empresa !== 'Multired' && empresa !== 'Servired'
+    user.company !== 'Multired' && user.company !== 'Servired'
       ? <CambiarCompany />
       : <Dashboard />
 
