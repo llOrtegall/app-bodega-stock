@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react'
 export const GraficoSistemas = (): JSX.Element => {
   const [data, setData] = useState<ArrayHardware>([])
   const { user } = useAuth()
-  const company = user.empresa
+  const company = user.company
 
   useEffect(() => {
     void getHardware(company)
@@ -54,12 +54,12 @@ export const GraficoSistemas = (): JSX.Element => {
         className="" data={value} onValueChange={(v) => v} />
 
       <List className=''>
-        {value.map((item, index) => (
+        { value.map((item, index) => (
           <ListItem key={index}>
             <span>{item.name}</span>
             <span>{item.count}</span>
           </ListItem>
-        ))}
+        )) }
       </List>
     </Card>
   )
