@@ -42,7 +42,7 @@ function CalloutComp(): JSX.Element {
   const [notFound, setNotFound] = useState<string[]>([])
 
   const { user } = useAuth()
-  const company = user.company
+  const company = user?.company!
 
   const definaBodega = company === 'Multired' ? () => '65aa83481383faff659d4d58' : () => '65c3d544f06f36524a98e72d'
 

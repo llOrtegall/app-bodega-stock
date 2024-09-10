@@ -17,8 +17,8 @@ export function CreaMovimientosSim(): JSX.Element {
   const [bodegaDestino, setBodegaDestino] = useState<BodegaWithSims>(initialState)
 
   const { user } = useAuth()
-  const nombres = user.nombres + ' ' + user.apellidos
-  const company = user.empresa
+  const nombres = user?.names + ' ' + user?.lastnames
+  const company = user?.company
 
   const [cartSims, setCartSims] = useState<string[]>([])
   const [cartSims2, setCartSims2] = useState<string[]>([])

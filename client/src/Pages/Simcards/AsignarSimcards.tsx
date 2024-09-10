@@ -12,7 +12,7 @@ import { useAuth } from '../../Auth/AuthContext'
 
 export function AsignarSimcards (): JSX.Element {
   const { user } = useAuth()
-  const company = user.empresa
+  const company = user?.company!
 
   const [simConBodega, setSimConBodega] = useState<SimcardWithBodega[]>([])
   const [bodegas, setBodegas] = useState<Bodegas>([])

@@ -21,7 +21,7 @@ export function RenderBodega({ fun, sendBodega, renderInfo, title, cart }: Props
   const { searchSimcard, setSearchSimcard, filteredSimcards } = useFilterSimcards(renderInfo?.simcards || [])
 
   const { user } = useAuth()
-  const company = user.empresa
+  const company = user?.company!
 
   const handleSubmit = (ev: { preventDefault: () => void }) => {
     ev.preventDefault()

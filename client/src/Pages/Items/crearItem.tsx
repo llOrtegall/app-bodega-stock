@@ -8,7 +8,7 @@ import { useState } from 'react'
 
 export function CrearItems(): JSX.Element {
   const { user } = useAuth()
-  const company = user.empresa
+  const company = user?.company!
   const [message, setMessage] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')

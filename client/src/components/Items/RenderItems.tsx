@@ -2,7 +2,6 @@ import { type ItemsArray } from '../../types/Item'
 import { useNavigate } from 'react-router-dom'
 import { LockIcon } from '../icons'
 import { Button } from '../ui'
-import { API_URL } from '../../utils/constans'
 
 interface Props {
   items: ItemsArray

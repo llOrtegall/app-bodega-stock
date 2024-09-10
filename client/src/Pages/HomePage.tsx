@@ -6,7 +6,7 @@ export const HomePage = (): JSX.Element => {
   const { user } = useAuth()
 
   return (
-    user.company !== 'Multired' && user.company !== 'Servired'
+    user?.company !== 'Multired' && user?.company !== 'Servired'
       ? <CambiarCompany />
       : <Dashboard />
 

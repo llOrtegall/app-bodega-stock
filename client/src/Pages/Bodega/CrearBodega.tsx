@@ -6,7 +6,7 @@ import { useState } from 'react'
 
 export function CrearBodega (): JSX.Element {
   const { user } = useAuth()
-  const company = user.empresa
+  const company = user?.company!
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
 

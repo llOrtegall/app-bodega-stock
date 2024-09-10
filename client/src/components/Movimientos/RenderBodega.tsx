@@ -18,7 +18,7 @@ interface Props {
 export function RenderBodega({ title, fun, cart, renderInfo, sendBodega }: Props): JSX.Element {
   const [sucursal, setSucursal] = useState('')
   const { user } = useAuth()
-  const company = user.empresa
+  const company = user?.company!
 
   console.log(renderInfo);
   

@@ -18,8 +18,8 @@ export function CrearMovimiento() {
   const [bodegaDestino, setBodegaDestino] = useState<BodegaWithItems>(initialState)
 
   const { user } = useAuth()
-  const nombres = user.nombres + ' ' + user.apellidos
-  const company = user.empresa
+  const nombres = user?.names! + ' ' + user?.lastnames!
+  const company = user?.company!
 
   const [descripcion, setDescripcion] = useState<string>('') 
   const [incidente, setIncidente] = useState<string>('')

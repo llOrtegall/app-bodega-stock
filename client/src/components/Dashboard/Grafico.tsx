@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react'
 export const GraficoSistemas = (): JSX.Element => {
   const [data, setData] = useState<ArrayHardware>([])
   const { user } = useAuth()
-  const company = user.company
+  const company = user?.company!
 
   useEffect(() => {
     void getHardware(company)

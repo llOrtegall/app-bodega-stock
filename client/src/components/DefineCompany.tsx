@@ -1,7 +1,7 @@
 import { useAuth } from '../Auth/AuthContext'
 
 export function CambiarCompany (): JSX.Element {
-  const { setUser } = useAuth()
+  const {  setUser } = useAuth()
 
   return (
     <>
@@ -17,7 +17,7 @@ export function CambiarCompany (): JSX.Element {
             <span className="font-medium">Espera Antes De Continuar !</span> Tú cuenta se encuentra ligada a 2 Empresas
           </div>
           <select className='p-2 border rounded-lg text-blue-700 font-semibold cursor-pointer'
-            onChange={(ev) => setUser(prev => ({ ...prev, company: ev.target.value }))}>
+            onChange={(ev) => setUser(prev => ({ ...prev, company: ev.target.value }))} >
             
             <option className="text-black font-semibold">Seleccione una empresa</option>
             <option value='Servired' className="font-bold ">Servired</option>

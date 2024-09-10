@@ -6,7 +6,6 @@ import { type Bodegas } from '../../types/Bodega'
 import { useAuth } from '../../Auth/AuthContext'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { API_URL } from '../../utils/constans'
 
 export function ShowBodegas (): JSX.Element {
   const [bodegas, setBodegas] = useState<Bodegas>([])
