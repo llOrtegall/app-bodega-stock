@@ -2,7 +2,6 @@ import { connect } from '../connections/infoHardWare.js'
 
 export const getHardWareByActivo = async (req, res) => {
   const { activo } = req.body
-  console.log(activo)
   try {
     const pool = connect()
       const [response] = await pool.query(`select * from accountinfo ac, hardware hr WHERE ac.TAG like '%${activo}%' and ac.HARDWARE_ID = hr.ID;`)
@@ -15,9 +14,7 @@ export const getHardWareByActivo = async (req, res) => {
 }
 
 export const getHardWare = async (req, res) => {
-  console.log(req.params);
-  const { company } = req.params
-  console.log(company);
+ const { company } = req.params
   try {
     const pool = connect()
     if(company === 'Multired'){
@@ -33,6 +30,7 @@ export const getHardWare = async (req, res) => {
     }
     
   } catch (error) {
-    
+    console.log(error);
+    return res.status(500).json('Error al obtener la información de hardware')
   }
 }
