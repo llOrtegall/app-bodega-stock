@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react'
 
 export function DetalleBodega(): JSX.Element {
   const { user } = useAuth()
-  const company = user.empresa
+  const company = user?.company!
   const { id } = useParams()
 
   const [bodega, setBodega] = useState<BodegaIntIS>()

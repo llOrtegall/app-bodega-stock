@@ -9,7 +9,7 @@ import { Input, Label } from '../../components/ui'
 
 export function VerSimcards(): JSX.Element {
   const { user } = useAuth()
-  const company = user.empresa
+  const company = user?.company!
   const [simcardsConBodega, setSimcardsConBodega] = useState<SimcardsArray>([])
   useEffect(() => {
     simcardsBodegas(company)

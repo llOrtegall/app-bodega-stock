@@ -6,11 +6,12 @@ import { type Bodegas } from '../../types/Bodega'
 import { useAuth } from '../../Auth/AuthContext'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { API_URL } from '../../utils/constans'
 
 export function ShowBodegas (): JSX.Element {
   const [bodegas, setBodegas] = useState<Bodegas>([])
   const { user } = useAuth()
-  const company = user.empresa
+  const company = user?.company!
 
   const { filteredBodegas, searchBodega, setSearchBodega } = useFiltersBodegas(bodegas)
 
@@ -86,7 +87,8 @@ export function ShowBodegas (): JSX.Element {
               </article>
 
               <div>
-                <Link className='w-full shadow-lg bg-blue-600 p-2 rounded-md font-semibold text-white hover:bg-green-500 transition-all duration-300 ease-in-out' to={`/bodega/detalle/${bodega._id}`} key={bodega._id}>Ver Info</Link>
+                <Link className='w-full shadow-lg bg-blue-600 p-2 rounded-md font-semibold text-white hover:bg-green-500 transition-all duration-300 ease-in-out' 
+                  to={`/bodega/detalle/${bodega._id}`} key={bodega._id}>Ver Info</Link>
               </div>
 
             </section>
