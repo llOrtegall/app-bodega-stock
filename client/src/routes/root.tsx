@@ -2,9 +2,9 @@ import { useAuth } from "../Auth/AuthContext";
 import LoginPage from "../Pages/LoginPage";
 
 const Root = () => {
-  const { isAuthenticated } = useAuth()
+  const { isAuthenticated, user } = useAuth()
 
-  if (!isAuthenticated) {
+  if (!isAuthenticated && user == null) {
     return <LoginPage />
   }
 
