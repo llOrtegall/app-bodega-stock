@@ -1,13 +1,10 @@
 import { Card, DonutChart, Title, List, ListItem } from '@tremor/react'
 import { getHardware } from '../../services/Hardware.services'
 import { type ArrayHardware } from '../../types/hardware'
-import { useAuth } from '../../Auth/AuthContext'
 import { useEffect, useState } from 'react'
 
-export const GraficoSistemas = (): JSX.Element => {
+export const GraficoSistemas = ({ company }: { company: string }): JSX.Element => {
   const [data, setData] = useState<ArrayHardware>([])
-  const { user } = useAuth()
-  const company = user?.company!
 
   useEffect(() => {
     void getHardware(company)

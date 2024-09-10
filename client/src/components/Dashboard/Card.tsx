@@ -2,7 +2,6 @@ import { getDetailBodegaById } from '../../services/Bodegas.services'
 import { type BodegaIntIS } from '../../types/Bodega'
 import { RiAlarmWarningLine } from '@remixicon/react'
 import { Callout, Card, Title } from '@tremor/react'
-import { useAuth } from '../../Auth/AuthContext'
 import { useEffect, useState } from 'react'
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
@@ -37,12 +36,9 @@ function CountItems({ items }: { items: BodegaIntIS | undefined, ArrayItemsNames
   return { notFound, lessThanTwo }
 }
 
-function CalloutComp(): JSX.Element {
+function CalloutComp({ company }: { company: string }): JSX.Element {
   const [lessThanTwo, setLessThanTwo] = useState<string[]>([])
   const [notFound, setNotFound] = useState<string[]>([])
-
-  const { user } = useAuth()
-  const company = user?.company!
 
   const definaBodega = company === 'Multired' ? () => '65aa83481383faff659d4d58' : () => '65c3d544f06f36524a98e72d'
 

@@ -4,12 +4,12 @@ import ButtonActiComp from './NavLinks/ButtonLinkComp'
 import { useTheme } from '../contexts/ThemeContext'
 import { CloseIcon, HomeIcon } from './icons'
 import { useAuth } from '../Auth/AuthContext'
-import { Image } from './icons/Image'
 import { useState, useRef } from 'react'
 import { Switch } from '@tremor/react'
+import { Image } from './icons/Image'
 import { NavItem } from './ui'
 
-export function NavBar(): JSX.Element {
+export const  NavBar = () => {
   const [activeComponent, setActiveComponent] = useState<string | null>(null)
   const { toggleTheme } = useTheme()
   const navRef = useRef<HTMLDivElement>(null)

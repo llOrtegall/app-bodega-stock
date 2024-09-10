@@ -8,19 +8,23 @@ interface InterfaceAuthContext {
   setUser: React.Dispatch<React.SetStateAction<User | null>>
   isAuthenticated: boolean
   setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
+  company: string
+  setCompany: React.Dispatch<React.SetStateAction<string>>
 }
-
 
 const AuthContext = createContext<InterfaceAuthContext>({
   user: null,
   setUser: () => {},
   isAuthenticated: false,
-  setIsAuthenticated: () => {}
+  setIsAuthenticated: () => {},
+  company: '',
+  setCompany: () => {}
 })
 
 export const AuthProvider = ({ children }:{ children: React.ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)
   const [user, setUser] = useState<User | null>(null)
+  const [company, setCompany] = useState<string>('')
 
   useEffect(() => {
     const cookie = document.cookie
@@ -47,7 +51,7 @@ export const AuthProvider = ({ children }:{ children: React.ReactNode }) => {
   }, [isAuthenticated])
 
   return (
-    <AuthContext.Provider value={{ user, setUser, isAuthenticated, setIsAuthenticated }}>
+    <AuthContext.Provider value={{ user, setUser, isAuthenticated, setIsAuthenticated, company, setCompany }}>
       {children}
     </AuthContext.Provider>
   )

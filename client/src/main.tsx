@@ -3,8 +3,9 @@ import { AuthProvider } from './Auth/AuthContext.tsx'
 import {  RouterProvider } from 'react-router-dom'
 import { createRoot } from 'react-dom/client'
 
-import './index.css'
 import { router } from './routes'
+
+import './index.css'
 
 const rootElement = document.getElementById('root')!
 
