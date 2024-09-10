@@ -23,8 +23,6 @@ export function App(): JSX.Element {
   const isAdminOrAux = !(user == null) && (user.process === 'Administración')
   const isAdminOrCoord = !(user == null) && (user.process === 'Administración')
 
-  console.log(user);
-
   return (
     <>
       <Routes>

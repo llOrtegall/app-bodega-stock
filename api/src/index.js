@@ -14,7 +14,8 @@ import cors from 'cors'
 
 const ACCEPTED_ORIGINS = [
   'http://localhost:3000',
- 'http://172.20.1.110:5173'
+  'http://localhost:5173',
+  'http://172.20.1.110:5173'
 ]
 
 const app = express()
@@ -33,16 +34,16 @@ app.use(cookieParser())
 app.use(express.json())
 
 // TODO: Metodos En Usuarios Login
-app.use('/api', LoginUser)
+app.use('/api/v1', LoginUser)
 
 // TODO: Métodos Bodega MongoDB
-app.use('/api', ItemsMongoDB)
-app.use('/api', BodegasMongoDB)
-app.use('/api', MovimientosMongoDB)
-app.use('/api', SimcardsMongoDB)
+app.use('/api/v1', ItemsMongoDB)
+app.use('/api/v1', BodegasMongoDB)
+app.use('/api/v1', MovimientosMongoDB)
+app.use('/api/v1', SimcardsMongoDB)
 
 // TODO: Métodos Información Hardware OCS Inventory
-app.use('/api', InfoHardRoutes)
+app.use('/api/v1', InfoHardRoutes)
 
 app.listen(PORT, () => {
   console.log(`Server Iniciado En El Puerto http://localhost:${PORT}`)

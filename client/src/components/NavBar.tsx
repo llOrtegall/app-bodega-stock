@@ -13,7 +13,7 @@ export function NavBar(): JSX.Element {
   const [activeComponent, setActiveComponent] = useState<string | null>(null)
   const { toggleTheme } = useTheme()
   const navRef = useRef<HTMLDivElement>(null)
-  const { user, logout } = useAuth()
+  const { user } = useAuth()
 
   useOutsideClick(navRef, () => { setActiveComponent(null) })
 
@@ -28,7 +28,7 @@ export function NavBar(): JSX.Element {
 
       <section className="flex items-center gap-4">
 
-        <NavItem to="/home" title="Inicio / Home">
+        <NavItem to="/" title="Inicio / Home">
           <figure className='text-sm xl:text-base 1xl:text-lg 2xl:text-xl 3xl:text-2xl'>
             <HomeIcon />
           </figure>
@@ -40,20 +40,20 @@ export function NavBar(): JSX.Element {
 
         <article className="relative z-30">
           <ButtonActiComp id='Articulos' handleClick={handleClick} />
-          {activeComponent === 'Articulos' && <Articulos rol={user.rol} close={setActiveComponent} />}
+          {activeComponent === 'Articulos' && <Articulos rol={user?.process} close={setActiveComponent} />}
         </article>
 
         <article className="relative z-30">
           <ButtonActiComp id='Bodegas' handleClick={handleClick} />
-          {activeComponent === 'Bodegas' && <Bodegas rol={user.rol} close={setActiveComponent} />}
+          {activeComponent === 'Bodegas' && <Bodegas rol={user?.process} close={setActiveComponent} />}
         </article>
 
         <article className="relative z-30">
           <ButtonActiComp id='Simcards' handleClick={handleClick} />
-          {activeComponent === 'Simcards' && <Simcards rol={user.rol} close={setActiveComponent} />}
+          {activeComponent === 'Simcards' && <Simcards rol={user?.process} close={setActiveComponent} />}
         </article>
 
-        <article className="pt-1 cursor-pointer" onClick={logout} title="Cerrar Sesion">
+        <article className="pt-1 cursor-pointer" title="Cerrar Sesion">
           <CloseIcon />
         </article>
 
