@@ -11,7 +11,7 @@ interface InterfaceAuthContext {
 }
 
 
-const AuthContext = createContext<InterfaceAuthContext | undefined>({
+const AuthContext = createContext<InterfaceAuthContext>({
   user: null,
   setUser: () => {},
   isAuthenticated: false,
