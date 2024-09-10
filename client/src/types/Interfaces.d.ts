@@ -8,6 +8,8 @@ export interface User {
   process: string
   sub_process: string
   app: 'bodegastock'
+  exp: number
+  iat: number
 }
 
 export interface UserLogin {

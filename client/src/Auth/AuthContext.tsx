@@ -1,19 +1,18 @@
 import { createContext, useContext, useEffect, useState } from 'react'
+import { APP_NAME, LOGIN_URL } from '../utils/constans'
 import { type User } from '../types/Interfaces'
 import axios from 'axios'
-import { APP_NAME, LOGIN_URL } from '../utils/constans'
 
 interface InterfaceAuthContext {
-  user: User
-  setUser: React.Dispatch<React.SetStateAction<User>>
+  user: User | null
+  setUser: React.Dispatch<React.SetStateAction<User | null>>
   isAuthenticated: boolean
   setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const UserInitialState: User = { id: '', names: '', lastnames: '', username: '', email: '', company: '', process: '', sub_process: '', app: 'bodegastock'}
 
 const AuthContext = createContext<InterfaceAuthContext | undefined>({
-  user: UserInitialState,
+  user: null,
   setUser: () => {},
   isAuthenticated: false,
   setIsAuthenticated: () => {}
@@ -21,14 +20,14 @@ const AuthContext = createContext<InterfaceAuthContext | undefined>({
 
 export const AuthProvider = ({ children }:{ children: React.ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)
-  const [user, setUser] = useState<User>(UserInitialState)
+  const [user, setUser] = useState<User | null>(null)
 
   useEffect(() => {
     const cookie = document.cookie
 
     if (!cookie && cookie.split('=')[0] !== APP_NAME) {
       setIsAuthenticated(false)
-      setUser(UserInitialState)
+      setUser(null)
       return
     }
 
@@ -42,7 +41,7 @@ export const AuthProvider = ({ children }:{ children: React.ReactNode }) => {
       .catch(error => {
         if (error.response.status === 401) {
           setIsAuthenticated(false)
-          setUser(UserInitialState)
+          setUser(null)
         }
       })
   }, [isAuthenticated])
