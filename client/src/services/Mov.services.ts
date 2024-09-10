@@ -1,8 +1,9 @@
 import axios from 'axios'
+import { API_URL } from '../utils/constans'
 
 export const getMovimientos = async (company: string): Promise<any> => {
   try {
-    const MoviResponse = await axios.get(`/getMovimientos/${company}`)
+    const MoviResponse = await axios.get(`${API_URL}/getMovimientos/${company}`)
     return MoviResponse.data
   } catch (error) {
     console.log(error)
@@ -12,7 +13,7 @@ export const getMovimientos = async (company: string): Promise<any> => {
 
 export const getMovimiento = async (company: string, id: string): Promise<any> => {
   try {
-    const MoviResponse = await axios.get(`/movimiento/${company}/${id}`)
+    const MoviResponse = await axios.get(`${API_URL}/movimiento/${company}/${id}`)
     return MoviResponse.data
   } catch (error) {
     console.log(error)

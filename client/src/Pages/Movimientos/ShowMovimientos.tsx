@@ -5,9 +5,7 @@ import { useAuth } from '../../Auth/AuthContext'
 
 export function ShowMovimientos(): JSX.Element {
   const { user } = useAuth()
-  const company = user.empresa
-
-  const { busMov, setBusMov, sortOrder, sortedMovimientos, toggleSortOrder, loading } = useMovimientos(company)
+  const { busMov, setBusMov, sortOrder, sortedMovimientos, toggleSortOrder, loading } = useMovimientos(user?.company!)
 
   return (
     loading

@@ -13,25 +13,21 @@ axios.defaults.withCredentials = true
 
 import LoginPage from './Pages/LoginPage'
 
-
-
 export function App(): JSX.Element {
   const { user, isAuthenticated } = useAuth()
 
-  if (!isAuthenticated) {
+  if (!isAuthenticated && user == null) {
     return <LoginPage />
   }
 
-  // const isAdminOrAux = !(user == null) && (user.rol === 'Administrador' || user.rol === 'Aux Administrativo')
-  // const isAdminOrCoord = !(user == null) && (user.rol === 'Administrador' || user.rol === 'Coordinador Soporte')
+  const isAdminOrAux = !(user == null) && (user.process === 'Administración')
+  const isAdminOrCoord = !(user == null) && (user.process === 'Administración')
 
   console.log(user);
 
   return (
     <>
       <Routes>
-        {/* <Route path="/" element={<LoginPage />} /> */}
-
         <Route element={<ProtectedRoute isAllowed={!(user == null)} redirectTo="/" />}>
           <Route index path='/' element={<HomePage />} />
           <Route path="/items/verItems" element={<VerItems />} />
@@ -43,7 +39,7 @@ export function App(): JSX.Element {
           <Route path="/movimientos/detalle/:id" element={<DesatalleMovimiento />} />
         </Route>
 
-        {/* <Route element={<ProtectedRoute isAllowed={isAdminOrAux} redirectTo='/' />}>
+         <Route element={<ProtectedRoute isAllowed={isAdminOrAux} redirectTo='/' />}>
           <Route path="/items/crearItems" element={<CrearItems />} />
           <Route path="/items/asignarItems" element={<AsignItemsToBodega />} />
         </Route>
@@ -57,7 +53,7 @@ export function App(): JSX.Element {
           <Route path="/simcards/crearSimcard" element={<CrearSimcard />} />
           <Route path="/simcards/asignarSimcards" element={<AsignarSimcards />} />
           <Route path="/simcards/crearMovimiento" element={<CreaMovimientosSim /> } />
-        </Route> */}
+        </Route>
 
         <Route path="*" element={<NotFound />} />
       </Routes>
