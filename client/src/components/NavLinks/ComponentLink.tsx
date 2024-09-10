@@ -18,7 +18,7 @@ function NavLinkItem({ link, title, rol, fun, validateRol }: PropNavLinks): JSX.
       {
         validateRol
           ? (
-            rol === 'Coordinador Soporte' || rol === 'Administrador' || rol === 'Aux administrativo'
+            rol === 'Coordinador Soporte' || rol === 'Administración' || rol === 'Aux administrativo'
               ? <figure className='text-green-500 rounded-full'><SuccesIcon size='w-5 xl:w-6 2xl:w-7 3xl:w-8'/></figure>
               : <figure className='text-red-500 rounded-full'><LockIcon size='w-5 xl:w-6 2xl:w-7 3xl:w-8'/></figure>
           )

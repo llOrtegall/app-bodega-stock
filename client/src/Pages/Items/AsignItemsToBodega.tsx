@@ -11,7 +11,7 @@ import { Bodegas } from '../../types/Bodega';
 export function AsignItemsToBodega() {
   const { user } = useAuth()
   const [getDataItem, setDataItem] = useState(false)
-  const { items, loading } = useItems({ company: user.empresa, active: getDataItem })
+  const { items, loading } = useItems({ company: user?.company!, active: getDataItem })
   const { filteredItems, searchItems, setSearchItems } = useFiltersItems(items)
 
   const [carItems, setCarItems] = useState<string[]>([])
@@ -22,7 +22,7 @@ export function AsignItemsToBodega() {
 
   useEffect(() => {
     setTimeout(() => {
-      void getAllBodegas(user.empresa)
+      void getAllBodegas(user?.company!)
         .then(res => { setBodegas(res) })
     }, 1000)
   }, [])
@@ -47,7 +47,7 @@ export function AsignItemsToBodega() {
 
   const handleSubmit = (e: { preventDefault: () => void }): void => {
     e.preventDefault()
-    void addItemsToBodega(sucursalBodega, carItems, user.empresa)
+    void addItemsToBodega(sucursalBodega, carItems, user?.company!)
       .then(res => {
         setMessage(res.message)
         setCarItems([])

@@ -7,7 +7,7 @@ import { Loading } from '../../components/ui'
 
 export function VerItems(): JSX.Element {
   const { user } = useAuth()
-  const company = user.empresa
+  const company = user?.company!
 
   const { items, loading } = useItems({ company })
   const { filteredItems, searchItems, setSearchItems } = useFiltersItems(items)
@@ -21,7 +21,7 @@ export function VerItems(): JSX.Element {
           <FilterComponentItems search={searchItems} setSearch={setSearchItems} />
           <BottonExportItems items={filteredItems} />
         </article>
-        <RenderItems items={filteredItems} rol={user?.rol} />
+        <RenderItems items={filteredItems} rol={user?.process!} />
       </section>
   )
 }

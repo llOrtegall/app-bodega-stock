@@ -2,6 +2,7 @@ import { type ItemsArray } from '../../types/Item'
 import { useNavigate } from 'react-router-dom'
 import { LockIcon } from '../icons'
 import { Button } from '../ui'
+import { API_URL } from '../../utils/constans'
 
 interface Props {
   items: ItemsArray
@@ -43,7 +44,7 @@ export const RenderItems = ({ items, rol }: Props): JSX.Element => {
               </>
             }
             {
-              rol === 'Administrador' || rol === 'Aux Administrativa'
+              rol === 'Administración' || rol === 'Aux Administrativa'
                 ? <Button onClick={() => { navigate(`/items/verItem/${item._id}`, { state: { id: item._id } }) }} >Editar</Button>
                 : <figure className='text-red-500'><LockIcon size='5' /></figure>
             }
