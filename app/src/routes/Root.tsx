@@ -1,14 +1,16 @@
 import { useAuth } from "@/contexts/auth/AuthProvider";
-import MainLayout from "@/Layouts/MainLayout";
-import LoginPage from "@/pages/Login";
 
+import { lazy, Suspense } from "react";
+
+const LoginPage = lazy(() => import("@/pages/Login"));
+const MainLayout = lazy(() => import("@/Layouts/MainLayout"));
 
 export default function Root() {
   const { isAuthenticated } = useAuth();
 
   if (!isAuthenticated) {
-    return <LoginPage />;
+    return <Suspense fallback={<div>Loading...</div>}><LoginPage /></Suspense>;
   }
 
-  return <MainLayout />;
+  return <Suspense fallback={<div>Loading...</div>}><MainLayout /></Suspense>;
 }
