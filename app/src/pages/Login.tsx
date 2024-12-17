@@ -1,17 +1,23 @@
 import { VITE_LOGIN_URL, VITE_APP_NAME } from "@/config/enviroments"
 import { useTheme } from "@/contexts/theme/ThemeProvider"
+import { useAuth } from "@/contexts/auth/AuthProvider"
 import { Toaster } from '@/components/ui/sonner'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card } from "@/components/ui/card"
 import { FormEvent, useState } from "react"
+import { useNavigate } from "react-router"
 import { Sun, Moon } from "lucide-react"
 import { toast } from "sonner"
 import axios from "axios"
 
+
 function LoginPage() {
   const { setTheme, theme } = useTheme()
+  const { setIsAuthenticated } = useAuth()
+
+  const navigate = useNavigate()
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -20,7 +26,11 @@ function LoginPage() {
     ev.preventDefault()
 
     axios.post(`${VITE_LOGIN_URL}/login`, { username, password, app: VITE_APP_NAME })
-      .then((res) => console.log(res))
+      .then((res) => {
+        console.log(res);
+        setIsAuthenticated(true)
+        navigate('/')
+      })
       .catch((err) => {
         toast('Error al iniciar sesión', {
           description: err.response.data.message,

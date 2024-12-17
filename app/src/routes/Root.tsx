@@ -1,17 +1,14 @@
 import { useAuth } from "@/contexts/auth/AuthProvider";
-import { Outlet, Navigate } from "react-router";
+import MainLayout from "@/Layouts/MainLayout";
+import LoginPage from "@/pages/Login";
+
 
 export default function Root() {
   const { isAuthenticated } = useAuth();
 
   if (!isAuthenticated) {
-    return <Navigate to="/login" />;
+    return <LoginPage />;
   }
 
-  return (
-    <div>
-      <h1>React App</h1>
-      <Outlet />
-    </div>
-  );
+  return <MainLayout />;
 }

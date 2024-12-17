@@ -5,13 +5,16 @@ import { RoutesApp } from '@/routes/Index'
 import { StrictMode } from 'react'
 import axios from 'axios'
 import './index.css'
+import { AuthProvider } from './contexts/auth/AuthProvider'
 
 axios.defaults.withCredentials = true
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ThemeProvider>
-      <RouterProvider key={'app_v1'} router={RoutesApp} />
+      <AuthProvider>
+        <RouterProvider key={'app_v1'} router={RoutesApp} />
+      </AuthProvider>
     </ThemeProvider>
   </StrictMode>
 )
