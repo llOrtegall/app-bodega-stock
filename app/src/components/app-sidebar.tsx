@@ -1,28 +1,11 @@
+import { AudioWaveform, GalleryVerticalEnd, Boxes, Building2, Smartphone } from "lucide-react"
+import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail, } from "@/components/ui/sidebar"
 import * as React from "react"
-import {
-  AudioWaveform,
-  BookOpen,
-  Bot,
-  Command,
-  Frame,
-  GalleryVerticalEnd,
-  Map,
-  PieChart,
-  Settings2,
-  SquareTerminal,
-} from "lucide-react"
 
 import { NavMain } from "@/components/nav-main"
-import { NavProjects } from "@/components/nav-projects"
 import { NavUser } from "@/components/nav-user"
 import { TeamSwitcher } from "@/components/team-switcher"
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
-  SidebarHeader,
-  SidebarRail,
-} from "@/components/ui/sidebar"
+import { useAuth } from "@/contexts/auth/AuthProvider"
 
 // This is sample data.
 const data = {
@@ -33,128 +16,84 @@ const data = {
   },
   teams: [
     {
-      name: "Acme Inc",
+      name: "Multired",
       logo: GalleryVerticalEnd,
       plan: "Enterprise",
     },
     {
-      name: "Acme Corp.",
+      name: "Servired",
       logo: AudioWaveform,
       plan: "Startup",
-    },
-    {
-      name: "Evil Corp.",
-      logo: Command,
-      plan: "Free",
-    },
+    }
   ],
   navMain: [
     {
-      title: "Playground",
+      title: "Artículos",
       url: "#",
-      icon: SquareTerminal,
-      isActive: true,
+      icon: Boxes,
       items: [
         {
-          title: "History",
+          title: "Items (Activos - Insumos)",
           url: "#",
         },
         {
-          title: "Starred",
+          title: "Crear Items",
           url: "#",
         },
         {
-          title: "Settings",
+          title: "Asignar Items",
           url: "#",
         },
       ],
     },
     {
-      title: "Models",
+      title: "Bodegas",
       url: "#",
-      icon: Bot,
+      icon: Building2,
       items: [
         {
-          title: "Genesis",
+          title: "Bodegas ( Sucursales )",
           url: "#",
         },
         {
-          title: "Explorer",
+          title: "Crear Bodega ( Sucursal )",
           url: "#",
         },
         {
-          title: "Quantum",
+          title: "Crear Movimiento",
+          url: "#",
+        }
+      ],
+    },
+    {
+      title: "Simcards",
+      url: "#",
+      icon: Smartphone,
+      items: [
+        {
+          title: "Simcards",
+          url: "#",
+        },
+        {
+          title: "Crear Simcard",
+          url: "#",
+        },
+        {
+          title: "Asignar Simcard",
+          url: "#",
+        },
+        {
+          title: "Crear Mov... Simcard",
           url: "#",
         },
       ],
     },
-    {
-      title: "Documentation",
-      url: "#",
-      icon: BookOpen,
-      items: [
-        {
-          title: "Introduction",
-          url: "#",
-        },
-        {
-          title: "Get Started",
-          url: "#",
-        },
-        {
-          title: "Tutorials",
-          url: "#",
-        },
-        {
-          title: "Changelog",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Settings",
-      url: "#",
-      icon: Settings2,
-      items: [
-        {
-          title: "General",
-          url: "#",
-        },
-        {
-          title: "Team",
-          url: "#",
-        },
-        {
-          title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
-          url: "#",
-        },
-      ],
-    },
-  ],
-  projects: [
-    {
-      name: "Design Engineering",
-      url: "#",
-      icon: Frame,
-    },
-    {
-      name: "Sales & Marketing",
-      url: "#",
-      icon: PieChart,
-    },
-    {
-      name: "Travel",
-      url: "#",
-      icon: Map,
-    },
-  ],
+  ]
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { user } = useAuth()
+
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
@@ -162,10 +101,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
-        <NavProjects projects={data.projects} />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser user={user!} />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
