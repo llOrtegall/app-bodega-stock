@@ -4,8 +4,6 @@ import { ChevronRight, LayoutDashboard, SquareTerminal } from 'lucide-react'
 import { Items } from '@/types/interfaces'
 import { Link } from 'react-router'
 
-
-
 export function NavMain({ items }: { items: Items[] }) {
   return (
     <SidebarGroup>

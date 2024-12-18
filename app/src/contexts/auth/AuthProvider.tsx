@@ -8,6 +8,8 @@ interface IAuthContext {
   user: User | null
   setUser: Dispatch<SetStateAction<User | null>>
   setIsAuthenticated: Dispatch<SetStateAction<boolean>>
+  company: string
+  setCompany: Dispatch<SetStateAction<string>>
 }
 
 const AuthContext = createContext<IAuthContext | undefined>(undefined)
@@ -15,6 +17,7 @@ const AuthContext = createContext<IAuthContext | undefined>(undefined)
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [company, setCompany] = useState<string>('Multired')
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -33,10 +36,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           }
         })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated, user, setUser }}>
+    <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated, user, setUser, company, setCompany }}>
       {children}
     </AuthContext.Provider>
   )
