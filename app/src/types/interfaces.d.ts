@@ -34,6 +34,8 @@ export interface ActivoInsumo {
   placa: string
   serial: string
   estado: string
-  createdAt: string
-  updatedAt: string
+  createdAt?: string
+  updatedAt?: string
 }
+
+export type NewActivoInsumo = Omit<ActivoInsumo, '_id' | 'createdAt' | 'updatedAt'>
