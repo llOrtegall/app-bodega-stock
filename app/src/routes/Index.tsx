@@ -8,6 +8,8 @@ const Items = lazy(() => import("@/pages/articulos/Items"));
 const NewItem = lazy(() => import("@/pages/articulos/NewItem"));
 const AsignarItems = lazy(() => import("@/pages/articulos/AsignarItems"));
 const EditarItem = lazy(() => import("@/pages/articulos/EditarItem"));
+const MovimientosPage = lazy(() => import("@/pages/movimientos/Movimientos"));
+const MovDetalle = lazy(() => import("@/pages/movimientos/MovDetalle"));
 
 export const RoutesApp = createBrowserRouter([
   {
@@ -33,6 +35,14 @@ export const RoutesApp = createBrowserRouter([
       {
         path: 'editarItem/:id',
         element: <Suspense fallback={<div>Loading...</div>}>{<EditarItem />}</Suspense>
+      },
+      {
+        path: 'movimientos',
+        element: <Suspense fallback={<div>Loading...</div>}>{<MovimientosPage />}</Suspense>
+      },
+      {
+        path: 'movimiento/:id',
+        element: <Suspense fallback={<div>Loading...</div>}><MovDetalle /></Suspense>
       }
     ]
   }
