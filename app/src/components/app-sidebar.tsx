@@ -1,11 +1,13 @@
-import { AudioWaveform, GalleryVerticalEnd, Boxes, Building2, Smartphone } from "lucide-react"
+import { AudioWaveform, GalleryVerticalEnd, Boxes, Building2, Smartphone, Moon, Sun } from "lucide-react"
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail, } from "@/components/ui/sidebar"
 import * as React from "react"
 
+import { TeamSwitcher } from "@/components/team-switcher"
+import { useTheme } from "@/contexts/theme/ThemeProvider"
+import { useAuth } from "@/contexts/auth/AuthProvider"
 import { NavMain } from "@/components/nav-main"
 import { NavUser } from "@/components/nav-user"
-import { TeamSwitcher } from "@/components/team-switcher"
-import { useAuth } from "@/contexts/auth/AuthProvider"
+import { Button } from "./ui/button"
 
 // This is sample data.
 const data = {
@@ -34,15 +36,15 @@ const data = {
       items: [
         {
           title: "Items (Activos - Insumos)",
-          url: "#",
+          url: "showItems",
         },
         {
           title: "Crear Items",
-          url: "#",
+          url: "newItem",
         },
         {
           title: "Asignar Items",
-          url: "#",
+          url: "asignarItems",
         },
       ],
     },
@@ -93,6 +95,7 @@ const data = {
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { user } = useAuth()
+  const { theme, setTheme } = useTheme()
 
   return (
     <Sidebar collapsible="icon" {...props}>
@@ -102,6 +105,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarContent>
         <NavMain items={data.navMain} />
       </SidebarContent>
+      <Button className="mx-2" onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>
+        Cambiar Tema
+        {theme === 'light' ? <Moon size={24} /> : <Sun size={24} />}
+      </Button>
       <SidebarFooter>
         <NavUser user={user!} />
       </SidebarFooter>
