@@ -26,3 +26,16 @@ export interface Items {
   isActive?: boolean
   items?: SubItems[]
 }
+
+export interface ActivoInsumo {
+  _id: string
+  nombre: string
+  descripcion: string
+  placa: string
+  serial: string
+  estado: string
+  createdAt?: string
+  updatedAt?: string
+}
+
+export type NewActivoInsumo = Omit<ActivoInsumo, '_id' | 'createdAt' | 'updatedAt'>

@@ -55,7 +55,7 @@ const data = {
       items: [
         {
           title: "Bodegas ( Sucursales )",
-          url: "#",
+          url: "bodegas",
         },
         {
           title: "Crear Bodega ( Sucursal )",

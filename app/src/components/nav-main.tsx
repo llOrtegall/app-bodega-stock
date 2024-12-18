@@ -20,10 +20,12 @@ export function NavMain({ items }: { items: Items[] }) {
 
         {/* TODO: Alone Link Implement */}
         <SidebarMenuItem>
-          <SidebarMenuButton tooltip='Dashboard'>
-            <SquareTerminal />
-            <span>Movimientos</span>
-          </SidebarMenuButton>
+          <Link to='/movimientos'>
+            <SidebarMenuButton tooltip='Dashboard'>
+              <SquareTerminal />
+              <span>Movimientos</span>
+            </SidebarMenuButton>
+          </Link>
         </SidebarMenuItem>
 
         {items.map((item) => (

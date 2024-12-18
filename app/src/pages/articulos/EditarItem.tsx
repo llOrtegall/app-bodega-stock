@@ -4,47 +4,53 @@ import { OPTION_ITEMS_CREATED_AND_UPDATE } from '@/utils/constans'
 import { useAuth } from "@/contexts/auth/AuthProvider";
 import { VITE_API_URL } from "@/config/enviroments";
 import { Textarea } from "@/components/ui/textarea";
-import { NewActivoInsumo } from "@/types/interfaces";
+import { ActivoInsumo } from "@/types/interfaces";
 import { Button } from "@/components/ui/button";
+import { Link, useParams } from "react-router";
 import { Label } from "@radix-ui/react-label";
 import { Input } from "@/components/ui/input";
-import { FormEvent, useState } from "react";
-import { Link } from "react-router";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import axios from "axios";
 
-export default function NewItem() {
+export default function EditarItem() {
   const { company } = useAuth();
-
-  const initialItem: NewActivoInsumo = {
-    nombre: '',
-    descripcion: '',
-    estado: '',
-    placa: '',
-    serial: ''
-  }
+  const params = useParams();
+  const id = params.id ? params.id : '';
 
   const [isLoading, setIsLoading] = useState(false)
-  const [item, setItem] = useState<NewActivoInsumo>(initialItem)
+  const [item, setItem] = useState<ActivoInsumo | null>(null)
 
-  const handleSubmit = (event: FormEvent) => {
+  useEffect(() => {
+    axios.get(`${VITE_API_URL}/getItem/${company}/${id}`)
+      .then(response => {
+        setItem(response.data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }, [id, company]);
+
+  const handleSubmit = (event: { preventDefault: () => void }): void => {
     event.preventDefault()
+    const { _id, nombre, descripcion, estado, placa, serial } = item!
 
-    console.log(item);
-    axios.post(`${VITE_API_URL}/createItem`, { ...item, company })
-      .then((res) => {
-        console.log(res);
-        toast.success('Item creado correctamente')
-        setItem(initialItem)
+    const sendItem = { id: _id, nombre, descripcion, estado, placa, serial, company }
+
+    setIsLoading(true)
+
+    axios.patch(`${VITE_API_URL}/updateItem`, sendItem)
+      .then(res => {
+        if (res.status === 200) {
+          toast.success(res.data.message as string);
+          setIsLoading(false)
+        }
       })
-      .catch((err) => {
-        console.log(err);
-        toast.error('Error al crear el item', { description: err.response.data.error })
-      })
-      .finally(() => {
+      .catch(error => {
+        console.error(error);
+        toast.error('Error al actualizar', { description: error.response.data.error });
         setIsLoading(false)
-      })
-
+      });
   }
 
   return (
@@ -56,15 +62,15 @@ export default function NewItem() {
       </Link>
       <Card className="w-full max-w-2xl mx-auto">
         <CardHeader>
-          <CardTitle>Crear Un Nuevo Item [ Activo - Insumo ]</CardTitle>
+          <CardTitle>Información Item [ Activo - Insumo ]</CardTitle>
         </CardHeader>
         <form onSubmit={handleSubmit}>
           <CardContent className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <Label>Nombre</Label>
               <Select
-                value={item.nombre}
-                onValueChange={value => setItem({ ...item, nombre: value })}
+                value={item?.nombre}
+                onValueChange={value => setItem({ ...item!, nombre: value })}
               >
                 <SelectTrigger className="w-[280px]">
                   <SelectValue placeholder="Seleccione Item" />
@@ -79,8 +85,8 @@ export default function NewItem() {
               </Select>
               <Label>Estado</Label>
               <Select
-                value={item.estado}
-                onValueChange={value => setItem({ ...item, estado: value })}
+                value={item?.estado}
+                onValueChange={value => setItem({ ...item!, estado: value })}
               >
                 <SelectTrigger className="w-[180px]">
                   <SelectValue placeholder="Seleccionar estado" />
@@ -100,8 +106,8 @@ export default function NewItem() {
                 <Input
                   id="placa"
                   placeholder="MI-0001 | SA-0002"
-                  value={item.placa}
-                  onChange={ev => setItem({ ...item, placa: ev.target.value })}
+                  value={item?.placa}
+                  onChange={ev => setItem({ ...item!, placa: ev.target.value })}
                 />
               </div>
               <div className="space-y-2 w-full">
@@ -110,8 +116,8 @@ export default function NewItem() {
                   className="uppercase"
                   id="name"
                   placeholder="Serial o N° de referencia"
-                  value={item.serial}
-                  onChange={ev => setItem({ ...item, serial: ev.target.value })}
+                  value={item?.serial}
+                  onChange={ev => setItem({ ...item!, serial: ev.target.value })}
                 />
               </div>
             </article>
@@ -121,8 +127,8 @@ export default function NewItem() {
               <Textarea
                 id="descripcion"
                 placeholder="Marca, descripción o información adicional"
-                value={item.descripcion}
-                onChange={ev => setItem({ ...item, descripcion: ev.target.value })}
+                value={item?.descripcion}
+                onChange={ev => setItem({ ...item!, descripcion: ev.target.value })}
               />
             </div>
           </CardContent>
@@ -134,5 +140,5 @@ export default function NewItem() {
         </form>
       </Card>
     </section>
-  )
+  );
 }

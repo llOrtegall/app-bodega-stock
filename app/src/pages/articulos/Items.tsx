@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router'
 import axios from 'axios'
 
 interface Bodega {
@@ -27,6 +28,7 @@ interface Item {
 export default function ItemsPage() {
   const { company } = useAuth()
   const [data, setData] = useState<Item[]>([])
+  const navigate = useNavigate()
 
   const [search, setSearch] = useState('')
 
@@ -35,7 +37,6 @@ export default function ItemsPage() {
     nombre.toLowerCase().includes(search.toLowerCase()) ||
     serial.toLowerCase().includes(search.toLowerCase())
   )
-
 
   useEffect(() => {
     axios.get(`${VITE_API_URL}/itemsConBodegas/${company}`)
@@ -90,7 +91,10 @@ export default function ItemsPage() {
               <TableCell className=''>{item.bodega.sucursal}</TableCell>
               <TableCell className=''>{item.bodega.nombre}</TableCell>
               <TableCell className=''>
-                <Button>Editar</Button>
+                <Button
+                  onClick={() => navigate(`/editarItem/${item._id}`)}
+                >Editar
+                </Button>
               </TableCell>
             </TableRow>
           ))}
