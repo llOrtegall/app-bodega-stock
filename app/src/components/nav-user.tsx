@@ -20,9 +20,25 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar"
 import { User } from "@/types/interfaces"
+import { VITE_LOGIN_URL } from "@/config/enviroments"
+import axios from "axios"
+import { useAuth } from "@/contexts/auth/AuthProvider"
 
 export function NavUser({ user, }: { user: User }) {
   const { isMobile } = useSidebar()
+  const { setUser, setIsAuthenticated } = useAuth()
+
+  const handleLogout = async () => {
+    try {
+      const res = await axios.post(`${VITE_LOGIN_URL}/logout`)
+      if (res.status === 200) {
+        setUser(null)
+        setIsAuthenticated(false)
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   return (
     <SidebarMenu>
@@ -52,7 +68,7 @@ export function NavUser({ user, }: { user: User }) {
             sideOffset={4}
           >
 
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={handleLogout}>
               <LogOut />
               Cerrar sesión
             </DropdownMenuItem>

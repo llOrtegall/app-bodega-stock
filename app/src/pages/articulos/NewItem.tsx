@@ -128,7 +128,7 @@ export default function NewItem() {
           </CardContent>
           <CardFooter>
             <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading ? "Actualizando..." : "Actualizar item"}
+              {isLoading ? "Creando..." : "Crear Item"}
             </Button>
           </CardFooter>
         </form>
