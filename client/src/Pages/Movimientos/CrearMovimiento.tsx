@@ -21,7 +21,7 @@ export function CrearMovimiento() {
   const nombres = user?.names! + ' ' + user?.lastnames!
   const company = user?.company!
 
-  const [descripcion, setDescripcion] = useState<string>('') 
+  const [descripcion, setDescripcion] = useState<string>('')
   const [incidente, setIncidente] = useState<string>('')
 
   const [cartItems, setCartItems] = useState<string[]>([])
@@ -39,17 +39,17 @@ export function CrearMovimiento() {
     return response.data as BodegaWithItems
   }
 
-  function handleDragStart (ev: DragStartEvent) {
+  function handleDragStart(ev: DragStartEvent) {
     if (ev.active.data.current?.type === 'item') {
       setItemActive(ev.active.data.current?.item)
       return
     }
   }
 
-  function handleDragEnd(ev: DragEndEvent){
+  function handleDragEnd(ev: DragEndEvent) {
     console.log(ev.active.data);
     console.log(ev.over?.data);
-    
+
     if (ev.active.id === ev.over?.id) {
       console.log('Simcard No Se Movio');
       return
@@ -60,7 +60,7 @@ export function CrearMovimiento() {
     }
     if (ev.active.data.current?.bodegaOrigen === ev.over?.data.current?.bodegaOrigen) {
       console.log(ev.active.data.current?.bodegaOrigen);
-      
+
       console.log('Items De La Misma Bodega No Son Sortables Ya Que No Nos Interesa Esa Implementación');
       return
     }
@@ -108,8 +108,8 @@ export function CrearMovimiento() {
       }
     }
   }
- 
-  function handleClick () {
+
+  function handleClick() {
     axios.post('/moveItem', {
       bodegas: { bodegaOrigen: bodegaOrigen._id, bodegaDestino: bodegaDestino._id },
       itemsIds: { entran: cartItems, salen: cartItems2 },
@@ -142,8 +142,8 @@ export function CrearMovimiento() {
         </SortableContext>
 
       </main>
-      
-      <FooterMovSim descripcion={descripcion} encargado={nombres} handleClick={handleClick} 
+
+      <FooterMovSim descripcion={descripcion} encargado={nombres} handleClick={handleClick}
         incidente={incidente} setDescripcion={setDescripcion} setIncidente={setIncidente} />
 
       <section className='flex items-center justify-center w-full'>
