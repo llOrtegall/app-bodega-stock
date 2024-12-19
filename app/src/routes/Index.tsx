@@ -12,6 +12,7 @@ const MovimientosPage = lazy(() => import("@/pages/movimientos/Movimientos"));
 const MovDetalle = lazy(() => import("@/pages/movimientos/MovDetalle"));
 
 const BodegasPage = lazy(() => import("@/pages/bodegas/Bodegas"));
+const Bodega = lazy(() => import("@/pages/bodegas/BodegaDetail"));
 
 export const RoutesApp = createBrowserRouter([
   {
@@ -49,6 +50,10 @@ export const RoutesApp = createBrowserRouter([
       {
         path: 'bodegas',
         element: <Suspense fallback={<div>Loading...</div>}><BodegasPage /></Suspense>
+      },
+      {
+        path: 'bodega/:id',
+        element: <Suspense fallback={<div>Loading...</div>}><Bodega /></Suspense>
       }
     ]
   }

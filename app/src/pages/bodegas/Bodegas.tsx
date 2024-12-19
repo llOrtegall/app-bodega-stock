@@ -2,14 +2,15 @@ import { LayoutPanelTop, Building2, StoreIcon, MonitorSmartphone, Smartphone, Us
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import { useAuth } from "@/contexts/auth/AuthProvider";
 import { Separator } from "@/components/ui/separator";
+import { useEffect, useMemo, useState } from "react";
 import { VITE_API_URL } from "@/config/enviroments";
 import { Button } from "@/components/ui/button";
 import { Label } from "@radix-ui/react-label";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { useEffect, useMemo, useState } from "react";
 import { Bodega } from "@/types/Bodegas";
 import axios from "axios";
+import { useNavigate } from "react-router";
 
 function IconName(nameSplited: string) {
   if (nameSplited === 'bodega') return <Building2 size={24} />
@@ -39,17 +40,19 @@ export default function BodegasPage() {
     )
   }, [data, search])
 
+  const navigate = useNavigate()
+
   return (
     <div>
       <div className='flex items-center justify-around'>
         <h1 className="text-2xl text-center font-semibold py-2">Bodegas - [ Sucursales ]</h1>
         <article className="flex items-center gap-2">
-          <Label className='font-semibold'>Filtrar Items:</Label>
+          <Label className='font-semibold'>Filtrar Bodegas:</Label>
           <Input
             type='text'
             value={search}
-            className='w-60'
-            placeholder='Buscar por nombre, placa o serial'
+            className='w-72'
+            placeholder='Buscar nombre, sucursal o dirección'
             onChange={target => setSearch(target.target.value)}
           />
         </article>
@@ -59,7 +62,7 @@ export default function BodegasPage() {
       <div className="grid 2xl:grid-cols-2">
         {
           filteredBodegas?.map(bod => (
-            <Card className="m-1 p-4 grid grid-cols-12 " key={bod._id}>
+            <Card className="m-1 p-4 grid grid-cols-12" key={bod._id}>
 
               <figure className="col-span-2 flex items-center justify-center ">
                 {
@@ -100,7 +103,10 @@ export default function BodegasPage() {
               </figure>
 
               <div className="col-span-2 flex items-center justify-center">
-                <Button className="hover:bg-blue-100" variant="secondary">
+                <Button
+                  onClick={() => navigate(`/bodega/${bod._id}`)}
+                  className="hover:bg-blue-100" variant="secondary"
+                >
                   Detallado
                 </Button>
               </div>
