@@ -21,4 +21,12 @@ export interface BodegaItemsSimcard {
   updatedAt: string;
 }
 
+export interface BodegaWhitItems {
+  _id: string;
+  sucursal: number;
+  nombre: string;
+  direccion: string;
+  items: ActivoInsumo[];
+}
+
 export type newBodega = Omit<Bodega, '_id' | 'updatedAt' | 'items' | 'simcards'>;
