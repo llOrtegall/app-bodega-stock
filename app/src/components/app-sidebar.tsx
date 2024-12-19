@@ -59,7 +59,7 @@ const data = {
         },
         {
           title: "Crear Bodega ( Sucursal )",
-          url: "#",
+          url: "newBodega",
         },
         {
           title: "Crear Movimiento",
