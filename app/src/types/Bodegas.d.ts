@@ -20,3 +20,5 @@ export interface BodegaItemsSimcard {
   simcards: Simcard[];
   updatedAt: string;
 }
+
+export type newBodega = Omit<Bodega, '_id' | 'updatedAt' | 'items' | 'simcards'>;
