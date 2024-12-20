@@ -1,0 +1,26 @@
+version: '3.7'
+
+services:
+  web_client:
+    image: nginx:stable-alpine3.19-slim
+    container_name: web_client:
+    volumes:
+      - ./app/dist:/usr/share/nginx/html
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    networks:
+      - red-gane-int
+
+  api_bod_stock:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: api_bod_stock
+    image: api_bod_stock:v1
+    networks:
+      - red-gane-int
+    environment:
+      - TZ=America/Bogota
+      
+networks:
+  red-gane-int:
+    external: true
