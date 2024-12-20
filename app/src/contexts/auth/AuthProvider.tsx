@@ -20,24 +20,22 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [company, setCompany] = useState<string>('Multired')
 
   useEffect(() => {
-    if (!isAuthenticated) {
-      axios.get(`${VITE_LOGIN_URL}/profile`, { params: { app: VITE_APP_NAME } })
-        .then((res) => {
-          if (res.status === 200) {
-            setUser(res.data)
-            setIsAuthenticated(true)
-          }
-        })
-        .catch((err) => {
-          console.error(err);
-          if (err.response.status === 401) {
-            setIsAuthenticated(false)
-            setUser(null)
-          }
-        })
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+
+    axios.get(`${VITE_LOGIN_URL}/profile`, { params: { app: VITE_APP_NAME } })
+      .then((res) => {
+        if (res.status === 200) {
+          setUser(res.data)
+          setIsAuthenticated(true)
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        if (err.response.status === 401) {
+          setIsAuthenticated(false)
+          setUser(null)
+        }
+      })
+  }, [isAuthenticated])
 
   return (
     <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated, user, setUser, company, setCompany }}>

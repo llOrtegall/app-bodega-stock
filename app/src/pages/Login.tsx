@@ -7,17 +7,13 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card } from "@/components/ui/card"
 import { FormEvent, useState } from "react"
-import { useNavigate } from "react-router"
 import { Sun, Moon } from "lucide-react"
 import { toast } from "sonner"
 import axios from "axios"
 
-
 function LoginPage() {
   const { setTheme, theme } = useTheme()
   const { setIsAuthenticated } = useAuth()
-
-  const navigate = useNavigate()
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -29,7 +25,6 @@ function LoginPage() {
       .then((res) => {
         console.log(res);
         setIsAuthenticated(true)
-        navigate('/')
       })
       .catch((err) => {
         toast('Error al iniciar sesión', {
