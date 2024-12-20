@@ -30,7 +30,7 @@ async function handleSearchBodega(sucursal: string, company: string, estadoUpdat
   }
 }
 
-const RenderItem = ({ item, bodega }: { item: ActivoInsumo, bodega?: string }) => {
+const RenderItem = ({ item, bodega, cart }: { item: ActivoInsumo, bodega?: string, cart?: string[] }) => {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
     useSortable({ id: item._id, data: { bodega, type: 'item', item } })
 
@@ -49,7 +49,10 @@ const RenderItem = ({ item, bodega }: { item: ActivoInsumo, bodega?: string }) =
 
   return (
     <div ref={setNodeRef} style={style} {...listeners} {...attributes}
-      className="flex gap-1 w-full py-1 border-b" >
+      // verificar si el item esta en el carrito de items para cambiar el color de fondo
+      className={`${cart?.includes(item._id)
+        ? 'flex gap-1 w-full py-1 border-b hover:bg-blue-100 bg-yellow-200'
+        : 'flex gap-1 w-full py-1 border-b hover:bg-blue-100'}`} >
       <p className="w-3/12 text-left truncate px-1">{item.placa}</p>
       <p className="w-5/12 text-left truncate px-1">{item.nombre}</p>
       <p className="w-4/12 text-left truncate px-1">{item.serial}</p>
@@ -58,7 +61,7 @@ const RenderItem = ({ item, bodega }: { item: ActivoInsumo, bodega?: string }) =
 }
 
 // TODO: componente para renderizar la lista de items
-const RenderListItems = ({ items, bodega }: { items: ActivoInsumo[], bodega: string }) => {
+const RenderListItems = ({ items, bodega, cart }: { items: ActivoInsumo[], bodega: string, cart: string[] }) => {
   const [search, setSearch] = useState<string>('');
 
   const itemsFiltered = items.filter((item) => item.placa.includes(search) || item.nombre.includes(search) || item.serial.includes(search));
@@ -82,7 +85,7 @@ const RenderListItems = ({ items, bodega }: { items: ActivoInsumo[], bodega: str
           <p className="w-4/12 text-left px-1">Serial</p>
         </header>
         <section>
-          {itemsFiltered.map((item) => <RenderItem key={item._id} bodega={bodega} item={item} />)}
+          {itemsFiltered.map((item) => <RenderItem key={item._id} bodega={bodega} item={item} cart={cart} />)}
         </section>
       </article>
     </section>
@@ -90,7 +93,7 @@ const RenderListItems = ({ items, bodega }: { items: ActivoInsumo[], bodega: str
 }
 
 // TODO: componente para renderizar la información de la bodega
-const RenderBodega = ({ bodega }: { bodega: BodegaWhitItems }) => {
+const RenderBodega = ({ bodega, cartItems }: { bodega: BodegaWhitItems, cartItems: string[] }) => {
   const { isOver, setNodeRef } = useDroppable({
     id: bodega?._id || '', data: { type: 'bodega', bodega: bodega }
   });
@@ -102,7 +105,8 @@ const RenderBodega = ({ bodega }: { bodega: BodegaWhitItems }) => {
         <Badge>{bodega.sucursal}</Badge>
         <Badge>{bodega.direccion}</Badge>
       </article>
-      <RenderListItems items={bodega.items} bodega={bodega._id} />
+      <Separator />
+      <RenderListItems items={bodega.items} bodega={bodega._id} cart={cartItems} />
       <section ref={setNodeRef}
         className={`flex h-[50px] 2xl:h-[65px] 3xl:h-[75px] rounded-lg justify-center items-center  border-2 border-slate-400 text-slate-600 
         ${isOver ? 'bg-green-500 dark:' : 'bg-green-200 dark:bg-slate-700'}`}>
@@ -131,6 +135,11 @@ export default function NewMovimiento() {
   // Carritos de items
   const [cartItems, setCartItems] = useState<string[]>([])
   const [cartItems2, setCartItems2] = useState<string[]>([])
+
+  const ResetCartsItems = () => {
+    setCartItems([])
+    setCartItems2([])
+  }
 
   const handleDragStart = (event: DragStartEvent) => {
     if (event.active.data.current?.type === 'item') {
@@ -253,10 +262,13 @@ export default function NewMovimiento() {
                 onChange={(e) => setSearch1(e.target.value)}
               />
               <Button
-                onClick={() => handleSearchBodega(search1, company, setBodega1)}>Buscar</Button>
+                onClick={() => {
+                  handleSearchBodega(search1, company, setBodega1)
+                  ResetCartsItems()
+                }}>Buscar</Button>
             </header>
             {
-              bodega1 && <RenderBodega bodega={bodega1} />
+              bodega1 && <RenderBodega bodega={bodega1} cartItems={cartItems2} />
             }
           </Card>
 
@@ -271,10 +283,13 @@ export default function NewMovimiento() {
                 onChange={(e) => setSearch2(e.target.value)}
               />
               <Button
-                onClick={() => handleSearchBodega(search2, company, setBodega2)}>Buscar</Button>
+                onClick={() => {
+                  handleSearchBodega(search2, company, setBodega2)
+                  ResetCartsItems()
+                }}>Buscar</Button>
             </header>
             {
-              bodega2 && <RenderBodega bodega={bodega2} />
+              bodega2 && <RenderBodega bodega={bodega2} cartItems={cartItems} />
             }
           </Card>
         </SortableContext>
