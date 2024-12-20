@@ -1,4 +1,5 @@
-import { DndContext, DragEndEvent, DragStartEvent } from '@dnd-kit/core'
+import { DndContext, DragEndEvent, DragOverlay, DragStartEvent, useDroppable } from '@dnd-kit/core'
+import { SortableContext, useSortable } from '@dnd-kit/sortable';
 import { useAuth } from "@/contexts/auth/AuthProvider";
 import { Separator } from "@/components/ui/separator";
 import { VITE_API_URL } from "@/config/enviroments";
@@ -9,7 +10,11 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Label } from "@radix-ui/react-label";
 import { Card } from "@/components/ui/card";
+import { createPortal } from 'react-dom';
+import { CSS } from '@dnd-kit/utilities';
+import { PlusIcon } from 'lucide-react';
 import { useState } from "react";
+import { toast } from 'sonner';
 import axios from "axios";
 
 /** 
@@ -24,14 +29,41 @@ async function handleSearchBodega(sucursal: string, company: string, estadoUpdat
   }
 }
 
+const RenderItem = ({ item, bodega }: { item: ActivoInsumo, bodega?: string }) => {
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
+    useSortable({ id: item._id, data: { bodega, type: 'item', item } })
+
+  const style = {
+    transition,
+    transform: CSS.Transform.toString(transform),
+  }
+
+  const cssClasses = "flex h-10 bg-sky-700 p-2 rounded-md text-center pl-10 mb-1"
+
+  if (isDragging) {
+    return (
+      <div ref={setNodeRef} style={{ ...style, cursor: 'grab', opacity: 0.3 }} className={cssClasses} />
+    )
+  }
+
+  return (
+    <div ref={setNodeRef} style={style} {...listeners} {...attributes}
+      className="flex gap-1 w-full py-1 border-b" >
+      <p className="w-3/12 text-left truncate px-1">{item.placa}</p>
+      <p className="w-5/12 text-left truncate px-1">{item.nombre}</p>
+      <p className="w-4/12 text-left truncate px-1">{item.serial}</p>
+    </div>
+  )
+}
+
 // TODO: componente para renderizar la lista de items
-const RenderListItems = ({ items }: { items: ActivoInsumo[] }) => {
+const RenderListItems = ({ items, bodega }: { items: ActivoInsumo[], bodega: string }) => {
   const [search, setSearch] = useState<string>('');
 
   const itemsFiltered = items.filter((item) => item.placa.includes(search) || item.nombre.includes(search) || item.serial.includes(search));
 
   return (
-    <section className="overflow-auto h-[40vh]">
+    <section className="overflow-auto h-[50vh]">
       <div className="flex gap-1 items-center justify-around py-1">
         <Label>Filtrar Items</Label>
         <Input
@@ -49,15 +81,7 @@ const RenderListItems = ({ items }: { items: ActivoInsumo[] }) => {
           <p className="w-4/12 text-left px-1">Serial</p>
         </header>
         <section>
-          {
-            itemsFiltered.map((item) => (
-              <div key={item.placa} className="flex gap-1 w-full py-1 border-b">
-                <p className="w-3/12 text-left truncate px-1">{item.placa}</p>
-                <p className="w-5/12 text-left truncate px-1">{item.nombre}</p>
-                <p className="w-4/12 text-left truncate px-1">{item.serial}</p>
-              </div>
-            ))
-          }
+          {itemsFiltered.map((item) => <RenderItem key={item._id} bodega={bodega} item={item} />)}
         </section>
       </article>
     </section>
@@ -66,6 +90,10 @@ const RenderListItems = ({ items }: { items: ActivoInsumo[] }) => {
 
 // TODO: componente para renderizar la información de la bodega
 const RenderBodega = ({ bodega }: { bodega: BodegaWhitItems }) => {
+  const { isOver, setNodeRef } = useDroppable({
+    id: bodega?._id || '', data: { type: 'bodega', bodega: bodega }
+  });
+
   return (
     <>
       <article className="flex text-xs gap-1 justify-around py-1">
@@ -73,13 +101,24 @@ const RenderBodega = ({ bodega }: { bodega: BodegaWhitItems }) => {
         <Badge>{bodega.sucursal}</Badge>
         <Badge>{bodega.direccion}</Badge>
       </article>
-      <RenderListItems items={bodega.items} />
+      <RenderListItems items={bodega.items} bodega={bodega._id} />
+      <section ref={setNodeRef}
+        className={`flex h-[50px] 2xl:h-[65px] 3xl:h-[75px] rounded-lg justify-center items-center  border-2 border-slate-400 text-slate-600 
+        ${isOver ? 'bg-green-500 dark:' : 'bg-green-200 dark:bg-slate-700'}`}>
+        <p className="text-black dark:text-white dark:font-semibold"><PlusIcon /></p>
+        <p className="text-black dark:text-white dark:font-semibold">Insertar Item</p>
+      </section>
     </>
   )
 }
 
 export default function NewMovimiento() {
-  const { company } = useAuth();
+  const { company, user } = useAuth();
+
+  const nombres = user?.names + ' ' + user?.lastnames
+
+  const descripcion = 'Ejemplo de descripción'
+  const incidente = '35637'
 
   const [bodega1, setBodega1] = useState<BodegaWhitItems | null>(null);
   const [bodega2, setBodega2] = useState<BodegaWhitItems | null>(null);
@@ -87,12 +126,106 @@ export default function NewMovimiento() {
   const [search1, setSearch1] = useState<string>('');
   const [search2, setSearch2] = useState<string>('');
 
+  // Revisar está asignación de ids
+  const bodegasIds = [bodega1?._id || '', bodega2?._id || '']
+  const [ItemActive, setItemActive] = useState<ActivoInsumo | null>(null)
+
+  // Carritos de items
+  const [cartItems, setCartItems] = useState<string[]>([])
+  const [cartItems2, setCartItems2] = useState<string[]>([])
+
   const handleDragStart = (event: DragStartEvent) => {
-    console.log('Drag Start', event);
+    if (event.active.data.current?.type === 'item') {
+      setItemActive(event.active.data.current?.item)
+      return
+    }
   }
 
-  const handleDragEnd = (event: DragEndEvent) => {
-    console.log('Drag End', event);
+  const handleDragEnd = (ev: DragEndEvent) => {
+    if (ev.active.data.current?.bodega === ev.over?.id) {
+      toast.error('No puedes mover el item a la misma bodega')
+      return
+    }
+    if (ev.active.data.current?.bodega === ev.over?.data.current?.bodega) {
+      console.log('Items De La Misma Bodega No Son Sortables Ya Que No Nos Interesa Esa Implementación');
+      return
+    }
+    if (ev.active.data.current?.type === ev.over?.data.current?.type) {
+      toast.error('El item debe estar encima del recuadro verde, para agregarlo a la bodega')
+      return
+    }
+
+    const bodegaSelectedId = ev.over?.data.current?.bodega._id
+
+    updateBodega(bodegaSelectedId)
+
+    function updateBodega(id: string) {
+
+      if (id === bodega2?._id && ItemActive) {
+        if (bodega2 !== null && bodega1 !== null) {
+
+          // agregar item a la bodega destino en este caso bodega2
+          setBodega2({ ...bodega2, items: [...bodega2.items, ItemActive] })
+
+          // eliminar item de la bodega origen en este caso bodega1
+          setBodega1({ ...bodega1, items: bodega1.items.filter(i => i._id !== ItemActive._id) })
+
+          // agregar item al carrito de items
+          setCartItems([...cartItems, ItemActive._id])
+          return
+        } else {
+          toast.error('Debe Seleccionar Una Origen y Destino')
+          return
+        }
+      }
+
+
+      if (id === bodega1?._id && ItemActive) {
+        if (bodega1 !== null && bodega2 !== null) {
+
+          // agregar item a la bodega destino en este caso bodega1
+          setBodega1({ ...bodega1, items: [...bodega1.items, ItemActive] })
+
+          // eliminar item de la bodega origen en este caso bodega2
+          setBodega2({ ...bodega2, items: bodega2.items.filter(i => i._id !== ItemActive?._id) })
+
+          // agregar item al carrito de items
+          setCartItems2([...cartItems2, ItemActive._id])
+          return
+        } else {
+          toast.error('Debe Seleccionar Una Origen y Destino')
+          return
+        }
+      }
+
+    }
+
+  }
+
+  function handleMoveItems() {
+    axios.post(`${VITE_API_URL}/moveItem`, {
+      bodegas: { bodegaOrigen: bodega1?._id, bodegaDestino: bodega2?._id },
+      itemsIds: { entran: cartItems, salen: cartItems2 },
+      encargado: nombres,
+      descripcion,
+      incidente,
+      company: company
+    })
+      .then(res => {
+        console.log(res);
+        setBodega1(null)
+        setBodega2(null)
+        setSearch1('')
+        setSearch2('')
+        setCartItems([]);
+        setCartItems2([]);
+        setItemActive(null);
+        toast.success('Movimiento Realizado', { description: res.data.message })
+      })
+      .catch(err => {
+        console.log(err);
+        toast.error(err.response.data.error)
+      })
   }
 
   return (
@@ -105,43 +238,57 @@ export default function NewMovimiento() {
 
       <section className="flex w-full gap-1 px-1 pt-1">
 
-        <Card className="w-1/2 p-2 h-[70vh]">
-          <header className="flex items-center justify-around">
-            <Label>Buscar Bodega Origen</Label>
-            <Input
-              type="text"
-              placeholder="Sucursal"
-              value={search1}
-              className="w-[200px]"
-              onChange={(e) => setSearch1(e.target.value)}
-            />
-            <Button
-              onClick={() => handleSearchBodega(search1, company, setBodega1)}>Buscar</Button>
-          </header>
-          {
-            bodega1 && <RenderBodega bodega={bodega1} />
-          }
-        </Card>
+        <SortableContext items={bodegasIds}>
+          <Card className="w-1/2 p-2 h-[70vh]">
+            <header className="flex items-center justify-around">
+              <Label>Buscar Bodega Origen</Label>
+              <Input
+                type="text"
+                placeholder="Sucursal"
+                value={search1}
+                className="w-[200px]"
+                onChange={(e) => setSearch1(e.target.value)}
+              />
+              <Button
+                onClick={() => handleSearchBodega(search1, company, setBodega1)}>Buscar</Button>
+            </header>
+            {
+              bodega1 && <RenderBodega bodega={bodega1} />
+            }
+          </Card>
 
-        <Card className="w-1/2 p-2 h-[70vh]">
-          <header className="flex items-center justify-around">
-            <Label>Buscar Bodega Destino</Label>
-            <Input
-              type="text"
-              placeholder="Sucursal"
-              value={search2}
-              className="w-[200px]"
-              onChange={(e) => setSearch2(e.target.value)}
-            />
-            <Button
-              onClick={() => handleSearchBodega(search2, company, setBodega2)}>Buscar</Button>
-          </header>
-          {
-            bodega2 && <RenderBodega bodega={bodega2} />
-          }
-        </Card>
-
+          <Card className="w-1/2 p-2 h-[70vh]">
+            <header className="flex items-center justify-around">
+              <Label>Buscar Bodega Destino</Label>
+              <Input
+                type="text"
+                placeholder="Sucursal"
+                value={search2}
+                className="w-[200px]"
+                onChange={(e) => setSearch2(e.target.value)}
+              />
+              <Button
+                onClick={() => handleSearchBodega(search2, company, setBodega2)}>Buscar</Button>
+            </header>
+            {
+              bodega2 && <RenderBodega bodega={bodega2} />
+            }
+          </Card>
+        </SortableContext>
       </section>
+
+      <section className="flex items-center justify-center gap-2 py-2">
+        <Button onClick={handleMoveItems}>Mover Items</Button>
+      </section>
+
+      {
+        createPortal(
+          <DragOverlay>
+            {ItemActive && (<RenderItem item={ItemActive} />)}
+          </DragOverlay>,
+          document.body
+        )
+      }
     </DndContext >
   )
 }
