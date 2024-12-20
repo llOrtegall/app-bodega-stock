@@ -1,4 +1,8 @@
-import { AudioWaveform, GalleryVerticalEnd, Boxes, Building2, Smartphone, Moon, Sun } from "lucide-react"
+import {
+  AudioWaveform, GalleryVerticalEnd, Boxes, Building2,
+  //Smartphone, 
+  Moon, Sun
+} from "lucide-react"
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail, } from "@/components/ui/sidebar"
 import * as React from "react"
 
@@ -67,7 +71,7 @@ const data = {
         }
       ],
     },
-    {
+    /*{
       title: "Simcards",
       url: "#",
       icon: Smartphone,
@@ -89,7 +93,7 @@ const data = {
           url: "#",
         },
       ],
-    },
+    }*/
   ]
 }
 

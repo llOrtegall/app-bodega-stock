@@ -24,7 +24,7 @@ import { VITE_LOGIN_URL } from "@/config/enviroments"
 import axios from "axios"
 import { useAuth } from "@/contexts/auth/AuthProvider"
 
-export function NavUser({ user, }: { user: User }) {
+export function NavUser({ user, }: { user: User | null }) {
   const { isMobile } = useSidebar()
   const { setUser, setIsAuthenticated } = useAuth()
 
@@ -51,12 +51,12 @@ export function NavUser({ user, }: { user: User }) {
             >
               <Avatar className="h-8 w-8 rounded-lg">
                 <AvatarFallback className="rounded-lg">
-                  {user.names[0]}{user.lastnames[0]}
+                  {user?.names[0]}{user?.lastnames[0]}
                 </AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-semibold">{user.names} {user.lastnames}</span>
-                <span className="truncate text-xs">{user.email}</span>
+                <span className="truncate font-semibold">{user?.names} {user?.lastnames}</span>
+                <span className="truncate text-xs">{user?.email}</span>
               </div>
               <ChevronsUpDown className="ml-auto size-4" />
             </SidebarMenuButton>
