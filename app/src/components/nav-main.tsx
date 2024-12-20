@@ -12,10 +12,12 @@ export function NavMain({ items }: { items: Items[] }) {
 
         {/* TODO: Alone Link Implement */}
         <SidebarMenuItem>
-          <SidebarMenuButton tooltip='Dashboard'>
-            <LayoutDashboard />
-            <span>Dashboard</span>
-          </SidebarMenuButton>
+          <Link to='/'>
+            <SidebarMenuButton tooltip='Dashboard'>
+              <LayoutDashboard />
+              <span>Dashboard</span>
+            </SidebarMenuButton>
+          </Link>
         </SidebarMenuItem>
 
         {/* TODO: Alone Link Implement */}

@@ -22,6 +22,8 @@ export default function MovimientosPage() {
       .catch(err => console.error(err))
   }, [company])
 
+  const sortData = data.sort((a, b) => b.movimientoId - a.movimientoId)
+
   return (
     <section className=''>
       <div className='flex justify-around py-4 border-b-2'>
@@ -43,26 +45,26 @@ export default function MovimientosPage() {
         <TableHeader>
           <TableRow>
             <TableHead>N°</TableHead>
-            <TableHead>Fecha Mov</TableHead>
-            <TableHead>N° Incidente</TableHead>
+            <TableHead className='w-[110px]'>Fecha Mov</TableHead>
+            <TableHead className='w-[110px]'>N° Incidente</TableHead>
             <TableHead>Encargado</TableHead>
             <TableHead>Origen</TableHead>
             <TableHead>Destino</TableHead>
-            <TableHead>N° Items Mov</TableHead>
-            <TableHead>N° SimsCards Mov</TableHead>
+            <TableHead>Items Mov</TableHead>
+            <TableHead>Sims Mov</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody className='cursor-pointer'>
-          {data.map((item, index) => (
+          {sortData.map((item) => (
             <TableRow key={item._id} onClick={() => navigate(`/movimiento/${item._id}`)}>
-              <TableCell >{index + 1}</TableCell>
+              <TableCell >{item.movimientoId}</TableCell>
               <TableCell >{item.updatedAt.split('T')[0]}</TableCell>
               <TableCell className='uppercase'>{item.incidente}</TableCell>
-              <TableCell className=''>{item.encargado}</TableCell>
-              <TableCell className='lowercase'>{item.bodegaOrigen.nombre}</TableCell>
-              <TableCell className=''>{item.bodegaDestino.nombre}</TableCell>
-              <TableCell className=''>{item.items.entran.length + item.items.salen.length}</TableCell>
-              <TableCell className=''>{item.simcards.entran.length + item.simcards.salen.length}</TableCell>
+              <TableCell className=''>{item.encargado.split(' ')[0]} {item.encargado.split(' ')[1]}</TableCell>
+              <TableCell className='lowercase' title={item.bodegaOrigen.nombre}>{item.bodegaOrigen.sucursal}</TableCell>
+              <TableCell className='' title={item.bodegaDestino.nombre}>{item.bodegaDestino.sucursal}</TableCell>
+              <TableCell className='text-center'>{item.items.entran.length + item.items.salen.length}</TableCell>
+              <TableCell className='text-center'>{item.simcards.entran.length + item.simcards.salen.length}</TableCell>
             </TableRow>
           ))}
         </TableBody>

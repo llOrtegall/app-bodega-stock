@@ -9,21 +9,21 @@ interface Props {
 }
 
 export function RenderItems({ item, bodegaOrigen, cart }: Props): JSX.Element {
-  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = 
-  useSortable({ id: `${item._id}`, data: { bodegaOrigen, type: 'item', item }})
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
+    useSortable({ id: `${item._id}`, data: { bodegaOrigen, type: 'item', item } })
 
-const style = {
-  transition,
-  transform: CSS.Transform.toString(transform),
-}
+  const style = {
+    transition,
+    transform: CSS.Transform.toString(transform),
+  }
 
-const cssClasses = "flex h-10 bg-sky-700 p-2 rounded-md text-center pl-10 mb-1"
+  const cssClasses = "flex h-10 bg-sky-700 p-2 rounded-md text-center pl-10 mb-1"
 
-if (isDragging) {
-  return (
-    <div ref={setNodeRef} style={{ ...style, cursor: 'grab', opacity: 0.3 }} className={cssClasses} />
-  )
-}
+  if (isDragging) {
+    return (
+      <div ref={setNodeRef} style={{ ...style, cursor: 'grab', opacity: 0.3 }} className={cssClasses} />
+    )
+  }
 
   return (
     <article ref={setNodeRef} style={style} {...attributes} {...listeners}

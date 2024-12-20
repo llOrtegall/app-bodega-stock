@@ -15,6 +15,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { Textarea } from "@/components/ui/textarea";
+import { MoveRight } from 'lucide-react';
 
 export default function MovDetalle() {
   const { company } = useAuth()
@@ -83,13 +84,13 @@ export default function MovDetalle() {
             <CardTitle className='col-span-2'>N° Items Movidos ( Activos - Insumos)</CardTitle>
             <CardDescription>
               <Badge variant="default" className="font-normal">
-                {data?.items.entran.length}
+                {(data?.items.entran?.length ?? 0) + (data?.items.salen?.length ?? 0)}
               </Badge>
             </CardDescription>
             <CardTitle className='col-span-2'>N° Simcards Movidas</CardTitle>
             <CardDescription>
               <Badge variant="default" className="font-normal">
-                {data?.simcards.entran.length}
+                {(data?.simcards.entran?.length ?? 0) + (data?.simcards.salen?.length ?? 0)}
               </Badge>
             </CardDescription>
           </CardHeader>
@@ -106,15 +107,16 @@ export default function MovDetalle() {
 
       <div className="py-2">
         <article className="flex items-center justify-center bg-blue-200 py-1 px-2">
-          <p className="font-semibold">Bodega Origen: <Badge className="font-normal" variant={'secondary'}>{data?.bodegaOrigen.nombre}</Badge></p>
-          ➡️
-          <p className="font-semibold">Bodega Destino: <Badge className="font-normal" variant={'secondary'}>{data?.bodegaDestino.nombre}</Badge></p>
+          <p className="font-semibold"> <Badge className="font-normal" variant={'secondary'}>{data?.bodegaOrigen.nombre}</Badge></p>
+          <MoveRight size={24} />
+          <p className="font-semibold"> <Badge className="font-normal" variant={'secondary'}>{data?.bodegaDestino.nombre}</Badge></p>
         </article>
       </div>
 
       {
         data?.items.entran.length !== undefined && data?.items.entran.length > 0 ? (
           <Table>
+
             <TableHeader>
               <TableRow>
                 <TableHead>N°</TableHead>
@@ -125,8 +127,48 @@ export default function MovDetalle() {
                 <TableHead>Estado</TableHead>
               </TableRow>
             </TableHeader>
+
             <TableBody>
               {data?.items.entran.map((item, index) => (
+                <TableRow key={item._id}>
+                  <TableCell >{index + 1}</TableCell>
+                  <TableCell >{item.nombre}</TableCell>
+                  <TableCell className='lowercase'>{item.descripcion}</TableCell>
+                  <TableCell>{item.placa}</TableCell>
+                  <TableCell className='uppercase'>{item.serial}</TableCell>
+                  <TableCell>{item.estado}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        ) : null
+      }
+
+      <div className="py-2">
+        <article className="flex items-center justify-center bg-blue-200 py-1 px-2">
+          <p className="font-semibold"> <Badge className="font-normal" variant={'secondary'}>{data?.bodegaDestino.nombre}</Badge></p>
+          <MoveRight size={24} />
+          <p className="font-semibold"> <Badge className="font-normal" variant={'secondary'}>{data?.bodegaOrigen.nombre}</Badge></p>
+        </article>
+      </div>
+
+      {
+        data?.items.salen.length !== undefined && data?.items.salen.length > 0 ? (
+          <Table>
+
+            <TableHeader>
+              <TableRow>
+                <TableHead>N°</TableHead>
+                <TableHead>Items</TableHead>
+                <TableHead>Descripción</TableHead>
+                <TableHead>Placa</TableHead>
+                <TableHead>Serial</TableHead>
+                <TableHead>Estado</TableHead>
+              </TableRow>
+            </TableHeader>
+
+            <TableBody>
+              {data?.items.salen.map((item, index) => (
                 <TableRow key={item._id}>
                   <TableCell >{index + 1}</TableCell>
                   <TableCell >{item.nombre}</TableCell>
