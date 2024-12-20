@@ -3,6 +3,7 @@ import { SortableContext, useSortable } from '@dnd-kit/sortable';
 import { useAuth } from "@/contexts/auth/AuthProvider";
 import { Separator } from "@/components/ui/separator";
 import { VITE_API_URL } from "@/config/enviroments";
+import { Textarea } from '@/components/ui/textarea';
 import { BodegaWhitItems } from "@/types/Bodegas";
 import { ActivoInsumo } from "@/types/interfaces";
 import { Button } from "@/components/ui/button";
@@ -117,9 +118,6 @@ export default function NewMovimiento() {
 
   const nombres = user?.names + ' ' + user?.lastnames
 
-  const descripcion = 'Ejemplo de descripción'
-  const incidente = '35637'
-
   const [bodega1, setBodega1] = useState<BodegaWhitItems | null>(null);
   const [bodega2, setBodega2] = useState<BodegaWhitItems | null>(null);
 
@@ -202,6 +200,9 @@ export default function NewMovimiento() {
 
   }
 
+  const [descripcion, setDescripcion] = useState<string>('')
+  const [incidente, setIncidente] = useState<string>('')
+
   function handleMoveItems() {
     axios.post(`${VITE_API_URL}/moveItem`, {
       bodegas: { bodegaOrigen: bodega1?._id, bodegaDestino: bodega2?._id },
@@ -220,6 +221,8 @@ export default function NewMovimiento() {
         setCartItems([]);
         setCartItems2([]);
         setItemActive(null);
+        setDescripcion('')
+        setIncidente('')
         toast.success('Movimiento Realizado', { description: res.data.message })
       })
       .catch(err => {
@@ -277,9 +280,21 @@ export default function NewMovimiento() {
         </SortableContext>
       </section>
 
-      <section className="flex items-center justify-center gap-2 py-2">
+      <Card className="flex items-center justify-around p-2 m-1">
+        <div>
+          <Label>Encargado</Label>
+          <Input className='w-[300px]' type="text" value={nombres} disabled />
+        </div>
+        <div>
+          <Label>N° Incidente</Label>
+          <Input type="text" value={incidente} onChange={ev => setIncidente(ev.target.value)} />
+        </div>
+        <div>
+          <Label>Descripción</Label>
+          <Textarea className='w-[300px]' value={descripcion} onChange={ev => setDescripcion(ev.target.value)} />
+        </div>
         <Button onClick={handleMoveItems}>Mover Items</Button>
-      </section>
+      </Card>
 
       {
         createPortal(
