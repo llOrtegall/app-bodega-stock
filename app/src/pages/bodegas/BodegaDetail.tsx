@@ -2,6 +2,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAuth } from "@/contexts/auth/AuthProvider";
 import { Separator } from "@/components/ui/separator";
+import { RenderIcon } from '@/components/RenderIcons';
 import { BodegaItemsSimcard } from "@/types/Bodegas";
 import { VITE_API_URL } from "@/config/enviroments";
 import { Button } from "@/components/ui/button";
@@ -84,6 +85,7 @@ export default function BodegaDetail() {
                 <TableHeader>
                   <TableRow>
                     <TableHead>N°</TableHead>
+                    <TableHead>Icon</TableHead>
                     <TableHead>Items</TableHead>
                     <TableHead>Descripción</TableHead>
                     <TableHead>Serial</TableHead>
@@ -95,6 +97,9 @@ export default function BodegaDetail() {
                   {data.items.map((item, index) => (
                     <TableRow key={item._id}>
                       <TableCell >{index + 1}</TableCell>
+                      <TableCell >
+                        <RenderIcon nameStr={item.nombre} />
+                      </TableCell>
                       <TableCell >{item.nombre}</TableCell>
                       <TableCell className='uppercase'>{item.serial}</TableCell>
                       <TableCell className=''>{item.estado}</TableCell>
