@@ -1,16 +1,16 @@
 version: '3.7'
 
 services:
-  web_client:
+  client:
     image: nginx:stable-alpine3.19-slim
-    container_name: web_client:
+    container_name: webStockSoporte
     volumes:
       - ./app/dist:/usr/share/nginx/html
       - ./nginx.conf:/etc/nginx/nginx.conf
     networks:
       - red-gane-int
 
-  api_bod_stock:
+  api:
     build:
       context: ./server
       dockerfile: Dockerfile
