@@ -12,7 +12,7 @@ services:
 
   api:
     build:
-      context: ./server
+      context: ./api
       dockerfile: Dockerfile
     container_name: api_bod_stock
     image: api_bod_stock:v1
