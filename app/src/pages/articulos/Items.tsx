@@ -1,5 +1,6 @@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { useAuth } from '@/contexts/auth/AuthProvider'
+import { RenderIcon } from '@/components/RenderIcons'
 import { VITE_API_URL } from '@/config/enviroments'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
@@ -69,6 +70,7 @@ export default function ItemsPage() {
         <TableHeader>
           <TableRow>
             <TableHead>N°</TableHead>
+            <TableHead>Icon</TableHead>
             <TableHead>Items</TableHead>
             <TableHead>Descripción</TableHead>
             <TableHead>Serial</TableHead>
@@ -83,6 +85,9 @@ export default function ItemsPage() {
           {filteredItems.map((item, index) => (
             <TableRow key={item._id}>
               <TableCell >{index + 1}</TableCell>
+              <TableCell >
+                <RenderIcon nameStr={item.nombre} />
+              </TableCell>
               <TableCell >{item.nombre}</TableCell>
               <TableCell className='uppercase'>{item.serial}</TableCell>
               <TableCell className=''>{item.estado}</TableCell>
