@@ -1,7 +1,8 @@
 import {
   AudioWaveform, GalleryVerticalEnd, Boxes, Building2,
   //Smartphone, 
-  Moon, Sun
+  Moon, Sun,
+  Smartphone
 } from "lucide-react"
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail, } from "@/components/ui/sidebar"
 import * as React from "react"
@@ -71,14 +72,14 @@ const data = {
         }
       ],
     },
-    /*{
+    {
       title: "Simcards",
       url: "#",
       icon: Smartphone,
       items: [
         {
           title: "Simcards",
-          url: "#",
+          url: "simcards",
         },
         {
           title: "Crear Simcard",
@@ -88,12 +89,13 @@ const data = {
           title: "Asignar Simcard",
           url: "#",
         },
+        /*
         {
           title: "Crear Mov... Simcard",
           url: "#",
-        },
+        }*/
       ],
-    }*/
+    }
   ]
 }
 
