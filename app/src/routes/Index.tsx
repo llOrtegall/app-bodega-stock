@@ -16,6 +16,8 @@ const Bodega = lazy(() => import("@/pages/bodegas/BodegaDetail"));
 const NewBodega = lazy(() => import("@/pages/bodegas/NewBodega"));
 const NewMovimiento = lazy(() => import("@/pages/movimientos/NewMovimiento"));
 
+const SimcardsPage = lazy(() => import("@/pages/simcards/Simcards"));
+
 export const RoutesApp = createBrowserRouter([
   {
     path: "/",
@@ -64,6 +66,10 @@ export const RoutesApp = createBrowserRouter([
       {
         path: 'newBodega',
         element: <Suspense fallback={<div>Loading...</div>}><NewBodega /></Suspense>
+      },
+      {
+        path: 'simcards',
+        element: <Suspense fallback={<div>Loading...</div>}><SimcardsPage /></Suspense>
       }
     ]
   }
