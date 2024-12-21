@@ -10,6 +10,7 @@ import axios from "axios";
 
 enum Estado {
   Activa = "Activa",
+  Inactiva = "Inactiva",
 }
 
 enum Operador {
@@ -36,6 +37,17 @@ interface Simcard {
   createdAt: Date;
   updatedAt: Date;
   bodega: Bodega;
+}
+
+function RenderIconOperador({ operador }: { operador: Operador }) {
+
+  const operadorIcon: { [key: string]: string } = {
+    Claro: 'claro.webp',
+    Movistar: 'movistar.webp',
+    Tigo: 'tigo.webp',
+  }
+
+  return <img src={operadorIcon[operador]} alt={operador} className='w-10 h-10' />
 }
 
 export default function Simcards() {
@@ -70,7 +82,7 @@ export default function Simcards() {
       </div>
       <Separator />
 
-      <div>
+      <div className='h-[90vh] overflow-y-auto'>
         <Table>
           <TableHeader>
             <TableRow>
@@ -85,14 +97,12 @@ export default function Simcards() {
           </TableHeader>
           <TableBody>
             {
-              simcards.filter(simcard => {
-                return simcard.numero.includes(search) ||
-                  simcard.serial.includes(search) ||
-                  simcard.operador.includes(search)
-              }).map((simcard, index) => (
+              simcards.map((simcard, index) => (
                 <TableRow key={simcard._id}>
                   <TableCell>{index + 1}</TableCell>
-                  <TableCell>{simcard.operador}</TableCell>
+                  <TableCell>
+                    <RenderIconOperador operador={simcard.operador} />
+                  </TableCell>
                   <TableCell>{simcard.numero}</TableCell>
                   <TableCell>{simcard.estado}</TableCell>
                   <TableCell>{simcard.bodega.sucursal}</TableCell>
