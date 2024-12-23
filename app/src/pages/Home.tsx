@@ -2,10 +2,10 @@ import { useAuth } from "@/contexts/auth/AuthProvider"
 import { RenderIcon } from "@/components/RenderIcons"
 import { Separator } from "@/components/ui/separator"
 import { VITE_API_URL } from "@/config/enviroments"
-import { Card } from "@/components/ui/card"
-import { useEffect, useState } from "react"
-import axios from "axios"
 import { Badge } from "@/components/ui/badge"
+import { useEffect, useState } from "react"
+import { Card } from "@/components/ui/card"
+import axios from "axios"
 
 interface Items {
   [key: string]: number
@@ -24,13 +24,13 @@ export default function Home() {
   const sortedItems = Object.entries(items).sort(([, a], [, b]) => b - a)
 
   return (
-    <div className="flex flex-col w-full h-full">
+    <div className="flex flex-col">
       <h1 className="text-xl text-center font-bold py-2">Items Registrados: {company}</h1>
       <Separator />
-      <Card className="grid grid-cols-3 gap-2 p-2">
+      <section className="h-[92vh] overflow-y-auto grid grid-cols-4 gap-2 p-2">
         {
           sortedItems.map(([key, value], index) => (
-            <Card key={index} className="p-2 flex flex-col items-center">
+            <Card key={index} className="p-2 items-center flex flex-col justify-center">
               <div className="">
                 <RenderIcon nameStr={key} />
               </div>
@@ -39,7 +39,7 @@ export default function Home() {
             </Card>
           ))
         }
-      </Card>
+      </section>
     </div>
   )
 }
