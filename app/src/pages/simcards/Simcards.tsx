@@ -1,22 +1,22 @@
 import { Table, TableBody, TableCell, TableHeader, TableRow } from '@/components/ui/table'
-import { Separator } from "@/components/ui/separator";
-import { useAuth } from "@/contexts/auth/AuthProvider";
-import { VITE_API_URL } from "@/config/enviroments";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useAuth } from '@/contexts/auth/AuthProvider';
+import { Separator } from '@/components/ui/separator';
+import { VITE_API_URL } from '@/config/enviroments';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 enum Estado {
-  Activa = "Activa",
-  Inactiva = "Inactiva",
+  Activa = 'Activa',
+  Inactiva = 'Inactiva',
 }
 
 enum Operador {
-  Claro = "Claro",
-  Movistar = "Movistar",
-  Tigo = "Tigo",
+  Claro = 'Claro',
+  Movistar = 'Movistar',
+  Tigo = 'Tigo',
 }
 
 interface Bodega {
@@ -67,22 +67,21 @@ export default function Simcards() {
   return (
     <section>
       <div className='flex items-center justify-around'>
-        <h1 className="text-2xl text-center font-semibold py-2">Simcards</h1>
-        <article className="flex items-center gap-2">
-          <Label className='font-semibold'>Filtrar Simcards:</Label>
-          <Input
-            type='text'
-            value={search}
-            className='w-72'
-            placeholder='serial, número, operadora'
-            onChange={target => setSearch(target.target.value)}
-          />
-        </article>
+        <h1 className='text-2xl text-center font-semibold py-2'>Simcards</h1>
+        <Label className='font-semibold'>Filtrar Simcards:</Label>
+        <Input
+          type='text'
+          value={search}
+          className='w-72'
+          placeholder='serial, número, operadora'
+          onChange={target => setSearch(target.target.value)}
+        />
         <Button>Exportar</Button>
       </div>
+
       <Separator />
 
-      <div className='h-[90vh] overflow-y-auto'>
+      <div className='h-[90vh] 2xl:h-[92vh] overflow-y-auto'>
         <Table>
           <TableHeader>
             <TableRow>
