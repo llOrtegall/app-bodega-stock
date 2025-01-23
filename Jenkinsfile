@@ -23,8 +23,8 @@ pipeline {
       stage('install dependencies frontend') {
         steps {
           script {
-            sh 'cd app && npm install'
-            sh 'cd app && npm run build'
+            sh 'cd app && pnpm install'
+            sh 'cd app && pnpm run build'
           }
         }
       }
