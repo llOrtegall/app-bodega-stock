@@ -19,7 +19,7 @@
     "express": "4.21.2",
     "jsonwebtoken": "9.0.2",
     "moment-timezone": "0.5.44",
-    "mongoose": "8.9.1",
+    "mongoose": "8.9.5",
     "mysql2": "3.11.5",
     "nodemailer": "6.9.13",
     "zod": "3.22.4"
