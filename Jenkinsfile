@@ -23,7 +23,7 @@ pipeline {
       stage('install dependencies frontend') {
         steps {
           script {
-            sh 'cd app && pnpm install'
+            sh 'cd app && pnpm install --no-frozen-lockfile'
             sh 'cd app && pnpm run build'
           }
         }
