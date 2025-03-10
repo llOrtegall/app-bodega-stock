@@ -6,9 +6,9 @@ const LoginPage = lazy(() => import("@/pages/Login"));
 const MainLayout = lazy(() => import("@/Layouts/MainLayout"));
 
 export default function Root() {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
 
-  if (!isAuthenticated) {
+  if (!isAuthenticated || !user) {
     return <Suspense fallback={<div>Loading...</div>}><LoginPage /></Suspense>;
   }
 
