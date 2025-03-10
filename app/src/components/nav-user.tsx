@@ -34,7 +34,7 @@ export function NavUser({ user, }: { user: User | null }) {
             >
               <Avatar className='h-8 w-8 rounded-lg'>
                 <AvatarFallback className='rounded-lg'>
-                  {user?.names[0]}{user?.lastnames[0]}
+                  {user?.names.slice(0, 1)}{user?.lastnames.slice(0, 1)}
                 </AvatarFallback>
               </Avatar>
               <div className='grid flex-1 text-left text-sm leading-tight'>
