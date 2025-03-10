@@ -91,6 +91,8 @@ export default function Simcards() {
               <TableCell>Estado</TableCell>
               <TableCell>Sucursal</TableCell>
               <TableCell>Bodega</TableCell>
+              <TableCell>APN</TableCell>
+              <TableCell>Usuario</TableCell>
             </TableRow>
 
           </TableHeader>
@@ -106,6 +108,8 @@ export default function Simcards() {
                   <TableCell>{simcard.estado}</TableCell>
                   <TableCell>{simcard.bodega.sucursal}</TableCell>
                   <TableCell>{simcard.bodega.nombre}</TableCell>
+                  <TableCell>{simcard.apn}</TableCell>
+                  <TableCell>{simcard.user}</TableCell>
                 </TableRow>
               ))
             }
