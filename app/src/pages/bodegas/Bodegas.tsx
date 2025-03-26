@@ -1,5 +1,6 @@
 import { LayoutPanelTop, Building2, StoreIcon, MonitorSmartphone, Smartphone, User2 } from 'lucide-react';
 import { Card, CardDescription, CardTitle } from '@/components/ui/card';
+import { ButtonExportBodegas } from '@/components/ExportBodega';
 import { useAuth } from '@/contexts/auth/AuthProvider';
 import { Separator } from '@/components/ui/separator';
 import { useEffect, useMemo, useState } from 'react';
@@ -56,7 +57,7 @@ export default function BodegasPage() {
             onChange={target => setSearch(target.target.value)}
           />
         </article>
-        <Button>Exportar</Button>
+        <ButtonExportBodegas datos={data} />
       </header>
 
       <Separator />

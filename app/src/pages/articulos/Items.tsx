@@ -1,4 +1,5 @@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { ButtonExportItems } from '@/components/ExportItems'
 import { useAuth } from '@/contexts/auth/AuthProvider'
 import { Separator } from '@/components/ui/separator'
 import { RenderIcon } from '@/components/RenderIcons'
@@ -15,7 +16,7 @@ interface Bodega {
   sucursal: string
 }
 
-interface Item {
+export interface Item {
   _id: string
   nombre: string
   descripcion: string
@@ -64,7 +65,7 @@ export default function ItemsPage() {
         />
 
         <div>
-          <Button>Exportar</Button>
+          <ButtonExportItems datos={filteredItems} />
         </div>
       </header>
 
