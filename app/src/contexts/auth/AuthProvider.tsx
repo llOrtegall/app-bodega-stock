@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, ReactNode, SetStateAction, Dispatch, useEffect } from 'react'
-import { VITE_LOGIN_URL, VITE_APP_NAME } from '@/config/enviroments'
+import { VITE_LOGIN_URL } from '@/config/enviroments'
 import { User } from '@/types/interfaces'
 import axios from 'axios'
 
@@ -20,8 +20,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [company, setCompany] = useState<string>('Multired')
 
   useEffect(() => {
-
-    axios.get(`${VITE_LOGIN_URL}/profile`, { params: { app: VITE_APP_NAME } })
+    axios.get(`${VITE_LOGIN_URL}/profile`)
       .then((res) => {
         if (res.status === 200) {
           setUser(res.data)
