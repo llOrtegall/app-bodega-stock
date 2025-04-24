@@ -13,7 +13,7 @@ export function NavUser({ user, }: { user: User | null }) {
 
   const handleLogout = async () => {
     try {
-      const res = await axios.post(`${VITE_LOGIN_URL}/logout`)
+      const res = await axios.get(`${VITE_LOGIN_URL}/logout`)
       if (res.status === 200) {
         setUser(null)
         setIsAuthenticated(false)

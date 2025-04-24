@@ -1,11 +1,11 @@
 import { ThemeProvider } from './contexts/theme/ThemeProvider'
+import { AuthProvider } from './contexts/auth/AuthProvider'
 import { createRoot } from 'react-dom/client'
 import { RouterProvider } from 'react-router'
 import { RoutesApp } from '@/routes/Index'
 import { StrictMode } from 'react'
 import axios from 'axios'
 import './index.css'
-import { AuthProvider } from './contexts/auth/AuthProvider'
 
 axios.defaults.withCredentials = true
 
