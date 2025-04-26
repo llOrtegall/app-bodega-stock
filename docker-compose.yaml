@@ -2,8 +2,9 @@ version: '3.7'
 
 services:
   client:
-    image: nginx:stable-alpine3.19-slim
+    image: nginx:stable-alpine3.21-perl
     container_name: webStockSoporte
+    restart: always
     volumes:
       - ./app/dist:/usr/share/nginx/html
       - ./nginx.conf:/etc/nginx/nginx.conf
@@ -15,7 +16,8 @@ services:
       context: ./api
       dockerfile: Dockerfile
     container_name: api_bod_stock
-    image: api_bod_stock:v1
+    restart: always
+    image: api_bod_stock:v1.1
     networks:
       - red-gane-int
     environment:
