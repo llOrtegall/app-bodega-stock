@@ -38,7 +38,7 @@ pipeline {
       stage('delete images if exist') {
         steps{
           script {
-            def images = 'api_bod_stock:v1'
+            def images = 'api_bod_stock:v1.1'
             if (sh(script: "docker images -q ${images}", returnStdout: true).trim()) {
               sh "docker rmi ${images}"
             } else {
