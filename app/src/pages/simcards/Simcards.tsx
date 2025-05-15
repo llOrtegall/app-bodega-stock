@@ -2,7 +2,6 @@ import { Table, TableBody, TableCell, TableHeader, TableRow } from '@/components
 import { useAuth } from '@/contexts/auth/AuthProvider';
 import { Separator } from '@/components/ui/separator';
 import { VITE_API_URL } from '@/config/enviroments';
-import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useEffect, useState } from 'react';
