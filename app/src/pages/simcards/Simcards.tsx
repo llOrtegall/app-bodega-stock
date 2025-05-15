@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { ButtonExportSimcards } from '@/components/ExportSimcards';
 
 enum Estado {
   Activa = 'Activa',
@@ -25,7 +26,7 @@ interface Bodega {
   sucursal: number;
 }
 
-interface Simcard {
+export interface Simcard {
   _id: string;
   numero: string;
   operador: Operador;
@@ -76,7 +77,7 @@ export default function Simcards() {
           placeholder='serial, número, operadora'
           onChange={target => setSearch(target.target.value)}
         />
-        <Button>Exportar</Button>
+        <ButtonExportSimcards datos={simcards} />
       </div>
 
       <Separator />
