@@ -78,7 +78,7 @@ const data = {
         },
         {
           title: 'Crear Simcard',
-          url: '#',
+          url: 'newsimcard',
         },
         {
           title: 'Asignar Simcard',
