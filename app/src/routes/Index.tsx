@@ -18,6 +18,7 @@ const NewMovimiento = lazy(() => import("@/pages/movimientos/NewMovimiento"));
 
 const SimcardsPage = lazy(() => import("@/pages/simcards/Simcards"));
 const NewSimcard = lazy(() => import("@/pages/simcards/NewSimcard"));
+const AsingSimcardToBodega = lazy(() => import("@/pages/simcards/AsingSimcardToBodega"));
 
 export const RoutesApp = createBrowserRouter([
   {
@@ -75,6 +76,10 @@ export const RoutesApp = createBrowserRouter([
       {
         path: 'newsimcard',
         element: <Suspense fallback={<div>Loading...</div>}><NewSimcard /></Suspense>
+      },
+      {
+        path: 'asignarsimcards',
+        element: <Suspense fallback={<div>Loading...</div>}><AsingSimcardToBodega /></Suspense>
       }
     ]
   }

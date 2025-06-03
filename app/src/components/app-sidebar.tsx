@@ -82,7 +82,7 @@ const data = {
         },
         {
           title: 'Asignar Simcard',
-          url: '#',
+          url: 'asignarsimcards',
         },
         /*
         {
