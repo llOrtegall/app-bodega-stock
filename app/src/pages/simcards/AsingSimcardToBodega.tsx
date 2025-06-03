@@ -78,27 +78,34 @@ export default function AsingSimcardToBodega() {
     })
   }, [])
 
-  const fetchData = useCallback(async () => {
+  const fetchSimcards = async () => {
     setLoading(true)
     try {
-      const [simcardsResponse, bodegasResponse] = await Promise.all([
-        axios.get(`${VITE_API_URL}/simcardWhitBodega/${company}`),
-        axios.get(`${VITE_API_URL}/getBodegas/${company}`)
-      ])
-      
-      setSimcards(simcardsResponse.data)
-      setBodegas(bodegasResponse.data)
+      const res = await axios.get(`${VITE_API_URL}/simcardWhitBodega/${company}`);
+      setSimcards(res.data)
     } catch (error) {
-      console.error("Error fetching data:", error)
       toast.error("Error al cargar los datos")
     } finally {
       setLoading(false)
     }
-  }, [company])
+  }
+
+  const fetchDataBodegas = async () => {
+    try {
+      const res = await axios.get(`${VITE_API_URL}/getBodegas/${company}`)
+      setBodegas(res.data)
+    } catch (error) {
+      toast.error("Error al cargar los datos")
+    }
+  }
 
   useEffect(() => {
-    fetchData()
-  }, [reload, fetchData])
+    fetchSimcards()
+
+    setTimeout(() => {
+      fetchDataBodegas()
+    }, 5000)
+  }, [reload])
 
   const handleAssignItems = async () => {
     if (simcarAdd.length === 0) {
@@ -129,7 +136,7 @@ export default function AsingSimcardToBodega() {
       }
     } catch (err: any) {
       console.log(err)
-      toast.error('Error al asignar items', { 
+      toast.error('Error al asignar items', {
         description: err.response?.data?.error || 'Error desconocido'
       })
     } finally {
@@ -176,7 +183,7 @@ export default function AsingSimcardToBodega() {
             </div>
           </CardContent>
         </Card>
-        
+
         <Card className="border-l-4 border-l-green-500">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
@@ -190,7 +197,7 @@ export default function AsingSimcardToBodega() {
             </div>
           </CardContent>
         </Card>
-        
+
         <Card className="border-l-4 border-l-orange-500">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
@@ -233,8 +240,8 @@ export default function AsingSimcardToBodega() {
                   {simcards.filter(sim => sim.bodega === 'No Asignado').map((sim) => (
                     <TableRow key={sim._id} className="hover:bg-muted/50 transition-colors">
                       <TableCell>
-                        <Badge 
-                          variant="outline" 
+                        <Badge
+                          variant="outline"
                           className={`${getOperatorColor(sim.operador)} font-medium`}
                         >
                           {sim.operador}
@@ -295,8 +302,8 @@ export default function AsingSimcardToBodega() {
                   {selectedSimcardsData.map((sim) => sim && (
                     <TableRow key={sim._id} className="hover:bg-muted/50 transition-colors">
                       <TableCell>
-                        <Badge 
-                          variant="outline" 
+                        <Badge
+                          variant="outline"
                           className={`${getOperatorColor(sim.operador)} font-medium`}
                         >
                           {sim.operador}
@@ -398,7 +405,7 @@ export default function AsingSimcardToBodega() {
 
             {/* Botón de asignación */}
             <div className="pt-4">
-              <Button 
+              <Button
                 onClick={handleAssignItems}
                 disabled={assigning || simcarAdd.length === 0 || !bodegaSelected}
                 className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 transition-all duration-200 transform hover:scale-[1.02]"
