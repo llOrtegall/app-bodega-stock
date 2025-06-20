@@ -7,10 +7,13 @@ import { Label } from '@/components/ui/label';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { ButtonExportSimcards } from '@/components/ExportSimcards';
+import UpdateSimcard from './UpdateSimcard';
 
 enum Estado {
   Activa = 'Activa',
   Inactiva = 'Inactiva',
+  DeBaja = 'DeBaja',
+  Reposicion = 'Reposición',
 }
 
 enum Operador {
@@ -55,14 +58,25 @@ export default function Simcards() {
   const [search, setSearch] = useState('');
   const [simcards, setSimcards] = useState<Simcard[]>([]);
 
-  useEffect(() => {
+  const fetchSimcards = () => {
     axios.get(`${VITE_API_URL}/simcardWhitBodega/${company}`)
       .then(response => {
         console.log(response.data)
         setSimcards(response.data);
       })
       .catch(error => console.error(error));
+  };
+
+  useEffect(() => {
+    fetchSimcards();
   }, [company]);
+
+  // Filtrar simcards basado en la búsqueda
+  const filteredSimcards = simcards.filter(simcard => 
+    simcard.serial.toLowerCase().includes(search.toLowerCase()) ||
+    simcard.numero.toLowerCase().includes(search.toLowerCase()) ||
+    simcard.operador.toLowerCase().includes(search.toLowerCase())
+  );
 
   return (
     <section>
@@ -93,12 +107,13 @@ export default function Simcards() {
               <TableCell>Bodega</TableCell>
               <TableCell>APN</TableCell>
               <TableCell>Usuario</TableCell>
+              <TableCell>Acciones</TableCell>
             </TableRow>
 
           </TableHeader>
           <TableBody>
             {
-              simcards.map((simcard, index) => (
+              filteredSimcards.map((simcard, index) => (
                 <TableRow key={simcard._id}>
                   <TableCell>{index + 1}</TableCell>
                   <TableCell>
@@ -110,6 +125,9 @@ export default function Simcards() {
                   <TableCell>{simcard.bodega.nombre}</TableCell>
                   <TableCell>{simcard.apn}</TableCell>
                   <TableCell>{simcard.user}</TableCell>
+                  <TableCell>
+                    <UpdateSimcard simcard={simcard} onUpdate={fetchSimcards} />
+                  </TableCell>
                 </TableRow>
               ))
             }
