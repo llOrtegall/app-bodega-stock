@@ -1,4 +1,5 @@
 import { BodegaModel, SimcardModel } from '../Models/Models.js'
+import { SimcardSchema } from '../schemas/simcardSchema.js'
 
 export const createSimcard = async (req, res) => {
   const { numero, operador, estado, serial, apn, user, pass, company } = req.body
@@ -112,7 +113,7 @@ export const createMultipleSimcards = async (req, res) => {
 
   // Si hay errores de validación, retornarlos
   if (validationErrors.length > 0) {
-    return res.status(400).json({ 
+    return res.status(400).json({
       error: 'Errores de validación encontrados',
       validationErrors,
       totalSimcards: simcards.length,
@@ -124,19 +125,19 @@ export const createMultipleSimcards = async (req, res) => {
   try {
     // Crear todas las simcards válidas
     const createdSimcards = await SimcardModel.insertMany(validSimcards)
-    
-    return res.status(201).json({ 
+
+    return res.status(201).json({
       message: `${createdSimcards.length} simcards creadas correctamente`,
       createdCount: createdSimcards.length,
       simcards: createdSimcards
     })
   } catch (error) {
     console.error(error)
-    
+
     // Manejar errores de duplicación
     if (error.code === 11000) {
       const duplicateErrors = []
-      
+
       if (error.writeErrors) {
         error.writeErrors.forEach((writeError, index) => {
           if (writeError.code === 11000) {
@@ -159,13 +160,13 @@ export const createMultipleSimcards = async (req, res) => {
           error: `El campo ${field} con valor ${value} ya existe`
         })
       }
-      
-      return res.status(400).json({ 
+
+      return res.status(400).json({
         error: 'Errores de duplicación encontrados',
         duplicateErrors
       })
     }
-    
+
     return res.status(500).json({ error: 'Error al crear las simcards masivamente' })
   }
 }
@@ -201,5 +202,47 @@ export const addSimcardToBodega = async (req, res) => {
   } catch (error) {
     console.error(error)
     return res.status(500).json({ error: 'Error al agregar los ítems a bodega', message: error })
+  }
+}
+
+export const updateSimcard = async (req, res) => {
+  const { success, data, error } = SimcardSchema.safeParse(req.body)
+
+  if (!success) {
+    return res.status(400).json({ error: 'Datos inválidos', details: error.format() })
+  }
+
+  try {
+    // Verificar que la simcard existe
+    const existingSimcard = await SimcardModel.findById(data.id)
+
+    if (!existingSimcard) {
+      return res.status(404).json({ error: 'Simcard no encontrada' })
+    }
+
+    // Actualizar los campos de la simcard
+    const { id, numero, operador, estado, serial, apn, user, pass } = data
+    const updatedSimcard = await SimcardModel.findByIdAndUpdate(
+      id,
+      { numero, operador, estado, serial, apn, user, pass },
+      { new: true }
+    )
+
+    if (!updatedSimcard) {
+      return res.status(404).json({ error: 'Simcard no encontrada' })
+    }
+
+    return res.status(200).json({ message: 'Simcard actualizada correctamente', simcard: updatedSimcard })
+  } catch (error) {
+    console.error(error)
+
+    // Manejar errores de duplicación
+    if (error.code === 11000) {
+      const field = Object.keys(error.keyValue)[0]
+      const value = error.keyValue[field]
+      return res.status(400).json({ error: `El campo ${field} con valor ${value} ya existe` })
+    }
+
+    return res.status(500).json({ error: 'Error al actualizar la simcard' })
   }
 }
