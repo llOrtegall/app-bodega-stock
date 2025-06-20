@@ -15,7 +15,8 @@ import cors from 'cors'
 const ACCEPTED_ORIGINS = [
   'http://localhost:3000',
   'http://localhost:5173',
-  'http://172.20.1.194:5173'
+  'http://172.20.1.194:5173',
+  'http://172.20.1.70:5173'
 ]
 
 const app = express()
